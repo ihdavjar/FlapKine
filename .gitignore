@@ -1,0 +1,12 @@
+# Ignore Python bytecode
+__pycache__/
+
+# Ignore IDE configurations
+.vscode/
+
+# Ignore media files
+*.mp4
+*.jpg
+*.png
+*.gif
+*.stl

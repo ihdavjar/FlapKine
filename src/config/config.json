@@ -1,0 +1,10 @@
+{
+    "VideoRender": {
+        "OutputPath": "output_dir",
+        "STLPath": "stl_files",
+        "FrameFormat": "PNG",
+        "resolution_x": 800,
+        "resolution_y": 600,
+        "film_transparent": false
+    }
+}
