@@ -197,7 +197,7 @@ def Manual_Page():
         blender_executable = "blender"
 
         # Path to the Blender script
-        blender_script = "blenderanimationcode2.py"
+        blender_script = "src/blender/blenderanimationcode2.py"
 
         # Run the Blender script
         subprocess.run([blender_executable, "--background", "--python", blender_script])
