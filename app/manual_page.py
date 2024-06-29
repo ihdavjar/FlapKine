@@ -115,7 +115,7 @@ def Manual_Page():
 
         import matplotlib.pyplot as plt
 
-        data = pd.read_csv("data.csv")
+        # data = pd.read_csv(uploaded_file)
 
 
         init_vertices_1 = init_vertices.copy()
@@ -166,7 +166,7 @@ def Manual_Page():
             beta = data['beta'][temp_i]
             alpha = data['alpha'][temp_i]
 
-            from src.transforms.euler_angles import rotation_matrix_z_y_x
+            from src.core.transforms.euler_angles import rotation_matrix_z_y_x
             from src.utils.utils import transform_data
 
             Rotation_matrix_1 = rotation_matrix_z_y_x(phi, beta, alpha)
@@ -193,18 +193,11 @@ def Manual_Page():
         
         import subprocess
 
-        # Path to the Blender executable
-        blender_executable = "blender"
-
         # Path to the Blender script
-        blender_script = "src/blender/blenderanimationcode2.py"
+        blender_script = "src/blender/generate_frames.py"
 
         # Run the Blender script
-        subprocess.run([blender_executable, "--background", "--python", blender_script])
-
-        print(100*"=")
-        print(os.getcwd())
-        print(100*"=")
+        subprocess.run(["python", blender_script])
 
         # Paths
         frames_path = os.path.join(os.getcwd(), 'data/images')  # Frames directory

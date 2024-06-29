@@ -60,8 +60,6 @@ def transform_data(data, matrix):
     Returns:
     np.ndarray: The transformed data
     '''
-    temp_data = []
-    for i in range(0,data.shape[0]):
-        temp_data.append(matrix @ data[i].T)
+    temp_data = np.dot(data, matrix.T)
     
     return np.array(temp_data)

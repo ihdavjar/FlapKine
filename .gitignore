@@ -10,3 +10,10 @@ __pycache__/
 *.png
 *.gif
 *.stl
+
+# Ignore compiled files
+*.pyc
+*.pyo
+
+# Ignore .eng-info folder
+.eng-info/

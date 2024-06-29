@@ -1,6 +1,6 @@
 import os
 import bpy
-from config.config import config
+from src.config.config import config
 
 # Set the output directory where rendered images will be saved
 output_dir = os.path.join(os.getcwd(), config['VideoRender']['OutputPath'])  # Output directory
@@ -45,7 +45,7 @@ if not os.path.exists(output_dir):
 stl_files = sorted([f for f in os.listdir(stl_files_dir) if f.endswith('.stl')])
 
 # Loop through each STL file
-for i in range(len(stl_files)):
+for i in range(len(stl_files)-1):
 
     stl_file_name = f"ellipse_{i}.stl"
     

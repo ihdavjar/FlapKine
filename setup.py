@@ -7,8 +7,8 @@ setup(
     description='Simulation of flapping wing micro air vehicles',
     author='Kalbhavi Vadhiraj',
     author_email='raj.31@iitj.ac.in',
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
+    packages=find_packages(include=['src', 'src.*']),
+    include_package_data=True,
     install_requires=[
         'streamlit',
         'bpy',  # Add other dependencies here

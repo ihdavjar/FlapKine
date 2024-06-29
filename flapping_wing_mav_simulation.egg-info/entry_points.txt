@@ -1,0 +1,2 @@
+[console_scripts]
+flapping_wing_mav_simulation = blender.generate_frames:main
