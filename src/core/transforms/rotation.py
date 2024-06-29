@@ -1,11 +1,11 @@
 import numpy as np
-from euler_angles import *
+from src.core.transforms.euler_angles import *
 
 class Rotation_Transform:
     def __call__(self, input, angles):
         raise NotImplementedError("Each transform must implement the __call__ method.")
 
-class Constant(Rotation_Transform):
+class ConstantR(Rotation_Transform):
     def __call__(self, input, angles):
         return input                
     

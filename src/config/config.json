@@ -3,8 +3,8 @@
         "OutputPath": "data/images",
         "STLPath": "data/stl",
         "FrameFormat": "PNG",
-        "resolution_x": 800,
-        "resolution_y": 600,
+        "resolution_x": 640,
+        "resolution_y": 480,
         "film_transparent": false
     }
 }

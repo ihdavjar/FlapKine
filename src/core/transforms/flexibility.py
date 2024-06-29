@@ -1,11 +1,11 @@
 import numpy as np
-from functional_flexibility import functional_Flexibility_type1 
+from src.core.transforms.functional_flexibility import functional_Flexibility_type1 
 
 class Flexibility_Transform:
     def __call__(self, input, t):
         raise NotImplementedError("Each transform must implement the __call__ method.")
 
-class Constant(Flexibility_Transform):
+class ConstantF(Flexibility_Transform):
     def __call__(self, input, t):
         return input
     

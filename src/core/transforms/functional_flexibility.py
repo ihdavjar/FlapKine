@@ -4,6 +4,10 @@ def functional_Flexibility_type1(x, y, t, major_axis, minor_axis):
     C_R = 2*minor_axis
     R = 2*major_axis
 
+    # Ensure x and y are positive
+    x = abs(x)
+    y = abs(y)
+
     t = t/100
     
     C_r = C_R*((1-((x-major_axis)/major_axis)**2)**(0.5)) # Local chord length

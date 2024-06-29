@@ -1,4 +1,3 @@
-
 import numpy as np
 
 # Rotation about x axis

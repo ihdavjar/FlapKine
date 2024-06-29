@@ -27,39 +27,6 @@ def Ry(theta):
 # Rotation about z axis [P] = Rz(theta) * [P']
 def Rz(theta):
     return sp.Matrix([[sp.cos(theta), -sp.sin(theta), 0], [sp.sin(theta), sp.cos(theta), 0], [0, 0, 1]])
-
-
-
-
-def give_the_z_for_flexible_wing(x, y, t, major_axis, minor_axis):
-    C_R = 2*minor_axis
-    R = 2*major_axis
-
-    t = t/100
-    
-    C_r = C_R*((1-((x-major_axis)/major_axis)**2)**(0.5)) # Local chord length
-
-    Z_M_Root = 0.125*C_r
-
-    Z_M_x = (Z_M_Root/C_R)*(1-x/R)*(C_r)
-
-    Z_M_x_t = Z_M_x/np.tanh(2.9)*np.tanh(2.9*np.sin(2*np.pi*t + 0.4))   
-
-    p = 0.5
-
-    if (C_r != 0):
-        y_0 = (minor_axis-y)/C_r
-    
-    else: # At wingroot where C_r = 0
-        y_0 = 0
-
-    if (y_0<p):
-        Z_M_x_y_t = (Z_M_x_t/(p**2))*(2*p*y_0 - y_0**2)
-    
-    else:
-        Z_M_x_y_t = (Z_M_x_t/((1-p)**2))*(1-2*p+2*p*y_0-y_0**2)
-
-    return Z_M_x_y_t
         
 
 def Manual_Page():
@@ -85,11 +52,10 @@ def Manual_Page():
         x = major_axis * np.cos(theta_temp) + major_axis
         y = minor_axis * np.sin(theta_temp)
 
-        z = np.array([give_the_z_for_flexible_wing(x[i], y[i], 0, major_axis, minor_axis) for i in range(0,num_points)])
-
-
-        top_surface = pd.DataFrame({'x':x, 'y':y, 'z':z + 0.05})
-        bottom_surface = pd.DataFrame({'x':x, 'y':y, 'z':z - 0.05})
+        top_surface = pd.DataFrame({'x':x, 'y':y})
+        bottom_surface = pd.DataFrame({'x':x, 'y':y})
+        top_surface['z'] = 0.05
+        bottom_surface['z'] = -0.05
 
         vertices_top = np.array(top_surface)
         vertices_bottom = np.array(bottom_surface)
@@ -113,14 +79,9 @@ def Manual_Page():
         # Convert faces to numpy array
         faces = np.array(faces)
 
-        import matplotlib.pyplot as plt
-
-        # data = pd.read_csv(uploaded_file)
-
-
         init_vertices_1 = init_vertices.copy()
         init_vertices_2 = init_vertices.copy()
-
+        
         init_vertices_2[:, 0] = -init_vertices_2[:, 0]
 
         ellipse_mesh_1 = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
@@ -132,64 +93,33 @@ def Manual_Page():
         for i, f in enumerate(faces):
             for j in range(3):
                 ellipse_mesh_2.vectors[i][j] = init_vertices_2[f[j], :]
-        
-        combined_mesh = mesh.Mesh(np.concatenate([ellipse_mesh_1.data, ellipse_mesh_2.data]))
 
-        combined_mesh.save(f'data/stl/ellipse.stl')
+        from src.core.core import Object3D, Scene
+        from src.core.transforms.flexibility import Flexibility_type1, ConstantF
+        from src.core.transforms.rotation import Rotation_EulerAngles
+
+        right_wing = Object3D('right_wing', ellipse_mesh_1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        left_wing = Object3D('left_wing', ellipse_mesh_2, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        
+        right_wing1 = right_wing.transform(0, np.array([np.pi/6, 0, 0]))
+        right_wing1 = Object3D('right_wing1', right_wing1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        left_wing1 = left_wing.transform(0, np.array([-np.pi/6, 0, 0]))
+        left_wing1 = Object3D('left_wing1', left_wing1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        
+        scene = Scene([right_wing, left_wing, right_wing1, left_wing1])
 
 
         for temp_i in range(0,data.shape[0]):
             
-            theta_temp = np.linspace(0, 2*np.pi, num_points)
-
-            # Creating the top surface of the ellipse
-            x = major_axis * np.cos(theta_temp) + major_axis
-            y = minor_axis * np.sin(theta_temp)
-
-            z = np.array([give_the_z_for_flexible_wing(x[i_temp ], y[i_temp], temp_i, major_axis, minor_axis) for i_temp in range(0,num_points)])
-
-            top_surface = pd.DataFrame({'x':x, 'y':y, 'z':z + 0.05})
-            bottom_surface = pd.DataFrame({'x':x, 'y':y, 'z':z - 0.05})
-
-            vertices_top = np.array(top_surface)
-            vertices_bottom = np.array(bottom_surface)
-
-            init_vertices = np.vstack((vertices_top, vertices_bottom))
-
-            init_vertices_1 =  init_vertices.copy()
-            init_vertices_2 =  init_vertices.copy()
-
-            init_vertices_2[:, 0] = -init_vertices_2[:, 0]
-
-
             phi = data['phi'][temp_i]
             beta = data['beta'][temp_i]
             alpha = data['alpha'][temp_i]
 
-            from src.core.transforms.euler_angles import rotation_matrix_z_y_x
-            from src.utils.utils import transform_data
+            angle1 = np.array([phi, beta, alpha])
+            angle2 = np.array([np.pi/4+1*phi, -1*beta, alpha])
 
-            Rotation_matrix_1 = rotation_matrix_z_y_x(phi, beta, alpha)
-            Rotation_matrix_2 = rotation_matrix_z_y_x(np.pi/4+1*phi, -1*beta, alpha)
+            scene.save_stl(temp_i, [angle1, angle2, angle1, angle2], f'data/stl/ellipse_{temp_i}.stl')
 
-            vertices_1 = transform_data(init_vertices_1, Rotation_matrix_1)
-            vertices_2 = transform_data(init_vertices_2, Rotation_matrix_2)
-            
-
-            ellipse_mesh_1 = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
-            for i, f in enumerate(faces):
-                for j in range(3):
-                    ellipse_mesh_1.vectors[i][j] = vertices_1[f[j], :]
-
-            ellipse_mesh_2 = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
-            for i, f in enumerate(faces):
-                for j in range(3):
-                    ellipse_mesh_2.vectors[i][j] = vertices_2[f[j], :]
-
-            combined_mesh = mesh.Mesh(np.concatenate([ellipse_mesh_1.data, ellipse_mesh_2.data]))
-            # Save the mesh to an STL file
-            combined_mesh.save(f'data/stl/ellipse_{temp_i}.stl')
-        
         
         import subprocess
 
