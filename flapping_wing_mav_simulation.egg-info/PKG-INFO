@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: flapping_wing_mav_simulation
-Version: 0.1.0
-Summary: Simulation of flapping wing micro air vehicles
-Author: Kalbhavi Vadhiraj
-Author-email: raj.31@iitj.ac.in
-License-File: LICENSE
-Requires-Dist: streamlit
-Requires-Dist: bpy
