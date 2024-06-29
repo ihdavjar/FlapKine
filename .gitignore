@@ -15,5 +15,5 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Ignore .eng-info folder
-.eng-info/
+# Ignore specific .egg-info directory
+flapping_wing_mav_simulation.egg-info/
