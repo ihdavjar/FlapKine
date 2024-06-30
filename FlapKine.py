@@ -9,17 +9,11 @@ init_printing() # for pretty printing
 
 from app.manual_page import Manual_Page
 from app.automatic_page import Auto_Page
+from app.open_project import open_current_project
 
 
 if __name__ == "__main__":
     st.title('Kinematics App')
 
-
-    temp = st.radio('Select the Input Type', ['Automatic', 'Manual'])
-
-    if temp == 'Manual':
-        Manual_Page()
-    
-    else:
-        Auto_Page()
+    open_current_project() 
         

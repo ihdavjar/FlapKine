@@ -105,14 +105,6 @@ def Manual_Page():
         left_sprite = Sprite(left_wing, angles_1)
         right_sprite = Sprite(right_wing, angles_2)
 
-        # import pickle
-        # with open('ellipse.pkl', 'wb') as f:
-        #     pickle.dump(left_wing, f)
-        
-        # # Load the pickle file
-        # with open('ellipse.pkl', 'rb') as f:
-        #     left_wing = pickle.load(f)
-
 
         right_wing1 = right_wing.transform(0, np.array([np.pi/6, 0, 0]))
         right_wing1 = Object3D('right_wing1', right_wing1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
@@ -124,6 +116,13 @@ def Manual_Page():
 
         scene = Scene([left_sprite, right_sprite, left_sprite1, right_sprite1])
 
+        import pickle
+
+        with open('project1/scene.pkl', 'wb') as f:
+            pickle.dump(scene, f)
+
+        with open('project1/scene.pkl', 'rb') as f: 
+            scene = pickle.load(f)
 
         for temp_i in range(0,data.shape[0]):
             scene.save_stl(temp_i, f'data/stl/ellipse_{temp_i}.stl')
