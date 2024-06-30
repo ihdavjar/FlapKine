@@ -40,28 +40,43 @@ class Object3D:
         
         return temp_stl_mesh
 
+class Sprite:
+    def __init__(self, object: Object3D, angles: np.array):
+        '''
+        object: Object3D
+        angles: np.array of shape (3,) i.e (alpha, beta, gamma)
+        '''
+        self.object = object
+        self.angles = angles
+    
+    def transform(self, t):
+        '''
+        t: integer
+        '''
+        return self.object.transform(t, self.angles[t,:])
+
 class Scene:
     def __init__(self, objects: list):
         '''
-        objects: list of Object3D
+        objects: list of Sprite
         '''
         self.objects = objects
 
-    def transform(self, t, angles):
+    def transform(self, t):
         '''
         t: float
         angles: np.array of shape (3,) i.e (alpha, beta, gamma)
         '''
         transformed_objects = []
-        for i,obj in enumerate(self.objects):
-            transformed_objects.append(obj.transform(t, angles[i]))
+        for spr in self.objects:
+            transformed_objects.append(spr.transform(t))
         return transformed_objects
     
-    def save_stl(self, t, angles, path:str):
+    def save_stl(self, t, path:str):
         '''
         Save the transformed meshes to STL files
         '''
-        transformed_objects = self.transform(t, angles) 
+        transformed_objects = self.transform(t) 
         combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in transformed_objects]))  
         combined_mesh.save(path)  
 

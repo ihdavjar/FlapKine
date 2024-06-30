@@ -10,7 +10,7 @@ class ConstantF(Flexibility_Transform):
         return input
     
 class Flexibility_type1(Flexibility_Transform):
-    def __init__(self, x, y, z, major_axis, minor_axis):
+    def __init__(self, x, y, z, major_axis, minor_axis, time_period=100):
         # x: bool
         # y: bool
         # z: bool
@@ -22,18 +22,19 @@ class Flexibility_type1(Flexibility_Transform):
         self.z = z
         self.major_axis = major_axis
         self.minor_axis = minor_axis
+        self.time_period = time_period
     
     def __call__(self, input, t):
         # input: np.array of shape (n, 3) i.e (x, y, z)
         # output: np.array of shape (n, 3) i.e (x, y, z) at time t
         if self.x:
-            input[:, 0] = input[:, 0] + np.array([functional_Flexibility_type1(y, z, t, self.major_axis, self.minor_axis) for y, z in input[:, 1:]])
+            input[:, 0] = input[:, 0] + np.array([functional_Flexibility_type1(y, z, t, self.major_axis, self.minor_axis, self.time_period) for y, z in input[:, 1:]])
 
         if self.y:
-            input[:, 1] = input[:, 1] + np.array([functional_Flexibility_type1(x, z, t, self.major_axis, self.minor_axis) for x, z in input[:, [0,2]]])
+            input[:, 1] = input[:, 1] + np.array([functional_Flexibility_type1(x, z, t, self.major_axis, self.minor_axis, self.time_period) for x, z in input[:, [0,2]]])
 
         if self.z:
-            input[:, 2] = input[:, 2] + np.array([functional_Flexibility_type1(x, y, t, self.major_axis, self.minor_axis) for x, y in input[:, [0,1]]])
+            input[:, 2] = input[:, 2] + np.array([functional_Flexibility_type1(x, y, t, self.major_axis, self.minor_axis, self.time_period) for x, y in input[:, [0,1]]])
 
         
         return input

@@ -94,31 +94,39 @@ def Manual_Page():
             for j in range(3):
                 ellipse_mesh_2.vectors[i][j] = init_vertices_2[f[j], :]
 
-        from src.core.core import Object3D, Scene
+        from src.core.core import Object3D, Scene, Sprite
         from src.core.transforms.flexibility import Flexibility_type1, ConstantF
         from src.core.transforms.rotation import Rotation_EulerAngles
 
         right_wing = Object3D('right_wing', ellipse_mesh_1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
         left_wing = Object3D('left_wing', ellipse_mesh_2, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        angles_2 = np.hstack((data['phi'].values.reshape(-1, 1), data['beta'].values.reshape(-1, 1), data['alpha'].values.reshape(-1, 1)))
+        angles_1 = np.hstack((data['phi'].values.reshape(-1, 1) + np.pi/4, -data['beta'].values.reshape(-1, 1), data['alpha'].values.reshape(-1, 1)))
+        left_sprite = Sprite(left_wing, angles_1)
+        right_sprite = Sprite(right_wing, angles_2)
+
+        # import pickle
+        # with open('ellipse.pkl', 'wb') as f:
+        #     pickle.dump(left_wing, f)
         
+        # # Load the pickle file
+        # with open('ellipse.pkl', 'rb') as f:
+        #     left_wing = pickle.load(f)
+
+
         right_wing1 = right_wing.transform(0, np.array([np.pi/6, 0, 0]))
         right_wing1 = Object3D('right_wing1', right_wing1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
+        right_sprite1 = Sprite(right_wing1, angles_2)
+
         left_wing1 = left_wing.transform(0, np.array([-np.pi/6, 0, 0]))
         left_wing1 = Object3D('left_wing1', left_wing1, Flexibility_type1(False, False, True, major_axis, minor_axis), Rotation_EulerAngles('ZYX'))
-        
-        scene = Scene([right_wing, left_wing, right_wing1, left_wing1])
+        left_sprite1 = Sprite(left_wing1, angles_1) 
+
+        scene = Scene([left_sprite, right_sprite, left_sprite1, right_sprite1])
 
 
         for temp_i in range(0,data.shape[0]):
-            
-            phi = data['phi'][temp_i]
-            beta = data['beta'][temp_i]
-            alpha = data['alpha'][temp_i]
-
-            angle1 = np.array([phi, beta, alpha])
-            angle2 = np.array([np.pi/4+1*phi, -1*beta, alpha])
-
-            scene.save_stl(temp_i, [angle1, angle2, angle1, angle2], f'data/stl/ellipse_{temp_i}.stl')
+            scene.save_stl(temp_i, f'data/stl/ellipse_{temp_i}.stl')
 
         
         import subprocess
@@ -145,3 +153,54 @@ def Manual_Page():
         video_bytes = video_file.read() #reading the file
 
         st.video(video_bytes) #displaying the video
+
+
+        # Adding a slider to the page
+        frame_number = st.slider('Select the frame number', 0, data.shape[0]-1, 0)
+        scene.save_stl(frame_number, f'data/stl/ellipse_temp.stl')
+
+        # Load the stl file and show it using plotly
+        stl_filename = f'data/stl/ellipse_temp.stl'
+
+        # Load the STL file
+        your_mesh = mesh.Mesh.from_file(stl_filename)
+
+        # Extract the vertices and faces
+        vertices = your_mesh.vectors.reshape(-1, 3)
+        x, y, z = vertices[:, 0], vertices[:, 1], vertices[:, 2]
+
+        # Create a unique set of vertices and a list of faces
+        unique_vertices, unique_indices = np.unique(vertices, axis=0, return_inverse=True)
+        i, j, k = unique_indices.reshape(-1, 3).T
+
+        # Create a 3D mesh plot
+        fig = go.Figure(data=[go.Mesh3d(
+            x=unique_vertices[:, 0],
+            y=unique_vertices[:, 1],
+            z=unique_vertices[:, 2],
+            i=i,
+            j=j,
+            k=k,
+            opacity=1,
+            color='lightblue'
+        )])
+
+        # Set plot layout
+        fig.update_layout(
+            title='STL Mesh Plot',
+            scene=dict(
+                xaxis=dict(title='X'),
+                yaxis=dict(title='Y'),
+                zaxis=dict(title='Z')
+            )
+        )
+        # Freeze the axis so that they don't auto-scale
+        fig.update_scenes(aspectmode='cube')
+
+        # Set x, y, z axis limits
+        fig.update_layout(scene=dict(xaxis=dict(range=[-10, 10]), yaxis=dict(range=[-10, 10]), zaxis=dict(range=[-10, 10])))
+
+        # Set the camera on the x axis at 10,0,0
+        fig.update_layout(scene_camera=dict(eye=dict(x=1, y=0, z=0)))
+
+        st.plotly_chart(fig)

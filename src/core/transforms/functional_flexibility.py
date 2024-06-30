@@ -1,6 +1,6 @@
 import numpy as np
 
-def functional_Flexibility_type1(x, y, t, major_axis, minor_axis):
+def functional_Flexibility_type1(x, y, t, major_axis, minor_axis, time_period):
     C_R = 2*minor_axis
     R = 2*major_axis
 
@@ -8,7 +8,7 @@ def functional_Flexibility_type1(x, y, t, major_axis, minor_axis):
     x = abs(x)
     y = abs(y)
 
-    t = t/100
+    t = t/time_period
     
     C_r = C_R*((1-((x-major_axis)/major_axis)**2)**(0.5)) # Local chord length
 
