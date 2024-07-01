@@ -47,19 +47,3 @@ def create_video_from_frames(frames_path, video_path, frame_rate=24, width=640, 
     "-preset", "medium",  # Adjust the preset for speed (options: ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow)
     output_video_path
     ])
-
-
-def transform_data(data, matrix):
-    '''
-    Transform data using a transformation matrix
-
-    Parameters:
-    data (np.ndarray): The data to transform
-    matrix (np.ndarray): The transformation matrix
-
-    Returns:
-    np.ndarray: The transformed data
-    '''
-    temp_data = np.dot(data, matrix.T)
-    
-    return np.array(temp_data)

@@ -15,5 +15,6 @@ from app.open_project import open_current_project
 if __name__ == "__main__":
     st.title('Kinematics App')
 
-    open_current_project() 
+    # open_current_project() 
+    Manual_Page()
         

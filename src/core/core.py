@@ -1,8 +1,8 @@
 import copy
 import numpy as np
 from stl import mesh
-from src.core.transforms.flexibility import Flexibility_Transform, Flexibility_type1, ConstantF
-from src.core.transforms.rotation import Rotation_Transform, Rotation_EulerAngles, ConstantR
+from src.core.transforms.flexibility import Flexibility_Transform
+from src.core.transforms.rotation import Rotation_Transform
 
 class Object3D:
     def __init__(self, name:str, stl_mesh:mesh.Mesh, translation_transform:Flexibility_Transform, rotation_transform:Rotation_Transform):
