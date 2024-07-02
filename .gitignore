@@ -11,6 +11,9 @@ __pycache__/
 *.gif
 *.stl
 
+# Ignore the pickle files
+*.pkl
+
 # Ignore the HTML 
 *.html
 
