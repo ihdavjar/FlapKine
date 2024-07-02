@@ -4,7 +4,7 @@ import numpy as np
 from stl import mesh  
 import plotly.graph_objects as go
 import plotly.io as pio
-import plotly.offline as offline
+import subprocess
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -12,6 +12,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
+from src.utils.utils import create_video_from_frames
 
 
 class ProjectWindow(QMainWindow):
@@ -228,12 +229,41 @@ class ProjectWindow(QMainWindow):
         self.rightGroupBox = QGroupBox("Group 2")
 
         self.render_button = QPushButton("Render")
-        self.play_button = QPushButton("Play")
-        self.play_button.clicked.connect(self.play_video)
-        self.video_widget = QVideoWidget(self.rightGroupBox)
+        self.render_button.clicked.connect(self.render_new_video)
 
+        # Video Related Widgets
+        # Video Widget
+        self.video_widget = QVideoWidget(self.rightGroupBox)
         self.media_player = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         self.media_player.setVideoOutput(self.video_widget)
+
+        # Create play button
+        self.playButton = QPushButton('Play')
+        self.playButton.clicked.connect(self.playVideo)
+
+        # Create pause button
+        self.pauseButton = QPushButton('Pause')
+        self.pauseButton.clicked.connect(self.pauseVideo)
+
+        # Create repeat button
+        self.repeatButton = QPushButton('Repeat')
+        self.repeatButton.setCheckable(True)
+        self.repeatButton.clicked.connect(self.repeatVideo)
+
+        # Create slider for video position
+        self.positionSlider = QSlider(Qt.Horizontal)
+        self.positionSlider.setRange(0, 0)
+        self.positionSlider.sliderMoved.connect(self.setPosition)
+
+        # Connect media player signals
+        self.media_player.durationChanged.connect(self.updateDuration)
+        self.media_player.positionChanged.connect(self.updatePosition)
+        self.media_player.stateChanged.connect(self.updateState)
+
+        controlLayout = QHBoxLayout()
+        controlLayout.addWidget(self.playButton)
+        controlLayout.addWidget(self.pauseButton)
+        controlLayout.addWidget(self.repeatButton)  
 
         video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
 
@@ -241,27 +271,71 @@ class ProjectWindow(QMainWindow):
             self.showErrorDialog('Alert', f"No render found at: {self.project_folder}")
         
         else:
-            video_url = QUrl.fromLocalFile(video_path)
-            video_content = QMediaContent(video_url)
+            video_content = QMediaContent(QUrl.fromLocalFile(video_path))
             self.media_player.setMedia(video_content)
             self.media_player.play()
-        
+            
         layout = QVBoxLayout()
         layout.addWidget(self.render_button)
-        layout.addWidget(self.play_button)
+        layout.addLayout(controlLayout)
+        layout.addWidget(self.positionSlider)
         layout.addWidget(self.video_widget)
+        if self.repeatButton.isChecked():
+            layout.addWidget(self.progress)
         layout.addStretch(1)
         self.rightGroupBox.setLayout(layout)
 
-    def play_video(self):
+    def playVideo(self):
         if self.media_player.state() == QMediaPlayer.PlayingState:
-            self.media_player.pause()
-            self.play_button.setText("Play")
-        else:
+            return
+        self.media_player.play()
+
+    def pauseVideo(self):
+        if self.media_player.state() == QMediaPlayer.PausedState:
+            return
+        self.media_player.pause()
+    
+    def repeatVideo(self):
+        if self.repeatButton.isChecked():
+            self.media_player.setPosition(0)
             self.media_player.play()
-            self.play_button.setText("Pause")
 
+    def updateDuration(self, duration):
+        self.positionSlider.setRange(0, duration)
 
+    def updatePosition(self, position):
+        self.positionSlider.setValue(position)
+    
+    def setPosition(self, position):
+        self.media_player.setPosition(position)
+
+    def updateState(self, state):
+        if state == QMediaPlayer.StoppedState:
+            if self.repeatButton.isChecked():
+                self.media_player.setPosition(0)
+                self.media_player.play()
+
+    def render_new_video(self):
+        stl_filename = os.path.join(self.project_folder, 'data/stl')
+        
+        # Progress bar
+        self.progress = QProgressDialog("Rendering video...", "Cancel", 0, len(self.angles), self)
+        # Save the STL files
+        for i in range(len(self.angles)):
+            self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
+            self.progress.setValue(i)
+
+        blender_script = "src/blender/generate_frames.py"
+
+        subprocess.run(["python", blender_script, '--project_path', self.project_folder])
+
+        frames_path = os.path.join(self.project_folder, 'data/images')
+        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
+
+        # Create the video
+        create_video_from_frames(frames_path, video_path, frame_rate=20, width=640, height=480, libx264=False)
+
+        self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(video_path)))
         
 
     def center(self):

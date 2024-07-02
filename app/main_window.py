@@ -41,12 +41,12 @@ class MainWindow(QMainWindow):
             # Adding Buttons
             self.b_new = QPushButton(self)
             self.b_new.setText("New")
-            self.b_new.setFont(QFont('Times', 10))
+            self.b_new.setFont(QFont('Times', 8))
             self.b_new.move(100, 50)
     
             self.b_open = QPushButton(self)
             self.b_open.setText("Open")
-            self.b_open.setFont(QFont('Times', 10))
+            self.b_open.setFont(QFont('Times', 8))
             self.b_open.clicked.connect(self.open_existing_project)
             self.b_open.move(100, 100)
        
