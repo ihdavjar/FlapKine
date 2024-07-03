@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QApplication
 # window()
 def main():
     app = QApplication(sys.argv)
-    app.setStyleSheet(dark_stylesheet)
+    # app.setStyleSheet(dark_stylesheet)
     win = MainWindow()  
     win.show()
     sys.exit(app.exec_())

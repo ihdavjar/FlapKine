@@ -5,3 +5,4 @@ The application provides a visual representation and simulation of the kinematic
 2) Add a new project etc.
 3) Add a way to import a wing and it's transforms.
 4) Make it possible to use a stl a design the object class.
+5) Solve the video playback issue.

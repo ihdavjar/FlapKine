@@ -3,15 +3,16 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+
 from app.project_window import ProjectWindow
-from app.create_project import CreateProjectWin
 
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
+class CreateProjectWin(QMainWindow):
+    def __init__(self, project_folder):
+        super(CreateProjectWin, self).__init__()
         # Place the window in the center of the screen
-        self.setWindowTitle("FlapKine")
+        self.setWindowTitle("Import Scene")
+
+        self.project_folder = project_folder
         
         # Add the menu bar
         self.menu = self.menuBar()
@@ -37,24 +38,37 @@ class MainWindow(QMainWindow):
         self.initUI()
 
     def initUI(self):
+        
             
-            self.resize(300, 150)
+            self.resize(150, 150)
             self.center()
-    
-            # Adding Buttons
-            self.b_new = QPushButton(self)
-            self.b_new.setText("New")
-            self.b_new.setFont(QFont('Times', 9))
-            self.b_new.clicked.connect(self.create_new_project)
-            self.b_new.move(100, 50)
-    
-            self.b_open = QPushButton(self)
-            self.b_open.setText("Open")
-            self.b_open.setFont(QFont('Times', 9))
-            self.b_open.clicked.connect(self.open_existing_project)
-            self.b_open.move(100, 100)
-       
 
+            # Central widget
+            central_widget = QWidget()
+            self.setCentralWidget(central_widget)
+
+            # Create the main layout
+            main_layout = QHBoxLayout(central_widget)
+
+            # Add the two buttons side by side
+            self.open_button = QPushButton('Open', self)
+            self.open_button.clicked.connect(self.import_scene)
+            
+            self.create_button = QPushButton('Create', self)
+            
+            main_layout.addWidget(self.open_button)
+            main_layout.addWidget(self.create_button)
+
+    def import_scene(self):
+        directory, _ = QFileDialog.getOpenFileName(filter='Scene File (*.pkl)')
+        
+        if directory:
+            # Copy to the project directory
+            os.system(f'cp {directory} {self.project_folder}')
+
+    def create_scene(self):
+        pass
+            
     def center(self):
         # Get the screen resolution
         screen_resolution = QDesktopWidget().screenGeometry()
@@ -67,31 +81,5 @@ class MainWindow(QMainWindow):
         y = (screen_height - window_height) // 2
         # Move the window to the center
         self.move(x, y)  
-    
-    def create_new_project(self):
-        directory, _ = QFileDialog.getSaveFileName(self, 'Select Directory')
 
-        # Create the project directory
-        os.makedirs(directory)
-        
-        # Create data directory
-        os.makedirs(directory + '/data')
-        os.makedirs(directory + '/data/images')
-        os.makedirs(directory + '/data/videos')
-        os.makedirs(directory + '/data/stl')
-
-        
-        self.window2 = CreateProjectWin(directory)
-        self.window2.show()
-        self.close()
-
-    def open_existing_project(self):
-        directory = QFileDialog.getExistingDirectory(self, 'Select Directory')
-        
-        if directory:
-            QMessageBox.information(self, 'Directory Selected', f'Selected Directory: {directory}')
-
-        self.window2 = ProjectWindow(directory)
-        self.window2.show()
-        self.close()
 

@@ -3,15 +3,7 @@ import bpy
 import json
 import argparse
 
-if __name__ == '__main__':
-
-    args = argparse.ArgumentParser()
-    args.add_argument('--project_path', type=str, required=True)
-
-    args = args.parse_args()    
-
-    project_path = args.project_path    
-
+def genframes(project_path):
     with open(os.path.join(project_path, 'config.json')) as f:
         config = json.load(f)
 
