@@ -1,20 +1,16 @@
-import streamlit as st
-import sympy as sp
-import numpy as np
-
-import pandas as pd
-from sympy import init_printing
-from sympy import Integral, Matrix, pi, pprint
-init_printing() # for pretty printing
-
-from app.manual_page import Manual_Page
-from app.automatic_page import Auto_Page
-from app.open_project import open_current_project
+import sys
+from app.main_window import MainWindow
+from app.project_window import ProjectWindow
+from app.styles import dark_stylesheet
+from PyQt5.QtWidgets import QApplication
 
 
-if __name__ == "__main__":
-    st.title('Kinematics App')
+# window()
+def main():
+    app = QApplication(sys.argv)
+    # app.setStyleSheet(dark_stylesheet)
+    win = MainWindow()  
+    win.show()
+    sys.exit(app.exec_())
 
-    # open_current_project() 
-    Manual_Page()
-        
+main()
