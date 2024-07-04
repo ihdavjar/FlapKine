@@ -1,0 +1,21 @@
+{
+    "VideoRender": {
+        "OutputPath": "data/images",
+        "STLPath": "data/stl",
+        "FrameFormat": "PNG",
+        "resolution_x": 640,
+        "resolution_y": 480,
+        "film_transparent": false
+    },
+
+    "Camera": {
+        "location": [30, 0, 0],
+        "rotation_euler": [1.572, 0, 1.57]
+    },
+
+    "Light": {
+        "location": [4, 0, 4],
+        "energy": 1000
+    }
+
+}

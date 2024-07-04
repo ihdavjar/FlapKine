@@ -71,16 +71,6 @@ class MainWindow(QMainWindow):
     def create_new_project(self):
         directory, _ = QFileDialog.getSaveFileName(self, 'Select Directory')
 
-        # Create the project directory
-        os.makedirs(directory)
-        
-        # Create data directory
-        os.makedirs(directory + '/data')
-        os.makedirs(directory + '/data/images')
-        os.makedirs(directory + '/data/videos')
-        os.makedirs(directory + '/data/stl')
-
-        
         self.window2 = CreateProjectWin(directory)
         self.window2.show()
         self.close()

@@ -1,112 +1,85 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QSlider
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtCore import Qt, QUrl
+# import sys
+# from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QComboBox, QWidget, QHBoxLayout
 
-class VideoPlayer(QWidget):
+# class DynamicDropdowns(QMainWindow):
+#     def __init__(self):
+#         super().__init__()
+        
+#         self.setWindowTitle("Dynamic Dropdowns")
+        
+#         # Main widget and layout
+#         self.main_widget = QWidget()
+#         self.main_layout = QVBoxLayout(self.main_widget)
+        
+#         # Add and Drop buttons
+#         self.button_layout = QHBoxLayout()
+#         self.add_button = QPushButton("Add Dropdown")
+#         self.add_button.clicked.connect(self.add_dropdown)
+#         self.button_layout.addWidget(self.add_button)
+        
+#         self.drop_button = QPushButton("Drop Dropdown")
+#         self.drop_button.clicked.connect(self.drop_dropdown)
+#         self.button_layout.addWidget(self.drop_button)
+        
+#         self.main_layout.addLayout(self.button_layout)
+        
+#         # Layout for dropdowns
+#         self.dropdown_layout = QVBoxLayout()
+#         self.main_layout.addLayout(self.dropdown_layout)
+        
+#         self.setCentralWidget(self.main_widget)
+    
+#     def add_dropdown(self):
+#         # Create a new dropdown menu
+#         dropdown = QComboBox()
+#         dropdown.addItems(["Option 1", "Option 2", "Option 3"])
+#         self.dropdown_layout.addWidget(dropdown)
+    
+#     def drop_dropdown(self):
+#         # Remove the last dropdown menu if exists
+#         if self.dropdown_layout.count() > 0:
+#             widget_to_remove = self.dropdown_layout.itemAt(self.dropdown_layout.count() - 1).widget()
+#             self.dropdown_layout.removeWidget(widget_to_remove)
+#             widget_to_remove.deleteLater()
+
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = DynamicDropdowns()
+#     window.show()
+#     sys.exit(app.exec_())
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QLineEdit, QWidget
+
+class PathEditorApp(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        # Initialize media player and video widget objects
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.videoWidget = QVideoWidget()
-
-        # Set video display widget
-        self.mediaPlayer.setVideoOutput(self.videoWidget)
-
-        # Create UI elements
-        self.initUI()
-
-    def initUI(self):
-        # Create play button
-        self.playButton = QPushButton('Play')
-        self.playButton.clicked.connect(self.playVideo)
-
-        # Create pause button
-        self.pauseButton = QPushButton('Pause')
-        self.pauseButton.clicked.connect(self.pauseVideo)
-
-        # Create repeat button
-        self.repeatButton = QPushButton('Repeat')
-        self.repeatButton.setCheckable(True)
-        self.repeatButton.clicked.connect(self.repeatVideo)
-
-        # Create slider for video position
-        self.positionSlider = QSlider(Qt.Horizontal)
-        self.positionSlider.setRange(0, 0)
-        self.positionSlider.sliderMoved.connect(self.setPosition)
-
-        # Create label for displaying status
-        self.statusLabel = QLabel('')
-
-        # Layout for buttons
-        controlLayout = QHBoxLayout()
-        controlLayout.addWidget(self.playButton)
-        controlLayout.addWidget(self.pauseButton)
-        controlLayout.addWidget(self.repeatButton)
-
-        # Main layout
-        mainLayout = QVBoxLayout()
-        mainLayout.addWidget(self.videoWidget)  # Add video widget to main layout
-        mainLayout.addLayout(controlLayout)
-        mainLayout.addWidget(self.positionSlider)
-        mainLayout.addWidget(self.statusLabel)
-
-        self.setLayout(mainLayout)
-
-        # Connect media player signals
-        self.mediaPlayer.durationChanged.connect(self.updateDuration)
-        self.mediaPlayer.positionChanged.connect(self.updatePosition)
-        self.mediaPlayer.stateChanged.connect(self.updateState)
-
-        # Import video file
-        video_path = '/mnt1/Research/Kinematics_App/FlapKine/data/videos/stl_animation_temp.mp4'  # Replace with your video file path
-        self.setMedia(video_path)
-
-    def playVideo(self):
-        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
-            return
-        self.mediaPlayer.play()
-
-    def pauseVideo(self):
-        if self.mediaPlayer.state() == QMediaPlayer.PausedState:
-            return
-        self.mediaPlayer.pause()
+        
+        self.setWindowTitle("Dynamic Path Editor")
+        
+        # Main widget and layout
+        self.main_widget = QWidget()
+        self.main_layout = QVBoxLayout(self.main_widget)
+        
+        # Add Path Editor button
+        self.add_button = QPushButton("Add Path Editor")
+        self.add_button.clicked.connect(self.add_path_editor)
+        self.main_layout.addWidget(self.add_button)
+        
+        # Layout for path editors
+        self.editor_layout = QVBoxLayout()
+        self.main_layout.addLayout(self.editor_layout)
+        
+        self.setCentralWidget(self.main_widget)
     
-    def repeatVideo(self):
-        if self.repeatButton.isChecked():
-            self.mediaPlayer.setPosition(0)
-            self.mediaPlayer.play()
+    def add_path_editor(self):
+        # Create a new path editor
+        path_editor = QLineEdit()
+        path_editor.setPlaceholderText("Enter address or path here...")
+        self.editor_layout.addWidget(path_editor)
 
-    def updateDuration(self, duration):
-        self.positionSlider.setRange(0, duration)
-
-    def updatePosition(self, position):
-        self.positionSlider.setValue(position)
-
-    def setPosition(self, position):
-        self.mediaPlayer.setPosition(position)
-
-    def updateState(self, state):
-        if state == QMediaPlayer.PlayingState:
-            self.statusLabel.setText('Playing')
-        elif state == QMediaPlayer.PausedState:
-            self.statusLabel.setText('Paused')
-        elif state == QMediaPlayer.StoppedState:
-            self.statusLabel.setText('Stopped')
-            if self.repeatButton.isChecked():
-                self.mediaPlayer.setPosition(0)
-                self.mediaPlayer.play()
-
-
-    def setMedia(self, url):
-        media = QMediaContent(QUrl.fromLocalFile(url))
-        self.mediaPlayer.setMedia(media)
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    player = VideoPlayer()
-    player.show()
+    window = PathEditorApp()
+    window.show()
     sys.exit(app.exec_())
+

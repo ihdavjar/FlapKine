@@ -124,7 +124,7 @@ class ProjectWindow(QMainWindow):
         self.rightGroupBox = QGroupBox("Group 2")
 
         self.render_button = QPushButton("Render")
-        self.render_button.clicked.connect(self.render_new_video)
+        self.render_button.clicked.connect(self.genframes)
 
         # Video Related Widget
 
@@ -278,25 +278,16 @@ class ProjectWindow(QMainWindow):
 
         self.plotly_chart_view.setHtml(html)
 
-    # Render the video 
-    def render_new_video(self):
+    def genframes(self):
+
+        # Generate the STL
         stl_filename = os.path.join(self.project_folder, 'data/stl')
         
         # Save the STL files
         for i in range(len(self.angles)):
             self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
         
-        self.genframes()
-
-        frames_path = os.path.join(self.project_folder, 'data/images')
-        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
-
-        # Create the video
-        create_video_from_frames(frames_path, video_path, frame_rate=20, width=640, height=480, libx264=False)
-
-        self.setMedia(video_path)
-
-    def genframes(self):
+        # Load the Blender project
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
 
@@ -362,6 +353,14 @@ class ProjectWindow(QMainWindow):
             bpy.ops.object.delete()
 
             self.update_progress()
+    
+        frames_path = os.path.join(self.project_folder, 'data/images')
+        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
+
+        # Create the video
+        create_video_from_frames(frames_path, video_path, frame_rate=20, width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
+
+        self.setMedia(video_path)
 
     def update_progress(self):
         # Update the progress bar value
