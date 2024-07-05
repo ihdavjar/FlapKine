@@ -1,11 +1,12 @@
 import os
 import json
+import pickle
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
 from app.project_window import ProjectWindow
+from app.create_scene import CreateScene
 
 class CreateProjectWin(QMainWindow):
     def __init__(self, project_folder):
@@ -61,6 +62,7 @@ class CreateProjectWin(QMainWindow):
             self.text_editor_scene = QLineEdit()
             
             self.create_button = QPushButton('Create', self)
+            self.create_button.clicked.connect(self.create_scene)
 
             # CONFIG
             self.default_config_checkbox = QCheckBox('Use Default Config', self)
@@ -197,8 +199,16 @@ class CreateProjectWin(QMainWindow):
         self.open_button.setStyleSheet('background-color: green')
 
     def create_scene(self):
-        pass
+        self.window2 = CreateScene()
+        self.window2.show()
+        self.window2.sceneCreated.connect(self.on_scene_created)
 
+    
+    def on_scene_created(self, scene_data):
+        self.scene_data = scene_data
+        # Make the button glow green
+        self.create_button.setStyleSheet('background-color: green')
+        
     def process_default_config(self):
         if self.default_config_checkbox.isChecked():
 
@@ -264,9 +274,16 @@ class CreateProjectWin(QMainWindow):
         os.makedirs(self.project_folder + '/data/stl')
 
         # Copy the scene file to the project folder
-        scene_name = os.path.basename(self.directory_scene)
-        scene_destination = os.path.join(self.project_folder, 'scene.pkl')
-        os.system(f'cp {self.directory_scene} {scene_destination}')
+        if not hasattr(self, 'scene_data'):
+            scene_name = os.path.basename(self.directory_scene)
+            scene_destination = os.path.join(self.project_folder, 'scene.pkl')
+            os.system(f'cp {self.directory_scene} {scene_destination}')
+        
+        else: # Dump the scene data to the project folder
+            scene_destination = os.path.join(self.project_folder, 'scene.pkl')
+            pickle.dump(self.scene_data, open(scene_destination, 'wb'))
+
+
 
         # Save the config file
         config = {
