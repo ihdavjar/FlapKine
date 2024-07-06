@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from src.core.core import Scene
+from app.create_sprite import CreateSprite
 
 class CreateScene(QMainWindow):
 
@@ -15,6 +16,28 @@ class CreateScene(QMainWindow):
         self.center()
         
         self.setWindowTitle("Create Scene")
+
+        # Add the menu bar
+        self.menu = self.menuBar()
+        self.file_menu = self.menu.addMenu('File')
+        self.open_action = self.file_menu.addAction('Open')
+        self.save_action = self.file_menu.addAction('Save')
+        self.exit_action = self.file_menu.addAction('Exit')
+
+        self.edit_menu = self.menu.addMenu('Edit')
+        self.undo_action = self.edit_menu.addAction('Undo')
+        self.redo_action = self.edit_menu.addAction('Redo')
+
+        self.window_menu = self.menu.addMenu('Window')
+        self.minimize_action = self.window_menu.addAction('Minimize')
+        self.maximize_action = self.window_menu.addAction('Maximize')
+        self.restore_action = self.window_menu.addAction('Restore')
+
+        self.render_menu = self.menu.addMenu('Render')
+        self.render_option = self.render_menu.addAction('Configure Render')
+
+        self.help_menu = self.menu.addMenu('Help')
+        self.about_action = self.help_menu.addAction('About') 
 
         self.sprite_list = []
 
@@ -86,8 +109,14 @@ class CreateScene(QMainWindow):
             sprite_group.findChild(QPushButton).setStyleSheet('background-color: green')
     
     def create_sprite(self, sprite_group):
-        pass
-     
+        self.window = CreateSprite()
+        self.window.show()
+        self.window.SpriteCreated.connect(lambda : self.save_sprite(sprite_group))
+
+    def save_sprite(self, sprite_group):
+        sprite_group.findChildren(QPushButton)[1].setStyleSheet('background-color: green')
+        self.sprite_list.append(self.window.sprite_data)
+        
     def drop_sprite(self):
         # Remove the last dropdown menu if exists
         if self.sprites_layout.count() > 0:
@@ -96,16 +125,17 @@ class CreateScene(QMainWindow):
             widget_to_remove.deleteLater()
 
     def import_button(self):
-        for i in range(self.sprites_layout.count()):
-            sprite_group = self.sprites_layout.itemAt(i).widget()
-            sprite_name = sprite_group.findChild(QLineEdit).text()
-            sprite_data = pickle.load(open(sprite_name, 'rb'))
-            self.sprite_list.append(sprite_data)
+        if self.sprite_list == []:
+            for i in range(self.sprites_layout.count()):
+                sprite_group = self.sprites_layout.itemAt(i).widget()
+                sprite_name = sprite_group.findChild(QLineEdit).text()
+                sprite_data = pickle.load(open(sprite_name, 'rb'))
+                self.sprite_list.append(sprite_data)
         
         scene_data = Scene(self.sprite_list)
         self.sceneCreated.emit(scene_data)
         self.close()
-        
+
     def center(self):
         # Get the screen resolution
         screen_resolution = QDesktopWidget().screenGeometry()

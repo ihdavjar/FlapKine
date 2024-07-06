@@ -94,6 +94,7 @@ def Manual_Page():
             for j in range(3):
                 ellipse_mesh_2.vectors[i][j] = init_vertices_2[f[j], :]
 
+        ellipse_mesh_1.save('ellipse.stl')
         from src.core.core import Object3D, Scene, Sprite
         from src.core.transforms.flexibility import Flexibility_type1, ConstantF
         from src.core.transforms.rotation import Rotation_EulerAngles
@@ -203,3 +204,5 @@ def Manual_Page():
         fig.update_layout(scene_camera=dict(eye=dict(x=1, y=0, z=0)))
 
         st.plotly_chart(fig)
+
+Manual_Page()
