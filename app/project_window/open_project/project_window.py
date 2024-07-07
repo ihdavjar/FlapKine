@@ -15,8 +15,12 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from src.utils.utils import create_video_from_frames
 
+import os
+import json
+from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
+import bpy
+
 class Worker(QThread):
-    # Signal to communicate with the main GUI thread
     progress_signal = pyqtSignal(int)
 
     def __init__(self, project_folder, angles, scene_data, parent=None):
@@ -31,11 +35,12 @@ class Worker(QThread):
         # Save the STL files
         for i in range(len(self.angles)):
             self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
-        
+
         # Load the Blender project
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
 
+        
         # Set rendering parameters
         bpy.context.scene.render.image_settings.file_format = config['VideoRender']['FrameFormat']  # Output image format
         bpy.context.scene.render.resolution_x = config['VideoRender']['resolution_x']  # Output resolution X
@@ -50,7 +55,7 @@ class Worker(QThread):
         bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
         bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
 
-        # Add a cube
+        ## Add a cube
         bpy.ops.mesh.primitive_cube_add(size=0.5)  # Add a cube
 
         # Remove the default cube
@@ -62,50 +67,49 @@ class Worker(QThread):
         stl_files_dir = os.path.join(self.project_folder, 'data/stl')
         output_dir = os.path.join(self.project_folder, 'data/images')
 
-        # Ensure output directory exists
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
         stl_files = sorted([f for f in os.listdir(stl_files_dir) if f.endswith('.stl')])
 
         # Loop through each STL file
-        for i in range(len(stl_files)):
+        for i in range(len(stl_files)-1):
             stl_file_name = f"ellipse_{i}.stl"
-            
-            # Set file names
             stl_file_path = os.path.join(stl_files_dir, stl_file_name)
 
-            # Import STL file as a new object
-            bpy.ops.import_mesh.stl(filepath=stl_file_path)
+            # Import STL file and render in the main thread
+            QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
+                                     Q_ARG(str, stl_file_path), Q_ARG(str, output_dir), Q_ARG(int, i+1))
 
-            # Ensure the imported object is selected
-            imported_objects = [obj for obj in bpy.context.selected_objects if obj.name.startswith("ellipse_")]
-            if imported_objects:
-                imported_object = imported_objects[0]
-            else:
-                print(f"Error: Unable to find the imported object for {stl_file_name}")
-                continue
-
-            # Define the output image filename based on the STL file name
-            output_filename = f'frame_{i + 1}.png'
-            output_path = os.path.join(output_dir, output_filename)
-
-            # Render the image
-            bpy.context.scene.render.filepath = output_path
-            bpy.ops.render.render(write_still=True)
-
-            # Delete the imported object to clear the scene for the next iteration
-            bpy.ops.object.select_all(action='DESELECT')
-            imported_object.select_set(True)
-            bpy.ops.object.delete()
-
-            self.progress_signal.emit(i+1)
+            self.progress_signal.emit(i + 1)
 
         frames_path = os.path.join(self.project_folder, 'data/images')
         video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
 
-        # Create the video
-        create_video_from_frames(frames_path, video_path, frame_rate=20, width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
+        create_video_from_frames(frames_path, video_path, frame_rate=20,
+                                 width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
+
+    @pyqtSlot(str, str, int)
+    def import_and_render(self, stl_file_path, output_dir, frame_index):
+        bpy.ops.import_mesh.stl(filepath=stl_file_path)
+
+        imported_objects = [obj for obj in bpy.context.selected_objects if obj.name.startswith("ellipse_")]
+        if imported_objects:
+            imported_object = imported_objects[0]
+        else:
+            print(f"Error: Unable to find the imported object for {stl_file_path}")
+            return
+
+        output_filename = f'frame_{frame_index}.png'
+        output_path = os.path.join(output_dir, output_filename)
+
+        bpy.context.scene.render.filepath = output_path
+        bpy.ops.render.render(write_still=True)
+
+        bpy.ops.object.select_all(action='DESELECT')
+        imported_object.select_set(True)
+        bpy.ops.object.delete()
+
 class ProjectWindow(QMainWindow):
     def __init__(self, project_folder):
         super(ProjectWindow, self).__init__()
@@ -381,7 +385,6 @@ class ProjectWindow(QMainWindow):
         self.worker.finished.connect(self.complete_render)
 
     def complete_render(self):
-        self.showAlertDialog('Alert', 'Rendering complete')
         self.render_button.setEnabled(True)
         video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
         self.setMedia(video_path)
