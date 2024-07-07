@@ -5,14 +5,14 @@ __pycache__/
 .vscode/
 
 # Ignore media files
-# *.mp4
-# *.jpg
-# *.png
-# *.gif
-# *.stl
+*.mp4
+*.jpg
+*.png
+*.gif
+*.stl
 
 # Ignore the pickle files
-# *.pkl
+*.pkl
 
 # Ignore the HTML 
 # *.html
@@ -23,7 +23,3 @@ __pycache__/
 
 # Ignore specific .egg-info directory
 flapping_wing_mav_simulation.egg-info/
-
-# Ignore project specific files
-# project1/
-# project2/
