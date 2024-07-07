@@ -15,6 +15,100 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from src.utils.utils import create_video_from_frames
 
+import os
+import json
+from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
+import bpy
+
+class Worker(QThread):
+    progress_signal = pyqtSignal(int)
+
+    def __init__(self, project_folder, angles, scene_data, parent=None):
+        super(Worker, self).__init__(parent)
+        self.project_folder = project_folder    
+        self.angles = angles
+        self.scene_data = scene_data
+
+    def run(self):
+        stl_filename = os.path.join(self.project_folder, 'data/stl')
+        
+        # Save the STL files
+        for i in range(len(self.angles)):
+            self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
+
+        # Load the Blender project
+        with open(os.path.join(self.project_folder, 'config.json')) as f:
+            config = json.load(f)
+
+        
+        # Set rendering parameters
+        bpy.context.scene.render.image_settings.file_format = config['VideoRender']['FrameFormat']  # Output image format
+        bpy.context.scene.render.resolution_x = config['VideoRender']['resolution_x']  # Output resolution X
+        bpy.context.scene.render.resolution_y = config['VideoRender']['resolution_y']  # Output resolution Y
+        bpy.context.scene.render.film_transparent = config['VideoRender']['film_transparent']  # Enable transparent background
+
+        # Set the camera parameters
+        bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
+        bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
+
+        # Set the light parameters
+        bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
+        bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
+
+        ## Add a cube
+        bpy.ops.mesh.primitive_cube_add(size=0.5)  # Add a cube
+
+        # Remove the default cube
+        bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
+
+        # Set the scene frame rate
+        bpy.context.scene.render.fps = 24  # Frame rate
+
+        stl_files_dir = os.path.join(self.project_folder, 'data/stl')
+        output_dir = os.path.join(self.project_folder, 'data/images')
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        stl_files = sorted([f for f in os.listdir(stl_files_dir) if f.endswith('.stl')])
+
+        # Loop through each STL file
+        for i in range(len(stl_files)-1):
+            stl_file_name = f"ellipse_{i}.stl"
+            stl_file_path = os.path.join(stl_files_dir, stl_file_name)
+
+            # Import STL file and render in the main thread
+            QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
+                                     Q_ARG(str, stl_file_path), Q_ARG(str, output_dir), Q_ARG(int, i+1))
+
+            self.progress_signal.emit(i + 1)
+
+        frames_path = os.path.join(self.project_folder, 'data/images')
+        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
+
+        create_video_from_frames(frames_path, video_path, frame_rate=20,
+                                 width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
+
+    @pyqtSlot(str, str, int)
+    def import_and_render(self, stl_file_path, output_dir, frame_index):
+        bpy.ops.import_mesh.stl(filepath=stl_file_path)
+
+        imported_objects = [obj for obj in bpy.context.selected_objects if obj.name.startswith("ellipse_")]
+        if imported_objects:
+            imported_object = imported_objects[0]
+        else:
+            print(f"Error: Unable to find the imported object for {stl_file_path}")
+            return
+
+        output_filename = f'frame_{frame_index}.png'
+        output_path = os.path.join(output_dir, output_filename)
+
+        bpy.context.scene.render.filepath = output_path
+        bpy.ops.render.render(write_still=True)
+
+        bpy.ops.object.select_all(action='DESELECT')
+        imported_object.select_set(True)
+        bpy.ops.object.delete()
 
 class ProjectWindow(QMainWindow):
     def __init__(self, project_folder):
@@ -280,91 +374,22 @@ class ProjectWindow(QMainWindow):
 
     def genframes(self):
 
-        # Generate the STL
-        stl_filename = os.path.join(self.project_folder, 'data/stl')
-        
-        # Save the STL files
-        for i in range(len(self.angles)):
-            self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
-        
-        # Load the Blender project
-        with open(os.path.join(self.project_folder, 'config.json')) as f:
-            config = json.load(f)
+        self.render_button.setEnabled(False)
 
-        # Set rendering parameters
-        bpy.context.scene.render.image_settings.file_format = config['VideoRender']['FrameFormat']  # Output image format
-        bpy.context.scene.render.resolution_x = config['VideoRender']['resolution_x']  # Output resolution X
-        bpy.context.scene.render.resolution_y = config['VideoRender']['resolution_y']  # Output resolution Y
-        bpy.context.scene.render.film_transparent = config['VideoRender']['film_transparent']  # Enable transparent background
+        self.worker = Worker(self.project_folder, self.angles, self.scene_data)
 
-        # Set the camera parameters
-        bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
-        bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
+        self.worker.progress_signal.connect(self.update_progress)
 
-        # Set the light parameters
-        bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
-        bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
+        self.worker.start()
 
-        ## Add a cube
-        bpy.ops.mesh.primitive_cube_add(size=0.5)  # Add a cube
+        self.worker.finished.connect(self.complete_render)
 
-
-        # Remove the default cube
-        bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
-
-
-        # Set the scene frame rate
-        bpy.context.scene.render.fps = 24  # Frame rate
-
-        stl_files_dir = os.path.join(self.project_folder, 'data/stl')
-        output_dir = os.path.join(self.project_folder, 'data/images')
-
-        # Ensure output directory exists
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-
-        stl_files = sorted([f for f in os.listdir(stl_files_dir) if f.endswith('.stl')])
-
-        # Loop through each STL file
-        for i in range(len(stl_files)-1):
-
-            stl_file_name = f"ellipse_{i}.stl"
-            
-            # Set file names
-            stl_file_path = os.path.join(stl_files_dir, stl_file_name)
-
-            # Import STL file as a new object
-            bpy.ops.import_mesh.stl(filepath=stl_file_path)
-            
-            # Select the imported object
-            imported_object = bpy.context.selected_objects[0]
-
-            # Define the output image filename based on the STL file name
-            output_filename = f'frame_{i + 1}.png'
-            output_path = os.path.join(output_dir, output_filename)
-
-            # Render the image
-            bpy.context.scene.render.filepath = output_path
-            bpy.ops.render.render(write_still=True)
-            
-            # Delete the imported object to clear the scene for the next iteration
-            bpy.ops.object.select_all(action='DESELECT')
-            imported_object.select_set(True)
-            bpy.ops.object.delete()
-
-            self.update_progress()
-    
-        frames_path = os.path.join(self.project_folder, 'data/images')
-        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
-
-        # Create the video
-        create_video_from_frames(frames_path, video_path, frame_rate=20, width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
-
+    def complete_render(self):
+        self.render_button.setEnabled(True)
+        video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
         self.setMedia(video_path)
 
-    def update_progress(self):
-        # Update the progress bar value
-        value = self.progress_bar.value() + 1
+    def update_progress(self, value):
         self.progress_bar.setValue(value)
 
     ############################ Video Functions ################################

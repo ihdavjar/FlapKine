@@ -23,7 +23,3 @@ __pycache__/
 
 # Ignore specific .egg-info directory
 flapping_wing_mav_simulation.egg-info/
-
-# Ignore project specific files
-# project1/
-# project2/
