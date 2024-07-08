@@ -22,7 +22,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'flapping_wing_mav_simulation = blender.generate_frames:main',
+            'flapping_wing_mav_simulation = FlapKine:main'
         ],
     },
+    python_requires='>=3.6',
 )
