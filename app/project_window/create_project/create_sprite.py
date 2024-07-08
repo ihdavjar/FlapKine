@@ -392,12 +392,12 @@ class CreateSprite(QMainWindow):
 
         elif self.flexibility_transform.currentIndex() == 1:
             # Load the other values
-            x = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[0].currentText()
-            y = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[1].currentText()
-            z = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[2].currentText()
+            x = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[0].currentText() == "True"
+            y = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[1].currentText() == "True"
+            z = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[2].currentText() == "True"
 
-            major_axis = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QDoubleSpinBox)[0].value()
-            minor_axis = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QDoubleSpinBox)[1].value()
+            major_axis = float(self.flexibility_transform_layout.itemAt(2).widget().findChildren(QDoubleSpinBox)[0].value())
+            minor_axis = float(self.flexibility_transform_layout.itemAt(2).widget().findChildren(QDoubleSpinBox)[1].value())
 
             flexibility_transform = Flexibility_type1(x, y, z, major_axis, minor_axis)
 
@@ -422,6 +422,7 @@ class CreateSprite(QMainWindow):
         stl_mesh = mesh.Mesh.from_file(stl_path)
 
         temp_object = Object3D(sprite_name, stl_mesh, flexibility_transform, rotation_transform)
+
         # Load the initial conditions
         if self.enable_checkbox.isChecked():
             time = self.time_input.value()

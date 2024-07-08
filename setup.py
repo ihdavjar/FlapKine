@@ -12,6 +12,13 @@ setup(
     install_requires=[
         'streamlit',
         'bpy',  # Add other dependencies here
+        'numpy',
+        'matplotlib',
+        'plotly',
+        'pandas',
+        'PyQt5',
+        'PyQt5WebEngine',
+
     ],
     entry_points={
         'console_scripts': [
