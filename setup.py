@@ -17,7 +17,8 @@ setup(
         'plotly',
         'pandas',
         'PyQt5',
-        'PyQt5WebEngine',
+        'PyQtWebEngine',
+        'numpy-stl'
 
     ],
     entry_points={
