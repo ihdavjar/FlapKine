@@ -425,13 +425,20 @@ class CreateSprite(QMainWindow):
 
         # Load the initial conditions
         if self.enable_checkbox.isChecked():
+
+            no_transform_temp_object = Object3D(sprite_name, stl_mesh, ConstantF(), rotation_transform)
+            
             time = self.time_input.value()
             alpha = self.angle_input_alpha.value()
             beta = self.angle_input_beta.value()
             gamma = self.angle_input_gamma.value()
 
+            alpha = np.radians(alpha)
+            beta = np.radians(beta)
+            gamma = np.radians(gamma)
+            
             angles = np.array([alpha, beta, gamma])
-            temp_object.stl_mesh = temp_object.transform(0, [alpha, beta, gamma])
+            temp_object.stl_mesh = no_transform_temp_object.transform(time, angles)
 
         angles = np.hstack([alpha_values, beta_values, gamma_values])
         sprite = Sprite(temp_object, angles)
