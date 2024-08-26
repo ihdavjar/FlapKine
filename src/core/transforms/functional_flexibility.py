@@ -33,3 +33,22 @@ def functional_Flexibility_type1(x, y, t, major_axis, minor_axis, time_period):
         Z_M_x_y_t = (Z_M_x_t/((1-p)**2))*(1-2*p+2*p*y_0-y_0**2)
 
     return Z_M_x_y_t
+
+def functional_Flexibility_type2(x, y, Z_M_x_t, major_axis, minor_axis, time_period, p=0.5):
+    C_R = 2*minor_axis
+    R = 2*major_axis
+
+    # Ensure x and y are positive
+    x = abs(x)
+    y = abs(y)
+
+    y_0 = (minor_axis-y)/C_R
+    
+
+    if (y_0<p):
+        Z_M_x_y_t = (Z_M_x_t/(p**2))*(2*p*y_0 - y_0**2)
+    
+    else:
+        Z_M_x_y_t = (Z_M_x_t/((1-p)**2))*(1-2*p+2*p*y_0-y_0**2)
+
+    return Z_M_x_y_t

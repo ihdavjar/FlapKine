@@ -22,4 +22,4 @@ __pycache__/
 *.pyo
 
 # Ignore specific .egg-info directory
-flapping_wing_mav_simulation.egg-info/
+FlapKine.egg-info/
