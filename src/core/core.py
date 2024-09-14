@@ -81,30 +81,71 @@ class Scene:
             transformed_objects.append(spr.transform(t))
         return transformed_objects
     
-    def save_stl(self, t, path:str, reflect:bool=True):
+    def save_stl(self, t, reflect_xy = False, reflect_yz = False, reflect_xz = False):
         '''
         Save the transformed meshes to STL files
         '''
 
-        if reflect:
+        if reflect_xy:
             # Make reflection of the objects in the scene with respect to the xy-plane
             transformed_objects = self.transform(t)
             reflected_objects = []
-            
-            for obj in transformed_objects:
 
-                temp_mesh_copy = copy.deepcopy(obj)
-                # Flip the y-coordinates of the vertices
-                temp_mesh_copy.vectors[:,:,1] = -temp_mesh_copy.vectors[:,:,1]
-                
-                # Append the reflected object to the list
-                reflected_objects.append(temp_mesh_copy)
+            for obj in transformed_objects:
+                    
+                    temp_mesh_copy = copy.deepcopy(obj)
+                    # Flip the y-coordinates of the vertices
+                    temp_mesh_copy.vectors[:,:,1] = -temp_mesh_copy.vectors[:,:,1]
+                    
+                    # Append the reflected object to the list
+                    reflected_objects.append(temp_mesh_copy)
 
             full_objects = transformed_objects + reflected_objects
             combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in full_objects]))
-            combined_mesh.save(path)
+
+            return combined_mesh
+        
+        elif reflect_yz:
+            # Make reflection of the objects in the scene with respect to the yz-plane
+            transformed_objects = self.transform(t)
+            reflected_objects = []
+
+            for obj in transformed_objects:
+                    
+                    temp_mesh_copy = copy.deepcopy(obj)
+                    # Flip the x-coordinates of the vertices
+                    temp_mesh_copy.vectors[:,:,0] = -temp_mesh_copy.vectors[:,:,0]
+                    
+                    # Append the reflected object to the list
+                    reflected_objects.append(temp_mesh_copy)
+
+            full_objects = transformed_objects + reflected_objects
+            combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in full_objects]))
+
+            return combined_mesh
+
+        elif reflect_xz:
+            # Make reflection of the objects in the scene with respect to the xz-plane
+            transformed_objects = self.transform(t)
+            reflected_objects = []
+
+            for obj in transformed_objects:
+                    
+                    temp_mesh_copy = copy.deepcopy(obj)
+                    # Flip the y-coordinates of the vertices
+                    temp_mesh_copy.vectors[:,:,1] = -temp_mesh_copy.vectors[:,:,1]
+                    
+                    # Append the reflected object to the list
+                    reflected_objects.append(temp_mesh_copy)
+
+            full_objects = transformed_objects + reflected_objects
+            combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in full_objects]))
+
+            return combined_mesh
 
         else:
-            transformed_objects = self.transform(t) 
-            combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in transformed_objects]))  
-            combined_mesh.save(path)
+            transformed_objects = self.transform(t)
+            combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in transformed_objects]))
+        
+            return combined_mesh
+        

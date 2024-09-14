@@ -1,12 +1,8 @@
 import numpy as np
 
-def functional_Flexibility_type1(x, y, t, major_axis, minor_axis, time_period):
+def functional_Flexibility_type1(x, y, t, major_axis, minor_axis, time_period, p):
     C_R = 2*minor_axis
     R = 2*major_axis
-
-    # Ensure x and y are positive
-    x = abs(x)
-    y = abs(y)
 
     t = t/time_period
     
@@ -17,8 +13,6 @@ def functional_Flexibility_type1(x, y, t, major_axis, minor_axis, time_period):
     Z_M_x = (Z_M_Root/C_R)*(1-x/R)*(C_r)
 
     Z_M_x_t = Z_M_x/np.tanh(2.9)*np.tanh(2.9*np.sin(2*np.pi*t + 0.4))   
-
-    p = 0.5
 
     if (C_r != 0):
         y_0 = (minor_axis-y)/C_r

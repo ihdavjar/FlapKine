@@ -11,12 +11,14 @@ class ConstantF(Flexibility_Transform):
         return input_
     
 class Flexibility_type1(Flexibility_Transform):
-    def __init__(self, x, y, z, major_axis, minor_axis, time_period=100):
+    def __init__(self, x, y, z, major_axis, minor_axis, time_period=100, p=0.5):
         # x: bool
         # y: bool
         # z: bool
         # major_axis: bool
         # minor_axis: bool
+        # time_period: float
+        # p: float
 
         self.x = x
         self.y = y
@@ -24,6 +26,7 @@ class Flexibility_type1(Flexibility_Transform):
         self.major_axis = major_axis
         self.minor_axis = minor_axis
         self.time_period = time_period
+        self.p = p
     
     def __call__(self, input_, t):
         # input: np.array of shape (n, 3) i.e (x, y, z)
@@ -31,33 +34,41 @@ class Flexibility_type1(Flexibility_Transform):
         temp_input = copy.deepcopy(input_)
 
         if self.x:
-            temp_input[:, 0] = input_[:, 0] + np.array([functional_Flexibility_type1(y, z, t, self.major_axis, self.minor_axis, self.time_period) for y, z in input_[:, 1:]])
+            for i in range(len(input_)):
+                temp_input[:, 0] = input_[:, 0] + functional_Flexibility_type1(input_[i,1], input_[i,2], t, self.major_axis, self.minor_axis, self.time_period, self.p)
 
         if self.y:
-            temp_input[:, 1] = input_[:, 1] + np.array([functional_Flexibility_type1(x, z, t, self.major_axis, self.minor_axis, self.time_period) for x, z in input_[:, [0,2]]])
-
+            for i in range(len(input_)):
+                temp_input[:, 1] = input_[:, 1] + functional_Flexibility_type1(input_[i,0], input_[i,2], t, self.major_axis, self.minor_axis, self.time_period, self.p)
+    
         if self.z:
-            temp_input[:, 2] = input_[:, 2] + np.array([functional_Flexibility_type1(x, y, t, self.major_axis, self.minor_axis, self.time_period) for x, y in input_[:, [0,1]]])
-
+            for i in range(len(input_)):
+                temp_input[:, 2] = input_[:, 2] + functional_Flexibility_type1(input_[i,0], input_[i,1], t, self.major_axis, self.minor_axis, self.time_period, self.p)
+                
         return temp_input
 
 class Flexibility_type2(Flexibility_Transform):
-    def __init__(self, x, y, z, y_min, major_axis, minor_axis, array_values, time_period=100, p=0.5):
+    def __init__(self, x, y, z, min_minor_axis, major_axis, minor_axis, array_values, time_period=100, p=0.5):
         # x: bool
         # y: bool
         # z: bool
-        # major_axis: bool
-        # minor_axis: bool
+        # min_minor_axis: float
+        # major_axis: float
+        # minor_axis: float
+        # array_values: np.array of shape (n, 1)
+        # time_period: float
+        # p: float
 
         self.x = x
         self.y = y
         self.z = z
+        self.min_minor_axis = min_minor_axis
         self.major_axis = major_axis
         self.minor_axis = minor_axis
         self.array_values = array_values
         self.time_period = time_period
         self.p = p
-        self.y_min = y_min
+        
     
     def __call__(self, input_, t):
         # input: np.array of shape (n, 3) i.e (x, y, z)
@@ -67,16 +78,16 @@ class Flexibility_type2(Flexibility_Transform):
         Z_M_x_t = self.array_values[t]
 
         if self.x:
-            temp_input[:, 0] = input_[:, 0] + np.array([functional_Flexibility_type2(y, z, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p) for y, z in input_[:, 1:]])
+            for i in range(len(input_)):
+                temp_input[:, 0] = input_[:, 0] + functional_Flexibility_type2(input_[i,1], input_[i,2], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
 
         if self.y:
-            temp_input[:, 1] = input_[:, 1] + np.array([functional_Flexibility_type2(x, z, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p) for x, z in input_[:, [0,2]]])
+            for i in range(len(input_)):    
+                temp_input[:, 1] = input_[:, 1] + functional_Flexibility_type2(input_[i,0], input_[i,2], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
 
         if self.z:
             for i in range(len(input_)):
-                temp_input[i, 2] = input_[i, 2] + functional_Flexibility_type2(input_[i, 0], input_[i, 1], self.y_min, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
-        
-        # Save the array
+                temp_input[i, 2] = input_[i, 2] + functional_Flexibility_type2(input_[i,0], input_[i,1], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
         
         return temp_input
     

@@ -353,21 +353,12 @@ class CreateSprite(QMainWindow):
             temp_combobox_z.addItems(["True", "False"])
             temp_QHBoxLayout_1.addWidget(temp_combobox_z)
 
-            flexibitity_transform_layout.addLayout(temp_QHBoxLayout_1)
+            temp_QHBoxLayout_1.addWidget(QLabel("Time Period"))
+            self.time_period = QSpinBox()
+            self.time_period.setRange(0, 100000)
+            temp_QHBoxLayout_1.addWidget(self.time_period)
             
-
-            temp_QHBoxLayout_2 = QHBoxLayout()
-            temp_QHBoxLayout_2.addWidget(QLabel("Major Axis"))
-            temp_combobox_major = QDoubleSpinBox()
-            temp_combobox_major.setRange(0, 100)
-            temp_QHBoxLayout_2.addWidget(temp_combobox_major)
-
-            temp_QHBoxLayout_2.addWidget(QLabel("Minor Axis"))
-            temp_combobox_minor = QDoubleSpinBox()
-            temp_combobox_minor.setRange(0, 100)
-            temp_QHBoxLayout_2.addWidget(temp_combobox_minor)
-
-            flexibitity_transform_layout.addLayout(temp_QHBoxLayout_2)
+            flexibitity_transform_layout.addLayout(temp_QHBoxLayout_1)
 
             flexibility_transform_group.setLayout(flexibitity_transform_layout)
 
@@ -516,7 +507,6 @@ class CreateSprite(QMainWindow):
         
     def finish_button_fun(self):
 
-        
         # Create the 3DObject
         sprite_name = self.sprite_name.text()
         
@@ -531,9 +521,6 @@ class CreateSprite(QMainWindow):
         min_x, min_y, min_z = np.min(temp_vector, axis=0)
         max_x, max_y, max_z = np.max(temp_vector, axis=0)
 
-        print('Minimum Values: ', min_x, min_y, min_z)
-        print('Maximum Values: ', max_x, max_y, max_z)
-
         # Flexibility Transform
         if self.flexibility_transform.currentIndex() == 0:
             flexibility_transform = ConstantF()
@@ -547,7 +534,9 @@ class CreateSprite(QMainWindow):
             major_axis = (max_x - min_x)/2
             minor_axis = (max_y - min_y)/2
 
-            flexibility_transform = Flexibility_type1(x, y, z, major_axis, minor_axis)
+            p = self.p_value.value()
+
+            flexibility_transform = Flexibility_type1(x, y, z, major_axis, minor_axis, p=p)
 
         elif self.flexibility_transform.currentIndex() == 2:
 
@@ -563,9 +552,7 @@ class CreateSprite(QMainWindow):
 
             p = self.p_value.value()
 
-            print("P value: ", p)
-
-            flexibility_transform = Flexibility_type2(x, y, z, min_y, major_axis, minor_axis, m_vals, p=p)
+            flexibility_transform = Flexibility_type2(x, y, z, min_y, major_axis, minor_axis, m_vals, time_period=len(m_vals), p=p)
 
 
         # Rotation Transform
