@@ -531,6 +531,9 @@ class CreateSprite(QMainWindow):
         min_x, min_y, min_z = np.min(temp_vector, axis=0)
         max_x, max_y, max_z = np.max(temp_vector, axis=0)
 
+        print('Minimum Values: ', min_x, min_y, min_z)
+        print('Maximum Values: ', max_x, max_y, max_z)
+
         # Flexibility Transform
         if self.flexibility_transform.currentIndex() == 0:
             flexibility_transform = ConstantF()
@@ -541,8 +544,8 @@ class CreateSprite(QMainWindow):
             y = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[1].currentText() == "True"
             z = self.flexibility_transform_layout.itemAt(2).widget().findChildren(QComboBox)[2].currentText() == "True"
 
-            major_axis = max_x - min_x
-            minor_axis = max_y - min_y
+            major_axis = (max_x - min_x)/2
+            minor_axis = (max_y - min_y)/2
 
             flexibility_transform = Flexibility_type1(x, y, z, major_axis, minor_axis)
 
@@ -555,12 +558,14 @@ class CreateSprite(QMainWindow):
 
             m_vals = np.array(pd.read_csv(self.path_m_values.text(), header=None))
 
-            major_axis = max_x - min_x
-            minor_axis = max_y - min_y
+            major_axis = (max_x - min_x)/2
+            minor_axis = (max_y - min_y)/2
 
             p = self.p_value.value()
 
-            flexibility_transform = Flexibility_type2(x, y, z, major_axis, minor_axis, m_vals, p=p)
+            print("P value: ", p)
+
+            flexibility_transform = Flexibility_type2(x, y, z, min_y, major_axis, minor_axis, m_vals, p=p)
 
 
         # Rotation Transform

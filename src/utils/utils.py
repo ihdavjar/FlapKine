@@ -3,7 +3,7 @@ import cv2
 import subprocess
 import numpy as np
 
-def create_video_from_frames(frames_path, video_path, frame_rate=24, width=640, height=480, libx264=False):
+def create_video_from_frames(frames_path, video_path, frame_rate=10, width=640, height=480, libx264=False):
 
     '''
     Create a video from a folder of frames

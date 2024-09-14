@@ -52,6 +52,10 @@ class Worker(QThread):
         bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
         bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
 
+         # Set the camera to orthographic view
+        bpy.context.scene.camera.data.type = 'ORTHO'
+        bpy.context.scene.camera.data.ortho_scale = config['Camera'].get('ortho_scale', 10)  # Set orthographic scale (default is 10)
+
         # Set the light parameters
         bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
         bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
@@ -63,6 +67,15 @@ class Worker(QThread):
         # Set the scene frame rate
         bpy.context.scene.render.fps = 24  # Frame rate
 
+         # Set the world background color to white
+        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (1, 1, 1, 1)  # White background
+
+        # Create a blue material
+        blue_material = bpy.data.materials.new(name="BlueMaterial")
+        blue_material.use_nodes = True
+        bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
+        bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
+        
         stl_files_dir = os.path.join(self.project_folder, 'data/stl')
         output_dir = os.path.join(self.project_folder, 'data/images')
 
@@ -83,7 +96,8 @@ class Worker(QThread):
             self.progress_signal.emit(i + 1)
 
         frames_path = os.path.join(self.project_folder, 'data/images')
-        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
+        project_name = os.path.basename(self.project_folder)
+        video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
 
         create_video_from_frames(frames_path, video_path, frame_rate=20,
                                  width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
@@ -95,19 +109,34 @@ class Worker(QThread):
         imported_objects = [obj for obj in bpy.context.selected_objects if obj.name.startswith("ellipse_")]
         if imported_objects:
             imported_object = imported_objects[0]
+
+            # Check if the blue material is already assigned
+            blue_material_name = "BlueMaterial"
+            if not any(mat.name == blue_material_name for mat in imported_object.data.materials):
+                # Assign the blue material to the imported object
+                if blue_material_name not in bpy.data.materials:
+                    # Create the blue material if it does not exist
+                    blue_material = bpy.data.materials.new(name=blue_material_name)
+                    blue_material.use_nodes = True
+                    bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
+                    bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
+                else:
+                    blue_material = bpy.data.materials.get(blue_material_name)
+                    
+                # Assign the blue material to the imported object
+                imported_object.data.materials.append(blue_material)
+
+            output_filename = f'frame_{frame_index}.png'
+            output_path = os.path.join(output_dir, output_filename)
+
+            bpy.context.scene.render.filepath = output_path
+            bpy.ops.render.render(write_still=True)
+
+            bpy.ops.object.select_all(action='DESELECT')
+            imported_object.select_set(True)
+            bpy.ops.object.delete()
         else:
             print(f"Error: Unable to find the imported object for {stl_file_path}")
-            return
-
-        output_filename = f'frame_{frame_index}.png'
-        output_path = os.path.join(output_dir, output_filename)
-
-        bpy.context.scene.render.filepath = output_path
-        bpy.ops.render.render(write_still=True)
-
-        bpy.ops.object.select_all(action='DESELECT')
-        imported_object.select_set(True)
-        bpy.ops.object.delete()
 
 class ProjectWindow(QMainWindow):
     def __init__(self, project_folder):
@@ -271,7 +300,9 @@ class ProjectWindow(QMainWindow):
         self.media_player.positionChanged.connect(self.updatePosition)
         self.media_player.stateChanged.connect(self.updateState)
 
-        video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
+        project_name = os.path.basename(self.project_folder)
+
+        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
 
         if not os.path.exists(video_path):
             self.showErrorDialog('Alert', f"No render found at: {self.project_folder}")
@@ -397,7 +428,8 @@ class ProjectWindow(QMainWindow):
 
     def complete_render(self):
         self.render_button.setEnabled(True)
-        video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
+        project_name = os.path.basename(self.project_folder)
+        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
         self.setMedia(video_path)
 
     def update_progress(self, value):
