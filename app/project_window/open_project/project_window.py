@@ -5,6 +5,7 @@ from stl import mesh
 import plotly.graph_objects as go
 import plotly.io as pio
 import bpy
+import bmesh
 import json
 
 from PyQt5.QtWidgets import *
@@ -24,19 +25,16 @@ import bpy
 class Worker(QThread):
     progress_signal = pyqtSignal(int)
 
-    def __init__(self, project_folder, angles, scene_data, parent=None):
+    def __init__(self, project_folder, angles, scene_data, reflect, parent=None):
         super(Worker, self).__init__(parent)
         self.project_folder = project_folder    
         self.angles = angles
-        self.scene_data = scene_data
+        self.scene_data_ = scene_data
+        self.reflect = reflect
+        self.stl_files = []
 
     def run(self):
-        stl_filename = os.path.join(self.project_folder, 'data/stl')
         
-        # Save the STL files
-        for i in range(len(self.angles)):
-            self.scene_data.save_stl(i, os.path.join(stl_filename, f'ellipse_{i}.stl'))
-
         # Load the Blender project
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
@@ -52,63 +50,96 @@ class Worker(QThread):
         bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
         bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
 
+         # Set the camera to orthographic view
+        bpy.context.scene.camera.data.type = 'ORTHO'
+        bpy.context.scene.camera.data.ortho_scale = config['Camera'].get('ortho_scale', 10)  # Set orthographic scale (default is 10)
+
         # Set the light parameters
         bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
         bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
 
-        ## Add a cube
-        bpy.ops.mesh.primitive_cube_add(size=0.5)  # Add a cube
-
         # Remove the default cube
-        bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
+        if 'Cube' in bpy.data.objects:
+            bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
 
         # Set the scene frame rate
         bpy.context.scene.render.fps = 24  # Frame rate
 
-        stl_files_dir = os.path.join(self.project_folder, 'data/stl')
+         # Set the world background color to white
+        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (1, 1, 1, 1)  # White background
+
+        # Create a blue material
+        blue_material = bpy.data.materials.new(name="BlueMaterial")
+        blue_material.use_nodes = True
+        bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
+        bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
+        
+        # stl_files_dir = os.path.join(self.project_folder, 'data/stl')
         output_dir = os.path.join(self.project_folder, 'data/images')
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        stl_files = sorted([f for f in os.listdir(stl_files_dir) if f.endswith('.stl')])
-
         # Loop through each STL file
-        for i in range(len(stl_files)-1):
-            stl_file_name = f"ellipse_{i}.stl"
-            stl_file_path = os.path.join(stl_files_dir, stl_file_name)
-
+        for i in range(len(self.angles)):
+            stl_file = self.scene_data_.save_stl(i, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
+            
             # Import STL file and render in the main thread
             QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
-                                     Q_ARG(str, stl_file_path), Q_ARG(str, output_dir), Q_ARG(int, i+1))
+                                     Q_ARG(object, stl_file), Q_ARG(str, output_dir), Q_ARG(int, i+1))
 
             self.progress_signal.emit(i + 1)
 
         frames_path = os.path.join(self.project_folder, 'data/images')
-        video_path = os.path.join(self.project_folder, "data/videos/stl_animation_temp.mp4")
+        project_name = os.path.basename(self.project_folder)
+        video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
 
         create_video_from_frames(frames_path, video_path, frame_rate=20,
                                  width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
 
-    @pyqtSlot(str, str, int)
-    def import_and_render(self, stl_file_path, output_dir, frame_index):
-        bpy.ops.import_mesh.stl(filepath=stl_file_path)
+    @pyqtSlot(object, str, int)
+    def import_and_render(self, stl_mesh, output_dir, frame_index):
+        """ Handle numpy-stl mesh directly instead of file path """
+        
+        # Create a new Blender mesh and object
+        new_mesh = bpy.data.meshes.new("imported_mesh")
+        new_object = bpy.data.objects.new("ImportedObject", new_mesh)
+        bpy.context.collection.objects.link(new_object)
+        
+        # Create BMesh to build geometry from numpy-stl mesh
+        bm = bmesh.new()
+        for face in stl_mesh.vectors:
+            verts = [bm.verts.new(v) for v in face]
+            bm.faces.new(verts)
+        
+        bm.to_mesh(new_mesh)
+        bm.free()
 
-        imported_objects = [obj for obj in bpy.context.selected_objects if obj.name.startswith("ellipse_")]
-        if imported_objects:
-            imported_object = imported_objects[0]
-        else:
-            print(f"Error: Unable to find the imported object for {stl_file_path}")
-            return
+        # Add material to the object
+        blue_material_name = "BlueMaterial"
+        if not any(mat.name == blue_material_name for mat in new_mesh.materials):
+            # Create the blue material if it doesn't exist
+            if blue_material_name not in bpy.data.materials:
+                blue_material = bpy.data.materials.new(name=blue_material_name)
+                blue_material.use_nodes = True
+                bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
+                bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
+            else:
+                blue_material = bpy.data.materials.get(blue_material_name)
+            
+            # Assign the material to the object
+            new_mesh.materials.append(blue_material)
 
+        # Set the render output file path and render
         output_filename = f'frame_{frame_index}.png'
         output_path = os.path.join(output_dir, output_filename)
-
+        
         bpy.context.scene.render.filepath = output_path
         bpy.ops.render.render(write_still=True)
 
+        # Clean up the object after rendering
         bpy.ops.object.select_all(action='DESELECT')
-        imported_object.select_set(True)
+        new_object.select_set(True)
         bpy.ops.object.delete()
 
 class ProjectWindow(QMainWindow):
@@ -123,8 +154,10 @@ class ProjectWindow(QMainWindow):
 
         # Place the window in the center of the screen
         self.setWindowTitle("FlapKine")
-        # self.setWindowIcon(QIcon('app/assets/flap_kine_icon.png'))
 
+        # Set the icon
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
+        
         ############################ Menu Bar ################################
         self.menu = self.menuBar()
         self.file_menu = self.menu.addMenu('File')
@@ -154,6 +187,11 @@ class ProjectWindow(QMainWindow):
         self.render_menu = self.menu.addMenu('Render')
         self.render_option = self.render_menu.addAction('Configure Render')
         self.render_option.triggered.connect(self.change_render_config)
+        self.reflect_option = self.render_menu.addAction('Reflect')
+        self.reflect_option.setCheckable(True)
+        self.reflect_option.setChecked(True)
+        self.reflect = True
+        self.reflect_option.triggered.connect(self.change_reflect_config)
 
         self.help_menu = self.menu.addMenu('Help')
         self.about_action = self.help_menu.addAction('About') 
@@ -271,7 +309,9 @@ class ProjectWindow(QMainWindow):
         self.media_player.positionChanged.connect(self.updatePosition)
         self.media_player.stateChanged.connect(self.updateState)
 
-        video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
+        project_name = os.path.basename(self.project_folder)
+
+        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
 
         if not os.path.exists(video_path):
             self.showErrorDialog('Alert', f"No render found at: {self.project_folder}")
@@ -293,13 +333,15 @@ class ProjectWindow(QMainWindow):
     
     # Print the STL based on the slider value
     def process_STL(self):
+        # Load the config file
+        with open(os.path.join(self.project_folder, 'config.json')) as f:
+            config = json.load(f)
+        reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+        self.reflect = reflect  
+
         value = self.slider.value()
-        self.scene_data.save_stl(value, os.path.join(self.project_folder, f'data/stl/ellipse_temp.stl'))
 
-        stl_filename = os.path.join(self.project_folder, f'data/stl/ellipse_temp.stl')
-
-        your_mesh = mesh.Mesh.from_file(stl_filename)
-
+        your_mesh = self.scene_data.save_stl(value, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
         # Extract the vertices and faces
         vertices = your_mesh.vectors.reshape(-1, 3)
         x, y, z = vertices[:, 0], vertices[:, 1], vertices[:, 2]
@@ -387,7 +429,7 @@ class ProjectWindow(QMainWindow):
 
         self.render_button.setEnabled(False)
 
-        self.worker = Worker(self.project_folder, self.angles, self.scene_data)
+        self.worker = Worker(self.project_folder, self.angles, self.scene_data, self.reflect)
 
         self.worker.progress_signal.connect(self.update_progress)
 
@@ -397,11 +439,15 @@ class ProjectWindow(QMainWindow):
 
     def complete_render(self):
         self.render_button.setEnabled(True)
-        video_path = os.path.join(self.project_folder, 'data/videos/stl_animation_temp.mp4')
+        project_name = os.path.basename(self.project_folder)
+        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
         self.setMedia(video_path)
 
     def update_progress(self, value):
         self.progress_bar.setValue(value)
+    
+    def change_reflect_config(self):
+        self.reflect = self.reflect_option.isChecked()
 
     ############################ Video Functions ################################
     def playVideo(self):

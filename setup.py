@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='flapping_wing_mav_simulation',
+    name='FlapKine',
     version='0.1.0',
     description='Simulation of flapping wing micro air vehicles',
     author='Kalbhavi Vadhiraj',
@@ -18,7 +18,8 @@ setup(
         'pandas',
         'PyQt5',
         'PyQtWebEngine',
-        'numpy-stl'
+        'numpy-stl',
+        'opencv-python-headless',
 
     ],
     entry_points={

@@ -12,6 +12,9 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         # Place the window in the center of the screen
         self.setWindowTitle("FlapKine")
+
+        # Set the icon
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
         
         # Add the menu bar
         self.menu = self.menuBar()

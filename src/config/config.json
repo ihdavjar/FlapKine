@@ -16,6 +16,7 @@
     "Light": {
         "location": [4, 0, 4],
         "energy": 1000
-    }
-
+    },
+    "Reflect": "XY"
 }
+

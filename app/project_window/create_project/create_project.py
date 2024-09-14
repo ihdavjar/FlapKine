@@ -14,6 +14,9 @@ class CreateProjectWin(QMainWindow):
         # Place the window in the center of the screen
         self.setWindowTitle("Import Scene")
 
+        # Set the icon
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
+
         self.project_folder = project_folder
         
         # Add the menu bar
@@ -135,12 +138,18 @@ class CreateProjectWin(QMainWindow):
             camera_rotation = QHBoxLayout()
 
             self.camera_location_x = QDoubleSpinBox()
+            self.camera_location_x.setRange(-1000, 1000)
             self.camera_location_y = QDoubleSpinBox()
+            self.camera_location_y.setRange(-1000, 1000)
             self.camera_location_z = QDoubleSpinBox()
+            self.camera_location_z.setRange(-1000, 1000)
 
             self.camera_rotation_alpha = QDoubleSpinBox()
+            self.camera_rotation_alpha.setRange(-360, 360)
             self.camera_rotation_beta = QDoubleSpinBox()
+            self.camera_rotation_beta.setRange(-360, 360)
             self.camera_rotation_gamma = QDoubleSpinBox()
+            self.camera_rotation_gamma.setRange(-360, 360)
 
             camera_location.addWidget(QLabel('Location'))
             camera_location.addWidget(self.camera_location_x)
@@ -165,8 +174,11 @@ class CreateProjectWin(QMainWindow):
             light_power = QHBoxLayout()
 
             self.light_location_x = QDoubleSpinBox()
+            self.light_location_x.setRange(-1000, 1000)
             self.light_location_y = QDoubleSpinBox()
+            self.light_location_y.setRange(-1000, 1000)
             self.light_location_z = QDoubleSpinBox()
+            self.light_location_z.setRange(-1000, 1000)
 
             self.light_power = QSpinBox()
             self.light_power.setMinimum(0)
@@ -188,15 +200,32 @@ class CreateProjectWin(QMainWindow):
             self.config_layout.addLayout(Camera_settings)
             self.config_layout.addLayout(Light_settings)
             self.config_group.setLayout(self.config_layout)
-
             self.config_group.setEnabled(False)
 
+            ############################ REFLECT CONFIG ############################
+
+            self.reflect_group = QGroupBox("Reflect")
+            self.reflect_group.setFont(QFont('Times', 9))
+
+            self.reflect_xy = QCheckBox('Reflect XY')
+            self.reflect_yz = QCheckBox('Reflect YZ')
+            self.reflect_xz = QCheckBox('Reflect XZ')
+
+            reflect_layout = QVBoxLayout()
+            reflect_layout.addWidget(self.reflect_xy)
+            reflect_layout.addWidget(self.reflect_yz)
+            reflect_layout.addWidget(self.reflect_xz)
+
+            self.reflect_group.setLayout(reflect_layout) 
+
+            ############################ OK BUTTON ############################
             self.ok_button = QPushButton('Create Project', self)
             self.ok_button.clicked.connect(self.create_the_project)
             
             self.main_layout.addLayout(box1)
             self.main_layout.addLayout(box2)
             self.main_layout.addWidget(self.config_group)
+            self.main_layout.addWidget(self.reflect_group)
             self.main_layout.addWidget(self.ok_button)
 
     def import_scene(self):
@@ -244,6 +273,17 @@ class CreateProjectWin(QMainWindow):
 
             self.light_power.setValue(config['Light']['energy'])
 
+            if config['Reflect'] == 'XY':
+                self.reflect_xy.setChecked(True)
+            elif config['Reflect'] == 'YZ':
+                self.reflect_yz.setChecked(True)
+            elif config['Reflect'] == 'XZ':
+                self.reflect_xz.setChecked(True)
+            else:
+                self.reflect_xy.setChecked(False)
+                self.reflect_yz.setChecked(False)
+                self.reflect_xz.setChecked(False)
+
             self.config_group.setEnabled(True)
         else:
             self.config_group.setEnabled(False)
@@ -270,6 +310,11 @@ class CreateProjectWin(QMainWindow):
             self.light_power.setValue(0)
 
             self.config_group.setEnabled(True)
+
+            self.reflect_xy.setChecked(False)
+            self.reflect_yz.setChecked(False)
+            self.reflect_xz.setChecked(False)
+
         else:
             self.config_group.setEnabled(False)
 
@@ -282,7 +327,6 @@ class CreateProjectWin(QMainWindow):
         os.makedirs(self.project_folder + '/data')
         os.makedirs(self.project_folder + '/data/images')
         os.makedirs(self.project_folder + '/data/videos')
-        os.makedirs(self.project_folder + '/data/stl')
 
         # Copy the scene file to the project folder
         if not hasattr(self, 'scene_data'):
@@ -313,7 +357,8 @@ class CreateProjectWin(QMainWindow):
             'Light': {
                 'location': [self.light_location_x.value(), self.light_location_y.value(), self.light_location_z.value()],
                 'energy': self.light_power.value()
-            }
+            },
+            'Reflect': 'XY' if self.reflect_xy.isChecked() else 'YZ' if self.reflect_yz.isChecked() else 'XZ' if self.reflect_xz.isChecked() else None
         }
 
         with open(os.path.join(self.project_folder, 'config.json'), 'w') as file:

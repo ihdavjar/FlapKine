@@ -1,3 +1,4 @@
+import os
 import sys
 import pickle
 from PyQt5.QtWidgets import *
@@ -16,6 +17,9 @@ class CreateScene(QMainWindow):
         self.center()
         
         self.setWindowTitle("Create Scene")
+
+        # Set the icon
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
 
         # Add the menu bar
         self.menu = self.menuBar()
