@@ -17,6 +17,8 @@
         "location": [4, 0, 4],
         "energy": 1000
     },
+    "STL": false,
+    
     "Reflect": "XY"
 }
 

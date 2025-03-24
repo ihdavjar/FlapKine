@@ -27,7 +27,6 @@ class Object3D:
         position: np.array of shape (3,) i.e (x, y, z)
         angles: np.array of shape (3,) i.e (alpha, beta, gamma)
         '''
-
         # Get the vertices of the mesh
         vertices = self.stl_mesh.vectors.copy()
         vertices = vertices.reshape(-1, 3)
@@ -55,15 +54,18 @@ class Sprite:
         angles: np.array of shape (3,) i.e (alpha, beta, gamma)
         '''
         self.object_ = object_
-        self.positions = positions
-        self.angles = angles
+        self.positions = positions.reshape(-1, 3)
+        self.angles = angles.reshape(-1, 3)
+        self.frame_origin = [0, 0, 0]
+        self.frame_orientation = [0, 0, 0]
+
     
     def transform(self, t):
         '''
         t: integer
         '''
         return self.object_.transform(self.positions[t,:] ,self.angles[t,:], t)
-        
+    
 class Scene:
     def __init__(self, objects: list):
         '''

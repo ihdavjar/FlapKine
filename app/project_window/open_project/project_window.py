@@ -16,14 +16,47 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from src.utils.utils import create_video_from_frames
 from app.widgets.render_config import RenderConfig
+import vtk
+from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+import qtawesome as qta
 
 import os
 import json
 from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
 import bpy
+        
+class VideoPlayer(QWidget):
+    def __init__(self, width=640, height=480):  # Default size
+        super().__init__()
+        layout = QVBoxLayout()
+        self.setLayout(layout)
 
+        # Create video widget
+        self.video_widget = QVideoWidget(self)
+        self.video_widget.setSizePolicy(QWidget.sizePolicy(self).Expanding, QWidget.sizePolicy(self).Expanding)
+        self.video_widget.setMinimumSize(400, 225)  # Ensuring a minimum size
+
+        layout.addWidget(self.video_widget)
+
+        # Setup media player
+        self.media_player = QMediaPlayer(None, QMediaPlayer.VideoSurface)
+        self.media_player.setVideoOutput(self.video_widget)
+
+        # Set initial size
+        self.setMinimumSize(width, height)
+
+    def setMedia(self, video_path):
+        media = QMediaContent(QUrl.fromLocalFile(video_path))
+        self.media_player.setMedia(media)
+        self.media_player.pause()
+
+    def resizeEvent(self, event):
+        """Ensure the video widget resizes properly and maintains aspect ratio."""
+        self.video_widget.setGeometry(self.rect())  # Stretch to fit full screen
+        super().resizeEvent(event)
+        
 class Worker(QThread):
-    progress_signal = pyqtSignal(int)
+    progress_signal = pyqtSignal(float)
 
     def __init__(self, project_folder, angles, scene_data, reflect, parent=None):
         super(Worker, self).__init__(parent)
@@ -50,9 +83,8 @@ class Worker(QThread):
         bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
         bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
 
-         # Set the camera to orthographic view
-        bpy.context.scene.camera.data.type = 'ORTHO'
-        bpy.context.scene.camera.data.ortho_scale = config['Camera'].get('ortho_scale', 10)  # Set orthographic scale (default is 10)
+        bpy.context.scene.camera.data.type = 'PERSP'
+        bpy.context.scene.camera.data.lens = 140
 
         # Set the light parameters
         bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
@@ -66,8 +98,7 @@ class Worker(QThread):
         bpy.context.scene.render.fps = 24  # Frame rate
 
          # Set the world background color to white
-        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (1, 1, 1, 1)  # White background
-
+        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.95, 0.95, 0.95, 1)
         # Create a blue material
         blue_material = bpy.data.materials.new(name="BlueMaterial")
         blue_material.use_nodes = True
@@ -76,20 +107,28 @@ class Worker(QThread):
         
         # stl_files_dir = os.path.join(self.project_folder, 'data/stl')
         output_dir = os.path.join(self.project_folder, 'data/images')
+        stl_dir = os.path.join(self.project_folder, 'data/stl')
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
+        
+        if config["STL"]:
+            if not os.path.exists(stl_dir):
+                os.makedirs(stl_dir)
 
         # Loop through each STL file
         for i in range(len(self.angles)):
             stl_file = self.scene_data_.save_stl(i, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
             
+            if config["STL"]:
+                stl_file.save(os.path.join(stl_dir, f"stl_mesh_{i}.stl"))
+            
             # Import STL file and render in the main thread
             QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
                                      Q_ARG(object, stl_file), Q_ARG(str, output_dir), Q_ARG(int, i+1))
 
-            self.progress_signal.emit(i + 1)
-
+            self.progress_signal.emit((i + 1)/len(self.angles) * 100)
+            
         frames_path = os.path.join(self.project_folder, 'data/images')
         project_name = os.path.basename(self.project_folder)
         video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
@@ -142,18 +181,79 @@ class Worker(QThread):
         new_object.select_set(True)
         bpy.ops.object.delete()
 
+class STLWorker(QThread):
+    stl_ready = pyqtSignal(object)
+
+    def __init__(self, scene_data, project_folder, value, reflect):
+        super(STLWorker, self).__init__()
+        self.scene_data = scene_data
+        self.project_folder = project_folder
+        self.value = value
+        self.reflect = reflect
+        self._is_running = True  # Add a running flag
+
+    def run(self):
+        try:
+            with open(os.path.join(self.project_folder, 'config.json')) as f:
+                config = json.load(f)
+
+            reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+
+            your_mesh = self.scene_data.save_stl(self.value, reflect_xy=reflect[0], reflect_yz=reflect[1], reflect_xz=reflect[2])
+
+            if not self._is_running:
+                return  # Stop if the thread was asked to exit
+
+            poly_data = self.stl_mesh_to_vtk(your_mesh)
+            self.stl_ready.emit(poly_data)
+
+        except Exception as e:
+            print(f"Error in STL processing thread: {e}")
+
+    def stop(self):
+        """Gracefully stop the thread."""
+        self._is_running = False
+            
+    def stl_mesh_to_vtk(self, stl_mesh):
+        """
+        Convert an stl.mesh.Mesh (numpy-stl) object to vtkPolyData.
+        """
+        poly_data = vtk.vtkPolyData()
+        points = vtk.vtkPoints()
+        cells = vtk.vtkCellArray()
+
+        # Extract unique vertices and create a mapping
+        unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
+
+        # Insert vertices into vtkPoints
+        for vertex in unique_vertices:
+            points.InsertNextPoint(vertex[0], vertex[1], vertex[2])
+
+        # Insert faces into vtkCellArray
+        for i in range(0, len(indices), 3):
+            triangle = vtk.vtkTriangle()
+            for j in range(3):
+                triangle.GetPointIds().SetId(j, indices[i + j])
+            cells.InsertNextCell(triangle)
+
+        # Assign points and cells to polydata
+        poly_data.SetPoints(points)
+        poly_data.SetPolys(cells)
+        return poly_data
+    
 class ProjectWindow(QMainWindow):
+
     def __init__(self, project_folder):
         super(ProjectWindow, self).__init__()
-
-        # Maximize the window
-        self.showMaximized()
 
         # Storing the project folder
         self.project_folder = project_folder
 
         # Place the window in the center of the screen
         self.setWindowTitle("FlapKine")
+
+        # Set the window geometry
+        self.resize(1200, 800)
 
         # Set the icon
         self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
@@ -187,20 +287,10 @@ class ProjectWindow(QMainWindow):
         self.render_menu = self.menu.addMenu('Render')
         self.render_option = self.render_menu.addAction('Configure Render')
         self.render_option.triggered.connect(self.change_render_config)
-        self.reflect_option = self.render_menu.addAction('Reflect')
-        self.reflect_option.setCheckable(True)
-        self.reflect_option.setChecked(True)
-        self.reflect = True
-        self.reflect_option.triggered.connect(self.change_reflect_config)
 
         self.help_menu = self.menu.addMenu('Help')
         self.about_action = self.help_menu.addAction('About') 
         self.about_action.triggered.connect(self.about_button_fun)
-
-        # Video Widget
-        self.media_player = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.video_widget = QVideoWidget()
-        self.media_player.setVideoOutput(self.video_widget)
 
         # Process the project
         self.process_project()
@@ -213,23 +303,49 @@ class ProjectWindow(QMainWindow):
         # Create the main layout
         main_layout = QHBoxLayout(central_widget)
 
-        # Create a QSplitter to hold the two groups
-        splitter = QSplitter(Qt.Horizontal)
+        # Create a QSplitter for 4-way splitting
+        main_splitter = QSplitter(Qt.Vertical)
 
-        self.createLeftGroupBox()
-        self.createRightGroupBox()
+        # Create horizontal splitters for the top and bottom rows
+        top_splitter = QSplitter(Qt.Horizontal)
+        bottom_splitter = QSplitter(Qt.Horizontal)
+                                    
+        self.CreateAnimation()
+        self.create_3d_visualiser()
+        self.point_selected()
+        self.create_3d_scatter_plot([0, 0, 0])
 
-        group1 = self.leftGroupBox
-        group2 = self.rightGroupBox
+        # Adding widgets to top row
+        top_splitter.addWidget(self.topleftgroup)  # Top left (Main controls)
+        top_splitter.addWidget(self.toprightgroup)  # Placeholder for future expansion
 
-        splitter.addWidget(group1)
-        splitter.addWidget(group2)
+        # Adding widgets to bottom row
+        bottom_splitter.addWidget(self.bottomleftgroup)  # Bottom left (Output/Logs)
+        bottom_splitter.addWidget(self.bottomrightgroup)  # Placeholder for future expansion
 
-        # Set the sizes of the splitter's children
-        splitter.setSizes([1, 1])
+        # Add both rows to main vertical splitter
+        main_splitter.addWidget(top_splitter)
+        main_splitter.addWidget(bottom_splitter)
 
-        # Add the splitter to the main layout
-        main_layout.addWidget(splitter)
+        # Set minimum size for each section
+        self.topleftgroup.setMinimumSize(600, 400)
+        self.toprightgroup.setMinimumSize(400, 400)
+        self.bottomleftgroup.setMinimumSize(600, 400)
+        self.bottomrightgroup.setMinimumSize(400, 400)
+
+        # Set the exact sizes for each splitter
+        top_splitter.setSizes([600, 600])    # Each half is 600px wide
+        bottom_splitter.setSizes([600, 600]) # Each half is 600px wide
+        main_splitter.setSizes([400, 400])   # Each half is 400px tall
+
+        main_layout.setContentsMargins(10, 10, 10, 10)
+        main_layout.setSpacing(8)
+        
+        # Add the main splitter to the layout
+        main_layout.addWidget(main_splitter)
+
+        # Maximize the window
+        # self.showMaximized()
 
     ############################ Project Functions ################################
     def process_project(self):
@@ -243,71 +359,262 @@ class ProjectWindow(QMainWindow):
                 self.scene_data = pickle.load(scene_file)
                 self.angles = self.scene_data.objects[0].angles
     
-    # Create the left group box
-    def createLeftGroupBox(self):
-        self.leftGroupBox = QGroupBox("Group 1")
-
-        self.slider = QSlider(Qt.Orientation.Horizontal, self.leftGroupBox)
-        self.slider.valueChanged.connect(self.process_STL)
-        self.slider.setMinimum(0)
-        self.slider.setMaximum(len(self.angles)-1)
-        self.slider.setValue(0)
-
-        self.plotly_chart_view = QWebEngineView(self.leftGroupBox)
+    def create_3d_visualiser(self):
+        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
+        self.bottomleftgroup = QGroupBox("3D Frame Viewer")
+        self.bottomleftgroup.setFont(QFont('Times', 9))
 
         layout = QVBoxLayout()
-        layout.addWidget(self.slider)
-        layout.addWidget(self.plotly_chart_view, 1) 
+        slider_layout = QHBoxLayout()
 
-        self.leftGroupBox.setLayout(layout)
+        # Label to display current slider value with updated style
+        self.slider_label = QLabel("Frame: 0", self.bottomleftgroup)
+        self.slider_label.setFont(QFont('Arial', 8, QFont.Weight.Bold))
+        self.slider_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.slider_label.setStyleSheet("color: #333;")  # Darker color for better visibility
+
+        # Slider with updated style and smoother handle
+        self.slider = QSlider(Qt.Orientation.Horizontal, self.bottomleftgroup)
+        self.slider.setMinimum(0)
+        self.slider.setMaximum(len(self.angles) - 1)
+        self.slider.setValue(0)
+        self.slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.slider.setTickInterval(max(1, len(self.angles) // 10))
+        self.slider.valueChanged.connect(self.on_slider_value_changed)
+
+        self.slider.setStyleSheet("""
+            QSlider::groove:horizontal {
+                border: none;
+                background: #ddd;
+                height: 8px;
+                border-radius: 4px;
+            }
+
+            QSlider::handle:horizontal {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);
+                border: 2px solid #005a9e;
+                width: 18px;
+                height: 18px;
+                margin: -7px 0;
+                border-radius: 9px;
+            }
+
+            QSlider::handle:horizontal:hover {
+                background: #005a9e;
+            }
+
+            QSlider::sub-page:horizontal {
+                background: #00aaff;
+                border-radius: 4px;
+            }
+
+            QSlider::add-page:horizontal {
+                background: #ccc;
+                border-radius: 4px;
+            }
+        """)
+
+        # Add a Play/Pause button (if necessary)
+        self.play_button = QPushButton("", self.bottomleftgroup)
+        self.play_button.setIcon(qta.icon("mdi.play", color=primary_color))
+        self.playing = False
+        self.play_button.clicked.connect(self.toggle_play)
+
+        # Add a next frame button
+        self.next_button = QPushButton("", self.bottomleftgroup)
+        self.next_button.setIcon(qta.icon("mdi.skip-next", color=primary_color))
+        self.next_button.clicked.connect(lambda: self.slider.setValue(self.slider.value() + 1))
+
+        slider_layout.addWidget(self.play_button)
+        slider_layout.addWidget(self.next_button)
+        slider_layout.addWidget(self.slider)
+        slider_layout.addWidget(self.slider_label)
+        layout.addLayout(slider_layout)
+
+        self.vtkWidget = QVTKRenderWindowInteractor(self)
+
+        self.ren = vtk.vtkRenderer()
+        self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
+
+        self.ren.SetBackground(0.95, 0.95, 0.95)  # Slightly lighter background
+
+        self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
+        self.iren.Initialize()
+
+        layout.addWidget(self.vtkWidget)
+
+        self.vtkWidget.setStyleSheet("""
+            background-color: #fafafa;
+            border: 1px solid #bbb;
+            border-radius: 10px;
+        """)
+
+        self.bottomleftgroup.setLayout(layout)
 
         self.process_STL()
+    # Add play/pause functionality
+    def toggle_play(self):
+        primary_color = self.palette().color(self.foregroundRole()).name()  
 
+        if self.playing:
 
-    # Create the right group box
-    def createRightGroupBox(self):
-        self.rightGroupBox = QGroupBox("Group 2")
+            self.playing = False
+        else:
+            self.play_button.setIcon(qta.icon("mdi.pause", color=primary_color))
+            self.playing = True
+            self.play_frames()
 
-        self.render_button = QPushButton("Render")
-        self.render_button.clicked.connect(self.genframes)
+    def play_frames(self):
+        if self.playing:
+            current_frame = self.slider.value()
+            if current_frame < len(self.angles) - 1:
+                self.slider.setValue(current_frame + 1)
+                self.on_slider_value_changed()
+                QTimer.singleShot(50, self.play_frames)
+
+    def on_slider_value_changed(self):
+        value = self.slider.value()
+        self.slider_label.setText(f"Frame: {value}")
+        self.slider_label.setFont(QFont('Times', 8, QFont.Weight.Bold))
+        
+        
+        # Gracefully stop the previous thread if running
+        if hasattr(self, 'stl_worker') and self.stl_worker.isRunning():
+            self.stl_worker.stop()
+            self.stl_worker.wait()  # Wait for it to stop properly
+
+        # Start new worker
+        self.stl_worker = STLWorker(self.scene_data, self.project_folder, value, self.reflect)
+        self.stl_worker.stl_ready.connect(self.update_STL)
+        self.stl_worker.start()
+
+    def update_STL(self, poly_data):
+        """Update the VTK scene with the new STL data (runs in the main thread)."""
+        try:
+            mapper = vtk.vtkPolyDataMapper()
+            mapper.SetInputData(poly_data)
+
+            actor = vtk.vtkActor()
+            actor.SetMapper(mapper)
+            actor.GetProperty().SetColor(0.5, 0.7, 1)  # Light blue
+
+            # Clear previous actors and add new one
+            self.ren.RemoveAllViewProps()
+            self.ren.AddActor(actor)
+            self.ren.ResetCamera()
+
+            # Render the scene
+            self.vtkWidget.GetRenderWindow().Render()
+        except Exception as e:
+            print(f"Error updating STL: {e}")
+    # Create the bottom left group
+    def CreateAnimation(self):
+
+        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
+        
+        self.topleftgroup = QGroupBox("Animation Window")
+        self.topleftgroup.setFont(QFont('Times', 9))
 
         # Video Related Widget
-
-        # Create play button
-        self.playButton = QPushButton('Play')
+        self.playButton = QPushButton('')
+        self.playButton.setIcon(qta.icon("mdi.play", color=primary_color))
+        self.video_playing = False
         self.playButton.clicked.connect(self.playVideo)
 
-        # Create pause button
-        self.pauseButton = QPushButton('Pause')
-        self.pauseButton.clicked.connect(self.pauseVideo)
-
-        # Create repeat button
-        self.repeatButton = QPushButton('Repeat')
+        self.repeatButton = QPushButton('')
+        self.repeatButton.setIcon(qta.icon("mdi.repeat", color=primary_color))
         self.repeatButton.setCheckable(True)
         self.repeatButton.clicked.connect(self.repeatVideo)
 
         # Create slider for video position
         self.positionSlider = QSlider(Qt.Horizontal)
         self.positionSlider.setRange(0, 0)
+        self.positionSlider.setStyleSheet("""
+            QSlider::groove:horizontal {
+                border: none;
+                background: #ddd;
+                height: 8px;
+                border-radius: 4px;
+            }
+
+            QSlider::handle:horizontal {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);
+                border: 2px solid #005a9e;
+                width: 18px;
+                height: 18px;
+                margin: -7px 0;
+                border-radius: 9px;
+            }
+
+            QSlider::handle:horizontal:hover {
+                background: #005a9e;
+            }
+
+            QSlider::sub-page:horizontal {
+                background: #00aaff;
+                border-radius: 4px;
+            }
+
+            QSlider::add-page:horizontal {
+                background: #ccc;
+                border-radius: 4px;
+            }
+        """)
         self.positionSlider.sliderMoved.connect(self.setPosition)
+        
+
+
+        # render options
+        self.render_button = QPushButton("Render")
+        self.render_button.setFont(QFont('Times', 8))
+        
+        self.render_button.setIcon(qta.icon("mdi.printer-3d", color = primary_color))
+        self.render_button.clicked.connect(self.genframes)
 
         self.progress_bar = QProgressBar()
         self.progress_bar.setRange(0, 100)
         self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet("""
+    QProgressBar {
+        border: 2px solid #005a9e;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 10pt;
+        background-color: #ddd;
+        padding: 2px;
+    }
 
+    QProgressBar::chunk {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);
+        border-radius: 5px;
+    }
+""")
 
         # Create label for displaying status
         self.statusLabel = QLabel('')
+        self.statusLabel.setFont(QFont('Times', 8))
+
+        render_layout = QHBoxLayout()
+        render_layout.addWidget(self.render_button)
+        render_layout.addWidget(self.progress_bar)
+        
 
         controlLayout = QHBoxLayout()
         controlLayout.addWidget(self.playButton)
-        controlLayout.addWidget(self.pauseButton)
-        controlLayout.addWidget(self.repeatButton)  
+        controlLayout.addWidget(self.repeatButton) 
+        controlLayout.addWidget(self.positionSlider) 
+
+        with open(os.path.join(self.project_folder, 'config.json')) as f:
+            config = json.load(f)
 
         # Connect media player signals
-        self.media_player.durationChanged.connect(self.updateDuration)
-        self.media_player.positionChanged.connect(self.updatePosition)
-        self.media_player.stateChanged.connect(self.updateState)
+        self.video_widget = VideoPlayer(config['VideoRender']['resolution_x'], config['VideoRender']['resolution_y'])
+
+        # Connect media player signals
+        self.video_widget.media_player.durationChanged.connect(self.updateDuration)
+        self.video_widget.media_player.positionChanged.connect(self.updatePosition)
+        self.video_widget.media_player.stateChanged.connect(self.updateState)
+
 
         project_name = os.path.basename(self.project_folder)
 
@@ -317,20 +624,237 @@ class ProjectWindow(QMainWindow):
             self.showErrorDialog('Alert', f"No render found at: {self.project_folder}")
         
         else:
-            self.setMedia(video_path)
+            self.video_widget.setMedia(video_path)
             
         layout = QVBoxLayout()
-        layout.addWidget(self.render_button)
         layout.addWidget(self.video_widget)
-        layout.addWidget(self.positionSlider)
         layout.addLayout(controlLayout)
-        layout.addWidget(self.statusLabel)
-        layout.addWidget(self.progress_bar)
-        
-        layout.addStretch(1)
+        layout.addLayout(render_layout)
 
-        self.rightGroupBox.setLayout(layout)
+        self.topleftgroup.setLayout(layout)
     
+    def point_selected(self):
+        
+        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
+
+        self.toprightgroup = QGroupBox("Selected Point")
+        self.toprightgroup.setFont(QFont('Times', 9))
+
+        layout = QVBoxLayout()
+
+        # VTK Widget for rendering
+        self.vtk_widget_1 = QVTKRenderWindowInteractor(self)
+        layout.addWidget(self.vtk_widget_1)
+
+        # VTK Renderer
+        self.ren_1 = vtk.vtkRenderer()
+        self.ren_1.SetBackground(0.95, 0.95, 0.95)  # Light grey background
+        self.vtk_widget_1.GetRenderWindow().AddRenderer(self.ren_1)
+        self.iren_1 = self.vtk_widget_1.GetRenderWindow().GetInteractor()
+
+        # **Disable Rotation: Use Image Style**
+        self.interactor_style_1 = vtk.vtkInteractorStyleImage()
+        self.iren_1.SetInteractorStyle(self.interactor_style_1)
+
+        # Mouse click event
+        self.iren_1.AddObserver("LeftButtonPressEvent", self.on_click)
+
+        mesh = self.scene_data.objects[0].object_.stl_mesh
+
+        poly_data = self.stl_mesh_to_vtk(mesh)
+
+        points = np.array([poly_data.GetPoint(i) for i in range(poly_data.GetNumberOfPoints())])
+        points[:, 2] = 0  # Flatten Z-axis
+
+        # Update VTK polydata with 2D points
+        new_points = vtk.vtkPoints()
+        for p in points:
+            new_points.InsertNextPoint(p)
+
+        poly_data.SetPoints(new_points)
+
+        # **Main Actor (Surface)**
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(poly_data)
+
+        self.actor_1 = vtk.vtkActor()
+        self.actor_1.SetMapper(mapper)
+        self.actor_1.GetProperty().SetColor(0.5, 0.7, 1)  # Light blue
+
+        # **Outline Actor (Black Edges)**
+        edges_filter = vtk.vtkFeatureEdges()
+        edges_filter.SetInputData(poly_data)
+        edges_filter.BoundaryEdgesOn()
+        edges_filter.FeatureEdgesOff()
+        edges_filter.ManifoldEdgesOff()
+        edges_filter.NonManifoldEdgesOff()
+        edges_filter.Update()
+
+        # Render
+        self.ren_1.RemoveAllViewProps()
+        self.ren_1.AddActor(self.actor_1)  # Add surface
+        self.ren_1.ResetCamera()
+        self.vtk_widget_1.GetRenderWindow().Render()
+
+        self.show()
+        self.toprightgroup.setLayout(layout)
+        
+    def on_click(self, obj, event):
+        """Handles mouse click and prints the clicked coordinates."""
+        click_pos = self.iren_1.GetEventPosition()
+
+        picker = vtk.vtkCellPicker()
+        picker.SetTolerance(0.005)
+        picker.Pick(click_pos[0], click_pos[1], 0, self.ren_1)
+
+        picked_pos = picker.GetPickPosition()
+
+        self.create_3d_scatter_plot(picked_pos)
+        self.add_marker_to_vtk(picked_pos)
+
+    def add_marker_to_vtk(self, position):
+        """
+        Adds a red sphere marker at the given (x, y, z) position in the VTK 3D visualization.
+        Removes the previous marker before adding a new one.
+        
+        :param position: Tuple (x, y, z) representing the world coordinates.
+        """
+        # Remove previous marker if it exists
+        if hasattr(self, "last_marker_actor"):
+            self.ren_1.RemoveActor(self.last_marker_actor)
+        if hasattr(self, "last_outline_actor"):
+            self.ren_1.RemoveActor(self.last_outline_actor)
+
+        # Create a sphere marker
+        sphere = vtk.vtkSphereSource()
+        sphere.SetCenter(position)
+        sphere.SetRadius(0.08)  # Adjust size (smaller for a marker)
+        sphere.SetPhiResolution(30)  # Increase resolution for smoothness
+        sphere.SetThetaResolution(30)
+
+        sphere_mapper = vtk.vtkPolyDataMapper()
+        sphere_mapper.SetInputConnection(sphere.GetOutputPort())
+
+        sphere_actor = vtk.vtkActor()
+        sphere_actor.SetMapper(sphere_mapper)
+        sphere_actor.GetProperty().SetColor(1.0, 0.2, 0.2)  # Red marker
+        sphere_actor.GetProperty().SetAmbient(0.3)  # Glow effect
+        sphere_actor.GetProperty().SetSpecular(1.0)  # Strong reflection
+        sphere_actor.GetProperty().SetSpecularPower(50)  # Glossy look
+
+        # Create an outline for better visibility
+        outline_sphere = vtk.vtkSphereSource()
+        outline_sphere.SetCenter(position)
+        outline_sphere.SetRadius(0.1)  # Slightly larger than the main sphere
+
+        outline_mapper = vtk.vtkPolyDataMapper()
+        outline_mapper.SetInputConnection(outline_sphere.GetOutputPort())
+
+        outline_actor = vtk.vtkActor()
+        outline_actor.SetMapper(outline_mapper)
+        outline_actor.GetProperty().SetColor(1.0, 1.0, 1.0)  # White outline
+        outline_actor.GetProperty().SetOpacity(0.5)  # Semi-transparent effect
+
+        # Store reference to remove later
+        self.last_marker_actor = sphere_actor
+        self.last_outline_actor = outline_actor
+
+        # Add the marker to the renderer
+        self.ren_1.AddActor(outline_actor)
+        self.ren_1.AddActor(sphere_actor)
+
+        # Refresh the VTK display
+        self.vtk_widget_1.GetRenderWindow().Render()
+
+    def create_3d_scatter_plot(self, initial_point):
+        """
+        Creates or updates a 3D scatter plot using VTK.
+        
+        :param initial_point: List [x, y, z] representing the initial point in 3D space.
+        """
+        if not hasattr(self, 'bottomrightgroup'):
+            self.bottomrightgroup = QGroupBox("3D Scatter Plot")
+            self.bottomrightgroup.setFont(QFont('Times', 9))
+            layout = QVBoxLayout()
+            self.vtk_widget_2 = QVTKRenderWindowInteractor(self)
+            layout.addWidget(self.vtk_widget_2)
+            self.bottomrightgroup.setLayout(layout)
+
+            # Setup VTK Renderer
+            self.ren_2 = vtk.vtkRenderer()
+            self.ren_2.SetBackground(0.95, 0.95, 0.95)  # Light grey background
+            self.vtk_widget_2.GetRenderWindow().AddRenderer(self.ren_2)
+            self.iren_2 = self.vtk_widget_2.GetRenderWindow().GetInteractor()
+
+            # Store reference to scatter actor (for removal later)
+            self.scatter_actor = None
+
+        # Remove previous scatter actor if it exists
+        if self.scatter_actor:
+            self.ren_2.RemoveActor(self.scatter_actor)
+
+        # Convert initial point to NumPy array
+        initial_point = np.array(initial_point).reshape(1, 3)
+
+        # Retrieve transformations
+        translation_transform = self.scene_data.objects[0].object_.translation_transform
+        rotation_transform = self.scene_data.objects[0].object_.rotation_transform
+        flexibility_transform = self.scene_data.objects[0].object_.flexibility_transform
+        positions = self.scene_data.objects[0].positions
+        angles = self.scene_data.objects[0].angles
+
+        # Compute transformed points
+        new_points = []
+        for t in range(len(angles)):
+            temp_point = flexibility_transform(initial_point, t)
+            temp_point = rotation_transform(temp_point, angles[t])
+            temp_point = translation_transform(temp_point, positions[t])
+
+            if temp_point is not None:
+                new_points.append(temp_point)
+
+        # Convert points to VTK format
+        vtk_points = vtk.vtkPoints()
+        for point in new_points:
+            vtk_points.InsertNextPoint(point[0])  # Ensure it's a tuple (x, y, z)
+
+        # Create polydata object
+        polydata = vtk.vtkPolyData()
+        polydata.SetPoints(vtk_points)
+
+        # Create a sphere glyph for scatter plot points
+        sphere_source = vtk.vtkSphereSource()
+        sphere_source.SetRadius(0.1)  # Marker size
+        sphere_source.SetPhiResolution(20)
+        sphere_source.SetThetaResolution(20)
+
+        glyph = vtk.vtkGlyph3D()
+        glyph.SetInputData(polydata)
+        glyph.SetSourceConnection(sphere_source.GetOutputPort())
+        glyph.SetScaleModeToDataScalingOff()  # Keep uniform size
+
+        # Mapper and Actor
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputConnection(glyph.GetOutputPort())
+
+        self.scatter_actor = vtk.vtkActor()
+        self.scatter_actor.SetMapper(mapper)
+        self.scatter_actor.GetProperty().SetColor(0.0, 0.0, 1.0)  # Blue color
+
+        # Add new scatter plot
+        self.ren_2.AddActor(self.scatter_actor)
+
+        axes = vtk.vtkAxesActor()
+        axes.SetTotalLength(2.0, 2.0, 2.0)
+        axes.GetXAxisCaptionActor2D().GetTextActor().GetTextProperty().SetColor(1, 0, 0)
+        axes.GetYAxisCaptionActor2D().GetTextActor().GetTextProperty().SetColor(0, 1, 0)
+        axes.GetZAxisCaptionActor2D().GetTextActor().GetTextProperty().SetColor(0, 0, 1)
+        self.ren_2.AddActor(axes)
+
+        # Adjust Camera & Render
+        self.ren_2.ResetCamera()
+        self.vtk_widget_2.GetRenderWindow().Render()
+
     # Print the STL based on the slider value
     def process_STL(self):
         # Load the config file
@@ -342,88 +866,53 @@ class ProjectWindow(QMainWindow):
         value = self.slider.value()
 
         your_mesh = self.scene_data.save_stl(value, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
-        # Extract the vertices and faces
-        vertices = your_mesh.vectors.reshape(-1, 3)
-        x, y, z = vertices[:, 0], vertices[:, 1], vertices[:, 2]
 
-        # Create a unique set of vertices and a list of faces
-        unique_vertices, unique_indices = np.unique(vertices, axis=0, return_inverse=True)
-        i, j, k = unique_indices.reshape(-1, 3).T
+        poly_data = self.stl_mesh_to_vtk(your_mesh)
 
-        # Create a 3D mesh plot
-        fig = go.Figure(data=[go.Mesh3d(
-            x=unique_vertices[:, 0],
-            y=unique_vertices[:, 1],
-            z=unique_vertices[:, 2],
-            i=i,
-            j=j,
-            k=k,
-            opacity=1,
-            color='lightblue'
-        )])
+        # Load STL file
 
-        # Set plot layout
-        fig.update_layout(
-            title='STL Mesh Plot',
-            scene=dict(
-                xaxis=dict(title='X'),
-                yaxis=dict(title='Y'),
-                zaxis=dict(title='Z')
-            )
-        )
-        # Freeze the axis so that they don't auto-scale
-        fig.update_scenes(aspectmode='cube')
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(poly_data) 
 
-        # Set x, y, z axis limits
-        fig.update_layout(scene=dict(xaxis=dict(range=[-10, 10]), yaxis=dict(range=[-10, 10]), zaxis=dict(range=[-10, 10])))
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetColor(0.5, 0.7, 1)  # Light blue
 
-        # Set the camera on the x axis at 1,0,0
-        fig.update_layout(scene_camera=dict(eye=dict(x=1, y=0, z=0)))
+        # Clear previous actors and add new one
+        self.ren.RemoveAllViewProps()
+        self.ren.AddActor(actor)
+        # self.add_grid()  # Re-add grid after clearing scene
+        self.ren.ResetCamera()
 
-        # Switch of the grid
-        fig.update_layout(
-        scene=dict(
-        xaxis=dict(showgrid=False, zeroline=False),
-        yaxis=dict(showgrid=False, zeroline=False),
-        zaxis=dict(showgrid=False, zeroline=False),
-    )
-)   # Customize layout for dark theme
-        fig.update_layout(
-            scene=dict(
-                xaxis=dict(
-                    backgroundcolor='rgba(0,0,0,0)',  # Background color of the scene
-                    gridcolor='white',  # Color of gridlines
-                    showbackground=False,  # Hide the background
-                    showgrid=False,  # Hide gridlines
-                    zeroline=False,  # Hide the zero line
-                    linecolor='white',  # Color of axis lines
-                    tickfont=dict(color='white'),  # Color of tick labels
-                ),
-                yaxis=dict(
-                    backgroundcolor='rgba(0,0,0,0)',  # Background color of the scene
-                    gridcolor='white',  # Color of gridlines
-                    showbackground=False,  # Hide the background
-                    showgrid=False,  # Hide gridlines
-                    zeroline=False,  # Hide the zero line
-                    linecolor='white',  # Color of axis lines
-                    tickfont=dict(color='white'),  # Color of tick labels
-                ),
-                zaxis=dict(
-                    backgroundcolor='rgba(0,0,0,0)',  # Background color of the scene
-                    gridcolor='white',  # Color of gridlines
-                    showbackground=False,  # Hide the background
-                    showgrid=False,  # Hide gridlines
-                    zeroline=False,  # Hide the zero line
-                    linecolor='white',  # Color of axis lines
-                    tickfont=dict(color='white'),  # Color of tick labels
-                ),
-            ),
-            plot_bgcolor='rgba(0,0,0,0)',  # Background color of the plot
-        )
- 
-        html = pio.to_html(fig, full_html=False, include_plotlyjs='cdn')
+        # Render the scene
+        self.vtkWidget.GetRenderWindow().Render()
+            
+    def stl_mesh_to_vtk(self, stl_mesh):
+        """
+        Convert an stl.mesh.Mesh (numpy-stl) object to vtkPolyData.
+        """
+        poly_data = vtk.vtkPolyData()
+        points = vtk.vtkPoints()
+        cells = vtk.vtkCellArray()
 
-        self.plotly_chart_view.setHtml(html)
+        # Extract unique vertices and create a mapping
+        unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
+
+        # Insert vertices into vtkPoints
+        for vertex in unique_vertices:
+            points.InsertNextPoint(vertex[0], vertex[1], vertex[2])
+
+        # Insert faces into vtkCellArray
+        for i in range(0, len(indices), 3):
+            triangle = vtk.vtkTriangle()
+            for j in range(3):
+                triangle.GetPointIds().SetId(j, indices[i + j])
+            cells.InsertNextCell(triangle)
+
+        # Assign points and cells to polydata
+        poly_data.SetPoints(points)
+        poly_data.SetPolys(cells)
+        return poly_data
 
     def genframes(self):
 
@@ -441,29 +930,34 @@ class ProjectWindow(QMainWindow):
         self.render_button.setEnabled(True)
         project_name = os.path.basename(self.project_folder)
         video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
-        self.setMedia(video_path)
+        self.showAlertDialog('Alert', f"Video rendered successfully at: {video_path}")
+        self.video_widget.setMedia(video_path)
 
     def update_progress(self, value):
-        self.progress_bar.setValue(value)
-    
-    def change_reflect_config(self):
-        self.reflect = self.reflect_option.isChecked()
+        self.progress_bar.setValue(int(value))
 
     ############################ Video Functions ################################
+    # Define same function to play and pause removing pause button update the play button
     def playVideo(self):
-        if self.media_player.state() == QMediaPlayer.PlayingState:
-            return
-        self.media_player.play()
-
-    def pauseVideo(self):
-        if self.media_player.state() == QMediaPlayer.PausedState:
-            return
-        self.media_player.pause()
-    
+        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color 
+        if self.video_playing:
+            self.video_widget.media_player.pause()
+            self.playButton.setIcon(qta.icon("mdi.play", color=primary_color))
+            self.video_playing = False
+        else:
+            self.video_widget.media_player.play()
+            self.playButton.setIcon(qta.icon("mdi.pause", color=primary_color))
+            self.video_playing = True
+        
     def repeatVideo(self):
+        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
         if self.repeatButton.isChecked():
-            self.media_player.setPosition(0)
-            self.media_player.play()
+            self.repeatButton.setIcon(qta.icon("mdi.repeat-off", color=primary_color))
+            self.video_widget.media_player.setPosition(0)
+            self.video_widget.media_player.play()
+            self.playButton.setIcon(qta.icon("mdi.pause", color=primary_color))
+        else:
+            self.repeatButton.setIcon(qta.icon("mdi.repeat", color=primary_color))
 
     def updateDuration(self, duration):
         self.positionSlider.setRange(0, duration)
@@ -472,7 +966,7 @@ class ProjectWindow(QMainWindow):
         self.positionSlider.setValue(position)
     
     def setPosition(self, position):
-        self.media_player.setPosition(position)
+        self.video_widget.media_player.setPosition(position)
 
     def updateState(self, state):
         if state == QMediaPlayer.PlayingState:
@@ -482,12 +976,8 @@ class ProjectWindow(QMainWindow):
         elif state == QMediaPlayer.StoppedState:
             self.statusLabel.setText('Stopped')
             if self.repeatButton.isChecked():
-                self.media_player.setPosition(0)
-                self.media_player.play()
-    
-    def setMedia(self, url):
-        media = QMediaContent(QUrl.fromLocalFile(url))
-        self.media_player.setMedia(media)   
+                self.video_widget.media_player.setPosition(0)
+                self.video_widget.media_player.play()   
 
     ############################ Window Related Functions ################################
     def center(self):
@@ -522,7 +1012,6 @@ class ProjectWindow(QMainWindow):
     def change_render_config(self):
         self.window2 = RenderConfig(self.project_folder)
         self.window2.show()
-
 
     def about_button_fun(self):
         QMessageBox.about(self, "About FlapKine", '''

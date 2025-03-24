@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from src.core.core import Scene
+import qtawesome as qta
 from app.project_window.create_project.create_sprite import CreateSprite
 
 class CreateScene(QMainWindow):
@@ -15,10 +16,7 @@ class CreateScene(QMainWindow):
         super(CreateScene, self).__init__()
 
         self.center()
-        
         self.setWindowTitle("Create Scene")
-
-        # Set the icon
         self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
 
         # Add the menu bar
@@ -54,55 +52,74 @@ class CreateScene(QMainWindow):
         self.sprite_list = []
 
         self.main_widget = QWidget()
-        self.main_layout = QVBoxLayout(self.main_widget)
+        self.main_layout = QVBoxLayout()
 
         
         # Main widget and layout
-        self.add_drop_widget = QWidget()
-        self.add_drop_layout = QVBoxLayout(self.add_drop_widget)
+        sprite_settings_grp = QGroupBox("Sprite Controls")
+        sprite_settings_grp.setFont(QFont('Times', 9))
+        self.sprite_layout = QVBoxLayout()
         
         # Add and Drop buttons
         self.button_layout = QHBoxLayout()
-        self.add_button = QPushButton("ADD")
+        self.add_button = QPushButton("Add")
+        self.add_button.setIcon(qta.icon("mdi.plus-box-multiple-outline"))
         self.add_button.clicked.connect(self.add_sprite)
         
-        self.drop_button = QPushButton("DROP")
+        self.drop_button = QPushButton("Drop")
+        self.drop_button.setIcon(qta.icon("mdi.minus-box-multiple-outline"))
         self.drop_button.clicked.connect(self.drop_sprite)
 
-        self.button_layout.addWidget(QLabel("ADD/DROP Sprite"))
+        button_layout_label = QLabel("Manage Sprites:")
+        button_layout_label.setFont(QFont('Times', 8))
+
+        self.button_layout.addWidget(button_layout_label)
         self.button_layout.addWidget(self.add_button)
         self.button_layout.addWidget(self.drop_button)
+        self.sprite_layout.addLayout(self.button_layout)
+
+        # List of Sprites
+        self.sprites_list_layout = QVBoxLayout()
+        self.sprite_layout.addLayout(self.sprites_list_layout)
+
+        sprite_settings_grp.setLayout(self.sprite_layout)
         
-        self.add_drop_layout.addLayout(self.button_layout)
-        
-        # Layout for dropdowns
-        self.sprites_layout = QVBoxLayout()
-        self.add_drop_layout.addLayout(self.sprites_layout)
 
         # Okay button
-        self.okay_button = QPushButton("import")
+        self.okay_button = QPushButton("Import Scene")
+        self.okay_button.setFont(QFont('Times', 9))
+        self.okay_button.setStyleSheet("font-size: 14px; padding: 8px;")
         self.okay_button.clicked.connect(self.import_button)
 
-        self.main_layout.addWidget(self.add_drop_widget)
+        self.main_layout.addWidget(sprite_settings_grp)
         self.main_layout.addWidget(self.okay_button)
-        self.setCentralWidget(self.main_widget)
-        
+        self.main_widget.setLayout(self.main_layout)
+        self.setCentralWidget(self.main_widget)        
         
     def add_sprite(self):
 
+        primary_color = self.palette().color(self.foregroundRole()).name()
+
         # Create a groupd
         sprite_group = QGroupBox()
-        sprite_group.setTitle(f"Sprite {self.sprites_layout.count() + 1}")
+        sprite_group.setTitle(f"Sprite {self.sprites_list_layout.count() + 1}")
+        sprite_group.setFont(QFont('Times', 8))
 
         # Create a layout for the group
         sprite_import = QHBoxLayout()
     
         self.text_editor_scene = QLineEdit()
-        self.text_editor_scene.setText('Enter Scene Name')
+        self.text_editor_scene.setPlaceholderText('Enter Scene Name')
+        self.text_editor_scene.setFont(QFont('Times', 7))
+        self.text_editor_scene.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.open_button = QPushButton('Open', self)
+        self.open_button.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.open_button.setFont(QFont('Times', 7))
         self.open_button.clicked.connect(lambda: self.import_sprite(sprite_group))
 
         self.create_button = QPushButton('Create', self)
+        self.create_button.setIcon(qta.icon("mdi.folder-plus-outline", color=primary_color))
+        self.create_button.setFont(QFont('Times', 7))
         self.create_button.clicked.connect(lambda: self.create_sprite(sprite_group))
 
         sprite_import.addWidget(self.text_editor_scene)
@@ -110,7 +127,7 @@ class CreateScene(QMainWindow):
         sprite_import.addWidget(self.create_button)
         sprite_group.setLayout(sprite_import)
 
-        self.sprites_layout.addWidget(sprite_group) 
+        self.sprites_list_layout.addWidget(sprite_group) 
     
     def import_sprite(self, sprite_group):
         
@@ -131,15 +148,15 @@ class CreateScene(QMainWindow):
         
     def drop_sprite(self):
         # Remove the last dropdown menu if exists
-        if self.sprites_layout.count() > 0:
-            widget_to_remove = self.sprites_layout.itemAt(self.sprites_layout.count() - 1).widget()
-            self.sprites_layout.removeWidget(widget_to_remove)
+        if self.sprites_list_layout.count() > 0:
+            widget_to_remove = self.sprites_list_layout.itemAt(self.sprites_list_layout.count() - 1).widget()
+            self.sprites_list_layout.removeWidget(widget_to_remove)
             widget_to_remove.deleteLater()
 
     def import_button(self):
         if self.sprite_list == []:
-            for i in range(self.sprites_layout.count()):
-                sprite_group = self.sprites_layout.itemAt(i).widget()
+            for i in range(self.sprites_list_layout.count()):
+                sprite_group = self.sprites_list_layout.itemAt(i).widget()
                 sprite_name = sprite_group.findChild(QLineEdit).text()
                 sprite_data = pickle.load(open(sprite_name, 'rb'))
                 self.sprite_list.append(sprite_data)

@@ -2,6 +2,7 @@ import os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import qtawesome as qta
 
 from app.project_window.open_project.project_window import ProjectWindow
 from app.project_window.create_project.create_project import CreateProjectWin
@@ -52,22 +53,45 @@ class MainWindow(QMainWindow):
 
     def initUI(self):
             
-            self.resize(300, 150)
+            self.setGeometry(200, 200, 400, 250)
             self.center()
+
+            primary_color = self.palette().color(self.foregroundRole()).name()
+
+            central_widget = QWidget(self)
+
+            center_layout = QVBoxLayout()
+
+            # Add a Image 
+
+
+            # Add a title label
+            title = QLabel("Welcome to FlapKine")
+            title.setStyleSheet("font-size: 18px; font-weight: bold; margin-bottom: 10px;")
+            title.setAlignment(Qt.AlignCenter)
+            
     
             # Adding Buttons
             self.b_new = QPushButton(self)
-            self.b_new.setText("New")
-            self.b_new.setFont(QFont('Times', 9))
+            self.b_new.setText("  New Project")
+            self.b_new.setIcon(qta.icon("fa5.file", color=primary_color))
             self.b_new.clicked.connect(self.create_new_project)
-            self.b_new.move(100, 50)
+            
     
             self.b_open = QPushButton(self)
-            self.b_open.setText("Open")
-            self.b_open.setFont(QFont('Times', 9))
+            self.b_open.setText("  Open Project")
+            self.b_open.setIcon(qta.icon("fa5.folder-open", color=primary_color))
             self.b_open.clicked.connect(self.open_existing_project)
-            self.b_open.move(100, 100)
-       
+
+
+            center_layout.addWidget(title)
+            center_layout.addWidget(self.b_new)
+            center_layout.addWidget(self.b_open)
+            
+            center_layout.setAlignment(Qt.AlignCenter)
+            central_widget.setLayout(center_layout)
+            self.setCentralWidget(central_widget)
+
 
     def center(self):
         # Get the screen resolution
@@ -102,6 +126,7 @@ class MainWindow(QMainWindow):
     ######################################## MENU BAR ########################################
     def maximize_button_fun(self):
         self.showMaximized()
+        self.center()
 
     def minimize_button_fun(self):
         self.showMinimized()
