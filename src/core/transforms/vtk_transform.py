@@ -9,6 +9,8 @@ def vtk_rotation(rotation_type: str, angles: tuple):
     transform_2 = vtk.vtkTransform()
     transform_3 = vtk.vtkTransform()
 
+    angles = [angle * 180 / 3.141592653589793 for angle in angles] # Convert angles to degrees
+
     if rotation_type == 'ZXZ':
         transform_1.RotateZ(angles[0])
         transform_2.RotateX(angles[1])

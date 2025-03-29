@@ -79,14 +79,21 @@ class Scene:
         angles: np.array of shape (3,) i.e (alpha, beta, gamma)
         '''
         transformed_objects = []
-        for spr in self.objects:
-            transformed_objects.append(spr.transform(t))
+
+        if t < 0:
+            for spr in self.objects:
+                transformed_objects.append(spr.object_.stl_mesh)
+            
+        else:
+            for spr in self.objects:
+                transformed_objects.append(spr.transform(t))
+
         return transformed_objects
     
     def save_stl(self, t, reflect_xy = False, reflect_yz = False, reflect_xz = False):
         '''
         Save the transformed meshes to STL files
-        '''
+        ''' 
 
         if reflect_xy:
             # Make reflection of the objects in the scene with respect to the xy-plane

@@ -825,8 +825,8 @@ class CreateSprite(QMainWindow):
         sprite = Sprite(temp_object, positions, angles)
 
         if self.enable_checkbox.isChecked():
-            sprite.frame_origin = positions
-            sprite.frame_orientation = angles
+            sprite.frame_origin = positions_temp
+            sprite.frame_orientation = angles_temp
 
         self.sprite_data = sprite
         self.SpriteCreated.emit(self.sprite_data)
@@ -848,9 +848,6 @@ class CreateSprite(QMainWindow):
         
         angles_temp = np.array([alpha, beta, gamma])
         positions_temp = np.array([x_pos, y_pos, z_pos])
-
-        linear_transform = vtk.vtkTransform()
-        linear_transform.Translate(positions_temp)
 
         Rotation_Transform_x = vtk.vtkTransform()
         Rotation_Transform_x.RotateX(np.degrees(angles_temp[0]))
@@ -893,3 +890,10 @@ class CreateSprite(QMainWindow):
         <p>Version 0.0.1</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')    
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    window = CreateSprite()
+    window.show()
+    sys.exit(app.exec_())

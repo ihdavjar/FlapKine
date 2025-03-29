@@ -15,10 +15,12 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from src.utils.utils import create_video_from_frames
+from src.core.transforms.vtk_transform import *
 from app.widgets.render_config import RenderConfig
 import vtk
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import qtawesome as qta
+
 
 import os
 import json
@@ -436,6 +438,91 @@ class ProjectWindow(QMainWindow):
         self.ren = vtk.vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
 
+        with open(os.path.join(self.project_folder, 'config.json')) as f:
+                config = json.load(f)
+
+        reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+
+        your_mesh = self.scene_data.save_stl(-1, reflect_xy=reflect[0], reflect_yz=reflect[1], reflect_xz=reflect[2])
+
+        poly_data = self.stl_mesh_to_vtk(your_mesh)
+
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputData(poly_data)
+
+        self.actor = vtk.vtkActor()
+        self.actor.SetMapper(mapper)
+        self.actor.GetProperty().SetColor(0.5, 0.7, 1)  # Light blue
+        self.actor.GetProperty().SetOpacity(0.7)
+
+        # Calculate the bounding box of the STL model
+        bounds = self.actor.GetBounds()  # Get the bounds of the actor (xmin, xmax, ymin, ymax, zmin, zmax)
+        x_length = bounds[1] - bounds[0]  # xmax - xmin
+        y_length = bounds[3] - bounds[2]  # ymax - ymin
+        z_length = bounds[5] - bounds[4]  # zmax - zmin
+
+        # Determine the largest dimension to scale the axes proportionally
+        max_length = max(x_length, y_length, z_length)
+
+        # Inertial axes
+        axes_inertial = vtk.vtkAxesActor()
+        axes_inertial = vtk.vtkAxesActor()
+        axes_inertial.SetTotalLength(max_length * 0.1, max_length * 0.1, max_length * 0.1)  # Scale axes to 20% of the largest dimension
+        axes_inertial.SetShaftType(0)  # Use a cylinder for the shaft
+        axes_inertial.SetAxisLabels(1)  # Enable axis labels
+
+        # Set the axis labels with subscript E
+        axes_inertial.SetXAxisLabelText("X")  # Unicode subscript '1'
+        axes_inertial.SetYAxisLabelText("Y")  # Unicode subscript '2'
+        axes_inertial.SetZAxisLabelText("Z")  # Unicode subscript '3'
+
+        axes_inertial.GetXAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+        axes_inertial.GetYAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+        axes_inertial.GetZAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+
+        # Add body axes for each of the sprite
+        sprite_list = self.scene_data.objects
+
+        self.body_axes = []
+
+        for sprite in sprite_list:
+            temp_axes = vtk.vtkAxesActor()
+            temp_axes.SetTotalLength(max_length * 0.05, max_length * 0.05, max_length * 0.05)  # Scale axes to 20% of the largest dimension
+            temp_axes.SetShaftType(0)  # Use a cylinder for the shaft
+            temp_axes.SetAxisLabels(1)  # Enable axis labels
+
+            # Set the axis labels with subscript E
+            temp_axes.SetXAxisLabelText("A")  # Unicode subscript '1'
+            temp_axes.SetYAxisLabelText("B")  # Unicode subscript '2'
+            temp_axes.SetZAxisLabelText("C")  # Unicode subscript '3'
+
+            temp_axes.GetXAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+            temp_axes.GetYAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+            temp_axes.GetZAxisCaptionActor2D().GetCaptionTextProperty().SetColor(0, 0, 0)
+
+            angle_temp = sprite.frame_orientation
+            position_temp = sprite.frame_origin
+            
+            Rotation_Transform_x = vtk.vtkTransform()
+            Rotation_Transform_x.RotateX(np.degrees(angle_temp[0]))
+
+            Rotation_Transform_y = vtk.vtkTransform()
+            Rotation_Transform_y.RotateY(np.degrees(angle_temp[1]))
+
+            Rotation_Transform_z = vtk.vtkTransform()
+            Rotation_Transform_z.RotateZ(np.degrees(angle_temp[2]))
+
+            final_transform = vtk.vtkTransform()
+            final_transform.PreMultiply()
+            final_transform.Translate(position_temp)
+            final_transform.Concatenate(Rotation_Transform_x)
+            final_transform.Concatenate(Rotation_Transform_y)
+            final_transform.Concatenate(Rotation_Transform_z)
+
+            temp_axes.SetUserTransform(final_transform)
+
+            self.body_axes.append(temp_axes)
+
         self.ren.SetBackground(0.95, 0.95, 0.95)  # Slightly lighter background
 
         self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
@@ -450,8 +537,16 @@ class ProjectWindow(QMainWindow):
         """)
 
         self.bottomleftgroup.setLayout(layout)
+        self.ren.AddActor(self.actor)
+        self.ren.AddActor(axes_inertial)
 
-        self.process_STL()
+        # Add body axes for each of the sprite
+        for temp_axes in self.body_axes:
+            self.ren.AddActor(temp_axes)
+
+        self.ren.ResetCamera()
+
+        # self.process_STL()
     # Add play/pause functionality
     def toggle_play(self):
         primary_color = self.palette().color(self.foregroundRole()).name()  
@@ -476,17 +571,34 @@ class ProjectWindow(QMainWindow):
         value = self.slider.value()
         self.slider_label.setText(f"Frame: {value}")
         self.slider_label.setFont(QFont('Times', 8, QFont.Weight.Bold))
-        
-        
-        # Gracefully stop the previous thread if running
-        if hasattr(self, 'stl_worker') and self.stl_worker.isRunning():
-            self.stl_worker.stop()
-            self.stl_worker.wait()  # Wait for it to stop properly
 
-        # Start new worker
-        self.stl_worker = STLWorker(self.scene_data, self.project_folder, value, self.reflect)
-        self.stl_worker.stl_ready.connect(self.update_STL)
-        self.stl_worker.start()
+        for i, sprite in enumerate(self.scene_data.objects):
+            angle = sprite.angles[value]
+            position = sprite.positions[value]
+            axes_pos = sprite.frame_origin
+
+            actor_trans = vtk.vtkTransform()
+            actor_trans.PostMultiply()
+            actor_trans.Translate(position)
+
+            axes_trans = vtk.vtkTransform()
+            axes_trans.PostMultiply()
+            axes_trans.Translate(position + axes_pos)
+
+            rot_transform_type = sprite.object_.rotation_transform
+
+            if hasattr(rot_transform_type, 'type'):
+                rot_transform_type = rot_transform_type.type
+
+                rot_trans = vtk_rotation(rot_transform_type, angle)
+                axes_trans.Concatenate(rot_trans)
+                actor_trans.Concatenate(rot_trans)
+            
+            self.body_axes[i].SetUserTransform(axes_trans)
+        
+        self.actor.SetUserTransform(actor_trans)
+
+        self.vtkWidget.GetRenderWindow().Render()
 
     def update_STL(self, poly_data):
         """Update the VTK scene with the new STL data (runs in the main thread)."""
@@ -1020,3 +1132,10 @@ class ProjectWindow(QMainWindow):
         <p>Version 0.0.1</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')
+        
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    window = ProjectWindow('D:\Research\Kinematics_App\project_final')
+    window.show()
+    sys.exit(app.exec_())
