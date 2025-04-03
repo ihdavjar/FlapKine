@@ -1,35 +1,19 @@
-import os
-import pickle 
 import numpy as np
 import pandas as pd
-from stl import mesh  
-import plotly.graph_objects as go
-import plotly.io as pio
-import bpy
-import bmesh
-import json
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from sklearn.ensemble import RandomForestRegressor
 from scipy.signal import savgol_filter
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from src.utils.utils import create_video_from_frames
 from src.core.transforms.vtk_transform import *
-from app.widgets.render_config import RenderConfig
-from src.core.InverseKinematics.Analytical import model_analytical
+from src.core.inverse_kinematics.analytical_methods import model_analytical
 import vtk
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import qtawesome as qta
 
 
-import os
-import json
-from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
-import bpy
+from PyQt5.QtCore import pyqtSignal, Qt
         
 class InvKineWindow(QMainWindow):
     

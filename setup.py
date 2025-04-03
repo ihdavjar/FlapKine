@@ -7,7 +7,7 @@ setup(
     description='Simulation of flapping wing micro air vehicles',
     author='Kalbhavi Vadhiraj',
     author_email='raj.31@iitj.ac.in',
-    packages=find_packages(include=['src', 'src.*', 'app', 'app.*']),
+    packages=find_packages(include=['src', 'src.*', 'App', 'App.*']),
     include_package_data=True,
     install_requires=[
         'streamlit',

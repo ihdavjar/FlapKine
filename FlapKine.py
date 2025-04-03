@@ -1,5 +1,5 @@
 import sys
-from app.main_window.main_window import MainWindow
+from app.ui.main_window import MainWindow
 from app.assets.styles import dark_stylesheet
 from PyQt5.QtWidgets import QApplication
 
