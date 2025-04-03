@@ -442,6 +442,7 @@ class ProjectWindow(QMainWindow):
                 config = json.load(f)
 
         reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+        self.reflect = reflect
 
         your_mesh = self.scene_data.save_stl(-1, reflect_xy=reflect[0], reflect_yz=reflect[1], reflect_xz=reflect[2])
 
@@ -546,13 +547,13 @@ class ProjectWindow(QMainWindow):
 
         self.ren.ResetCamera()
 
-        # self.process_STL()
     # Add play/pause functionality
     def toggle_play(self):
         primary_color = self.palette().color(self.foregroundRole()).name()  
 
         if self.playing:
-
+            
+            self.play_button.setIcon(qta.icon("mdi.play", color=primary_color))
             self.playing = False
         else:
             self.play_button.setIcon(qta.icon("mdi.pause", color=primary_color))
@@ -973,6 +974,7 @@ class ProjectWindow(QMainWindow):
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
         reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+
         self.reflect = reflect  
 
         value = self.slider.value()

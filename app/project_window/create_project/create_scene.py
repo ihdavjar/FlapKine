@@ -186,3 +186,10 @@ class CreateScene(QMainWindow):
         <p>Version 0.0.1</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    window = CreateScene()
+    window.show()
+    sys.exit(app.exec_())

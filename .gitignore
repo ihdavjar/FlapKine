@@ -10,6 +10,9 @@ __pycache__/
 *.png
 *.gif
 *.stl
+alpha_1.csv
+beta_1.csv
+gamma_1.csv
 
 # Ignore the pickle files
 *.pkl

@@ -14,6 +14,7 @@ from src.core.core import Object3D, Sprite
 from src.core.transforms.translation import *
 from src.core.transforms.rotation import *
 from src.core.transforms.flexibility import *
+from app.project_window.create_project.inverse_kinematics import *
 
 
 class CreateSprite(QMainWindow):
@@ -22,6 +23,8 @@ class CreateSprite(QMainWindow):
 
     def __init__(self):
         super(CreateSprite, self).__init__()
+
+        self.inverse_kinematics = False
 
         self.setWindowTitle("Create Sprite")
 
@@ -590,6 +593,45 @@ class CreateSprite(QMainWindow):
             euler_angles_layout = QGridLayout()
             euler_angles_layout.addWidget(QLabel("Euler Angles Time Series:"), 0, 0, 1, 3)  # Title spanning 3 columns
 
+            # Add button to add inverse kinematics
+            inverse_kinematics_button = QPushButton("Import Inverse Kinematics")
+            inverse_kinematics_button.setIcon(qta.icon("mdi.bird", color=self.palette().color(self.foregroundRole()).name()))
+            inverse_kinematics_button.setFont(QFont('Times', 8))
+            inverse_kinematics_button.setStyleSheet("background-color: #3498db; color: white; font-weight: bold;")
+            inverse_kinematics_button.setFixedHeight(30)  # Set a fixed height for the button
+            inverse_kinematics_button.clicked.connect(self.calculate_inverse_kinematics)  # Connect to the function
+
+            # Add hover message
+            inverse_kinematics_button.setToolTip("Import 3D cordinates data obtained from DltDv Software")
+            inverse_kinematics_button.setStyleSheet("""
+    QPushButton {
+        background-color: #3498db;  /* Blue button color */
+        color: white;  /* White text color */
+        font-weight: bold;  /* Bold text */
+        font-size: 14px;  /* Adjusted font size */
+        border: none;  /* No border */
+        border-radius: 5px;  /* Rounded corners */
+        padding: 8px 12px;  /* Better padding for appearance */
+        cursor: pointer;  /* Pointer cursor on hover */
+    }
+    
+    QPushButton:hover {
+        background-color: #2980b9;  /* Darker blue on hover */
+    }
+
+    QPushButton:pressed {
+        background-color: #1f618d;  /* Even darker blue when pressed */
+    }
+
+    QPushButton:focus {
+        outline: none;  /* Removes default focus outline */
+    }
+""")
+
+            inverse_kinematics_button.setCursor(QCursor(Qt.PointingHandCursor))  # Change cursor to pointer
+
+            euler_angles_layout.addWidget(inverse_kinematics_button, 0, 3)  # Add button to the first row
+
             # Alpha Row
             alpha_label = QLabel("Alpha:")
             alpha_label.setFont(QFont('Times', 7))
@@ -758,20 +800,29 @@ class CreateSprite(QMainWindow):
             angles = None
 
         elif self.rotation_transform.currentIndex() == 1:
-            order = self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].currentText()
-            
-            alpha = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[0].text()
-            beta = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[1].text()
-            gamma = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[2].text()
 
-            alpha_values = np.array(pd.read_csv(alpha, header=None))
-            beta_values = np.array(pd.read_csv(beta, header=None))
-            gamma_values = np.array(pd.read_csv(gamma, header=None))
+            if self.inverse_kinematics:
+                angles, order = self.window.inv_result
+                alpha_values, beta_values, gamma_values = angles
+                
+                angles = np.vstack([alpha_values, beta_values, gamma_values]).T
+            
+            else:
+
+                order = self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].currentText()
+                
+                alpha = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[0].text()
+                beta = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[1].text()
+                gamma = self.rotation_transform_layout.itemAt(1).widget().findChildren(QLineEdit)[2].text()
+
+                alpha_values = np.array(pd.read_csv(alpha, header=None))
+                beta_values = np.array(pd.read_csv(beta, header=None))
+                gamma_values = np.array(pd.read_csv(gamma, header=None))
+
+                angles = np.hstack([alpha_values, beta_values, gamma_values])
 
             rotation_transform = Rotation_EulerAngles(order)
-
-            angles = np.hstack([alpha_values, beta_values, gamma_values])
-
+            
         # Translation Transform
         if self.translation_transform.currentIndex() == 0:
             translation_transform = ConstantT()
@@ -811,7 +862,7 @@ class CreateSprite(QMainWindow):
             positions_temp = np.array([x_pos, y_pos, z_pos])
 
             temp_object.stl_mesh = no_transform_temp_object.transform(positions_temp, angles_temp, 0)
-        
+
         if positions is None and angles is not None:
             positions = np.zeros((angles.shape[0], 3))
         
@@ -821,7 +872,7 @@ class CreateSprite(QMainWindow):
         if angles is None and positions is None:
             positions = np.zeros((1, 3))
             angles = np.zeros((1, 3))
-                
+                  
         sprite = Sprite(temp_object, positions, angles)
 
         if self.enable_checkbox.isChecked():
@@ -869,6 +920,18 @@ class CreateSprite(QMainWindow):
         self.axes_body.SetUserTransform(final_transform)
         self.vtkWidget.GetRenderWindow().Render()
 
+    def calculate_inverse_kinematics(self):
+        self.window = InvKineWindow()
+        self.window.show()
+        self.window.angle_data.connect(self.process_inv_data)
+    
+    def process_inv_data(self):
+        angles, order = self.window.inv_result
+        alpha_values, beta_values, gamma_values = angles
+        self.rotation_transform_layout.itemAt(1).widget().setEnabled(False)
+        self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].setCurrentText(order)
+        self.inverse_kinematics = True
+        
     def center(self):
         # Get the screen resolution
         screen_resolution = QDesktopWidget().screenGeometry()
