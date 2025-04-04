@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 from src.core.core import Scene
 import qtawesome as qta
 
-from app.ui.creators.sprite_creator import CreateSprite
+from app.ui.creators.sprite_creator import SpriteCreator
 from app.widgets.menu_bar import MenuBar
 
 class SceneCreator(QMainWindow):
@@ -46,8 +46,8 @@ class SceneCreator(QMainWindow):
     create_button : QPushButton
         Launches the sprite creation interface to build a new sprite and attach it to the scene.
 
-    window : CreateSprite
-        Instance of the CreateSprite dialog window for generating new sprite data.
+    window : SpriteCreator
+        Instance of the SpriteCreator dialog window for generating new sprite data.
 
     Methods
     -------
@@ -82,7 +82,7 @@ class SceneCreator(QMainWindow):
         Displays an informational dialog with app version, developer info, and a description of FlapKine's purpose.
     """
 
-    sceneCreated = pScyqtSignal(Scene)
+    sceneCreated = pyqtSignal(Scene)
 
     def __init__(self):
         """
@@ -296,7 +296,7 @@ class SceneCreator(QMainWindow):
         """
         Launches the sprite creation interface and connects the result to the given sprite group.
 
-        Opens a new `CreateSprite` window that allows the user to build a custom sprite. Upon
+        Opens a new `SpriteCreator` window that allows the user to build a custom sprite. Upon
         successful sprite creation (signaled via the `SpriteCreated` signal), the sprite data
         is passed to the `save_sprite()` method which updates the associated `sprite_group`.
 
@@ -307,12 +307,12 @@ class SceneCreator(QMainWindow):
 
         Behavior
         --------
-        - Initializes and displays a `CreateSprite` dialog.
+        - Initializes and displays a `SpriteCreator` dialog.
         - Connects the `SpriteCreated` signal to a lambda function that:
             - Triggers `save_sprite(sprite_group)` on sprite creation.
         """
 
-        self.window = CreateSprite()
+        self.window = SpriteCreator()
         self.window.show()
         self.window.SpriteCreated.connect(lambda : self.save_sprite(sprite_group))
 
@@ -320,7 +320,7 @@ class SceneCreator(QMainWindow):
         """
         Saves the newly created sprite and updates the corresponding UI group.
 
-        Retrieves the sprite data from the `CreateSprite` window and appends it to the internal
+        Retrieves the sprite data from the `SpriteCreator` window and appends it to the internal
         sprite list. Additionally, visually confirms sprite creation by updating the style of
         the 'Create' button in the provided `sprite_group`.
 
