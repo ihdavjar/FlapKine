@@ -10,8 +10,7 @@ from PyQt5.QtWidgets import QApplication
 def main():
     app = QApplication(sys.argv)
     # app.setStyleSheet(dark_stylesheet)
-    win = ProjectCreator("D:\Research\Kinematics_App\inv_proj_2")  
-    # win = InvKineWindow()
+    win = MainWindow() 
     win.show()
     sys.exit(app.exec_())
 

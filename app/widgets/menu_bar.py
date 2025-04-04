@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMenuBar
+from PyQt5.QtWidgets import QMenuBar, QMenu, QAction
 
 
 class MenuBar(QMenuBar):
@@ -114,7 +114,7 @@ class MenuBar(QMenuBar):
             }
         """)
 
-    def connect_actions(self, handlers):
+    def connect_actions(self, handlers)-> None:
         """
         Connects menu actions to their corresponding handler functions.
 
