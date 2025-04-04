@@ -5,6 +5,7 @@ import vtk
 from scipy.signal import savgol_filter
 from sklearn.ensemble import RandomForestRegressor
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from vtkmodules.vtkRenderingContext2D import vtkTextProperty
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QFont, QIcon

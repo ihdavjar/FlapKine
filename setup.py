@@ -1,4 +1,3 @@
-# setup.py
 from setuptools import setup, find_packages
 
 setup(
@@ -7,11 +6,11 @@ setup(
     description='Simulation of flapping wing micro air vehicles',
     author='Kalbhavi Vadhiraj',
     author_email='raj.31@iitj.ac.in',
-    packages=find_packages(include=['src', 'src.*', 'App', 'App.*']),
+    packages=find_packages(where='.', include=['app', 'app.*', 'src', 'src.*']),
     include_package_data=True,
     install_requires=[
         'streamlit',
-        'bpy',  # Add other dependencies here
+        'bpy',  # Blender Python API - make sure it’s installed in the right environment
         'numpy',
         'matplotlib',
         'plotly',
@@ -20,11 +19,10 @@ setup(
         'PyQtWebEngine',
         'numpy-stl',
         'opencv-python-headless',
-
     ],
     entry_points={
         'console_scripts': [
-            'flapping_wing_mav_simulation = FlapKine:main'
+            'flapkine = app.main:main',  # <- Adjust this based on your actual main entry
         ],
     },
     python_requires='>=3.6',

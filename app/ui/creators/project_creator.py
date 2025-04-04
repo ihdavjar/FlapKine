@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 import qtawesome as qta
 
 from app.ui.editor.project_editor import ProjectWindow
-from app.ui.creators.scene_creator import CreateScene
+from app.ui.creators.scene_creator import SceneCreator
 from app.widgets.menu_bar import MenuBar
 
 class ProjectCreator(QMainWindow): 
@@ -649,7 +649,7 @@ class ProjectCreator(QMainWindow):
         Launches a `CreateScene` dialog and connects its `sceneCreated` signal 
         to the `on_scene_created` handler.
         """
-        self.window2 = CreateScene()
+        self.window2 = SceneCreator()
         self.window2.show()
         self.window2.sceneCreated.connect(self.on_scene_created)
   
