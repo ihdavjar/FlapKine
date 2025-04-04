@@ -4,8 +4,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import qtawesome as qta
 
+from app.widgets.menu_bar import MenuBar
 from app.ui.editor.project_editor import ProjectWindow
-from app.ui.creators.project_creator import CreateProjectWin
+from app.ui.creators.project_creator import ProjectCreator
 
 
 class MainWindow(QMainWindow):
@@ -15,82 +16,58 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("FlapKine")
 
         # Set the icon
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
         
-        # Add the menu bar
-        self.menu = self.menuBar()
-        self.file_menu = self.menu.addMenu('File')
-        self.new_action = self.file_menu.addAction('New')
-        self.new_action.triggered.connect(self.create_new_project)
-        self.open_action = self.file_menu.addAction('Open')
-        self.open_action.triggered.connect(self.open_existing_project)
-        self.exit_action = self.file_menu.addAction('Exit')
-        self.exit_action.triggered.connect(self.exit_button_fun)
-
-        self.edit_menu = self.menu.addMenu('Edit')
-        self.undo_action = self.edit_menu.addAction('Undo')
-        self.undo_action.setEnabled(False)
-        self.redo_action = self.edit_menu.addAction('Redo')
-        self.redo_action.setEnabled(False)
-
-        self.window_menu = self.menu.addMenu('Window')
-        self.minimize_action = self.window_menu.addAction('Minimize')
-        self.minimize_action.triggered.connect(self.minimize_button_fun)
-        self.maximize_action = self.window_menu.addAction('Maximize')
-        self.maximize_action.triggered.connect(self.maximize_button_fun)
-        self.restore_action = self.window_menu.addAction('Restore')
-        self.restore_action.triggered.connect(self.restore_button_fun)
-
-        self.render_menu = self.menu.addMenu('Render')
-        self.render_option = self.render_menu.addAction('Configure Render')
-        self.render_option.setEnabled(False)
-
-        self.help_menu = self.menu.addMenu('Help')
-        self.about_action = self.help_menu.addAction('About')  
-        self.about_action.triggered.connect(self.about_button_fun)
+        self.menu_bar = MenuBar(self)
+        self.setMenuBar(self.menu_bar)
+        self.menu_bar.connect_actions({
+            'new': self.create_new_project,
+            'open': self.open_existing_project,
+            'minimize': self.showMinimized,
+            'maximize': self.showMaximized,
+            'restore': self.showNormal,
+            'about': self.show_about
+        })
 
         self.initUI()
 
     def initUI(self):
-            
-            self.setGeometry(200, 200, 400, 250)
-            self.center()
+        
+        self.setGeometry(200, 200, 400, 250)
+        self.center()
 
-            primary_color = self.palette().color(self.foregroundRole()).name()
+        primary_color = self.palette().color(self.foregroundRole()).name()
 
-            central_widget = QWidget(self)
+        central_widget = QWidget(self)
 
-            center_layout = QVBoxLayout()
+        center_layout = QVBoxLayout()
 
-            # Add a Image 
+        # Add a title label
+        title = QLabel("Welcome to FlapKine")
+        title.setStyleSheet("font-size: 18px; font-weight: bold; margin-bottom: 10px;")
+        title.setAlignment(Qt.AlignCenter)
+        
 
+        # Adding Buttons
+        self.b_new = QPushButton(self)
+        self.b_new.setText("  New Project")
+        self.b_new.setIcon(qta.icon("fa5.file", color=primary_color))
+        self.b_new.clicked.connect(self.create_new_project)
+        
 
-            # Add a title label
-            title = QLabel("Welcome to FlapKine")
-            title.setStyleSheet("font-size: 18px; font-weight: bold; margin-bottom: 10px;")
-            title.setAlignment(Qt.AlignCenter)
-            
-    
-            # Adding Buttons
-            self.b_new = QPushButton(self)
-            self.b_new.setText("  New Project")
-            self.b_new.setIcon(qta.icon("fa5.file", color=primary_color))
-            self.b_new.clicked.connect(self.create_new_project)
-            
-    
-            self.b_open = QPushButton(self)
-            self.b_open.setText("  Open Project")
-            self.b_open.setIcon(qta.icon("fa5.folder-open", color=primary_color))
-            self.b_open.clicked.connect(self.open_existing_project)
+        self.b_open = QPushButton(self)
+        self.b_open.setText("  Open Project")
+        self.b_open.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.b_open.clicked.connect(self.open_existing_project)
 
 
-            center_layout.addWidget(title)
-            center_layout.addWidget(self.b_new)
-            center_layout.addWidget(self.b_open)
-            
-            center_layout.setAlignment(Qt.AlignCenter)
-            central_widget.setLayout(center_layout)
-            self.setCentralWidget(central_widget)
+        center_layout.addWidget(title)
+        center_layout.addWidget(self.b_new)
+        center_layout.addWidget(self.b_open)
+        
+        center_layout.setAlignment(Qt.AlignCenter)
+        central_widget.setLayout(center_layout)
+        self.setCentralWidget(central_widget)
 
 
     def center(self):
@@ -137,7 +114,7 @@ class MainWindow(QMainWindow):
     def exit_button_fun(self):
         self.close()
 
-    def about_button_fun(self):
+    def show_about(self):
         QMessageBox.about(self, "About FlapKine", '''
         <h1>FlapKine</h1>
         <p>Developed by: Kalbhavi Vadhiraj</p>                  

@@ -8,50 +8,31 @@ import qtawesome as qta
 
 from app.ui.editor.project_editor import ProjectWindow
 from app.ui.creators.scene_creator import CreateScene
+from app.widgets.menu_bar import MenuBar
 
-class CreateProjectWin(QMainWindow): 
+class ProjectCreator(QMainWindow): 
 
     def __init__(self, project_folder):
-        super(CreateProjectWin, self).__init__()
+        super(ProjectCreator, self).__init__()
         # Place the window in the center of the screen
         self.setWindowTitle("Import Scene")
 
         # Set the icon
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
 
         self.project_folder = project_folder
         
         # Add the menu bar
-        self.menu = self.menuBar()
-        self.file_menu = self.menu.addMenu('File')
-        self.open_action = self.file_menu.addAction('New')
-        self.open_action.setEnabled(False)
-        self.open_action = self.file_menu.addAction('Open')
-        self.open_action.setEnabled(False)
-        self.exit_action = self.file_menu.addAction('Exit')
-        self.exit_action.triggered.connect(self.close)
-
-        self.edit_menu = self.menu.addMenu('Edit')
-        self.undo_action = self.edit_menu.addAction('Undo')
-        self.undo_action.setEnabled(False)
-        self.redo_action = self.edit_menu.addAction('Redo')
-        self.redo_action.setEnabled(False)
-
-        self.window_menu = self.menu.addMenu('Window')
-        self.minimize_action = self.window_menu.addAction('Minimize')
-        self.minimize_action.triggered.connect(self.showMinimized)
-        self.maximize_action = self.window_menu.addAction('Maximize')
-        self.maximize_action.triggered.connect(self.showMaximized)
-        self.restore_action = self.window_menu.addAction('Restore')
-        self.restore_action.triggered.connect(self.showNormal)
-
-        self.render_menu = self.menu.addMenu('Render')
-        self.render_option = self.render_menu.addAction('Configure Render')
-        self.render_option.setEnabled(False)
-
-        self.help_menu = self.menu.addMenu('Help')
-        self.about_action = self.help_menu.addAction('About')  
-        self.about_action.triggered.connect(self.about_button_fun)
+        self.menu_bar = MenuBar(self)
+        self.setMenuBar(self.menu_bar)
+    
+        self.menu_bar.connect_actions({
+            'exit': self.close,
+            'minimize': self.showMinimized,
+            'maximize': self.showMaximized,
+            'restore': self.showNormal,
+            'about': self.about_button_fun,
+        })
 
         self.initUI()
 

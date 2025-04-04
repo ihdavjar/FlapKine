@@ -14,7 +14,7 @@ from src.core.core import Object3D, Sprite
 from src.core.transforms.translation import *
 from src.core.transforms.rotation import *
 from src.core.transforms.flexibility import *
-from app.core.inv_kinematics import *
+from app.core.invkinematics import *
 
 
 class CreateSprite(QMainWindow):
