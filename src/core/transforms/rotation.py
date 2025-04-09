@@ -42,7 +42,7 @@ class Rotation_Transform:
             If called directly from this base class, since the method must be 
             implemented by a subclass.
         """
-    raise NotImplementedError("Each transform must implement the __call__ method.")
+        raise NotImplementedError("Each transform must implement the __call__ method.")
 
 class ConstantR(Rotation_Transform):
     """
