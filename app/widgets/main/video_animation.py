@@ -127,18 +127,12 @@ class VideoAnimation(QWidget):
         renderLayout.addWidget(self.render_button)
         renderLayout.addWidget(self.progress_bar)
 
-        groupLayout = QVBoxLayout()
-        groupLayout.addWidget(self.video_widget)
-        groupLayout.addLayout(controlLayout)
-        groupLayout.addLayout(renderLayout)
+        layout = QVBoxLayout()
+        layout.addWidget(self.video_widget)
+        layout.addLayout(controlLayout)
+        layout.addLayout(renderLayout)
 
-        self.groupBox = QGroupBox("Animation Window")
-        self.groupBox.setFont(QFont('Times', 9))
-        self.groupBox.setLayout(groupLayout)
-
-        mainLayout = QVBoxLayout()
-        mainLayout.addWidget(self.groupBox)
-        self.setLayout(mainLayout)
+        self.setLayout(layout)
 
     def _connectSignals(self):
         self.playButton.clicked.connect(self.playVideo)
