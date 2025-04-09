@@ -95,7 +95,7 @@ class MainWindow(QMainWindow):
             'minimize': self.showMinimized,
             'maximize': self.showMaximized,
             'restore': self.showNormal,
-            'about': self.show_about
+            'about': self.about_button_fun
         })
 
         self.initUI()
