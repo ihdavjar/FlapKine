@@ -10,12 +10,12 @@ __pycache__/
 *.png
 *.gif
 *.stl
+alpha_1.csv
+beta_1.csv
+gamma_1.csv
 
 # Ignore the pickle files
 *.pkl
-
-# Ignore the HTML 
-# *.html
 
 # Ignore compiled files
 *.pyc
@@ -23,3 +23,7 @@ __pycache__/
 
 # Ignore specific .egg-info directory
 FlapKine.egg-info/
+
+# Ignore temp.py and temp.ipynb
+temp.py
+temp.ipynb
