@@ -1,6 +1,5 @@
 import os
 import json
-import pickle
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -8,351 +7,464 @@ import qtawesome as qta
 
 
 class RenderConfig(QMainWindow):
+    """
+    RenderConfig Class
+    ==================
+
+    Main configuration panel for render settings in the FlapKine application.
+
+    This class provides a GUI window that allows users to configure video rendering,
+    camera parameters, lighting settings, STL export, and axis reflection for a 3D
+    rendering pipeline. The settings are loaded from and saved to a `config.json` file
+    within the specified project folder.
+
+    Attributes
+    ----------
+    project_folder : str
+        Path to the folder containing the configuration file.
+
+    frame_format : QComboBox
+        Dropdown for selecting the frame image format (e.g., PNG, JPEG, TIFF).
+
+    resolution_x : QSpinBox
+        Spin box to specify horizontal resolution.
+
+    resolution_y : QSpinBox
+        Spin box to specify vertical resolution.
+
+    camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox
+        Spin boxes to specify camera position in 3D space.
+
+    camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma : QDoubleSpinBox
+        Spin boxes to specify camera rotation in Euler angles.
+
+    light_location_x, light_location_y, light_location_z : QDoubleSpinBox
+        Spin boxes to specify light source position in 3D space.
+
+    light_power : QSpinBox
+        Spin box to control light energy (intensity).
+
+    stl_enable : QCheckBox
+        Checkbox to toggle STL mesh saving.
+
+    reflect_xy, reflect_yz, reflect_xz : QCheckBox
+        Checkboxes to select the reflection axis (only one can be active at a time).
+
+    ok_button : QPushButton
+        Button to save the current configuration and close the window.
+
+    Methods
+    -------
+    __init__(project_folder):
+        Initializes the main window and constructs the interface.
+
+    initUI():
+        Builds and arranges all GUI components and groups.
+
+    _create_video_settings():
+        Constructs the video configuration group box.
+
+    _create_camera_settings():
+        Constructs the camera configuration group box.
+
+    _create_light_settings():
+        Constructs the lighting configuration group box.
+
+    _create_other_settings():
+        Constructs the STL and reflection settings panel.
+
+    _assemble_config_group():
+        Collects all config panels into a grouped layout.
+
+    _styled_groupbox(title, color, border_color, layout, font_size):
+        Returns a styled QGroupBox with custom appearance.
+
+    _labeled_widget(label_text, widget):
+        Returns a QWidget with an inline label and the given widget.
+
+    process_default_config():
+        Loads the saved configuration from `config.json` and updates the UI.
+
+    save_config():
+        Saves the current UI state into `config.json` in the project folder.
+
+    toggle_checkboxes(checked_box):
+        Ensures only one reflection checkbox is active at a time.
+
+    center():
+        Positions the window at the center of the screen.
+    """
 
     def __init__(self, project_folder):
+        """
+        Initialize the RenderConfig window.
+
+        Sets up the main render configuration window with appropriate title and icon, using
+        a foreground color extracted from the current theme. Stores the provided project 
+        folder path and initializes the user interface layout and widgets.
+
+        Parameters
+        ----------
+        project_folder : str
+            Absolute path to the folder containing the current project data.
+
+        Attributes
+        ----------
+        project_folder : str
+            Stores the path to the project folder for use in render configuration operations.
+
+        Methods Called
+        --------------
+        initUI()
+            Initializes all UI components and layout for render configuration.
+        """
         super(RenderConfig, self).__init__()
         primary_color = self.palette().color(self.foregroundRole()).name()
-        # Place the window in the center of the screen
         self.setWindowTitle("Configure Render")
 
         self.setWindowIcon(qta.icon("mdi.cog", color=primary_color))
 
         self.project_folder = project_folder
 
+        self.center()
+
         self.initUI()
 
     def initUI(self):
-            self.center()
+        """
+        Initialize and configure the user interface components of the render configuration panel.
 
-            primary_color = self.palette().color(self.foregroundRole()).name()
+        This method sets up the main window layout and populates it with grouped sections for
+        configuring video, camera, and lighting settings. It also adds additional controls such as
+        STL export toggle and axis reflection options. A confirmation button is included to save
+        and apply the chosen configuration settings.
 
-            # Central widget
-            central_widget = QWidget()
-            self.setCentralWidget(central_widget)
+        UI Components Initialized
+        -------------------------
+        - Video settings group
+        - Camera settings group
+        - Lighting settings group
+        - STL export and reflection axis controls
+        - 'Ok' confirmation button with icon
+        - Main vertical layout containing all components
+        """
+        self.center()
+        primary_color = self.palette().color(self.foregroundRole()).name()
 
-            # Create the main layout
-            self.main_layout = QVBoxLayout(central_widget)
+        # Central widget and layout
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        self.main_layout = QVBoxLayout(central_widget)
 
-            ############################ CONFIG WINDOW ############################
-            self.config_group = QGroupBox("Configurations")
-            self.config_group.setFont(QFont('Times', 9))
+        # Configuration sections
+        self._create_video_settings()
+        self._create_camera_settings()
+        self._create_light_settings()
+        self._assemble_config_group()
 
-            self.config_layout = QVBoxLayout()
+        # Additional options: STL saving and axis reflection
+        self._create_other_settings()
 
-            # VIDEORENDER
-            video_group = QGroupBox("Video Settings")
-            video_group.setFont(QFont('Times', 8))
-            video_group.setStyleSheet("""
-    QGroupBox {
-        color: #3498db;  /* Title text color (blue) */
-        font-weight: bold;
-        border: 2px solid #2980b9; /* Border color */
-        border-radius: 5px;
-        margin-top: 10px; /* Space between border and title */
-    }
-    QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top left; /* Positioning title */
-        padding: 5px; /* Space around title */
-    }
-    """)
-            
-            video_settings = QVBoxLayout()
+        # OK button
+        self.ok_button = QPushButton('Ok', self)
+        self.ok_button.setIcon(qta.icon("mdi.check-circle", color=primary_color))
+        self.ok_button.clicked.connect(self.save_config)
 
-            # Image Format Settings
-            image_settings = QHBoxLayout()
-            image_settings_label = QLabel("Frame Format")
-            image_settings_label.setFont(QFont('Times', 7))
+        # Add all components to main layout
+        self.main_layout.addWidget(self.config_group)
+        self.main_layout.addWidget(self.other_settings_group)
+        self.main_layout.addWidget(self.ok_button)
 
-            self.frame_format = QComboBox()
-            self.frame_format.addItems(['PNG', 'JPEG', 'TIFF'])
-            self.frame_format.setFont(QFont('Times', 7))
-            self.frame_format.setCurrentIndex(0)
-            image_settings.addWidget(image_settings_label)
-            image_settings.addWidget(self.frame_format)
-            
-            # Image/ Video Resolution Settings
-            self.resolution_settings = QHBoxLayout()  
+        # Load defaults
+        self.process_default_config()
 
-            res_x = QHBoxLayout() 
-            res_x_wid = QWidget()
-            res_x_label = QLabel("  X:")
-            res_x_label.setFont(QFont('Times', 7))
-            self.resolution_x = QSpinBox()
-            self.resolution_x.setMinimum(0)
-            self.resolution_x.setMaximum(1920)
-            res_x.addWidget(res_x_label)
-            res_x.addWidget(self.resolution_x)
-            res_x_wid.setLayout(res_x)
+    def _create_video_settings(self):
+        """
+        Create and configure the video settings group for render configuration.
 
-            res_y = QHBoxLayout()
-            res_y_wid = QWidget()
-            res_y_label = QLabel("  Y:")
-            res_y_label.setFont(QFont('Times', 7))
-            self.resolution_y = QSpinBox()
-            self.resolution_y.setMinimum(0)
-            self.resolution_y.setMaximum(1080)
-            res_y.addWidget(res_y_label)
-            res_y.addWidget(self.resolution_y)
-            res_y_wid.setLayout(res_y)
-            
-            res_title = QLabel("Resolution")
-            res_title.setFont(QFont('Times', 7))
-            self.resolution_settings.addWidget(res_title)
-            self.resolution_settings.addWidget(res_x_wid)
-            self.resolution_settings.addWidget(res_y_wid)
-            
-            
-            video_settings.addLayout(image_settings)
-            video_settings.addLayout(self.resolution_settings)
-            video_group.setLayout(video_settings)
+        This includes UI controls for selecting frame format (e.g., PNG, JPEG, TIFF)
+        and specifying output resolution dimensions (X and Y). All widgets are arranged
+        in a compact vertical layout and grouped under a styled section titled "Video Settings".
 
-            # CAMERA
-            camera_setting_grp = QGroupBox("Camera Settings")
-            camera_setting_grp.setFont(QFont('Times', 8))
+        UI Components
+        -------------
+        - Frame format dropdown (QComboBox)
+        - Resolution input (QSpinBox for X and Y)
+        - Labeled horizontal layout for image format
+        - Group box titled "Video Settings" with themed styling
+        """
+        self.frame_format = QComboBox()
+        self.frame_format.addItems(['PNG', 'JPEG', 'TIFF'])
+        self.frame_format.setCurrentIndex(0)
+        self.frame_format.setFont(QFont('Times', 7))
 
-            camera_setting_grp.setStyleSheet("""
-    QGroupBox {
-        color: #16a085;  /* Teal - Title text */
-        font-weight: bold;
-        border: 2px solid #13876a; /* Darker Teal - Border */
-        border-radius: 6px;
-        margin-top: 10px;
-    }
-    QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top left;
-        padding: 5px;
-    }
-    """)
+        image_format_layout = QHBoxLayout()
+        image_format_label = QLabel("Frame Format")
+        image_format_label.setFont(QFont('Times', 7))
+        image_format_layout.addWidget(image_format_label)
+        image_format_layout.addWidget(self.frame_format)
 
-            Camera_settings = QVBoxLayout()
+        self.resolution_x = QSpinBox()
+        self.resolution_x.setRange(0, 1920)
+        self.resolution_y = QSpinBox()
+        self.resolution_y.setRange(0, 1080)
 
-            camera_location = QHBoxLayout()
-            camera_rotation = QHBoxLayout()
+        res_layout = QHBoxLayout()
+        res_layout.addWidget(QLabel("Resolution"))
+        res_layout.addWidget(self._labeled_widget("  X:", self.resolution_x))
+        res_layout.addWidget(self._labeled_widget("  Y:", self.resolution_y))
 
-            cam_x_wid = QWidget()
-            cam_x = QHBoxLayout()
-            cam_x_label = QLabel("X:")
-            cam_x_label.setFont(QFont('Times', 7))
-            self.camera_location_x = QDoubleSpinBox()
-            self.camera_location_x.setRange(-1000, 1000)
-            cam_x.addWidget(cam_x_label)
-            cam_x.addWidget(self.camera_location_x)
-            cam_x_wid.setLayout(cam_x)
+        layout = QVBoxLayout()
+        layout.addLayout(image_format_layout)
+        layout.addLayout(res_layout)
 
-            cam_y_wid = QWidget()
-            cam_y = QHBoxLayout()
-            cam_y_label = QLabel("Y:")
-            cam_y_label.setFont(QFont('Times', 7))
-            self.camera_location_y = QDoubleSpinBox()
-            self.camera_location_y.setRange(-1000, 1000)
-            cam_y.addWidget(cam_y_label)
-            cam_y.addWidget(self.camera_location_y)
-            cam_y_wid.setLayout(cam_y)
+        self.video_group = self._styled_groupbox("Video Settings", "#3498db", "#2980b9", layout, font_size=8)
 
-            cam_z_wid = QWidget()
-            cam_z = QHBoxLayout()
-            cam_z_label = QLabel("Z:")
-            cam_z_label.setFont(QFont('Times', 7))
-            self.camera_location_z = QDoubleSpinBox()
-            self.camera_location_z.setRange(-1000, 1000)
-            cam_z.addWidget(cam_z_label)
-            cam_z.addWidget(self.camera_location_z)
-            cam_z_wid.setLayout(cam_z)
-        
+    def _create_camera_settings(self):
+        """
+        Create and configure the camera settings group for render configuration.
 
-            cam_alpha_wid = QWidget()
-            cam_alpha = QHBoxLayout()
-            cam_alpha_label = QLabel("X:")
-            self.camera_rotation_alpha = QDoubleSpinBox()
-            self.camera_rotation_alpha.setRange(-360, 360)
-            cam_alpha.addWidget(cam_alpha_label)
-            cam_alpha.addWidget(self.camera_rotation_alpha)
-            cam_alpha_wid.setLayout(cam_alpha)
+        This section provides spin box controls for specifying the camera’s 3D location 
+        and orientation in space. Users can input X, Y, Z coordinates for both position 
+        and Euler angle-based rotations. All elements are organized into a labeled layout 
+        and enclosed in a themed "Camera Settings" group box.
 
-            cam_beta_wid = QWidget()
-            cam_beta = QHBoxLayout()
-            cam_beta_label = QLabel("Y:")
-            self.camera_rotation_beta = QDoubleSpinBox()
-            self.camera_rotation_beta.setRange(-360, 360)
-            cam_beta.addWidget(cam_beta_label)
-            cam_beta.addWidget(self.camera_rotation_beta)
-            cam_beta_wid.setLayout(cam_beta)
+        UI Components
+        -------------
+        - Camera location inputs (QDoubleSpinBox for X, Y, Z)
+        - Camera rotation inputs (QDoubleSpinBox for α, β, γ)
+        - Labeled horizontal layouts for location and rotation
+        - Group box titled "Camera Settings" with custom styling
+        """
+        self.camera_location_x = QDoubleSpinBox()
+        self.camera_location_x.setRange(-1000, 1000)
+        self.camera_location_y = QDoubleSpinBox()
+        self.camera_location_y.setRange(-1000, 1000)
+        self.camera_location_z = QDoubleSpinBox()
+        self.camera_location_z.setRange(-1000, 1000)
 
-            cam_gamma_wid = QWidget()
-            cam_gamma = QHBoxLayout()
-            cam_gamma_label = QLabel("Z:")
-            self.camera_rotation_gamma = QDoubleSpinBox()
-            self.camera_rotation_gamma.setRange(-360, 360)
-            cam_gamma.addWidget(cam_gamma_label)
-            cam_gamma.addWidget(self.camera_rotation_gamma)
-            cam_gamma_wid.setLayout(cam_gamma)
+        self.camera_rotation_alpha = QDoubleSpinBox()
+        self.camera_rotation_alpha.setRange(-360, 360)
+        self.camera_rotation_beta = QDoubleSpinBox()
+        self.camera_rotation_beta.setRange(-360, 360)
+        self.camera_rotation_gamma = QDoubleSpinBox()
+        self.camera_rotation_gamma.setRange(-360, 360)
 
-            camera_location.addWidget(QLabel('Location'))
-            camera_location.addWidget(cam_x_wid)
-            camera_location.addWidget(cam_y_wid)
-            camera_location.addWidget(cam_z_wid)
+        loc_layout = QHBoxLayout()
+        loc_layout.addWidget(QLabel("Location"))
+        loc_layout.addWidget(self._labeled_widget("X:", self.camera_location_x))
+        loc_layout.addWidget(self._labeled_widget("Y:", self.camera_location_y))
+        loc_layout.addWidget(self._labeled_widget("Z:", self.camera_location_z))
 
-            camera_rotation.addWidget(QLabel('Rotation'))
-            camera_rotation.addWidget(cam_alpha_wid)
-            camera_rotation.addWidget(cam_beta_wid)
-            camera_rotation.addWidget(cam_gamma_wid)
+        rot_layout = QHBoxLayout()
+        rot_layout.addWidget(QLabel("Rotation"))
+        rot_layout.addWidget(self._labeled_widget("X:", self.camera_rotation_alpha))
+        rot_layout.addWidget(self._labeled_widget("Y:", self.camera_rotation_beta))
+        rot_layout.addWidget(self._labeled_widget("Z:", self.camera_rotation_gamma))
 
-            Camera_settings.addLayout(camera_location)
-            Camera_settings.addLayout(camera_rotation)
-            camera_setting_grp.setLayout(Camera_settings)
+        layout = QVBoxLayout()
+        layout.addLayout(loc_layout)
+        layout.addLayout(rot_layout)
 
-            # LIGHT SETTINGS
-            light_setting_grp = QGroupBox("Light Settings")
-            light_setting_grp.setFont(QFont('Times', 8))
-            light_setting_grp.setStyleSheet("""
-    QGroupBox {
-        color: #e67e22;  /* Orange - Title text */
-        font-weight: bold;
-        border: 2px solid #d35400; /* Darker Orange - Border */
-        border-radius: 6px;
-        margin-top: 10px;
-    }
-    QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top left;
-        padding: 5px;
-    }
-    """)
+        self.camera_group = self._styled_groupbox("Camera Settings", "#16a085", "#13876a", layout, font_size=8)
 
-            Light_settings = QVBoxLayout()
+    def _create_light_settings(self):
+        """
+        Create and configure the light settings group for render configuration.
 
-            light_location = QHBoxLayout()
-            light_power = QHBoxLayout()
+        Provides interactive controls to position the scene's light source in 3D space 
+        and adjust its power intensity. All inputs are grouped into logically labeled 
+        layouts and wrapped within a stylized "Light Settings" section.
 
-            # X Coordinate
-            light_x_wid = QWidget()
-            light_x = QHBoxLayout()
-            light_x_label = QLabel("X:")
-            light_x_label.setFont(QFont('Times', 7))
-            self.light_location_x = QDoubleSpinBox()
-            self.light_location_x.setRange(-1000, 1000)
-            light_x.addWidget(light_x_label)
-            light_x.addWidget(self.light_location_x)
-            light_x_wid.setLayout(light_x)
+        UI Components
+        -------------
+        - Light position inputs (QDoubleSpinBox for X, Y, Z)
+        - Light intensity input (QSpinBox for power in arbitrary units)
+        - Labeled layouts for location and power
+        - Group box titled "Light Settings" with custom orange theme
+        """
+        self.light_location_x = QDoubleSpinBox()
+        self.light_location_x.setRange(-1000, 1000)
+        self.light_location_y = QDoubleSpinBox()
+        self.light_location_y.setRange(-1000, 1000)
+        self.light_location_z = QDoubleSpinBox()
+        self.light_location_z.setRange(-1000, 1000)
+        self.light_power = QSpinBox()
+        self.light_power.setRange(0, 10000)
 
-            # Y Coordinate
-            light_y_wid = QWidget()
-            light_y = QHBoxLayout()
-            light_y_label = QLabel("Y:")
-            light_y_label.setFont(QFont('Times', 7))
-            self.light_location_y = QDoubleSpinBox()
-            self.light_location_y.setRange(-1000, 1000)
-            light_y.addWidget(light_y_label)
-            light_y.addWidget(self.light_location_y)
-            light_y_wid.setLayout(light_y)
+        loc_layout = QHBoxLayout()
+        loc_layout.addWidget(QLabel("Location"))
+        loc_layout.addWidget(self._labeled_widget("X:", self.light_location_x))
+        loc_layout.addWidget(self._labeled_widget("Y:", self.light_location_y))
+        loc_layout.addWidget(self._labeled_widget("Z:", self.light_location_z))
 
-            # Z Coordinate
-            light_z_wid = QWidget()
-            light_z = QHBoxLayout()
-            light_z_label = QLabel("Z:")
-            light_z_label.setFont(QFont('Times', 7))
-            self.light_location_z = QDoubleSpinBox()
-            self.light_location_z.setRange(-1000, 1000)
-            light_z.addWidget(light_z_label)
-            light_z.addWidget(self.light_location_z)
-            light_z_wid.setLayout(light_z)
+        power_layout = QHBoxLayout()
+        power_layout.addWidget(QLabel("Power"))
+        power_layout.addWidget(self._labeled_widget("Power:", self.light_power))
 
-            # Power Setting
-            light_power_wid = QWidget()
-            light_power_layout = QHBoxLayout()
-            light_power_label = QLabel("Power:")
-            light_power_label.setFont(QFont('Times', 7))
-            self.light_power = QSpinBox()
-            self.light_power.setMinimum(0)
-            self.light_power.setMaximum(10000)
-            light_power_layout.addWidget(light_power_label)
-            light_power_layout.addWidget(self.light_power)
-            light_power_wid.setLayout(light_power_layout)
+        layout = QVBoxLayout()
+        layout.addLayout(loc_layout)
+        layout.addLayout(power_layout)
 
-            # Add widgets to layouts
-            light_location.addWidget(QLabel("Location"))
-            light_location.addWidget(light_x_wid)
-            light_location.addWidget(light_y_wid)
-            light_location.addWidget(light_z_wid)
+        self.light_group = self._styled_groupbox("Light Settings", "#e67e22", "#d35400", layout, font_size=8)
 
-            light_power.addWidget(QLabel("Power"))
-            light_power.addWidget(light_power_wid)
+    def _assemble_config_group(self):
+        """
+        Assemble the primary configuration group container.
 
-            Light_settings.addLayout(light_location)
-            Light_settings.addLayout(light_power)
-            light_setting_grp.setLayout(Light_settings)
-            
-            self.config_layout.addWidget(video_group)
-            self.config_layout.addWidget(camera_setting_grp)
-            self.config_layout.addWidget(light_setting_grp)
-            self.config_group.setLayout(self.config_layout)
+        Combines individual configuration sections—video, camera, and lighting—
+        into a unified vertical layout and embeds them within a stylized QGroupBox
+        labeled "Configurations".
 
-            ############################ OTHER SETTINGS ############################
-            other_settings_group = QGroupBox("Other Settings")
-            other_settings_group.setFont(QFont('Times', 9))
+        UI Components
+        -------------
+        - Vertical layout (`QVBoxLayout`) containing:
+            - `self.video_group`
+            - `self.camera_group`
+            - `self.light_group`
+        - QGroupBox titled "Configurations" with Times font styling
+        """
+        self.config_layout = QVBoxLayout()
+        self.config_layout.addWidget(self.video_group)
+        self.config_layout.addWidget(self.camera_group)
+        self.config_layout.addWidget(self.light_group)
 
-            other_settings_group.setStyleSheet("""
-    QGroupBox {
-        color: #9b59b6;  /* Purple - Title text */
-        font-weight: bold;
-        border: 2px solid #8e44ad; /* Darker Purple - Border */
-        border-radius: 6px;
-        margin-top: 10px;
-    }
-    QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top left;
-        padding: 5px;
-    }   
-    """)
-            other_settings = QHBoxLayout()
+        self.config_group = QGroupBox("Configurations")
+        self.config_group.setFont(QFont('Times', 9))
+        self.config_group.setLayout(self.config_layout)
 
-            ############################ STL CONFIG ############################
-            self.stl_enable = QCheckBox("Save STL")
-            self.stl_enable.setFont(QFont('Times', 8))
-            
-            stl_layout = QHBoxLayout()
-            stl_layout.addWidget(self.stl_enable)
-            
-            ############################ REFLECT CONFIG ########################
+    def _create_other_settings(self):
+        """
+        Create additional configuration options including STL export and axis reflections.
 
-            reflect_label = QLabel("Reflect about Axes: ")
-            reflect_label.setFont(QFont('Times', 8))
-            self.reflect_xy = QCheckBox('XY')
-            self.reflect_yz = QCheckBox('YZ')
-            self.reflect_xz = QCheckBox('XZ')
+        Sets up toggles for saving STL files and applying reflection across the XY, YZ, and XZ planes.
+        Groups these controls into a styled section labeled "Other Settings".
 
-            # Connect each checkbox to the toggle function
-            self.reflect_xy.toggled.connect(lambda: self.toggle_checkboxes(self.reflect_xy))
-            self.reflect_yz.toggled.connect(lambda: self.toggle_checkboxes(self.reflect_yz))
-            self.reflect_xz.toggled.connect(lambda: self.toggle_checkboxes(self.reflect_xz))
+        UI Components
+        -------------
+        - STL Export Toggle (`QCheckBox`): `self.stl_enable`
+        - Axis Reflection Checkboxes:
+            - `self.reflect_xy`
+            - `self.reflect_yz`
+            - `self.reflect_xz`
+        - Reflect toggles are connected to `self.toggle_checkboxes` for interactive behavior
+        - Layout assembled into a custom styled group box
+        """
+        self.stl_enable = QCheckBox("Save STL")
+        self.stl_enable.setFont(QFont('Times', 8))
 
-            reflect_layout = QHBoxLayout()
-            reflect_layout.addWidget(reflect_label)
-            reflect_layout.addWidget(self.reflect_xy)
-            reflect_layout.addWidget(self.reflect_yz)
-            reflect_layout.addWidget(self.reflect_xz)
+        self.reflect_xy = QCheckBox("XY")
+        self.reflect_yz = QCheckBox("YZ")
+        self.reflect_xz = QCheckBox("XZ")
+        for checkbox in (self.reflect_xy, self.reflect_yz, self.reflect_xz):
+            checkbox.setFont(QFont('Times', 8))
+            checkbox.toggled.connect(lambda checked, c=checkbox: self.toggle_checkboxes(c))
 
-        
-            other_settings.addLayout(stl_layout)
-            other_settings.addLayout(reflect_layout)
-            other_settings_group.setLayout(other_settings)
+        layout = QHBoxLayout()
+        stl_layout = QHBoxLayout()
+        reflect_layout = QHBoxLayout()
 
-            ############################ OK BUTTON ############################
-            self.ok_button = QPushButton('Ok', self)
-            self.ok_button.setIcon(qta.icon("mdi.check-circle", color=primary_color))
-            self.ok_button.clicked.connect(self.save_config)
-            
-            self.main_layout.addWidget(self.config_group)
-            self.main_layout.addWidget(other_settings_group)
-            self.main_layout.addWidget(self.ok_button)
+        stl_layout.addWidget(self.stl_enable)
+        reflect_layout.addWidget(QLabel("Reflect about Axes:"))
+        reflect_layout.addWidget(self.reflect_xy)
+        reflect_layout.addWidget(self.reflect_yz)
+        reflect_layout.addWidget(self.reflect_xz)
 
-            self.process_default_config()
-        
+        layout.addLayout(stl_layout)
+        layout.addLayout(reflect_layout)
+
+        self.other_settings_group = self._styled_groupbox("Other Settings", "#9b59b6", "#8e44ad", layout, font_size=9)
+
+    def _styled_groupbox(self, title, color, border_color, layout, font_size=9):
+        """
+        Create a custom-styled QGroupBox with a colored title and border.
+
+        Parameters
+        ----------
+        title : str
+            The title text displayed at the top of the group box.
+        color : str
+            The font color used for the group box title (hex code or color name).
+        border_color : str
+            The color of the border surrounding the group box.
+        layout : QLayout
+            The layout manager containing the widgets to be placed inside the group box.
+        font_size : int, optional
+            Font size for the title text. Default is 9.
+
+        Returns
+        -------
+        QGroupBox
+            A styled `QGroupBox` widget containing the provided layout and title.
+        """
+        group = QGroupBox(title)
+        group.setFont(QFont('Times', font_size))
+        group.setStyleSheet(f"""
+            QGroupBox {{
+                color: {color};
+                font-weight: bold;
+                border: 2px solid {border_color};
+                border-radius: 6px;
+                margin-top: 10px;
+            }}
+            QGroupBox::title {{
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 5px;
+            }}
+        """)
+        group.setLayout(layout)
+        return group
+
+    def _labeled_widget(self, label_text, widget):
+        """
+        Create a widget container with a label and an input/control widget arranged horizontally.
+
+        Parameters
+        ----------
+        label_text : str
+            The text to display as a label for the associated widget.
+        widget : QWidget
+            The input or control widget (e.g., QSpinBox, QComboBox) to be labeled.
+
+        Returns
+        -------
+        QWidget
+            A container widget with a horizontal layout including the label and the given widget.
+        """
+        container = QWidget()
+        layout = QHBoxLayout()
+        label = QLabel(label_text)
+        label.setFont(QFont('Times', 7))
+        layout.addWidget(label)
+        layout.addWidget(widget)
+        layout.setContentsMargins(0, 0, 0, 0)
+        container.setLayout(layout)
+        return container
+
     def process_default_config(self):
-      
+        """
+        Load and apply default configuration values from the project directory.
+
+        This method reads a `config.json` file from the project folder and populates
+        all render configuration widgets with the corresponding values, including
+        video resolution, camera position and orientation, lighting parameters, STL saving, 
+        and reflection axis toggles.
+
+        Configuration File Structure Expected:
+            - VideoRender: { resolution_x, resolution_y }
+            - Camera: { location: [x, y, z], rotation_euler: [alpha, beta, gamma] }
+            - Light: { location: [x, y, z], energy }
+            - STL: bool
+            - Reflect: "XY" | "YZ" | "XZ" | None
+
+        Raises
+        ------
+        FileNotFoundError
+            If `config.json` is not found in the project directory.
+        KeyError
+            If required keys are missing in the config file.
+        """
         with open(os.path.join(self.project_folder, 'config.json'), 'r') as file:
             config = json.load(file)
 
@@ -388,8 +500,35 @@ class RenderConfig(QMainWindow):
         self.stl_enable.setChecked(config["STL"])
 
     def save_config(self):
+        """
+        Collect and save the current render configuration to `config.json`.
 
-        # Save the config file
+        This method gathers all UI state values (video format, resolution, camera parameters,
+        lighting setup, STL export preference, and reflection axis) and serializes them into
+        a dictionary. The config is then saved as a JSON file in the project directory under `config.json`.
+
+        Config Structure:
+            - VideoRender:
+                - OutputPath: str (default 'data/images')
+                - STLPath: str (default 'data/stl')
+                - FrameFormat: str ('PNG', 'JPEG', 'TIFF')
+                - resolution_x: int
+                - resolution_y: int
+                - film_transparent: bool (always False)
+            - Camera:
+                - location: list[float, float, float]
+                - rotation_euler: list[float, float, float]
+            - Light:
+                - location: list[float, float, float]
+                - energy: int
+            - STL: bool
+            - Reflect: str | None ("XY", "YZ", "XZ", or None)
+
+        Side Effects
+        ------------
+        - Overwrites the `config.json` file in the project folder.
+        - Closes the configuration window after saving.
+        """
         config = {
             'VideoRender': {
                 'OutputPath': 'data/images',
@@ -418,7 +557,24 @@ class RenderConfig(QMainWindow):
         self.close()
     
     def toggle_checkboxes(self, checked_box):
-        """Ensures only one checkbox is checked at a time."""
+        """
+        Enforce mutual exclusivity among axis reflection checkboxes.
+
+        Ensures that only one of the reflection axis checkboxes (XY, YZ, XZ) can be active at a time.
+        When a checkbox is toggled on, all others are programmatically toggled off.
+
+        Parameters
+        ----------
+        checked_box : QCheckBox
+            The checkbox that was just toggled to the 'checked' state.
+
+        Behavior
+        --------
+        - If `checked_box` is checked:
+            - Automatically unchecks the other two axis checkboxes.
+        - If `checked_box` is unchecked:
+            - No action is taken (multiple checkboxes can be off simultaneously).
+        """
         if checked_box.isChecked():
             # Uncheck all other checkboxes
             for box in [self.reflect_xy, self.reflect_yz, self.reflect_xz]:
@@ -426,6 +582,11 @@ class RenderConfig(QMainWindow):
                     box.setChecked(False)
             
     def center(self):
+        """
+        Centers the application window on the screen.
+
+        Calculates screen and window dimensions, then moves the window to the center position.
+        """
         # Get the screen resolution
         screen_resolution = QDesktopWidget().screenGeometry()
         screen_width, screen_height = screen_resolution.width(), screen_resolution.height()
@@ -437,10 +598,4 @@ class RenderConfig(QMainWindow):
         y = (screen_height - window_height) // 2
         # Move the window to the center
         self.move(x, y)  
-        
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    win = RenderConfig("D:\Research\Kinematics_App\Project_temp")
-    win.show()
-    sys.exit(app.exec_())
+    

@@ -1,12 +1,48 @@
 import numpy as np
 
-def model_analytical(rotation_axis, final_vectors):
-    '''rotation_axis: str, rotation type
-    final_vectors: list of sympy matrices, final vectors after rotation
+def model_analytical(rotation_axis, final_vectors)-> tuple:
+    """
+    Computes Euler rotation angles based on the specified rotation axis convention.
 
-    Returns:
-    angles: angles of rotation
-    '''
+    This function analytically determines the three Euler angles (alpha, beta, gamma)
+    that rotate a reference frame to match the given final vectors, according to the 
+    specified Euler rotation convention (e.g., 'ZXZ', 'XYZ', etc.).
+
+    The method assumes that the `final_vectors` represent the axes of the rotated frame 
+    (typically X, Y, and Z unit vectors) expressed in the original reference frame after transformation.
+
+    Parameters
+    ----------
+    rotation_axis : str
+        The Euler rotation sequence (e.g., 'XYZ', 'ZXZ', 'ZYX', etc.) that defines 
+        the axis order of the rotations to be solved.
+    
+    final_vectors : list of sympy.Matrix
+        A list containing three SymPy 3D vectors representing the rotated axes after transformation.
+        These vectors are used to analytically compute the rotation angles.
+
+    Returns
+    -------
+    alpha : float
+        The first Euler angle (in degrees), representing rotation about the first axis.
+
+    beta : float
+        The second Euler angle (in degrees), representing rotation about the second axis.
+
+    gamma : float
+        The third Euler angle (in degrees), representing rotation about the third axis.
+
+    Notes
+    -----
+    - The function supports various Euler angle conventions including Tait-Bryan and classical Euler types.
+    - Assumes that the input vectors are orthonormal and represent valid rotations.
+    - All trigonometric computations are performed using `numpy`.
+
+    Raises
+    ------
+    ValueError
+        If an unsupported rotation axis is provided.
+    """
 
     vector_1, vector_2, vector_3 = final_vectors
 

@@ -1,25 +1,92 @@
 import os
+import json
+
 import bpy
 import bmesh
-import json
-
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt, pyqtSlot
+
 from src.utils.utils import create_video_from_frames
 from src.core.transforms.vtk_transform import *
-
-
-import os
-import json
-from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
-import bpy
         
         
 class Worker(QThread):
+    """
+    Worker Class
+    ============
+
+    This class handles background STL processing and frame rendering in Blender for the
+    FlapKine application. Executed in a separate thread, it applies camera and lighting
+    configurations, processes STL meshes, renders 3D frames, and optionally generates STL files
+    and a final video output.
+
+    The class communicates progress updates through a PyQt signal and ensures synchronization
+    with the GUI by invoking Blender rendering operations via the main thread.
+
+    Attributes
+    ----------
+    progress_signal : pyqtSignal
+        Signal emitting the rendering progress as a float percentage.
+
+    project_folder : str
+        Absolute path to the user's project directory containing config and output folders.
+
+    angles : list
+        List of angles (e.g., for animation or keyframes) used for generating frames.
+
+    scene_data_ : SceneData
+        Custom scene object that contains geometry and logic for saving STL representations.
+
+    reflect : tuple(bool, bool, bool)
+        Tuple of booleans indicating which axes (XY, YZ, XZ) to reflect the STL geometry on.
+
+    stl_files : list
+        Internal list of STL files generated or processed during the rendering loop.
+
+    Methods
+    -------
+    __init__(project_folder, angles, scene_data, reflect, parent=None):
+        Initializes the rendering worker with configuration, scene data, and transformation options.
+
+    run():
+        Loads the Blender project, configures the scene, loops through STL frames, renders them,
+        saves optional STL outputs, and compiles the final video.
+
+    import_and_render(stl_mesh, output_dir, frame_index):
+        Imports a single STL mesh into Blender, applies materials, renders a frame,
+        and cleans up the object from the scene afterward.
+    """
     progress_signal = pyqtSignal(float)
 
     def __init__(self, project_folder, angles, scene_data, reflect, parent=None):
+        """
+        Initializes the Worker thread responsible for 3D frame rendering and video compilation.
+
+        This thread handles the automated import of STL frames, applies camera and lighting 
+        settings from the project configuration, renders each frame using Blender, 
+        optionally saves STL files, and compiles a final video from the rendered images.
+
+        Parameters
+        ----------
+        project_folder : str
+            Absolute path to the project directory, expected to contain the configuration 
+            file (`config.json`) and asset subfolders (`data/stl`, `data/images`, etc.).
+        
+        angles : list of float
+            List of joint angles or frame parameters used to generate each STL model.
+        
+        scene_data : object
+            A scene manager or handler object responsible for generating and returning STL 
+            meshes from the given angles and reflection flags.
+        
+        reflect : tuple of bool
+            A 3-tuple indicating whether to apply geometric reflection across the 
+            XY, YZ, and XZ planes, respectively. Used for symmetrical scene variations.
+        
+        parent : QObject, optional
+            Optional parent object for integration with the Qt object tree.
+        """
         super(Worker, self).__init__(parent)
         self.project_folder = project_folder    
         self.angles = angles
@@ -28,7 +95,25 @@ class Worker(QThread):
         self.stl_files = []
 
     def run(self):
-        
+        """
+        Executes the rendering workflow asynchronously in a separate thread.
+
+        This method orchestrates the complete rendering pipeline using Blender’s Python API:
+        - Loads project configuration from `config.json`, including render format, resolution, 
+          camera pose, and lighting parameters.
+        - Prepares the Blender scene with specified render and environment settings.
+        - Iterates through a sequence of frames generated from input angles:
+            - Requests an STL mesh from the scene manager, applying reflection flags.
+            - Renders each frame with a defined material (e.g., blue surface).
+            - Optionally exports STL files if enabled in the config.
+        - Emits real-time progress updates through `progress_signal` for GUI feedback.
+        - After rendering all frames, compiles the image sequence into a video using 
+          `create_video_from_frames`.
+
+        This method is designed to run in the background to prevent UI freezing during
+        long rendering operations.
+        """
+
         # Load the Blender project
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
@@ -99,8 +184,31 @@ class Worker(QThread):
 
     @pyqtSlot(object, str, int)
     def import_and_render(self, stl_mesh, output_dir, frame_index):
-        """ Handle numpy-stl mesh directly instead of file path """
-        
+        """
+        Imports a single STL mesh into Blender, renders it, and exports the result as an image.
+
+        This method is invoked on the main thread via `QMetaObject.invokeMethod` to comply with 
+        Blender’s threading constraints, ensuring that all scene operations are thread-safe.
+
+        Parameters
+        ----------
+        stl_mesh : numpy-stl STL mesh
+            A triangle mesh object representing the 3D geometry of the current frame, 
+            typically produced using NumPy-STL or equivalent STL generation logic.
+        output_dir : str
+            Absolute path to the directory where the rendered image should be saved.
+        frame_index : int
+            Index of the current frame in the animation sequence; determines output filename 
+            (e.g., `frame_1.png`, `frame_2.png`, ...).
+
+        Notes
+        -----
+        - Creates a temporary Blender object from the STL geometry using `bmesh`.
+        - Applies a blue material to the mesh.
+        - Renders a still image using Blender's internal renderer and saves it to disk.
+        - Cleans up the mesh object post-render to free memory and keep the scene clean.
+        """
+         
         # Create a new Blender mesh and object
         new_mesh = bpy.data.meshes.new("imported_mesh")
         new_object = bpy.data.objects.new("ImportedObject", new_mesh)

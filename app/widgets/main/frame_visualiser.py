@@ -2,18 +2,131 @@ import os
 import json
 import numpy as np
 import vtk
+
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QSlider, QLabel, QPushButton, QGroupBox
-)
 from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QSlider, QLabel, QPushButton
+)
+
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+
 import qtawesome as qta
-from src.core.transforms.vtk_transform import *
+
+from src.core.transforms.vtk_transform import vtk_rotation
 
 
 class Visualizer3DWidget(QWidget):
+    """
+    Visualizer3DWidget Class
+    ========================
+
+    A PyQt5-based widget for interactive 3D visualization and playback of 
+    flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget 
+    serves as a real-time visual tool to inspect spatial orientation, 
+    transformations, and local/global coordinate systems derived from simulation frames.
+
+    The widget includes:
+    - A VTK-based 3D scene viewer.
+    - Playback controls (play, pause, next frame).
+    - A slider to scrub through simulation frames.
+    - Global and per-object body axes visualizations.
+
+    Attributes
+    ----------
+    scene_data : object
+        Parsed simulation object containing geometry, frame orientations,
+        and object transformations.
+
+    project_folder : str
+        Path to the project directory containing configuration and assets.
+
+    angles : List[float]
+        List of orientation angles for animation frames.
+
+    reflect : List[bool]
+        Boolean flags indicating whether XY, YZ, or XZ axis reflections are active, 
+        derived from the project's config file.
+
+    actor : vtk.vtkActor
+        The VTK actor representing the primary STL mesh of the scene.
+
+    body_axes : List[vtk.vtkAxesActor]
+        List of per-object axes actors, visualizing local coordinate systems.
+
+    vtkWidget : QVTKRenderWindowInteractor
+        VTK widget integrated into the PyQt5 layout for rendering the 3D scene.
+
+    ren : vtk.vtkRenderer
+        Renderer instance that manages visual elements and camera.
+
+    iren : vtkRenderWindowInteractor
+        Interactor for handling user input and real-time navigation.
+
+    slider : QSlider
+        Slider for frame-by-frame navigation through animation data.
+
+    slider_label : QLabel
+        Label displaying the currently selected frame index.
+
+    play_button : QPushButton
+        Button to toggle playback of the simulation.
+
+    next_button : QPushButton
+        Button to jump to the next frame in the sequence.
+
+    playing : bool
+        Internal flag indicating whether playback is active.
+
+    Methods
+    -------
+    __init__(scene_data, project_folder, angles, parent=None)
+        Initialize the widget and prepare UI and visualization pipeline.
+
+    init_ui()
+        Set up the UI layout, controls, slider, buttons, and VTK window.
+
+    setup_visualization()
+        Load configuration, generate VTK mesh and actors, initialize the scene.
+
+    create_axes_actor(poly_data)
+        Create a global coordinate axes actor scaled to mesh bounds.
+
+    create_body_axes(sprite)
+        Generate a local coordinate system actor for a given object.
+
+    toggle_play()
+        Toggle animation playback state and update play button icon.
+
+    play_frames()
+        Play the animation by advancing the frame slider on a timer.
+
+    on_slider_value_changed()
+        Update the scene actors according to the selected frame.
+
+    stl_mesh_to_vtk(stl_mesh)
+        Convert an STL mesh from numpy-stl format to VTK polydata.
+    """
+
     def __init__(self, scene_data, project_folder, angles, parent=None):
+        """
+        Initialize the 3D visualizer widget.
+
+        Sets up the internal state and initializes the user interface
+        for playback and visualization of the flapping wing MAV simulation.
+
+        Parameters
+        ----------
+        scene_data : object
+            Parsed simulation object containing geometry, frame orientations,
+            and object transformations.
+        project_folder : str
+            Path to the project directory containing configuration and assets.
+        angles : list
+            List of orientation angles for animation frames.
+        parent : QWidget, optional
+            Optional parent widget for GUI nesting (default is None).
+        """
         super().__init__(parent)
 
         self.scene_data = scene_data
@@ -24,6 +137,20 @@ class Visualizer3DWidget(QWidget):
         self.init_ui()
 
     def init_ui(self):
+        """
+        Initialize the user interface components of the 3D visualizer widget.
+
+        Sets up the layout, playback controls, VTK rendering window, and
+        prepares the visualization pipeline for the flapping MAV simulation.
+
+        UI Components:
+        --------------
+        - Frame slider with frame label for time-step control.
+        - Play/pause button and next-frame button.
+        - Embedded VTK render window for 3D scene visualization.
+
+        This method also calls `setup_visualization()` to initialize the rendering pipeline.
+        """
         primary_color = self.palette().color(self.foregroundRole()).name()
 
 
@@ -100,6 +227,29 @@ class Visualizer3DWidget(QWidget):
         self.setup_visualization()
 
     def setup_visualization(self):
+        """
+        Set up the 3D visualization environment using VTK.
+
+        This method loads the reflection configuration from the project JSON,
+        converts the scene's STL mesh to VTK-compatible format, initializes
+        the main actor and coordinate axes, and prepares the interactor for rendering.
+
+        Steps performed:
+        ----------------
+        - Load `config.json` to determine reflection plane settings.
+        - Generate and convert the scene mesh using `save_stl()` and `stl_mesh_to_vtk()`.
+        - Create and configure the VTK actor with color and opacity.
+        - Initialize global coordinate axes and per-object body axes.
+        - Add all actors to the renderer and reset the camera.
+        - Initialize the VTK interactor for user interaction.
+
+        Raises:
+        -------
+        FileNotFoundError
+            If `config.json` does not exist in the project folder.
+        JSONDecodeError
+            If the JSON configuration file is improperly formatted.
+        """
         with open(os.path.join(self.project_folder, 'config.json')) as f:
             config = json.load(f)
 
@@ -133,6 +283,25 @@ class Visualizer3DWidget(QWidget):
         self.ren.ResetCamera()
 
     def create_axes_actor(self, poly_data):
+        """
+        Create and configure a global coordinate axes actor based on the bounding box of the given mesh.
+
+        Parameters
+        ----------
+        poly_data : vtk.vtkPolyData
+            The VTK polydata object representing the mesh from which the bounds are calculated.
+
+        Returns
+        -------
+        vtk.vtkAxesActor
+            The axes actor with scaled dimensions and labeled axes ('X', 'Y', 'Z').
+
+        Notes
+        -----
+        - The axes size is set to 10% of the maximum bounding box dimension.
+        - Axis labels are set and styled with black color for readability.
+        - This actor provides a visual reference for global orientation in the 3D scene.
+        """
         bounds = poly_data.GetBounds()
         max_length = max(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4])
         axes = vtk.vtkAxesActor()
@@ -147,6 +316,27 @@ class Visualizer3DWidget(QWidget):
         return axes
 
     def create_body_axes(self, sprite):
+        """
+        Create a local coordinate axes actor for a given sprite object, oriented and positioned 
+        based on its frame orientation and origin.
+
+        Parameters
+        ----------
+        sprite : object
+            A sprite object from the scene containing frame orientation and origin attributes.
+
+        Returns
+        -------
+        vtk.vtkAxesActor
+            A VTK axes actor positioned and rotated according to the sprite's local frame.
+
+        Notes
+        -----
+        - The axis labels are set to 'A', 'B', and 'C' to represent the object's local coordinate system.
+        - The axis size is scaled relative to the mesh bounds for proportional rendering.
+        - Orientation is applied using Euler angles (in radians), converted to degrees for VTK.
+        - This actor visually represents the local transformation of each object in the scene.
+    """
         max_length = max(self.actor.GetBounds()[1::2]) * 0.05
         axes = vtk.vtkAxesActor()
         axes.SetTotalLength(max_length, max_length, max_length)
@@ -171,6 +361,22 @@ class Visualizer3DWidget(QWidget):
         return axes
 
     def toggle_play(self):
+        """
+        Toggle the playback state of the animation and update the play button icon accordingly.
+
+        This method switches between playing and paused states. When toggled to play,
+        it initiates the frame-by-frame animation using the `play_frames()` method.
+
+        Side Effects
+        ------------
+        - Updates `self.playing` to reflect the current playback state.
+        - Changes the play button icon to either a play or pause symbol depending on the state.
+        - Starts frame playback if toggled to playing.
+
+        Notes
+        -----
+        - The icon is styled using the widget's foreground color for visual consistency.
+        """
         primary_color = self.palette().color(self.foregroundRole()).name()
         self.playing = not self.playing
         self.play_button.setIcon(qta.icon("mdi.pause" if self.playing else "mdi.play", color=primary_color))
@@ -178,6 +384,18 @@ class Visualizer3DWidget(QWidget):
             self.play_frames()
 
     def play_frames(self):
+        """
+        Advance the animation by one frame and schedule the next frame if playing.
+
+        This method increments the frame slider to the next value, wraps around at the end,
+        and updates the visualization accordingly. If playback is active, it recursively
+        schedules the next frame update using a `QTimer`.
+
+        Notes
+        -----
+        - Frame updates occur every 50 milliseconds.
+        - The method stops updating if `self.playing` is set to False.
+        """
         if self.playing:
             next_frame = (self.slider.value() + 1) % len(self.angles)
             self.slider.setValue(next_frame)
@@ -185,6 +403,19 @@ class Visualizer3DWidget(QWidget):
             QTimer.singleShot(50, self.play_frames)
 
     def on_slider_value_changed(self):
+        """
+        Update the visualization based on the current slider frame index.
+
+        This method retrieves the frame-specific orientation and position data for each object,
+        computes their transformation matrices, and updates the corresponding VTK actors accordingly.
+        The slider label is also updated to reflect the current frame index.
+
+        Notes
+        -----
+        - Applies both translation and rotation to each actor and its associated body axes.
+        - Updates the main mesh actor (`self.actor`) transformation based on the last processed object.
+        - Triggers a re-render of the VTK render window.
+        """
         index = self.slider.value()
         self.slider_label.setText(f"Frame: {index}")
 
@@ -213,7 +444,22 @@ class Visualizer3DWidget(QWidget):
 
     def stl_mesh_to_vtk(self, stl_mesh):
         """
-        Convert an stl.mesh.Mesh (numpy-stl) object to vtkPolyData.
+        Convert an STL mesh (numpy-stl) into a VTK `vtkPolyData` object.
+
+        Parameters
+        ----------
+        stl_mesh : stl.mesh.Mesh
+            The mesh object from the numpy-stl library containing triangle vectors.
+
+        Returns
+        -------
+        vtk.vtkPolyData
+            The converted mesh as a VTK polydata object with points and triangle cells.
+
+        Notes
+        -----
+        - Deduplicates vertices before inserting them into the VTK point list.
+        - Ensures mesh connectivity by using indexed triangles.
         """
         poly_data = vtk.vtkPolyData()
         points = vtk.vtkPoints()
