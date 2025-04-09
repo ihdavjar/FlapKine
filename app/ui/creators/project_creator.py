@@ -8,7 +8,7 @@ import qtawesome as qta
 
 from app.ui.editor.project_editor import ProjectWindow
 from app.ui.creators.scene_creator import SceneCreator
-from app.widgets.menu_bar import MenuBar
+from app.widgets.misc.menu_bar import MenuBar
 
 class ProjectCreator(QMainWindow): 
     """

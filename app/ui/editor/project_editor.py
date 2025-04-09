@@ -16,10 +16,11 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from src.utils.utils import create_video_from_frames
 from src.core.transforms.vtk_transform import *
-from app.widgets.render_config_edit import RenderConfig
+from app.widgets.misc.render_config_edit import RenderConfig
 import vtk
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import qtawesome as qta
+from app.widgets.misc.menu_bar import MenuBar
 
 
 import os
@@ -27,162 +28,8 @@ import json
 from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt
 import bpy
         
-class VideoPlayer(QWidget):
-    def __init__(self, width=640, height=480):  # Default size
-        super().__init__()
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-
-        # Create video widget
-        self.video_widget = QVideoWidget(self)
-        self.video_widget.setSizePolicy(QWidget.sizePolicy(self).Expanding, QWidget.sizePolicy(self).Expanding)
-        self.video_widget.setMinimumSize(400, 225)  # Ensuring a minimum size
-
-        layout.addWidget(self.video_widget)
-
-        # Setup media player
-        self.media_player = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.media_player.setVideoOutput(self.video_widget)
-
-        # Set initial size
-        self.setMinimumSize(width, height)
-
-    def setMedia(self, video_path):
-        media = QMediaContent(QUrl.fromLocalFile(video_path))
-        self.media_player.setMedia(media)
-        self.media_player.pause()
-
-    def resizeEvent(self, event):
-        """Ensure the video widget resizes properly and maintains aspect ratio."""
-        self.video_widget.setGeometry(self.rect())  # Stretch to fit full screen
-        super().resizeEvent(event)
-        
-class Worker(QThread):
-    progress_signal = pyqtSignal(float)
-
-    def __init__(self, project_folder, angles, scene_data, reflect, parent=None):
-        super(Worker, self).__init__(parent)
-        self.project_folder = project_folder    
-        self.angles = angles
-        self.scene_data_ = scene_data
-        self.reflect = reflect
-        self.stl_files = []
-
-    def run(self):
-        
-        # Load the Blender project
-        with open(os.path.join(self.project_folder, 'config.json')) as f:
-            config = json.load(f)
-
-        
-        # Set rendering parameters
-        bpy.context.scene.render.image_settings.file_format = config['VideoRender']['FrameFormat']  # Output image format
-        bpy.context.scene.render.resolution_x = config['VideoRender']['resolution_x']  # Output resolution X
-        bpy.context.scene.render.resolution_y = config['VideoRender']['resolution_y']  # Output resolution Y
-        bpy.context.scene.render.film_transparent = config['VideoRender']['film_transparent']  # Enable transparent background
-
-        # Set the camera parameters
-        bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
-        bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
-
-        bpy.context.scene.camera.data.type = 'PERSP'
-        bpy.context.scene.camera.data.lens = 140
-
-        # Set the light parameters
-        bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
-        bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
-
-        # Remove the default cube
-        if 'Cube' in bpy.data.objects:
-            bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
-
-        # Set the scene frame rate
-        bpy.context.scene.render.fps = 24  # Frame rate
-
-         # Set the world background color to white
-        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.95, 0.95, 0.95, 1)
-        # Create a blue material
-        blue_material = bpy.data.materials.new(name="BlueMaterial")
-        blue_material.use_nodes = True
-        bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
-        bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
-        
-        # stl_files_dir = os.path.join(self.project_folder, 'data/stl')
-        output_dir = os.path.join(self.project_folder, 'data/images')
-        stl_dir = os.path.join(self.project_folder, 'data/stl')
-
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        
-        if config["STL"]:
-            if not os.path.exists(stl_dir):
-                os.makedirs(stl_dir)
-
-        # Loop through each STL file
-        for i in range(len(self.angles)):
-            stl_file = self.scene_data_.save_stl(i, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
-            
-            if config["STL"]:
-                stl_file.save(os.path.join(stl_dir, f"stl_mesh_{i}.stl"))
-            
-            # Import STL file and render in the main thread
-            QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
-                                     Q_ARG(object, stl_file), Q_ARG(str, output_dir), Q_ARG(int, i+1))
-
-            self.progress_signal.emit((i + 1)/len(self.angles) * 100)
-            
-        frames_path = os.path.join(self.project_folder, 'data/images')
-        project_name = os.path.basename(self.project_folder)
-        video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
-
-        create_video_from_frames(frames_path, video_path, frame_rate=20,
-                                 width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
-
-    @pyqtSlot(object, str, int)
-    def import_and_render(self, stl_mesh, output_dir, frame_index):
-        """ Handle numpy-stl mesh directly instead of file path """
-        
-        # Create a new Blender mesh and object
-        new_mesh = bpy.data.meshes.new("imported_mesh")
-        new_object = bpy.data.objects.new("ImportedObject", new_mesh)
-        bpy.context.collection.objects.link(new_object)
-        
-        # Create BMesh to build geometry from numpy-stl mesh
-        bm = bmesh.new()
-        for face in stl_mesh.vectors:
-            verts = [bm.verts.new(v) for v in face]
-            bm.faces.new(verts)
-        
-        bm.to_mesh(new_mesh)
-        bm.free()
-
-        # Add material to the object
-        blue_material_name = "BlueMaterial"
-        if not any(mat.name == blue_material_name for mat in new_mesh.materials):
-            # Create the blue material if it doesn't exist
-            if blue_material_name not in bpy.data.materials:
-                blue_material = bpy.data.materials.new(name=blue_material_name)
-                blue_material.use_nodes = True
-                bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
-                bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
-            else:
-                blue_material = bpy.data.materials.get(blue_material_name)
-            
-            # Assign the material to the object
-            new_mesh.materials.append(blue_material)
-
-        # Set the render output file path and render
-        output_filename = f'frame_{frame_index}.png'
-        output_path = os.path.join(output_dir, output_filename)
-        
-        bpy.context.scene.render.filepath = output_path
-        bpy.ops.render.render(write_still=True)
-
-        # Clean up the object after rendering
-        bpy.ops.object.select_all(action='DESELECT')
-        new_object.select_set(True)
-        bpy.ops.object.delete()
-
+from app.widgets.main.video_animation import VideoAnimation
+    
 class STLWorker(QThread):
     stl_ready = pyqtSignal(object)
 
@@ -247,53 +94,25 @@ class ProjectWindow(QMainWindow):
 
     def __init__(self, project_folder):
         super(ProjectWindow, self).__init__()
-
-        # Storing the project folder
+        
         self.project_folder = project_folder
-
-        # Place the window in the center of the screen
         self.setWindowTitle("FlapKine")
-
-        # Set the window geometry
-        self.resize(1200, 800)
-
-        # Set the icon
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flap_kine_icon.png')))
+        self.resize(1280, 800)
+        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
         
         ############################ Menu Bar ################################
-        self.menu = self.menuBar()
-        self.file_menu = self.menu.addMenu('File')
-        self.new_action = self.file_menu.addAction('New')
-        self.new_action.setEnabled(False)
-        self.open_action = self.file_menu.addAction('Open')
-        self.open_action.setEnabled(False)
-        self.exit_action = self.file_menu.addAction('Exit')
-        self.exit_action.triggered.connect(self.close)
+        self.menu_bar = MenuBar(self)
+        self.setMenuBar(self.menu_bar)
 
-        self.edit_menu = self.menu.addMenu('Edit')
-        self.undo_action = self.edit_menu.addAction('Undo')
-        self.undo_action.setEnabled(False)
-        self.redo_action = self.edit_menu.addAction('Redo')
-        self.redo_action.setEnabled(False)
-
-        self.window_menu = self.menu.addMenu('Window')
-        self.minimize_action = self.window_menu.addAction('Minimize')
-        self.minimize_action.triggered.connect(self.showMinimized)
-        self.maximize_action = self.window_menu.addAction('Maximize')
-        self.maximize_action.triggered.connect(self.showMaximized)
-        self.restore_action = self.window_menu.addAction('Restore')
-        self.restore_action.triggered.connect(self.showNormal)
-        self.new_window_action = self.window_menu.addAction('New Window')
-        self.new_window_action.setEnabled(False)
-
-        self.render_menu = self.menu.addMenu('Render')
-        self.render_option = self.render_menu.addAction('Configure Render')
-        self.render_option.triggered.connect(self.change_render_config)
-
-        self.help_menu = self.menu.addMenu('Help')
-        self.about_action = self.help_menu.addAction('About') 
-        self.about_action.triggered.connect(self.about_button_fun)
-
+        self.menu_bar.connect_actions({
+            'exit': self.close,
+            'minimize': self.showMinimized,
+            'maximize': self.showMaximized,
+            'restore': self.showNormal,
+            'about': self.about_button_fun,
+            'configure_render': self.change_render_config,
+        })
+        
         # Process the project
         self.process_project()
         
@@ -312,12 +131,13 @@ class ProjectWindow(QMainWindow):
         top_splitter = QSplitter(Qt.Horizontal)
         bottom_splitter = QSplitter(Qt.Horizontal)
                                     
-        self.CreateAnimation()
+        # self.CreateAnimation()
         self.create_3d_visualiser()
         self.point_selected()
         self.create_3d_scatter_plot([0, 0, 0])
 
         # Adding widgets to top row
+        self.topleftgroup = VideoAnimation(self.project_folder, self.scene_data)  # Video animation widget
         top_splitter.addWidget(self.topleftgroup)  # Top left (Main controls)
         top_splitter.addWidget(self.toprightgroup)  # Placeholder for future expansion
 
@@ -330,14 +150,14 @@ class ProjectWindow(QMainWindow):
         main_splitter.addWidget(bottom_splitter)
 
         # Set minimum size for each section
-        self.topleftgroup.setMinimumSize(600, 400)
+        self.topleftgroup.setMinimumSize(640, 400)
         self.toprightgroup.setMinimumSize(400, 400)
-        self.bottomleftgroup.setMinimumSize(600, 400)
+        self.bottomleftgroup.setMinimumSize(640, 400)
         self.bottomrightgroup.setMinimumSize(400, 400)
 
         # Set the exact sizes for each splitter
-        top_splitter.setSizes([600, 600])    # Each half is 600px wide
-        bottom_splitter.setSizes([600, 600]) # Each half is 600px wide
+        top_splitter.setSizes([640, 640])    # Each half is 600px wide
+        bottom_splitter.setSizes([640, 640]) # Each half is 600px wide
         main_splitter.setSizes([400, 400])   # Each half is 400px tall
 
         main_layout.setContentsMargins(10, 10, 10, 10)
@@ -346,10 +166,6 @@ class ProjectWindow(QMainWindow):
         # Add the main splitter to the layout
         main_layout.addWidget(main_splitter)
 
-        # Maximize the window
-        # self.showMaximized()
-
-    ############################ Project Functions ################################
     def process_project(self):
         scene_path = os.path.join(self.project_folder, 'scene.pkl')
         
@@ -619,131 +435,7 @@ class ProjectWindow(QMainWindow):
             self.vtkWidget.GetRenderWindow().Render()
         except Exception as e:
             print(f"Error updating STL: {e}")
-    # Create the bottom left group
-    def CreateAnimation(self):
-
-        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
-        
-        self.topleftgroup = QGroupBox("Animation Window")
-        self.topleftgroup.setFont(QFont('Times', 9))
-
-        # Video Related Widget
-        self.playButton = QPushButton('')
-        self.playButton.setIcon(qta.icon("mdi.play", color=primary_color))
-        self.video_playing = False
-        self.playButton.clicked.connect(self.playVideo)
-
-        self.repeatButton = QPushButton('')
-        self.repeatButton.setIcon(qta.icon("mdi.repeat", color=primary_color))
-        self.repeatButton.setCheckable(True)
-        self.repeatButton.clicked.connect(self.repeatVideo)
-
-        # Create slider for video position
-        self.positionSlider = QSlider(Qt.Horizontal)
-        self.positionSlider.setRange(0, 0)
-        self.positionSlider.setStyleSheet("""
-            QSlider::groove:horizontal {
-                border: none;
-                background: #ddd;
-                height: 8px;
-                border-radius: 4px;
-            }
-
-            QSlider::handle:horizontal {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);
-                border: 2px solid #005a9e;
-                width: 18px;
-                height: 18px;
-                margin: -7px 0;
-                border-radius: 9px;
-            }
-
-            QSlider::handle:horizontal:hover {
-                background: #005a9e;
-            }
-
-            QSlider::sub-page:horizontal {
-                background: #00aaff;
-                border-radius: 4px;
-            }
-
-            QSlider::add-page:horizontal {
-                background: #ccc;
-                border-radius: 4px;
-            }
-        """)
-        self.positionSlider.sliderMoved.connect(self.setPosition)
-        
-
-
-        # render options
-        self.render_button = QPushButton("Render")
-        self.render_button.setFont(QFont('Times', 8))
-        
-        self.render_button.setIcon(qta.icon("mdi.printer-3d", color = primary_color))
-        self.render_button.clicked.connect(self.genframes)
-
-        self.progress_bar = QProgressBar()
-        self.progress_bar.setRange(0, 100)
-        self.progress_bar.setValue(0)
-        self.progress_bar.setStyleSheet("""
-    QProgressBar {
-        border: 2px solid #005a9e;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 10pt;
-        background-color: #ddd;
-        padding: 2px;
-    }
-
-    QProgressBar::chunk {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);
-        border-radius: 5px;
-    }
-""")
-
-        # Create label for displaying status
-        self.statusLabel = QLabel('')
-        self.statusLabel.setFont(QFont('Times', 8))
-
-        render_layout = QHBoxLayout()
-        render_layout.addWidget(self.render_button)
-        render_layout.addWidget(self.progress_bar)
-        
-
-        controlLayout = QHBoxLayout()
-        controlLayout.addWidget(self.playButton)
-        controlLayout.addWidget(self.repeatButton) 
-        controlLayout.addWidget(self.positionSlider) 
-
-        with open(os.path.join(self.project_folder, 'config.json')) as f:
-            config = json.load(f)
-
-        # Connect media player signals
-        self.video_widget = VideoPlayer(config['VideoRender']['resolution_x'], config['VideoRender']['resolution_y'])
-
-        # Connect media player signals
-        self.video_widget.media_player.durationChanged.connect(self.updateDuration)
-        self.video_widget.media_player.positionChanged.connect(self.updatePosition)
-        self.video_widget.media_player.stateChanged.connect(self.updateState)
-
-
-        project_name = os.path.basename(self.project_folder)
-
-        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
-
-        if not os.path.exists(video_path):
-            self.showErrorDialog('Alert', f"No render found at: {self.project_folder}")
-        
-        else:
-            self.video_widget.setMedia(video_path)
-            
-        layout = QVBoxLayout()
-        layout.addWidget(self.video_widget)
-        layout.addLayout(controlLayout)
-        layout.addLayout(render_layout)
-
-        self.topleftgroup.setLayout(layout)
+    # Create the bottom left group 
     
     def point_selected(self):
         
@@ -1027,77 +719,9 @@ class ProjectWindow(QMainWindow):
         poly_data.SetPolys(cells)
         return poly_data
 
-    def genframes(self):
-
-        self.render_button.setEnabled(False)
-        self.bottomleftgroup.setEnabled(False)
-        self.topleftgroup.setEnabled(False)
-        self.bottomrightgroup.setEnabled(False)
-
-        self.worker = Worker(self.project_folder, self.angles, self.scene_data, self.reflect)
-
-        self.worker.progress_signal.connect(self.update_progress)
-
-        self.worker.start()
-
-        self.worker.finished.connect(self.complete_render)
-
-    def complete_render(self):
-        self.render_button.setEnabled(True)
-        project_name = os.path.basename(self.project_folder)
-        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
-        self.showAlertDialog('Alert', f"Video rendered successfully at: {video_path}")
-        self.video_widget.setMedia(video_path)
-
-        self.bottomleftgroup.setEnabled(True)
-        self.topleftgroup.setEnabled(True)
-        self.bottomrightgroup.setEnabled(True)
-
-    def update_progress(self, value):
-        self.progress_bar.setValue(int(value))
-
     ############################ Video Functions ################################
     # Define same function to play and pause removing pause button update the play button
-    def playVideo(self):
-        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color 
-        if self.video_playing:
-            self.video_widget.media_player.pause()
-            self.playButton.setIcon(qta.icon("mdi.play", color=primary_color))
-            self.video_playing = False
-        else:
-            self.video_widget.media_player.play()
-            self.playButton.setIcon(qta.icon("mdi.pause", color=primary_color))
-            self.video_playing = True
-        
-    def repeatVideo(self):
-        primary_color = self.palette().color(self.foregroundRole()).name()  # Get the primary color
-        if self.repeatButton.isChecked():
-            self.repeatButton.setIcon(qta.icon("mdi.repeat-off", color=primary_color))
-            self.video_widget.media_player.setPosition(0)
-            self.video_widget.media_player.play()
-            self.playButton.setIcon(qta.icon("mdi.pause", color=primary_color))
-        else:
-            self.repeatButton.setIcon(qta.icon("mdi.repeat", color=primary_color))
-
-    def updateDuration(self, duration):
-        self.positionSlider.setRange(0, duration)
-
-    def updatePosition(self, position):
-        self.positionSlider.setValue(position)
-    
-    def setPosition(self, position):
-        self.video_widget.media_player.setPosition(position)
-
-    def updateState(self, state):
-        if state == QMediaPlayer.PlayingState:
-            self.statusLabel.setText('Playing')
-        elif state == QMediaPlayer.PausedState:
-            self.statusLabel.setText('Paused')
-        elif state == QMediaPlayer.StoppedState:
-            self.statusLabel.setText('Stopped')
-            if self.repeatButton.isChecked():
-                self.video_widget.media_player.setPosition(0)
-                self.video_widget.media_player.play()   
+      
 
     ############################ Window Related Functions ################################
     def center(self):

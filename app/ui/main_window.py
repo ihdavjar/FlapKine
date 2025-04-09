@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import qtawesome as qta
 
-from app.widgets.menu_bar import MenuBar
+from app.widgets.misc.menu_bar import MenuBar
 from app.ui.editor.project_editor import ProjectWindow
 from app.ui.creators.project_creator import ProjectCreator
 
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow):
     def create_new_project(self):
         directory, _ = QFileDialog.getSaveFileName(self, 'Select Directory')
 
-        self.window2 = CreateProjectWin(directory)
+        self.window2 = ProjectCreator(directory)
         self.window2.show()
         self.close()
 

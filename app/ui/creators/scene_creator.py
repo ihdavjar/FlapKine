@@ -8,7 +8,7 @@ from src.core.core import Scene
 import qtawesome as qta
 
 from app.ui.creators.sprite_creator import SpriteCreator
-from app.widgets.menu_bar import MenuBar
+from app.widgets.misc.menu_bar import MenuBar
 
 class SceneCreator(QMainWindow):
     """

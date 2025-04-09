@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
     QLineEdit, QMainWindow, QPushButton, QSplitter, QVBoxLayout, QWidget
 )
 
-from app.widgets.menu_bar import MenuBar
+from app.widgets.misc.menu_bar import MenuBar
 from src.core.inverse_kinematics.analytical_methods import model_analytical
 
 

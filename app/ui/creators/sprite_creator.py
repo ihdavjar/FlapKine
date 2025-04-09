@@ -15,7 +15,7 @@ from src.core.transforms.translation import *
 from src.core.transforms.rotation import *
 from src.core.transforms.flexibility import *
 from app.core.invkinematics import *
-from app.widgets.menu_bar import MenuBar
+from app.widgets.misc.menu_bar import MenuBar
 
 
 class SpriteCreator(QMainWindow):
