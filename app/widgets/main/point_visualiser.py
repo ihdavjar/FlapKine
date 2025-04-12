@@ -1,9 +1,15 @@
 import numpy as np
-import vtk
-from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QSplitter
+
+from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from vtk import (
+    vtkActor, vtkAxesActor, vtkCellArray, vtkCellPicker, vtkGlyph3D,
+    vtkInteractorStyleImage, vtkPoints, vtkPolyData, vtkPolyDataMapper,
+    vtkRenderer, vtkSphereSource, vtkTriangle
+)
 
 class PointScatterWidget(QWidget):
     """
@@ -167,11 +173,11 @@ class PointScatterWidget(QWidget):
         topright_layout.addWidget(self.vtk_widget_1)
         self.toprightgroup.setLayout(topright_layout)
 
-        self.ren_1 = vtk.vtkRenderer()
+        self.ren_1 = vtkRenderer()
         self.ren_1.SetBackground(0.95, 0.95, 0.95)
         self.vtk_widget_1.GetRenderWindow().AddRenderer(self.ren_1)
         self.iren_1 = self.vtk_widget_1.GetRenderWindow().GetInteractor()
-        self.interactor_style_1 = vtk.vtkInteractorStyleImage()
+        self.interactor_style_1 = vtkInteractorStyleImage()
         self.iren_1.SetInteractorStyle(self.interactor_style_1)
         self.iren_1.AddObserver("LeftButtonPressEvent", self.on_click)
 
@@ -183,14 +189,14 @@ class PointScatterWidget(QWidget):
         points = np.array([poly_data.GetPoint(i) for i in range(poly_data.GetNumberOfPoints())])
         points[:, 2] = 0  # Flatten Z-axis
 
-        new_points = vtk.vtkPoints()
+        new_points = vtkPoints()
         for p in points:
             new_points.InsertNextPoint(p)
         poly_data.SetPoints(new_points)
 
-        mapper = vtk.vtkPolyDataMapper()
+        mapper = vtkPolyDataMapper()
         mapper.SetInputData(poly_data)
-        self.actor_1 = vtk.vtkActor()
+        self.actor_1 = vtkActor()
         self.actor_1.SetMapper(mapper)
         self.actor_1.GetProperty().SetColor(0.5, 0.7, 1)
 
@@ -206,7 +212,7 @@ class PointScatterWidget(QWidget):
         bottomright_layout.addWidget(self.vtk_widget_2)
         self.bottomrightgroup.setLayout(bottomright_layout)
 
-        self.ren_2 = vtk.vtkRenderer()
+        self.ren_2 = vtkRenderer()
         self.ren_2.SetBackground(0.95, 0.95, 0.95)
         self.vtk_widget_2.GetRenderWindow().AddRenderer(self.ren_2)
         self.iren_2 = self.vtk_widget_2.GetRenderWindow().GetInteractor()
@@ -249,7 +255,7 @@ class PointScatterWidget(QWidget):
         - This method assumes that a valid STL mesh is already rendered in `ren_1`
         """
         click_pos = self.iren_1.GetEventPosition()
-        picker = vtk.vtkCellPicker()
+        picker = vtkCellPicker()
         picker.SetTolerance(0.005)
         picker.Pick(click_pos[0], click_pos[1], 0, self.ren_1)
         picked_pos = picker.GetPickPosition()
@@ -300,30 +306,30 @@ class PointScatterWidget(QWidget):
         if self.last_outline_actor:
             self.ren_1.RemoveActor(self.last_outline_actor)
 
-        sphere = vtk.vtkSphereSource()
+        sphere = vtkSphereSource()
         sphere.SetCenter(position)
         sphere.SetRadius(0.08)
         sphere.SetPhiResolution(30)
         sphere.SetThetaResolution(30)
 
-        sphere_mapper = vtk.vtkPolyDataMapper()
+        sphere_mapper = vtkPolyDataMapper()
         sphere_mapper.SetInputConnection(sphere.GetOutputPort())
 
-        sphere_actor = vtk.vtkActor()
+        sphere_actor = vtkActor()
         sphere_actor.SetMapper(sphere_mapper)
         sphere_actor.GetProperty().SetColor(1.0, 0.2, 0.2)
         sphere_actor.GetProperty().SetAmbient(0.3)
         sphere_actor.GetProperty().SetSpecular(1.0)
         sphere_actor.GetProperty().SetSpecularPower(50)
 
-        outline_sphere = vtk.vtkSphereSource()
+        outline_sphere = vtkSphereSource()
         outline_sphere.SetCenter(position)
         outline_sphere.SetRadius(0.1)
 
-        outline_mapper = vtk.vtkPolyDataMapper()
+        outline_mapper = vtkPolyDataMapper()
         outline_mapper.SetInputConnection(outline_sphere.GetOutputPort())
 
-        outline_actor = vtk.vtkActor()
+        outline_actor = vtkActor()
         outline_actor.SetMapper(outline_mapper)
         outline_actor.GetProperty().SetColor(1.0, 1.0, 1.0)
         outline_actor.GetProperty().SetOpacity(0.5)
@@ -394,33 +400,33 @@ class PointScatterWidget(QWidget):
             if p is not None:
                 new_points.append(p)
 
-        vtk_points = vtk.vtkPoints()
+        vtk_points = vtkPoints()
         for point in new_points:
             vtk_points.InsertNextPoint(point[0])
 
-        polydata = vtk.vtkPolyData()
+        polydata = vtkPolyData()
         polydata.SetPoints(vtk_points)
 
-        sphere_source = vtk.vtkSphereSource()
+        sphere_source = vtkSphereSource()
         sphere_source.SetRadius(0.1)
         sphere_source.SetPhiResolution(20)
         sphere_source.SetThetaResolution(20)
 
-        glyph = vtk.vtkGlyph3D()
+        glyph = vtkGlyph3D()
         glyph.SetInputData(polydata)
         glyph.SetSourceConnection(sphere_source.GetOutputPort())
         glyph.SetScaleModeToDataScalingOff()
 
-        mapper = vtk.vtkPolyDataMapper()
+        mapper = vtkPolyDataMapper()
         mapper.SetInputConnection(glyph.GetOutputPort())
 
-        self.scatter_actor = vtk.vtkActor()
+        self.scatter_actor = vtkActor()
         self.scatter_actor.SetMapper(mapper)
         self.scatter_actor.GetProperty().SetColor(0.0, 0.0, 1.0)
 
         self.ren_2.AddActor(self.scatter_actor)
 
-        axes = vtk.vtkAxesActor()
+        axes = vtkAxesActor()
         axes.SetTotalLength(2.0, 2.0, 2.0)
         axes.GetXAxisCaptionActor2D().GetTextActor().GetTextProperty().SetColor(1, 0, 0)
         axes.GetYAxisCaptionActor2D().GetTextActor().GetTextProperty().SetColor(0, 1, 0)
@@ -461,9 +467,9 @@ class PointScatterWidget(QWidget):
         - Ensures VTK-friendly format for further processing such as rendering or transformation.
         - Especially useful when integrating STL models into PyQt + VTK GUI applications.
         """
-        poly_data = vtk.vtkPolyData()
-        points = vtk.vtkPoints()
-        cells = vtk.vtkCellArray()
+        poly_data = vtkPolyData()
+        points = vtkPoints()
+        cells = vtkCellArray()
 
         unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
 
@@ -471,7 +477,7 @@ class PointScatterWidget(QWidget):
             points.InsertNextPoint(vertex[0], vertex[1], vertex[2])
 
         for i in range(0, len(indices), 3):
-            triangle = vtk.vtkTriangle()
+            triangle = vtkTriangle()
             for j in range(3):
                 triangle.GetPointIds().SetId(j, indices[i + j])
             cells.InsertNextCell(triangle)

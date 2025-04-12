@@ -1,20 +1,31 @@
 import os
 import numpy as np
 import pandas as pd
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from stl import mesh
-import qtawesome as qta
-import vtk
+
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import (
+    QCheckBox, QComboBox, QFileDialog, QDesktopWidget, QDoubleSpinBox,
+    QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
+    QPushButton, QSpinBox, QVBoxLayout, QWidget, QFormLayout, QGridLayout,
+    QCursor
+)
+
+from vtk import (
+    vtkSTLReader, vtkPolyDataMapper, vtkActor, vtkAxesActor, vtkRenderer,
+    vtkTransform
+)
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
+from stl import mesh
+from qtawesome import icon
+
 from src.core.core import Object3D, Sprite
-from src.core.transforms.translation import *
-from src.core.transforms.rotation import *
-from src.core.transforms.flexibility import *
-from app.core.invkinematics import *
+from src.core.transforms.translation import ConstantT, Translation_COM
+from src.core.transforms.rotation import ConstantR, Rotation_EulerAngles
+from src.core.transforms.flexibility import ConstantF, Flexibility_type1, Flexibility_type2
+
+from app.core.invkinematics import InvKineWindow
 from app.widgets.misc.menu_bar import MenuBar
 
 
@@ -265,7 +276,7 @@ class SpriteCreator(QMainWindow):
         self.sprite_stl_path = QLineEdit()
         self.sprite_stl_path.setPlaceholderText("Select STL file")
         self.sprite_stl_open = QPushButton("Open")
-        self.sprite_stl_open.setIcon(qta.icon("fa5.folder-open", color=self.primary_color))
+        self.sprite_stl_open.setIcon(icon("fa5.folder-open", color=self.primary_color))
         self.sprite_stl_open.clicked.connect(self.open_file)
 
         self.stl_path_layout = QHBoxLayout()
@@ -275,7 +286,7 @@ class SpriteCreator(QMainWindow):
         self.vtkWidget = QVTKRenderWindowInteractor(self)
         self.stl_path_layout.addWidget(self.vtkWidget)
 
-        self.ren = vtk.vtkRenderer()
+        self.ren = vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
         self.ren.SetBackground(0.95, 0.95, 0.95)
         self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
@@ -629,7 +640,7 @@ class SpriteCreator(QMainWindow):
             Configured STL reader instance with the file path set.
         
         """
-        reader = vtk.vtkSTLReader()
+        reader = vtkSTLReader()
         reader.SetFileName(file_path)
         return reader
 
@@ -650,10 +661,10 @@ class SpriteCreator(QMainWindow):
         vtk.vtkActor
             Actor representing the STL model with applied visual properties.
         """
-        mapper = vtk.vtkPolyDataMapper()
+        mapper = vtkPolyDataMapper()
         mapper.SetInputConnection(reader.GetOutputPort())
 
-        actor = vtk.vtkActor()
+        actor = vtkActor()
         actor.SetMapper(mapper)
         actor.GetProperty().SetColor(0.5, 0.7, 1)  # Light blue
         actor.GetProperty().SetOpacity(0.6)
@@ -685,7 +696,7 @@ class SpriteCreator(QMainWindow):
             Configured VTK actor representing the 3D coordinate axes.
         """
 
-        axes = vtk.vtkAxesActor()
+        axes = vtkAxesActor()
         axes.SetTotalLength(scale * 0.1, scale * 0.1, scale * 0.1)
         axes.SetShaftTypeToCylinder()
         axes.SetAxisLabels(True)
@@ -835,7 +846,7 @@ class SpriteCreator(QMainWindow):
         self.open_position = QPushButton("Open")
         self.open_position.setFont(QFont('Times', 7))
         color = self.palette().color(self.foregroundRole()).name()
-        self.open_position.setIcon(qta.icon("fa5.folder-open", color=color))
+        self.open_position.setIcon(icon("fa5.folder-open", color=color))
         self.open_position.clicked.connect(self.open_position_file)
 
         hbox.addWidget(self.position_input)
@@ -1024,7 +1035,7 @@ class SpriteCreator(QMainWindow):
         self.path_m_values.setFont(QFont('Times', 8))
 
         self.open_m_values = QPushButton("Open")
-        self.open_m_values.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.open_m_values.setIcon(icon("fa5.folder-open", color=primary_color))
         self.open_m_values.clicked.connect(self.open_m_values_fun)
 
         layout.addWidget(label)
@@ -1164,7 +1175,7 @@ class SpriteCreator(QMainWindow):
         """
 
         button = QPushButton("Import Inverse Kinematics")
-        button.setIcon(qta.icon("mdi.bird", color=self.palette().color(self.foregroundRole()).name()))
+        button.setIcon(icon("mdi.bird", color=self.palette().color(self.foregroundRole()).name()))
         button.setFont(QFont('Times', 8))
         button.setToolTip("Import 3D coordinates data obtained from DltDv Software")
         button.clicked.connect(self.calculate_inverse_kinematics)
@@ -1225,7 +1236,7 @@ class SpriteCreator(QMainWindow):
         line_edit.setFont(QFont('Times', 8))
 
         open_button = QPushButton("Open")
-        open_button.setIcon(qta.icon("fa5.folder-open", color=self.palette().color(self.foregroundRole()).name()))
+        open_button.setIcon(icon("fa5.folder-open", color=self.palette().color(self.foregroundRole()).name()))
         open_button.clicked.connect(slot_function)
 
         # Save references if needed later
@@ -1590,16 +1601,16 @@ class SpriteCreator(QMainWindow):
         angles_temp = np.array([alpha, beta, gamma])
         positions_temp = np.array([x_pos, y_pos, z_pos])
 
-        Rotation_Transform_x = vtk.vtkTransform()
+        Rotation_Transform_x = vtkTransform()
         Rotation_Transform_x.RotateX(np.degrees(angles_temp[0]))
 
-        Rotation_Transform_y = vtk.vtkTransform()
+        Rotation_Transform_y = vtkTransform()
         Rotation_Transform_y.RotateY(np.degrees(angles_temp[1]))
 
-        Rotation_Transform_z = vtk.vtkTransform()
+        Rotation_Transform_z = vtkTransform()
         Rotation_Transform_z.RotateZ(np.degrees(angles_temp[2]))
 
-        final_transform = vtk.vtkTransform()
+        final_transform = vtkTransform()
         final_transform.PostMultiply()
         final_transform.Translate(positions_temp)
         final_transform.Concatenate(Rotation_Transform_x)

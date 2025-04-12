@@ -9,10 +9,10 @@ from PyQt5.QtWidgets import (
     QProgressBar, QSlider, QSizePolicy, QMessageBox
 )
 
-import qtawesome as qta
+from qtawesome import icon
 
-from app.widgets.misc.video_player import VideoPlayer
 from app.widgets.misc.render_worker import Worker
+from app.widgets.misc.video_player import VideoPlayer
 
 class VideoAnimation(QWidget):
     """
@@ -230,10 +230,10 @@ class VideoAnimation(QWidget):
 
         # Buttons
         self.playButton = QPushButton('')
-        self.playButton.setIcon(qta.icon("mdi.play", color=self.primary_color))
+        self.playButton.setIcon(icon("mdi.play", color=self.primary_color))
 
         self.repeatButton = QPushButton('')
-        self.repeatButton.setIcon(qta.icon("mdi.repeat", color=self.primary_color))
+        self.repeatButton.setIcon(icon("mdi.repeat", color=self.primary_color))
         self.repeatButton.setCheckable(True)
 
         # Slider
@@ -274,7 +274,7 @@ class VideoAnimation(QWidget):
         # Render Button + Progress Bar
         self.render_button = QPushButton("Render")
         self.render_button.setFont(QFont('Times', 8))
-        self.render_button.setIcon(qta.icon("mdi.printer-3d", color=self.primary_color))
+        self.render_button.setIcon(icon("mdi.printer-3d", color=self.primary_color))
 
         self.progress_bar = QProgressBar()
         self.progress_bar.setRange(0, 100)
@@ -429,11 +429,11 @@ class VideoAnimation(QWidget):
         """
         if self.video_playing:
             self.video_widget.media_player.pause()
-            self.playButton.setIcon(qta.icon("mdi.play", color=self.primary_color))
+            self.playButton.setIcon(icon("mdi.play", color=self.primary_color))
             self.video_playing = False
         else:
             self.video_widget.media_player.play()
-            self.playButton.setIcon(qta.icon("mdi.pause", color=self.primary_color))
+            self.playButton.setIcon(icon("mdi.pause", color=self.primary_color))
             self.video_playing = True
 
     def repeatVideo(self):
@@ -453,12 +453,12 @@ class VideoAnimation(QWidget):
             - `playButton` icon (set to 'pause' if playback is restarted)
         """
         if self.repeatButton.isChecked():
-            self.repeatButton.setIcon(qta.icon("mdi.repeat-off", color=self.primary_color))
+            self.repeatButton.setIcon(icon("mdi.repeat-off", color=self.primary_color))
             self.video_widget.media_player.setPosition(0)
             self.video_widget.media_player.play()
-            self.playButton.setIcon(qta.icon("mdi.pause", color=self.primary_color))
+            self.playButton.setIcon(icon("mdi.pause", color=self.primary_color))
         else:
-            self.repeatButton.setIcon(qta.icon("mdi.repeat", color=self.primary_color))
+            self.repeatButton.setIcon(icon("mdi.repeat", color=self.primary_color))
 
     def updateDuration(self, duration):
         """

@@ -2,13 +2,11 @@ import os
 import json
 
 import bpy
-import bmesh
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt, pyqtSlot
+import bmesh  # type: ignore
+
+from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt, pyqtSlot, Q_ARG
 
 from src.utils.utils import create_video_from_frames
-from src.core.transforms.vtk_transform import *
         
         
 class Worker(QThread):

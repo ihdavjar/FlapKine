@@ -1,7 +1,6 @@
 import os
 import json
 import numpy as np
-import vtk
 
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QFont
@@ -9,9 +8,13 @@ from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QSlider, QLabel, QPushButton
 )
 
+from vtk import (
+    vtkPolyDataMapper, vtkActor, vtkAxesActor, vtkRenderer,
+    vtkTransform, vtkCellArray, vtkTriangle, vtkPoints, vtkPolyData
+)
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
-import qtawesome as qta
+from qtawesome import icon
 
 from src.core.transforms.vtk_transform import vtk_rotation
 
@@ -202,11 +205,11 @@ class Visualizer3DWidget(QWidget):
         """)
 
         self.play_button = QPushButton()
-        self.play_button.setIcon(qta.icon("mdi.play", color=primary_color))
+        self.play_button.setIcon(icon("mdi.play", color=primary_color))
         self.play_button.clicked.connect(self.toggle_play)
 
         self.next_button = QPushButton()
-        self.next_button.setIcon(qta.icon("mdi.skip-next", color=primary_color))
+        self.next_button.setIcon(icon("mdi.skip-next", color=primary_color))
         self.next_button.clicked.connect(lambda: self.slider.setValue(self.slider.value() + 1))
 
         control_layout.addWidget(self.play_button)
@@ -215,7 +218,7 @@ class Visualizer3DWidget(QWidget):
         control_layout.addWidget(self.slider_label)
 
         self.vtkWidget = QVTKRenderWindowInteractor(self)
-        self.ren = vtk.vtkRenderer()
+        self.ren = vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
         self.vtkWidget.setStyleSheet("background-color: #fafafa; border: 1px solid #bbb; border-radius: 10px;")
         
@@ -259,10 +262,10 @@ class Visualizer3DWidget(QWidget):
         mesh = self.scene_data.save_stl(-1, reflect_xy=reflect[0], reflect_yz=reflect[1], reflect_xz=reflect[2])
         poly_data = self.stl_mesh_to_vtk(mesh)
 
-        mapper = vtk.vtkPolyDataMapper()
+        mapper = vtkPolyDataMapper()
         mapper.SetInputData(poly_data)
 
-        self.actor = vtk.vtkActor()
+        self.actor = vtkActor()
         self.actor.SetMapper(mapper)
         self.actor.GetProperty().SetColor(0.5, 0.7, 1)
         self.actor.GetProperty().SetOpacity(0.7)
@@ -304,7 +307,7 @@ class Visualizer3DWidget(QWidget):
         """
         bounds = poly_data.GetBounds()
         max_length = max(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4])
-        axes = vtk.vtkAxesActor()
+        axes = vtkAxesActor()
         axes.SetTotalLength(max_length * 0.1, max_length * 0.1, max_length * 0.1)
         axes.SetShaftType(0)
         axes.SetAxisLabels(1)
@@ -338,7 +341,7 @@ class Visualizer3DWidget(QWidget):
         - This actor visually represents the local transformation of each object in the scene.
     """
         max_length = max(self.actor.GetBounds()[1::2]) * 0.05
-        axes = vtk.vtkAxesActor()
+        axes = vtkAxesActor()
         axes.SetTotalLength(max_length, max_length, max_length)
         axes.SetShaftType(0)
         axes.SetAxisLabels(1)
@@ -351,7 +354,7 @@ class Visualizer3DWidget(QWidget):
         angles = sprite.frame_orientation
         position = sprite.frame_origin
 
-        transform = vtk.vtkTransform()
+        transform = vtkTransform()
         transform.Translate(position)
         transform.RotateX(np.degrees(angles[0]))
         transform.RotateY(np.degrees(angles[1]))
@@ -379,7 +382,7 @@ class Visualizer3DWidget(QWidget):
         """
         primary_color = self.palette().color(self.foregroundRole()).name()
         self.playing = not self.playing
-        self.play_button.setIcon(qta.icon("mdi.pause" if self.playing else "mdi.play", color=primary_color))
+        self.play_button.setIcon(icon("mdi.pause" if self.playing else "mdi.play", color=primary_color))
         if self.playing:
             self.play_frames()
 
@@ -424,11 +427,11 @@ class Visualizer3DWidget(QWidget):
             position = sprite.positions[index]
             axes_pos = sprite.frame_origin
 
-            actor_trans = vtk.vtkTransform()
+            actor_trans = vtkTransform()
             actor_trans.PostMultiply()
             actor_trans.Translate(position)
 
-            axes_trans = vtk.vtkTransform()
+            axes_trans = vtkTransform()
             axes_trans.PostMultiply()
             axes_trans.Translate(position + axes_pos)
 
@@ -461,9 +464,9 @@ class Visualizer3DWidget(QWidget):
         - Deduplicates vertices before inserting them into the VTK point list.
         - Ensures mesh connectivity by using indexed triangles.
         """
-        poly_data = vtk.vtkPolyData()
-        points = vtk.vtkPoints()
-        cells = vtk.vtkCellArray()
+        poly_data = vtkPolyData()
+        points = vtkPoints()
+        cells = vtkCellArray()
 
         # Extract unique vertices and create a mapping
         unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
@@ -474,7 +477,7 @@ class Visualizer3DWidget(QWidget):
 
         # Insert faces into vtkCellArray
         for i in range(0, len(indices), 3):
-            triangle = vtk.vtkTriangle()
+            triangle = vtkTriangle()
             for j in range(3):
                 triangle.GetPointIds().SetId(j, indices[i + j])
             cells.InsertNextCell(triangle)

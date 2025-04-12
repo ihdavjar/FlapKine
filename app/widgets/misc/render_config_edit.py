@@ -1,10 +1,14 @@
 import os
 import json
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import qtawesome as qta
 
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
+    QDoubleSpinBox, QSpinBox, QLabel, QComboBox,
+    QMainWindow, QGroupBox, QCheckBox, QDesktopWidget
+)
+
+from qtawesome import icon
 
 class RenderConfig(QMainWindow):
     """
@@ -122,7 +126,7 @@ class RenderConfig(QMainWindow):
         primary_color = self.palette().color(self.foregroundRole()).name()
         self.setWindowTitle("Configure Render")
 
-        self.setWindowIcon(qta.icon("mdi.cog", color=primary_color))
+        self.setWindowIcon(icon("mdi.cog", color=primary_color))
 
         self.project_folder = project_folder
 
@@ -167,7 +171,7 @@ class RenderConfig(QMainWindow):
 
         # OK button
         self.ok_button = QPushButton('Ok', self)
-        self.ok_button.setIcon(qta.icon("mdi.check-circle", color=primary_color))
+        self.ok_button.setIcon(icon("mdi.check-circle", color=primary_color))
         self.ok_button.clicked.connect(self.save_config)
 
         # Add all components to main layout
