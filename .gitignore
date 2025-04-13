@@ -27,3 +27,8 @@ FlapKine.egg-info/
 # Ignore temp.py and temp.ipynb
 temp.py
 temp.ipynb
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+requirements.txt
