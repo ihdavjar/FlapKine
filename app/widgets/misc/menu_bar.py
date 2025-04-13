@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QMenuBar, QMenu, QAction)
+from PyQt5.QtWidgets import QMenuBar
 
 
 class MenuBar(QMenuBar):

@@ -9,16 +9,15 @@ setup(
     packages=find_packages(where='.', include=['app', 'app.*', 'src', 'src.*']),
     include_package_data=True,
     install_requires=[
-        'streamlit',
-        'bpy',  # Blender Python API - make sure it’s installed in the right environment
-        'numpy',
-        'matplotlib',
-        'plotly',
-        'pandas',
-        'PyQt5',
-        'PyQtWebEngine',
-        'numpy-stl',
-        'opencv-python-headless',
+        'pandas==2.0.2',
+        'numpy==1.26.4',
+        'numpy-stl==3.1.1',
+        'scipy==1.10.1',
+        'scikit-learn==1.5.2',
+        'PyQt5==5.15.9',
+        'QtAwesome==1.4.0',
+        'vtk==9.4.1',
+        'bpy==4.0.0',
     ],
     entry_points={
         'console_scripts': [
