@@ -1,14 +1,18 @@
 import os
-import sys
 import pickle
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from src.core.core import Scene
-import qtawesome as qta
+
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import (
+    QFileDialog, QDesktopWidget, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
+    QPushButton, QVBoxLayout, QWidget, QSizePolicy
+)
+
+from qtawesome import icon
 
 from app.ui.creators.sprite_creator import SpriteCreator
 from app.widgets.misc.menu_bar import MenuBar
+from src.core.core import Scene
 
 class SceneCreator(QMainWindow):
     """
@@ -173,11 +177,11 @@ class SceneCreator(QMainWindow):
         # Add and Drop buttons
         button_layout = QHBoxLayout()
         add_button = QPushButton("Add")
-        add_button.setIcon(qta.icon("mdi.plus-box-multiple-outline"))
+        add_button.setIcon(icon("mdi.plus-box-multiple-outline"))
         add_button.clicked.connect(self.add_sprite)
         
         drop_button = QPushButton("Drop")
-        drop_button.setIcon(qta.icon("mdi.minus-box-multiple-outline"))
+        drop_button.setIcon(icon("mdi.minus-box-multiple-outline"))
         drop_button.clicked.connect(self.drop_sprite)
 
         button_layout_label = QLabel("Manage Sprites:")
@@ -249,12 +253,12 @@ class SceneCreator(QMainWindow):
         self.text_editor_scene.setFont(QFont('Times', 7))
         self.text_editor_scene.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.open_button = QPushButton('Open', self)
-        self.open_button.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.open_button.setIcon(icon("fa5.folder-open", color=primary_color))
         self.open_button.setFont(QFont('Times', 7))
         self.open_button.clicked.connect(lambda: self.import_sprite(sprite_group))
 
         self.create_button = QPushButton('Create', self)
-        self.create_button.setIcon(qta.icon("mdi.folder-plus-outline", color=primary_color))
+        self.create_button.setIcon(icon("mdi.folder-plus-outline", color=primary_color))
         self.create_button.setFont(QFont('Times', 7))
         self.create_button.clicked.connect(lambda: self.create_sprite(sprite_group))
 

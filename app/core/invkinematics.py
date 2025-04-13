@@ -1,11 +1,7 @@
 import numpy as np
 import pandas as pd
-import qtawesome as qta
-import vtk
 from scipy.signal import savgol_filter
 from sklearn.ensemble import RandomForestRegressor
-from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
-from vtkmodules.vtkRenderingCore import vtkTextProperty
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QFont, QIcon
@@ -13,6 +9,16 @@ from PyQt5.QtWidgets import (
     QComboBox, QFileDialog, QGroupBox, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QPushButton, QSplitter, QVBoxLayout, QWidget
 )
+
+from qtawesome import icon
+
+from vtk import (
+    vtkRenderer, vtkContextView, vtkChartXY, vtkPoints, vtkPolyData, vtkSphereSource,
+    vtkGlyph3D, vtkPolyDataMapper, vtkActor, vtkTable, vtkFloatArray, vtkChart,
+    vtkAxis, vtkTextProperty
+)
+from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from vtkmodules.vtkRenderingCore import vtkTextProperty
 
 from app.widgets.misc.menu_bar import MenuBar
 from src.core.inverse_kinematics.analytical_methods import model_analytical
@@ -124,7 +130,7 @@ class InvKineWindow(QMainWindow):
 
         self.resize(1200, 800)
 
-        self.setWindowIcon(QIcon(qta.icon("mdi.robot", color="black")))
+        self.setWindowIcon(QIcon(icon("mdi.robot", color="black")))
 
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)
@@ -210,7 +216,7 @@ class InvKineWindow(QMainWindow):
         import_button = QPushButton("Import Data")
         import_button.setFont(QFont('Times', 8))
         import_button.setStyleSheet("background-color: #005a9e; color: white;")
-        import_button.setIcon(qta.icon("mdi.file-import", color="white"))
+        import_button.setIcon(icon("mdi.file-import", color="white"))
         import_button.clicked.connect(self.import_data)
 
         import_layout.addWidget(import_label)
@@ -459,7 +465,7 @@ class InvKineWindow(QMainWindow):
 
         # Initialize VTK Widget
         self.vtkWidget_l = QVTKRenderWindowInteractor(self)
-        self.ren_l = vtk.vtkRenderer()
+        self.ren_l = vtkRenderer()
         self.vtkWidget_l.GetRenderWindow().AddRenderer(self.ren_l)
         self.ren_l.ResetCamera()
         layout.addWidget(self.vtkWidget_l)
@@ -492,25 +498,25 @@ class InvKineWindow(QMainWindow):
         # Create context views for each plot
         self.vtkWidget_r_1 = QVTKRenderWindowInteractor(self)
         self.vtkWidget_r_1.Initialize()
-        self.context_view_1 = vtk.vtkContextView()
+        self.context_view_1 = vtkContextView()
         self.context_view_1.SetRenderWindow(self.vtkWidget_r_1.GetRenderWindow())
-        self.chart_r_1 = vtk.vtkChartXY()
+        self.chart_r_1 = vtkChartXY()
         self.context_view_1.GetScene().AddItem(self.chart_r_1)
         splitter.addWidget(self.vtkWidget_r_1)
 
         self.vtkWidget_r_2 = QVTKRenderWindowInteractor(self)
         self.vtkWidget_r_2.Initialize()
-        self.context_view_2 = vtk.vtkContextView()
+        self.context_view_2 = vtkContextView()
         self.context_view_2.SetRenderWindow(self.vtkWidget_r_2.GetRenderWindow())
-        self.chart_r_2 = vtk.vtkChartXY()
+        self.chart_r_2 = vtkChartXY()
         self.context_view_2.GetScene().AddItem(self.chart_r_2)
         splitter.addWidget(self.vtkWidget_r_2)
 
         self.vtkWidget_r_3 = QVTKRenderWindowInteractor(self)
         self.vtkWidget_r_3.Initialize()
-        self.context_view_3 = vtk.vtkContextView()
+        self.context_view_3 = vtkContextView()
         self.context_view_3.SetRenderWindow(self.vtkWidget_r_3.GetRenderWindow())
-        self.chart_r_3 = vtk.vtkChartXY()
+        self.chart_r_3 = vtkChartXY()
         self.context_view_3.GetScene().AddItem(self.chart_r_3)
         splitter.addWidget(self.vtkWidget_r_3)
 
@@ -548,30 +554,30 @@ class InvKineWindow(QMainWindow):
         z_data = np.array(self.data[:, num_point * 3 + 2])
 
         # Convert points to VTK format
-        vtk_points = vtk.vtkPoints()
+        vtk_points = vtkPoints()
         for x, y, z in zip(x_data, y_data, z_data):
             vtk_points.InsertNextPoint(x, y, z)
 
         # Create polydata object
-        polydata = vtk.vtkPolyData()
+        polydata = vtkPolyData()
         polydata.SetPoints(vtk_points)
 
         # Create a sphere glyph for scatter plot points
-        sphere_source = vtk.vtkSphereSource()
+        sphere_source = vtkSphereSource()
         sphere_source.SetRadius(0.15)  # Marker size
         sphere_source.SetPhiResolution(20)
         sphere_source.SetThetaResolution(20)
 
-        glyph = vtk.vtkGlyph3D()
+        glyph = vtkGlyph3D()
         glyph.SetInputData(polydata)
         glyph.SetSourceConnection(sphere_source.GetOutputPort())
         glyph.SetScaleModeToDataScalingOff()  # Keep uniform size
 
         # Mapper and Actor
-        mapper = vtk.vtkPolyDataMapper()
+        mapper = vtkPolyDataMapper()
         mapper.SetInputConnection(glyph.GetOutputPort())
 
-        self.scatter_actor_left = vtk.vtkActor()
+        self.scatter_actor_left = vtkActor()
         self.scatter_actor_left.SetMapper(mapper)
         self.scatter_actor_left.GetProperty().SetColor(0.2, 0.6, 1.0)  # Light blue color
 
@@ -639,11 +645,11 @@ class InvKineWindow(QMainWindow):
             :param title: Title of the plot
             :param color: (R, G, B) tuple in float range [0,1]
             """
-            table = vtk.vtkTable()
+            table = vtkTable()
 
-            arr_x = vtk.vtkFloatArray()
+            arr_x = vtkFloatArray()
             arr_x.SetName("Index")
-            arr_y = vtk.vtkFloatArray()
+            arr_y = vtkFloatArray()
             arr_y.SetName("Value")
 
             # Ensure data is a 1D array
@@ -662,13 +668,13 @@ class InvKineWindow(QMainWindow):
             table.AddColumn(arr_x)
             table.AddColumn(arr_y)
 
-            line_plot = chart.AddPlot(vtk.vtkChart.LINE)
+            line_plot = chart.AddPlot(vtkChart.LINE)
             line_plot.SetInputData(table, 0, 1)
             line_plot.SetColorF(color[0], color[1], color[2])
             line_plot.SetWidth(2.0)
 
-            chart.GetAxis(vtk.vtkAxis.BOTTOM).SetTitle("Time")
-            chart.GetAxis(vtk.vtkAxis.LEFT).SetTitle("Angle (deg)")
+            chart.GetAxis(vtkAxis.BOTTOM).SetTitle("Time")
+            chart.GetAxis(vtkAxis.LEFT).SetTitle("Angle (deg)")
 
             text_prop = vtkTextProperty()
             text_prop.SetFontFamilyToArial()

@@ -1,19 +1,15 @@
 import os
-import pickle 
+import pickle
 
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from src.core.transforms.vtk_transform import *
-from app.widgets.misc.render_config_edit import RenderConfig
-from app.widgets.misc.menu_bar import MenuBar
-from app.widgets.main.frame_visualiser import Visualizer3DWidget
-
-
-import os
-import json
 from PyQt5.QtCore import Qt
-        
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import (
+    QDesktopWidget, QGroupBox, QHBoxLayout, QMainWindow, QMessageBox,
+    QVBoxLayout, QWidget, QSplitter,
+)
+
+from app.widgets.misc.menu_bar import MenuBar
+from app.widgets.misc.render_config_edit import RenderConfig
 from app.widgets.main.video_animation import VideoAnimation
 from app.widgets.main.frame_visualiser import Visualizer3DWidget
 from app.widgets.main.point_visualiser import PointScatterWidget
@@ -301,10 +297,3 @@ class ProjectWindow(QMainWindow):
         <p>Version 0.0.1</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')
-
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    window = ProjectWindow('D:\Research\Kinematics_App\project_final')
-    window.show()
-    sys.exit(app.exec_())

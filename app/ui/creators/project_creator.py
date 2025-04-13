@@ -1,13 +1,18 @@
 import os
 import json
 import pickle
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import qtawesome as qta
 
-from app.ui.editor.project_editor import ProjectWindow
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import (
+    QCheckBox, QComboBox, QFileDialog, QDesktopWidget, QDoubleSpinBox,
+    QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
+    QPushButton, QSpinBox, QVBoxLayout, QWidget
+)
+
+from qtawesome import icon
+
 from app.ui.creators.scene_creator import SceneCreator
+from app.ui.editor.project_editor import ProjectWindow
 from app.widgets.misc.menu_bar import MenuBar
 
 class ProjectCreator(QMainWindow): 
@@ -270,12 +275,12 @@ class ProjectCreator(QMainWindow):
         label.setFont(QFont('Times', 9))
         self.open_button = QPushButton('Open', self)
         self.open_button.setFont(QFont('Times', 8))
-        self.open_button.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.open_button.setIcon(icon("fa5.folder-open", color=primary_color))
         self.open_button.clicked.connect(self.import_scene)
         self.text_editor_scene = QLineEdit()
         self.create_button = QPushButton('Create', self)
         self.create_button.setFont(QFont('Times', 8))
-        self.create_button.setIcon(qta.icon("mdi.folder-plus-outline", color=primary_color))
+        self.create_button.setIcon(icon("mdi.folder-plus-outline", color=primary_color))
         self.create_button.clicked.connect(self.create_scene)
         box1.addWidget(label)
         box1.addWidget(self.text_editor_scene)

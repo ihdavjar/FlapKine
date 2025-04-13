@@ -1,12 +1,17 @@
 import os
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import qtawesome as qta
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import (
+    QDesktopWidget, QMainWindow, QMessageBox,
+    QVBoxLayout, QWidget, QLabel, QPushButton, QFileDialog
+)
+
+from qtawesome import icon
 
 from app.widgets.misc.menu_bar import MenuBar
-from app.ui.editor.project_editor import ProjectWindow
 from app.ui.creators.project_creator import ProjectCreator
+from app.ui.editor.project_editor import ProjectWindow
 
 
 class MainWindow(QMainWindow):
@@ -136,13 +141,13 @@ class MainWindow(QMainWindow):
         # Adding Buttons
         self.b_new = QPushButton(self)
         self.b_new.setText("  New Project")
-        self.b_new.setIcon(qta.icon("fa5.file", color=primary_color))
+        self.b_new.setIcon(icon("fa5.file", color=primary_color))
         self.b_new.clicked.connect(self.create_new_project)
         
 
         self.b_open = QPushButton(self)
         self.b_open.setText("  Open Project")
-        self.b_open.setIcon(qta.icon("fa5.folder-open", color=primary_color))
+        self.b_open.setIcon(icon("fa5.folder-open", color=primary_color))
         self.b_open.clicked.connect(self.open_existing_project)
 
 
