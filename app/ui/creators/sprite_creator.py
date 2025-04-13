@@ -3,12 +3,11 @@ import numpy as np
 import pandas as pd
 
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtGui import QFont, QIcon, QCursor
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QFileDialog, QDesktopWidget, QDoubleSpinBox,
     QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
     QPushButton, QSpinBox, QVBoxLayout, QWidget, QFormLayout, QGridLayout,
-    QCursor
 )
 
 from vtk import (
