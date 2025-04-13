@@ -18,6 +18,7 @@ setup(
         'QtAwesome==1.4.0',
         'vtk==9.4.1',
         'bpy==4.0.0',
+        'opencv-python-headless==4.10.0.84',
     ],
     entry_points={
         'console_scripts': [

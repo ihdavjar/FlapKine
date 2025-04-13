@@ -7,7 +7,6 @@ __pycache__/
 # Ignore media files
 *.mp4
 *.jpg
-*.png
 *.gif
 *.stl
 alpha_1.csv
@@ -27,3 +26,8 @@ FlapKine.egg-info/
 # Ignore temp.py and temp.ipynb
 temp.py
 temp.ipynb
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+requirements.txt
