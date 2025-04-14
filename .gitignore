@@ -31,3 +31,6 @@ temp.ipynb
 .ipynb_checkpoints
 
 requirements.txt
+
+# Ignore virtual environment directories
+venv/
