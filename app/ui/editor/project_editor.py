@@ -146,7 +146,7 @@ class ProjectWindow(QMainWindow):
         left_splitter = QSplitter(Qt.Vertical)
 
         # --- Top Left Group: Video Animation ---
-        self.topleftgroup = VideoAnimation(self.project_folder, self.scene_data)
+        self.topleftgroup = VideoAnimation(self.project_folder, self.scene_data, self)
         topleft_groupbox = QGroupBox("Video Animation")
         topleft_layout = QVBoxLayout()
         topleft_layout.addWidget(self.topleftgroup)

@@ -1,7 +1,7 @@
 import os
 import json
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QThreadPool
 from PyQt5.QtGui import QFont
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import (
@@ -159,6 +159,8 @@ class VideoAnimation(QWidget):
         self.project_folder = project_folder
         self.scene_data = scene_data
         self.angles = self.scene_data.objects[0].angles
+        self.parent = parent
+        self.threadpool = QThreadPool()
 
         with open(os.path.join(self.project_folder, 'config.json')) as f:
                 config = json.load(f)
@@ -532,11 +534,14 @@ class VideoAnimation(QWidget):
             - Starts the worker thread to render frames.
             - Connects `finished` signal to `complete_render()` for post-processing and cleanup.
         """
+        self.parent.right_group.setEnabled(False)
+        self.parent.topleftgroup.setEnabled(False)
+        self.parent.bottomleftgroup.setEnabled(False)
         self.render_button.setEnabled(False)
         self.worker = Worker(self.project_folder, self.angles, self.scene_data, self.reflect)
-        self.worker.progress_signal.connect(self.update_progress)
-        self.worker.start()
-        self.worker.finished.connect(self.complete_render)
+        self.threadpool.start(self.worker)
+        self.worker.signals.progress_signal.connect(self.update_progress)
+        self.worker.signals.finished.connect(self.complete_render)
 
     def complete_render(self):
         """
@@ -556,3 +561,6 @@ class VideoAnimation(QWidget):
         self.showAlertDialog('Alert', f"Video rendered successfully at: {video_path}")
         self.video_widget.setMedia(video_path)
 
+        self.parent.right_group.setEnabled(True)
+        self.parent.topleftgroup.setEnabled(True)
+        self.parent.bottomleftgroup.setEnabled(True)

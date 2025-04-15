@@ -215,15 +215,11 @@ class MainWindow(QMainWindow):
 
         Components Involved:
             - `QFileDialog.getExistingDirectory()`: Prompts the user to select an existing project directory.
-            - `QMessageBox.information()`: Displays the selected directory in an information message box.
             - `ProjectWindow`: A separate window responsible for managing and editing the selected project.
             - `show()`: Displays the `ProjectWindow` window.
             - `close()`: Closes the current main window after opening the existing project.
         """
         directory = QFileDialog.getExistingDirectory(self, 'Select Directory')
-        
-        if directory:
-            QMessageBox.information(self, 'Directory Selected', f'Selected Directory: {directory}')
 
         self.window2 = ProjectWindow(directory)
         self.window2.show()

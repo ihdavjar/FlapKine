@@ -1,249 +1,244 @@
 import os
 import json
+import numpy as np
+import cv2
 
-import bpy
-import bmesh  # type: ignore
+from PyQt5.QtCore import QRunnable, pyqtSlot, QObject, pyqtSignal
 
-from PyQt5.QtCore import QThread, pyqtSignal, QMetaObject, Qt, pyqtSlot, Q_ARG
+from vtk import vtkActor, vtkCellArray, vtkPoints, vtkPolyData, vtkPolyDataMapper, vtkTriangle
+from vtkmodules.vtkRenderingCore import vtkRenderer, vtkRenderWindow, vtkCamera, vtkLight, vtkWindowToImageFilter
+from vtkmodules.vtkCommonColor import vtkNamedColors
+from vtkmodules.util.numpy_support import vtk_to_numpy
 
-from src.utils.utils import create_video_from_frames
-        
-        
-class Worker(QThread):
+class RenderSignals(QObject):
+    """
+    RenderSignals Class
+    ===================
+
+    Defines custom signals for tracking the progress and completion status of the rendering process
+    in the FlapKine application. This class is used to communicate between the rendering worker thread 
+    and the main GUI, allowing for real-time updates on rendering progress and notification upon completion.
+
+    Attributes
+    ----------
+    progress_signal : pyqtSignal(float)
+        Signal emitted periodically during rendering to indicate the progress percentage (0.0 to 100.0).
+
+    finished : pyqtSignal()
+        Signal emitted once the rendering task is fully completed.
+
+    Methods
+    -------
+    None
+        This class only defines signals and does not implement any methods.
+    """
+    progress_signal = pyqtSignal(float)
+    finished = pyqtSignal()
+
+
+class Worker(QRunnable):
     """
     Worker Class
     ============
 
-    This class handles background STL processing and frame rendering in Blender for the
-    FlapKine application. Executed in a separate thread, it applies camera and lighting
-    configurations, processes STL meshes, renders 3D frames, and optionally generates STL files
-    and a final video output.
-
-    The class communicates progress updates through a PyQt signal and ensures synchronization
-    with the GUI by invoking Blender rendering operations via the main thread.
+    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding 
+    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames 
+    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering 
+    pipeline integration with PyQt5’s multithreading model.
 
     Attributes
     ----------
-    progress_signal : pyqtSignal
-        Signal emitting the rendering progress as a float percentage.
-
     project_folder : str
-        Absolute path to the user's project directory containing config and output folders.
+        Path to the project directory containing configuration and data folders.
 
-    angles : list
-        List of angles (e.g., for animation or keyframes) used for generating frames.
+    angles : list of float
+        List of angles (typically camera azimuth or rotation values) used to render frames.
 
-    scene_data_ : SceneData
-        Custom scene object that contains geometry and logic for saving STL representations.
+    scene_data : Any
+        Scene object responsible for generating STL meshes for each frame.
 
-    reflect : tuple(bool, bool, bool)
-        Tuple of booleans indicating which axes (XY, YZ, XZ) to reflect the STL geometry on.
+    reflect : tuple of bool
+        A 3-element tuple indicating whether to reflect the STL mesh along the XY, YZ, and XZ planes respectively.
 
-    stl_files : list
-        Internal list of STL files generated or processed during the rendering loop.
+    signals : RenderSignals
+        Custom signal object to emit rendering progress and completion signals.
 
     Methods
     -------
-    __init__(project_folder, angles, scene_data, reflect, parent=None):
-        Initializes the rendering worker with configuration, scene data, and transformation options.
+    __init__(project_folder, angles, scene_data, reflect):
+        Initializes the worker with project-specific configuration and rendering parameters.
 
     run():
-        Loads the Blender project, configures the scene, loops through STL frames, renders them,
-        saves optional STL outputs, and compiles the final video.
+        Executes the rendering pipeline. Renders each frame using VTK, optionally saves STL files, and writes
+        each rendered frame to a video file using OpenCV. Emits progress and completion signals accordingly.
 
-    import_and_render(stl_mesh, output_dir, frame_index):
-        Imports a single STL mesh into Blender, applies materials, renders a frame,
-        and cleans up the object from the scene afterward.
+    stl_mesh_to_vtk(stl_mesh):
+        Converts a mesh object into `vtkPolyData` using deduplicated vertices via NumPy for efficient rendering.
     """
-    progress_signal = pyqtSignal(float)
 
-    def __init__(self, project_folder, angles, scene_data, reflect, parent=None):
+    def __init__(self, project_folder, angles, scene_data, reflect):
         """
-        Initializes the Worker thread responsible for 3D frame rendering and video compilation.
+        Initializes the rendering worker for the FlapKine application.
 
-        This thread handles the automated import of STL frames, applies camera and lighting 
-        settings from the project configuration, renders each frame using Blender, 
-        optionally saves STL files, and compiles a final video from the rendered images.
+        Prepares the QRunnable-based background task responsible for high-performance rendering 
+        and video encoding. Loads essential project parameters such as output folder, rendering 
+        angles, scene data generator, and mesh reflection configuration. Also sets up the 
+        custom signal handler to communicate rendering progress and completion with the main GUI.
 
-        Parameters
-        ----------
-        project_folder : str
-            Absolute path to the project directory, expected to contain the configuration 
-            file (`config.json`) and asset subfolders (`data/stl`, `data/images`, etc.).
-        
-        angles : list of float
-            List of joint angles or frame parameters used to generate each STL model.
-        
-        scene_data : object
-            A scene manager or handler object responsible for generating and returning STL 
-            meshes from the given angles and reflection flags.
-        
-        reflect : tuple of bool
-            A 3-tuple indicating whether to apply geometric reflection across the 
-            XY, YZ, and XZ planes, respectively. Used for symmetrical scene variations.
-        
-        parent : QObject, optional
-            Optional parent object for integration with the Qt object tree.
+        Components Initialized:
+            - `project_folder` : Project root directory where output files (videos, STLs) are stored.
+            - `angles` : List of frame angles to iterate through for rendering.
+            - `scene_data` : Provides STL mesh generation for each frame.
+            - `reflect` : Tuple indicating per-axis mesh reflection before rendering or export.
+            - `signals` : `RenderSignals` instance used to emit `progress_signal` and `finished` events.
         """
-        super(Worker, self).__init__(parent)
-        self.project_folder = project_folder    
+        super().__init__()
+        self.project_folder = project_folder
         self.angles = angles
-        self.scene_data_ = scene_data
+        self.scene_data = scene_data
         self.reflect = reflect
-        self.stl_files = []
+        self.signals = RenderSignals()
 
+    @pyqtSlot()
     def run(self):
         """
-        Executes the rendering workflow asynchronously in a separate thread.
+        Executes the background rendering and encoding process.
 
-        This method orchestrates the complete rendering pipeline using Blender’s Python API:
-        - Loads project configuration from `config.json`, including render format, resolution, 
-          camera pose, and lighting parameters.
-        - Prepares the Blender scene with specified render and environment settings.
-        - Iterates through a sequence of frames generated from input angles:
-            - Requests an STL mesh from the scene manager, applying reflection flags.
-            - Renders each frame with a defined material (e.g., blue surface).
-            - Optionally exports STL files if enabled in the config.
-        - Emits real-time progress updates through `progress_signal` for GUI feedback.
-        - After rendering all frames, compiles the image sequence into a video using 
-          `create_video_from_frames`.
+        This method is invoked when the `Worker` QRunnable is started via a thread pool.
+        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes 
+        frame-by-frame, and directly encodes each rendered frame into an `.mp4` video using OpenCV.
+        It also optionally exports STL files and emits real-time progress updates through 
+        `RenderSignals`.
 
-        This method is designed to run in the background to prevent UI freezing during
-        long rendering operations.
+        Workflow:
+            1. Loads rendering configuration from `config.json` in the project folder.
+            2. Prepares output directories for STL and video data.
+            3. Initializes the VTK rendering pipeline (renderer, camera, lighting, actor).
+            4. Iterates over the list of specified angles to:
+                - Generate STL mesh using `scene_data`
+                - Optionally save STL to disk
+                - Convert mesh to `vtkPolyData`
+                - Render the scene offscreen and capture frame
+                - Convert VTK image to NumPy array and write to video
+            5. Emits `progress_signal` every two frames (or final frame).
+            6. Releases the OpenCV writer and emits `finished` signal on completion.
+
+        Signals Emitted:
+            - `progress_signal (float)`: Percentage of frames rendered.
+            - `finished`: Emitted once rendering and encoding are complete.
         """
-
-        # Load the Blender project
-        with open(os.path.join(self.project_folder, 'config.json')) as f:
+        config_path = os.path.join(self.project_folder, 'config.json')
+        with open(config_path) as f:
             config = json.load(f)
 
-        
-        # Set rendering parameters
-        bpy.context.scene.render.image_settings.file_format = config['VideoRender']['FrameFormat']  # Output image format
-        bpy.context.scene.render.resolution_x = config['VideoRender']['resolution_x']  # Output resolution X
-        bpy.context.scene.render.resolution_y = config['VideoRender']['resolution_y']  # Output resolution Y
-        bpy.context.scene.render.film_transparent = config['VideoRender']['film_transparent']  # Enable transparent background
-
-        # Set the camera parameters
-        bpy.context.scene.camera.location = tuple(config['Camera']['location'])  # Camera location
-        bpy.context.scene.camera.rotation_euler = tuple(config['Camera']['rotation_euler'])  # Camera rotation
-
-        bpy.context.scene.camera.data.type = 'PERSP'
-        bpy.context.scene.camera.data.lens = 140
-
-        # Set the light parameters
-        bpy.data.objects['Light'].location = tuple(config['Light']['location'])  # Light location
-        bpy.data.objects['Light'].data.energy = config['Light']['energy']  # Light energy
-
-        # Remove the default cube
-        if 'Cube' in bpy.data.objects:
-            bpy.data.objects.remove(bpy.data.objects['Cube'], do_unlink=True)
-
-        # Set the scene frame rate
-        bpy.context.scene.render.fps = 24  # Frame rate
-
-         # Set the world background color to white
-        bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.95, 0.95, 0.95, 1)
-        # Create a blue material
-        blue_material = bpy.data.materials.new(name="BlueMaterial")
-        blue_material.use_nodes = True
-        bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
-        bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
-        
-        # stl_files_dir = os.path.join(self.project_folder, 'data/stl')
-        output_dir = os.path.join(self.project_folder, 'data/images')
-        stl_dir = os.path.join(self.project_folder, 'data/stl')
-
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        
         if config["STL"]:
-            if not os.path.exists(stl_dir):
-                os.makedirs(stl_dir)
+            os.makedirs(os.path.join(self.project_folder, 'data/stl'), exist_ok=True)
 
-        # Loop through each STL file
-        for i in range(len(self.angles)):
-            stl_file = self.scene_data_.save_stl(i, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
-            
-            if config["STL"]:
-                stl_file.save(os.path.join(stl_dir, f"stl_mesh_{i}.stl"))
-            
-            # Import STL file and render in the main thread
-            QMetaObject.invokeMethod(self, "import_and_render", Qt.BlockingQueuedConnection,
-                                     Q_ARG(object, stl_file), Q_ARG(str, output_dir), Q_ARG(int, i+1))
-
-            self.progress_signal.emit((i + 1)/len(self.angles) * 100)
-            
-        frames_path = os.path.join(self.project_folder, 'data/images')
+        os.makedirs(os.path.join(self.project_folder, 'data/videos'), exist_ok=True)
         project_name = os.path.basename(self.project_folder)
         video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
 
-        create_video_from_frames(frames_path, video_path, frame_rate=20,
-                                 width=config['VideoRender']['resolution_x'], height=config['VideoRender']['resolution_y'], libx264=False)
+        width = config['VideoRender']['resolution_x']
+        height = config['VideoRender']['resolution_y']
+        fps = 20
 
-    @pyqtSlot(object, str, int)
-    def import_and_render(self, stl_mesh, output_dir, frame_index):
+        # OpenCV video writer
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        out = cv2.VideoWriter(video_path, fourcc, fps, (width, height))
+
+        # VTK setup
+        renderer = vtkRenderer()
+        render_window = vtkRenderWindow()
+        render_window.SetOffScreenRendering(True)
+        render_window.AddRenderer(renderer)
+        render_window.SetMultiSamples(0)
+        render_window.SetSize(width, height)
+
+        cam = vtkCamera()
+        cam.SetPosition(*config['Camera']['location'])
+        cam.SetFocalPoint(0, 0, 0)
+        renderer.SetActiveCamera(cam)
+
+        light = vtkLight()
+        light.SetLightTypeToSceneLight()
+        light.SetPosition(*config['Light']['location'])
+        light.SetIntensity(config['Light']['energy'])
+        renderer.AddLight(light)
+
+        mapper = vtkPolyDataMapper()
+        actor = vtkActor()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetColor(vtkNamedColors().GetColor3d("RoyalBlue"))
+        renderer.AddActor(actor)
+        renderer.SetBackground(0.95, 0.95, 0.95)
+
+        window_to_image = vtkWindowToImageFilter()
+        window_to_image.SetInput(render_window)
+        window_to_image.ReadFrontBufferOff()
+
+        total = len(self.angles)
+        for i, angle in enumerate(self.angles):
+            stl_mesh = self.scene_data.save_stl(i, reflect_xy=self.reflect[0],
+                                                reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
+
+            if config["STL"]:
+                stl_mesh.save(os.path.join(self.project_folder, f"data/stl/stl_mesh_{i}.stl"))
+
+            # Convert mesh to VTK polydata
+            poly_data = self.stl_mesh_to_vtk(stl_mesh)
+            mapper.SetInputData(poly_data)
+
+            render_window.Render()
+            window_to_image.Modified()
+            window_to_image.Update()
+
+            vtk_image = window_to_image.GetOutput()
+            width, height, _ = vtk_image.GetDimensions()
+
+            vtk_array = vtk_image.GetPointData().GetScalars()
+            np_image = vtk_to_numpy(vtk_array).reshape((height, width, -1))
+            np_image = cv2.cvtColor(np_image, cv2.COLOR_RGB2BGR)
+
+            out.write(np_image)
+
+            if (i + 1) % 2 == 0 or i == total - 1:
+                self.signals.progress_signal.emit((i + 1) / total * 100)
+
+        out.release()
+        self.signals.finished.emit()
+
+    def stl_mesh_to_vtk(self, stl_mesh):
         """
-        Imports a single STL mesh into Blender, renders it, and exports the result as an image.
+        Converts a mesh object to `vtkPolyData` for rendering in VTK.
 
-        This method is invoked on the main thread via `QMetaObject.invokeMethod` to comply with 
-        Blender’s threading constraints, ensuring that all scene operations are thread-safe.
+        This method performs a memory-efficient STL conversion by flattening and deduplicating 
+        vertex data using NumPy. The resulting unique vertex list and associated triangle indices 
+        are used to construct a `vtkPolyData` object, which is compatible with VTK's rendering pipeline.
 
         Parameters
         ----------
-        stl_mesh : numpy-stl STL mesh
-            A triangle mesh object representing the 3D geometry of the current frame, 
-            typically produced using NumPy-STL or equivalent STL generation logic.
-        output_dir : str
-            Absolute path to the directory where the rendered image should be saved.
-        frame_index : int
-            Index of the current frame in the animation sequence; determines output filename 
-            (e.g., `frame_1.png`, `frame_2.png`, ...).
+        stl_mesh : mesh.Mesh
+            The STL mesh object containing 3D geometry in the form of triangle vectors.
 
-        Notes
-        -----
-        - Creates a temporary Blender object from the STL geometry using `bmesh`.
-        - Applies a blue material to the mesh.
-        - Renders a still image using Blender's internal renderer and saves it to disk.
-        - Cleans up the mesh object post-render to free memory and keep the scene clean.
+        Returns
+        -------
+        vtkPolyData
+            A VTK-compatible representation of the mesh, ready for visualization.
         """
-         
-        # Create a new Blender mesh and object
-        new_mesh = bpy.data.meshes.new("imported_mesh")
-        new_object = bpy.data.objects.new("ImportedObject", new_mesh)
-        bpy.context.collection.objects.link(new_object)
-        
-        # Create BMesh to build geometry from numpy-stl mesh
-        bm = bmesh.new()
-        for face in stl_mesh.vectors:
-            verts = [bm.verts.new(v) for v in face]
-            bm.faces.new(verts)
-        
-        bm.to_mesh(new_mesh)
-        bm.free()
+        poly_data = vtkPolyData()
+        points = vtkPoints()
+        cells = vtkCellArray()
 
-        # Add material to the object
-        blue_material_name = "BlueMaterial"
-        if not any(mat.name == blue_material_name for mat in new_mesh.materials):
-            # Create the blue material if it doesn't exist
-            if blue_material_name not in bpy.data.materials:
-                blue_material = bpy.data.materials.new(name=blue_material_name)
-                blue_material.use_nodes = True
-                bsdf = blue_material.node_tree.nodes.get('Principled BSDF')
-                bsdf.inputs['Base Color'].default_value = (0, 0, 1, 1)  # Blue color
-            else:
-                blue_material = bpy.data.materials.get(blue_material_name)
-            
-            # Assign the material to the object
-            new_mesh.materials.append(blue_material)
+        unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
+        for v in unique_vertices:
+            points.InsertNextPoint(*v)
 
-        # Set the render output file path and render
-        output_filename = f'frame_{frame_index}.png'
-        output_path = os.path.join(output_dir, output_filename)
-        
-        bpy.context.scene.render.filepath = output_path
-        bpy.ops.render.render(write_still=True)
+        for i in range(0, len(indices), 3):
+            triangle = vtkTriangle()
+            for j in range(3):
+                triangle.GetPointIds().SetId(j, indices[i + j])
+            cells.InsertNextCell(triangle)
 
-        # Clean up the object after rendering
-        bpy.ops.object.select_all(action='DESELECT')
-        new_object.select_set(True)
-        bpy.ops.object.delete()
+        poly_data.SetPoints(points)
+        poly_data.SetPolys(cells)
+        return poly_data
