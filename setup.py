@@ -1,9 +1,10 @@
+from version import __version__
 from setuptools import setup, find_packages
 
 setup(
     name='FlapKine',
-    version='0.1.0',
-    description='Simulation of flapping wing micro air vehicles',
+    version=__version__,
+    description='',
     author='Kalbhavi Vadhiraj',
     author_email='raj.31@iitj.ac.in',
     packages=find_packages(where='.', include=['app', 'app.*', 'src', 'src.*']),

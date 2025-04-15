@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import (
 
 from qtawesome import icon
 
+from version import __version__
 from app.ui.creators.scene_creator import SceneCreator
 from app.ui.editor.project_editor import ProjectWindow
 from app.widgets.misc.menu_bar import MenuBar
@@ -933,9 +934,9 @@ class ProjectCreator(QMainWindow):
 
         Shows details about the developer, version, and purpose of the application.
         """
-        QMessageBox.about(self, "About FlapKine", '''
+        QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
         <p>Developed by: Kalbhavi Vadhiraj</p>                  
-        <p>Version 0.0.1</p>
+        <p>Version {__version__}</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')
