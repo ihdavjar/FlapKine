@@ -1,4 +1,5 @@
 import os
+import sys
 import pickle
 
 from PyQt5.QtCore import Qt
@@ -114,7 +115,14 @@ class ProjectWindow(QMainWindow):
         self.setWindowTitle("FlapKine")
         self.resize(1280, 800)
         self.center()
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
+        
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS 
+        else:
+            base_path = os.path.dirname(__file__)
+        icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
+        self.setWindowIcon(QIcon(icon_path))
+
 
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)

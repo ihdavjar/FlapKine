@@ -1,4 +1,5 @@
 import os
+import sys
 import pickle
 
 from PyQt5.QtCore import pyqtSignal
@@ -113,7 +114,12 @@ class SceneCreator(QMainWindow):
 
         self.center()
         self.setWindowTitle("Create Scene")
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS 
+        else:
+            base_path = os.path.dirname(__file__)
+        icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
+        self.setWindowIcon(QIcon(icon_path))
 
         # Add the menu bar
         self.menu_bar = MenuBar(self)
