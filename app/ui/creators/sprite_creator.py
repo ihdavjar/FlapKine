@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import pandas as pd
 
@@ -158,7 +159,14 @@ class SpriteCreator(QMainWindow):
         self.inverse_kinematics = False
 
         self.setWindowTitle("Create Sprite")
-        self.setWindowIcon(QIcon(os.path.join('app', 'assets', 'flapkine_icon.png')))
+        
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS 
+        else:
+            base_path = os.path.dirname(__file__)
+        icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
+        self.setWindowIcon(QIcon(icon_path))
+
         self.setGeometry(300, 100, 800, 600)
         self.center()
 
