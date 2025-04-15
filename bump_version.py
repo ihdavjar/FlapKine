@@ -1,7 +1,7 @@
 import re
 import sys
 
-path = "flapkine/version.py"
+path = "version.py"
 level = sys.argv[1] if len(sys.argv) > 1 else "patch"
 
 with open(path, "r+") as f:
@@ -18,7 +18,7 @@ with open(path, "r+") as f:
     else:
         patch += 1
 
-    new_version = f'"{major}.{minor}.{patch}"'
-    updated = re.sub(r'"(\d+)\.(\d+)\.(\d+)"', new_version, content)
+    new_version = f'{major}.{minor}.{patch}'
+    updated = re.sub(r'"(\d+)\.(\d+)\.(\d+)"', f'"{new_version}"', content)
     f.seek(0); f.write(updated); f.truncate()
-    print(f"🔁 Bumped version to {new_version.strip('\"')}")
+    print("🔁 Bumped version to", new_version)
