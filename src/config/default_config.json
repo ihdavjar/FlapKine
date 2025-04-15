@@ -15,7 +15,7 @@
 
     "Light": {
         "location": [4, 0, 4],
-        "energy": 1000
+        "energy": 1
     },
     "STL": false,
     
