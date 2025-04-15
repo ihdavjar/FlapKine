@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout, QWidget, QSplitter,
 )
 
+from version import __version__
 from app.widgets.misc.menu_bar import MenuBar
 from app.widgets.misc.render_config_edit import RenderConfig
 from app.widgets.main.video_animation import VideoAnimation
@@ -299,9 +300,9 @@ class ProjectWindow(QMainWindow):
         Opens a modal `QMessageBox` containing application metadata, author information,
         and a brief description of the project's purpose and capabilities.
         """
-        QMessageBox.about(self, "About FlapKine", '''
+        QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
         <p>Developed by: Kalbhavi Vadhiraj</p>                  
-        <p>Version 0.0.1</p>
+        <p>Version {__version__}</p>
         <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
 ''')
