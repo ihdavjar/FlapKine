@@ -2,7 +2,7 @@
 
 **Flapkine** is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control — built for researchers, roboticists, and engineers who need **precision**, **control**, and **speed** in one sleek GUI.
 
-![Flapkine Banner](app\assets\flapkine_icon.png)
+![Flapkine Banner](https://github.com/ihdavjar/FlapKine/blob/699a03d91d95cdc72e3b4f8a1ca8c4874f423805/app/assets/flapkine_icon.png)
 
 ---
 
