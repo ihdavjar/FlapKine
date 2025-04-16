@@ -1,9 +1,11 @@
+#define MyAppVersion "0.1.0"
+
 [Setup]
 AppName=Flapkine
-AppVersion=0.1.0
+AppVersion={#MyAppVersion}
 DefaultDirName={autopf}\Flapkine
 DefaultGroupName=Flapkine
-OutputBaseFilename=setup_flapkine
+OutputBaseFilename=Flapkine-{#MyAppVersion}-x64-setup
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
@@ -13,11 +15,11 @@ DisableProgramGroupPage=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "dist\FlapkineApp\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\dist\FlapkineApp\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Icons]
-Name: "{group}\Flapkine"; Filename: "{app}\Flapkine.exe"
-Name: "{userdesktop}\Flapkine"; Filename: "{app}\FlapkineApp.exe"; Tasks: desktopicon
+Name: "{group}\Flapkine"; Filename: "{app}\Flapkine.exe"; IconFilename: "{app}\Flapkine.exe"
+Name: "{userdesktop}\Flapkine"; Filename: "{app}\Flapkine.exe"; Tasks: desktopicon; IconFilename: "{app}\Flapkine.exe"
 Name: "{group}\Uninstall Flapkine"; Filename: "{uninstallexe}"
 
 [Tasks]

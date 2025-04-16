@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 REM 💡 Get version from Python
-for /f %%i in ('python -c "from flapkine.version import __version__; print(__version__)"') do set VERSION=%%i
+for /f %%i in ('python -c "from version import __version__; print(__version__)"') do set VERSION=%%i
 
 echo 🚀 Starting Flapkine release pipeline
 echo 📦 Current version: %VERSION%

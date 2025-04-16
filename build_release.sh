@@ -5,7 +5,7 @@ set -e
 echo "🚀 Starting Flapkine release pipeline"
 
 # 1. Read current version
-VERSION=$(python -c "from flapkine.version import __version__; print(__version__)")
+VERSION=$(python -c "from version import __version__; print(__version__)")
 echo "📦 Current version: $VERSION"
 
 # 2. Clean old builds
