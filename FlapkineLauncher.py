@@ -1,6 +1,13 @@
-from app.ui.main_window import MainWindow
-from PyQt5.QtWidgets import QApplication
+import os
 import sys
+
+from PyQt5.QtWidgets import QApplication
+
+from app.ui.main_window import MainWindow
+
+import vtkmodules.util.data_model
+import vtkmodules.util.execution_model
+import vtkmodules.qt.QVTKRenderWindowInteractor
 
 def main():
     app = QApplication(sys.argv)

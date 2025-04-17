@@ -1,36 +1,43 @@
-# Ignore Python bytecode
+# Byte-compiled / optimized / compiled Python files
 __pycache__/
+*.pyc
+*.pyo
+*.pkl
 
-# Ignore IDE configurations
+# Virtual environment directories
+venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.spec
+
+# Installer output
+*.exe
+*.iss~
+*.tmp
+*.log
+flapkine_installer_output/
+
+# IDE / Editor configurations
 .vscode/
 
-# Ignore media files
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Media files
 *.mp4
 *.jpg
 *.gif
 *.stl
+
+# Specific files
 alpha_1.csv
 beta_1.csv
 gamma_1.csv
-
-# Ignore the pickle files
-*.pkl
-
-# Ignore compiled files
-*.pyc
-*.pyo
-
-# Ignore specific .egg-info directory
-FlapKine.egg-info/
-
-# Ignore temp.py and temp.ipynb
 temp.py
 temp.ipynb
 
-# Ignore Jupyter Notebook checkpoints
-.ipynb_checkpoints
-
+# Dependency files
 requirements.txt
-
-# Ignore virtual environment directories
-venv/

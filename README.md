@@ -6,7 +6,6 @@
   <img src="app\assets\flapkine_icon.png" alt="Main Window" width="250"/>
 </p>
 
-
 ---
 
 ## 🔧 Features
