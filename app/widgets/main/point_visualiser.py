@@ -166,7 +166,7 @@ class PointScatterWidget(QWidget):
         layout.addWidget(self.splitter)
 
         # --- Top Right Group: Point Selection View ---
-        self.toprightgroup = QGroupBox("Selected Point")
+        self.toprightgroup = QGroupBox("Point Selector")
         self.toprightgroup.setFont(QFont('Times', 9))
         topright_layout = QVBoxLayout()
         self.vtk_widget_1 = QVTKRenderWindowInteractor(self)
