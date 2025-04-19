@@ -540,3 +540,11 @@ Full API and user documentation is available at:
 [https://ihdavjar.github.io/FlapKine](https://ihdavjar.github.io/FlapKine)
 
 ## Acknowledgements
+
+
+## ✅ To-Do List
+- [ ] Add example projects
+- [ ] Improve the documentation
+- [ ] Finalise paper.md
+- [ ] Link all referenced sections consistently across README
+- [ ] Add algorithm references (e.g., DLT explanation) with citations
