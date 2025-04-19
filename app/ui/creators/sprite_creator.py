@@ -317,7 +317,7 @@ class SpriteCreator(QMainWindow):
         and triggers an associated update function on change.
 
         Components Initialized:
-            - `translation_transform` (QComboBox): Allows selection of translation type (`Constant`, `COM`).
+            - `translation_transform` (QComboBox): Allows selection of translation type (`Constant`, `Linear`).
                 - Connected to: `translation_transform_fun()`
             - `rotation_transform` (QComboBox): Allows selection of rotation mode (`Constant`, `Euler_Angles`, `Custom`).
                 - Connected to: `rotation_transform_fun()`
@@ -356,7 +356,7 @@ class SpriteCreator(QMainWindow):
         translation_label = QLabel("Translation Transform:")
         translation_label.setFont(QFont('Times', 7))
         self.translation_transform = QComboBox()
-        self.translation_transform.addItems(["Constant", "COM"])
+        self.translation_transform.addItems(["Constant", "Linear"])
         self.translation_transform.currentIndexChanged.connect(self.translation_transform_fun)
         self.translation_transform_layout.addWidget(self.translation_transform)
         transformation_group_layout.addRow(translation_label, self.translation_transform_layout)
@@ -749,7 +749,7 @@ class SpriteCreator(QMainWindow):
         the current selection in the combo box.
 
         Behavior:
-            - If the selected option is 'COM' (index 1), a new translation configuration
+            - If the selected option is 'Linear' (index 1), a new translation configuration
             group is created and added to the layout.
             - If 'Constant' (index 0), no additional UI is shown.
 
@@ -788,7 +788,7 @@ class SpriteCreator(QMainWindow):
         Creates and returns a UI group box for translation properties.
 
         This group is dynamically generated when the user selects a specific
-        translation transform (e.g., "COM") from the combo box. It displays
+        translation transform (e.g., "Linear") from the combo box. It displays
         position-related controls that allow configuring translation parameters.
 
         Group Box Title:

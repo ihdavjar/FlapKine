@@ -156,7 +156,7 @@ class ProjectWindow(QMainWindow):
 
         # --- Top Left Group: Video Animation ---
         self.topleftgroup = VideoAnimation(self.project_folder, self.scene_data, self)
-        topleft_groupbox = QGroupBox("Video Animation")
+        topleft_groupbox = QGroupBox("Video Preview")
         topleft_layout = QVBoxLayout()
         topleft_layout.addWidget(self.topleftgroup)
         topleft_groupbox.setLayout(topleft_layout)
