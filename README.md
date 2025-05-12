@@ -113,7 +113,7 @@ To load a saved project:
    - Saved **camera, lighting, and render settings**
    - Rendered animation (if available)
 
-You’ll be redirected to the **Project Editor Window**.  
+You’ll be redirected to the **Project Editor Window**.
 ➡️ *See [🔎 Project Editor Window](#project-editor-window) for layout, features, and tools.*
 
 #### ⚙️ Rendering Options
@@ -138,21 +138,21 @@ To create a new project:
 
 1. Click **New Project**.
 2. Choose a **project directory** and name.
-3. You’ll enter the **Project Creator Window**.  
+3. You’ll enter the **Project Creator Window**.
    ➡️ *Details: [🔎 Project Creator Window](#project-creator-window)*
 
 Steps:
 
 4. **Scene Setup**:
+
    - 📁 Import existing scene **OR**
-   - ✨ Create a new scene  
+   - ✨ Create a new scene
      ➡️ *See [🎬 Creating a Scene](#creating-a-scene)*
-
 5. **Render Settings**:
-   - ✅ Load default settings (via checkbox)
-   - ⚙️ Customize manually if needed  
-     ➡️ *See [🎛️ Render Configuration](#render-configuration)*
 
+   - ✅ Load default settings (via checkbox)
+   - ⚙️ Customize manually if needed
+     ➡️ *See [🎛️ Render Configuration](#render-configuration)*
 6. Hit **Create Project** to proceed to the **Project Editor Window**.
 
 ---
@@ -162,7 +162,7 @@ Steps:
 To create a new scene:
 
 1. In the **Project Creator Window**, click **Create** under Scene.
-2. You’ll be redirected to the **Scene Creator Window**.  
+2. You’ll be redirected to the **Scene Creator Window**.
    ➡️ *See [🔎 Scene Creator Window](#scene-creator-window)*
 
 Steps:
@@ -170,7 +170,7 @@ Steps:
 3. Add or drop `Sprites` via the dropdown.
 4. You may:
    - Load existing `Sprite` files
-   - Or create new ones  
+   - Or create new ones
      ➡️ *See [🧩 Creating a Sprite](#creating-a-sprite)*
 
 ---
@@ -181,7 +181,7 @@ To define a new `Sprite`:
 
 1. In the **Scene Creator Window**, click **Add Sprite**.
 2. Under the `Sprite`, click **Create**.
-3. The **Sprite Creator Window** opens.  
+3. The **Sprite Creator Window** opens.
    ➡️ *See [🔎 Sprite Creator Window](#sprite-creator-window)*
 
 Components:
@@ -195,29 +195,31 @@ Components:
 
 Here are all the interface windows used in Flapkine. Each has a dedicated section:
 
-| Window | Description |
-|--------|-------------|
-| [Main Window](#main-window) | Entry point for opening or creating projects |
-| [Project Editor Window](#project-editor-window) | View STL, select points, preview animations |
-| [Project Creator Window](#project-creator-window) | Setup scenes, adjust render settings |
-| [Scene Creator Window](#scene-creator-window) | Compose scenes using sprites |
-| [Sprite Creator Window](#sprite-creator-window) | Define object properties and orientation |
-| [InverseKinematics Window](#inverse-kinematics-window) | For solving IK problems |
+| Window                                              | Description                                  |
+| --------------------------------------------------- | -------------------------------------------- |
+| [Main Window](#main-window)                            | Entry point for opening or creating projects |
+| [Project Editor Window](#project-editor-window)        | View STL, select points, preview animations  |
+| [Project Creator Window](#project-creator-window)      | Setup scenes, adjust render settings         |
+| [Scene Creator Window](#scene-creator-window)          | Compose scenes using sprites                 |
+| [Sprite Creator Window](#sprite-creator-window)        | Define object properties and orientation     |
+| [InverseKinematics Window](#inverse-kinematics-window) | For solving IK problems                      |
 
 ---
-
 
 <details>
 <summary><strong>🪟 Window Reference Sections</strong></summary>
 
 #### 🪟 Main Window
+
 <p align="center">
   <img src="docs/assets/images/main_window.png" alt="Main Window" width="250"/>
 </p>
 
 > The **Main Window** acts as the home screen for **FlapKine**
+
 - **Open Project** button — Launches the project creation interface.
 - **New Project** button — Opens an existing project from your local filesystem.
+
 ---
 
 #### 🪟 Project Editor Window
@@ -232,59 +234,55 @@ Here are all the interface windows used in Flapkine. Each has a dedicated sectio
 
 **Interface Overview**
 
-| **Section**             | **Purpose**                                                          |
-|-------------------------|----------------------------------------------------------------------|
-| 🎥 **Video Preview**     | Renders and displays the animation preview                           |
-| 🧊 **3D Visualizer**     | Plays the STL model animation interactively                          |
-| 🎯 **Point Selector**    | Enables precise 2D point selection on model surfaces                   |
-| 📊 **Scatter Plot**      | Illustrates the 3D motion trajectory of selected points                |
+| **Section**          | **Purpose**                                       |
+| -------------------------- | ------------------------------------------------------- |
+| 🎥**Video Preview**  | Renders and displays the animation preview              |
+| 🧊**3D Visualizer**  | Plays the STL model animation interactively             |
+| 🎯**Point Selector** | Enables precise 2D point selection on model surfaces    |
+| 📊**Scatter Plot**   | Illustrates the 3D motion trajectory of selected points |
 
 ---
 
 **Video Preview Widget**
 
-- **Overview:**  
-  Automatically shows the rendered animation if available. Otherwise, users can render the animation using the Render button.
-  
-- **Key Features:**  
-  - **Render Trigger:** Initiates the animation render if it hasn't been completed.  
-  - **Status Bar:** Displays real-time rendering progress beside the Render button.  
+- **Overview:**Automatically shows the rendered animation if available. Otherwise, users can render the animation using the Render button.
+- **Key Features:**
+
+  - **Render Trigger:** Initiates the animation render if it hasn't been completed.
+  - **Status Bar:** Displays real-time rendering progress beside the Render button.
   - **Configurable Rendering:** Adjust render settings via the `Render → Configure Render` menu.
 
 ---
 
 **3D Visualizer Widget**
 
-- **Overview:**  
-  Renders the STL model in motion, providing an interactive 3D experience.
-  
-- **Key Features:**  
-  - **Interactive Controls:** Rotate, zoom, and pan using the mouse.  
-  - **Playback Controls:** Play, pause, or scrub through the animation timeline.  
-  - **Visualization Aid:** Helps set camera and lighting configurations for the final video render.  
+- **Overview:**Renders the STL model in motion, providing an interactive 3D experience.
+- **Key Features:**
+
+  - **Interactive Controls:** Rotate, zoom, and pan using the mouse.
+  - **Playback Controls:** Play, pause, or scrub through the animation timeline.
+  - **Visualization Aid:** Helps set camera and lighting configurations for the final video render.
   - **Coordinate Axes:** Displays both body-fixed axes (A, B, C) and inertial axes (X, Y, Z).
 
 ---
 
 **Point Selector Widget**
 
-- **Overview:**  
-  Optimized for components like wings where one dimension is significantly smaller; it provides a 2D projection by excluding the smallest axis.
-  
-- **Key Features:**  
-  - **Flattened Projection:** Automatically adjusts to produce a 2D view for easier point selection.  
+- **Overview:**Optimized for components like wings where one dimension is significantly smaller; it provides a 2D projection by excluding the smallest axis.
+- **Key Features:**
+
+  - **Flattened Projection:** Automatically adjusts to produce a 2D view for easier point selection.
   - **Adaptive Interface:** Works intelligently for both wing-like structures and other object geometries.
 
 ---
 
 **Scatter Plot Widget**
 
-- **Overview:**  
-  Uses computed forward kinematics to plot the 3D motion of the selected point with respect to the inertial coordinate system (X, Y, Z).
+- **Overview:**Uses computed forward kinematics to plot the 3D motion of the selected point with respect to the inertial coordinate system (X, Y, Z).
+- **Key Features:**
 
-- **Key Features:**  
-  - **Trajectory Tracking:** Visualizes the motion path in 3D space over time.  
-  - **Dynamic Analysis:** Ideal for examining oscillations, vibrations, and deformation patterns.  
+  - **Trajectory Tracking:** Visualizes the motion path in 3D space over time.
+  - **Dynamic Analysis:** Ideal for examining oscillations, vibrations, and deformation patterns.
   - **Inertial Axes Reference:** The plot is aligned with the inertial axes (X, Y, Z), providing a global frame of reference for motion.
 
 ---
@@ -301,21 +299,20 @@ Here are all the interface windows used in Flapkine. Each has a dedicated sectio
 
 **Scene Setup**
 
-- **Create New Scene**  
-  Initialize a fresh `.pkl` scene from scratch.
-- **Import Scene**  
+- **Create New Scene**Initialize a fresh `.pkl` scene from scratch.
+- **Import Scene**
   Load an existing `.pkl` scene file into the project.
 
 ---
 
 **Render Configuration**
 
-- **Load Default Settings**  
-  - Toggle **“Load Default Render Settings”** to apply FlapKine’s recommended parameters automatically.  
+- **Load Default Settings**
+  - Toggle **“Load Default Render Settings”** to apply FlapKine’s recommended parameters automatically.
   - Individual parameters remain editable if you want to fine‑tune.
-- **New Render Configuration**  
-  - Select this option to start with all render parameters set to zero.  
-  - Manually adjust each field to craft a custom setup.  
+- **New Render Configuration**
+  - Select this option to start with all render parameters set to zero.
+  - Manually adjust each field to craft a custom setup.
 
 > _See the Render Configuration section for detailed explanations of each parameter._
 
@@ -323,10 +320,9 @@ Here are all the interface windows used in Flapkine. Each has a dedicated sectio
 
 **Create Project**
 
-1. Confirm your scene selection and render settings.  
-2. Click **Create Project**.  
+1. Confirm your scene selection and render settings.
+2. Click **Create Project**.
 3. FlapKine will generate your project folder, write the config and data files, then open the **Project Editor Window** for further work.
-
 
 ---
 
@@ -340,34 +336,27 @@ Here are all the interface windows used in Flapkine. Each has a dedicated sectio
 
 ---
 
-**What Is a Scene?**  
-A **Scene** is a collection of **Sprites** (2D/3D objects) that together form the visual environment for your project. Each **Sprite** can be:
-- **Imported** from an existing `.pkl` file  
+**What Is a Scene?**A **Scene** is a collection of **Sprites** (2D/3D objects) that together form the visual environment for your project. Each **Sprite** can be:
+
+- **Imported** from an existing `.pkl` file
 - **Created** on the fly via the **Sprite Creator Window**
 
 ---
 
 **Adding Sprites**
 
-1. **Add Sprite**  
-   Click the **+ Add** button to append a new sprite entry to the list.
-
-2. **Drop Sprite**  
-   Select an existing sprite in the list, then click the **– Drop** button to remove it.
-
-3. **Import Sprite**  
-   Click **Open** to browse your file system and load a `.pkl` sprite file.
-
-4. **Create Sprite**  
+1. **Add Sprite**Click the **+ Add** button to append a new sprite entry to the list.
+2. **Drop Sprite**Select an existing sprite in the list, then click the **– Drop** button to remove it.
+3. **Import Sprite**Click **Open** to browse your file system and load a `.pkl` sprite file.
+4. **Create Sprite**
    Click **Create** to launch the **Sprite Creator Window**, where you can design and save a brand‑new sprite.
-
 
 ---
 
-**Finalizing Your Scene**  
-- Once your sprite lineup is complete, click **Import Scene**.  
-- The assembled scene is passed back to the **Project Creator Window** for render configuration and project setup.  
+**Finalizing Your Scene**
 
+- Once your sprite lineup is complete, click **Import Scene**.
+- The assembled scene is passed back to the **Project Creator Window** for render configuration and project setup.
 
 ---
 
@@ -383,16 +372,12 @@ A **Scene** is a collection of **Sprites** (2D/3D objects) that together form th
 
 **3D Object Configuration**
 
-- **Name**  
-  Enter a unique identifier for your 3D object.
+- **Name**Enter a unique identifier for your 3D object.
+- **STL File**Click **Browse** to select the `.stl` mesh file from disk. Once loaded, the built‑in visualizer renders the object with overlapping **Body Axes** (A, B, C) and **Inertial Axes** (X, Y, Z), showing their initial alignment.
+- **Transforms**Choose how the object will move or deform during animation:
 
-- **STL File**  
-  Click **Browse** to select the `.stl` mesh file from disk. Once loaded, the built‑in visualizer renders the object with overlapping **Body Axes** (A, B, C) and **Inertial Axes** (X, Y, Z), showing their initial alignment.
-
-- **Transforms**  
-  Choose how the object will move or deform during animation:
-  - **Translation**: Select a preset (e.g., _Constant_, _Linear_).  
-  - **Rotation**: Select a preset (e.g., _Constant_, _Euler Angles_, _Free_).  
+  - **Translation**: Select a preset (e.g., _Constant_, _Linear_).
+  - **Rotation**: Select a preset (e.g., _Constant_, _Euler Angles_, _Free_).
   - **Flexibility**: Choose a deformation model (e.g., _Constant/Rigid_, _FlexibilityType1_, _FlexibilityType2_).
 
 ---
@@ -401,9 +386,9 @@ A **Scene** is a collection of **Sprites** (2D/3D objects) that together form th
 
 Adjust the origin of the body axes relative to the inertial frame by setting:
 
-- **X Offset**  
-- **Y Offset**  
-- **Z Offset**  
+- **X Offset**
+- **Y Offset**
+- **Z Offset**
 
 All zeroes (`0, 0, 0`) will place the body origin exactly at the inertial origin. Any changes are reflected live in the visualizer.
 
@@ -413,9 +398,9 @@ All zeroes (`0, 0, 0`) will place the body origin exactly at the inertial origin
 
 Set the initial orientation with right‑handed Euler angles (in degrees):
 
-1. **α (Alpha)** – Rotation about the body’s A (roll) axis  
-2. **β (Beta)** – Rotation about the body’s B (pitch) axis  
-3. **γ (Gamma)** – Rotation about the body’s C (yaw) axis  
+1. **α (Alpha)** – Rotation about the body’s A (roll) axis
+2. **β (Beta)** – Rotation about the body’s B (pitch) axis
+3. **γ (Gamma)** – Rotation about the body’s C (yaw) axis
 
 Adjusting these angles reorients the body axes in real time.
 
@@ -423,22 +408,22 @@ Adjusting these angles reorients the body axes in real time.
 
 **Finalize Your Sprite**
 
-When you’re satisfied with the 3D object parameters, origin position, and orientation, click **Finish**.  
+When you’re satisfied with the 3D object parameters, origin position, and orientation, click **Finish**.
 This creates the sprite with your specified settings and returns you to the **Scene Creator Window**.
 
 ---
 
 ## Transform Reference
 
-| **Transform Type**    | **Mode**           | **Description**                                                                                                                                                          | **Image**                                                                                  |
-|-----------------------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| **Translation**       | `Constant`         | No translation; the object remains fixed in place.                                                                                                                       | –                                                                                          |
-|                       | `Linear`           | Applies a time-dependent translation using the object's Center of Mass (COM) trajectory. CSV input of COM positions is used to move the object over time.               | ![Linear](docs/assets/images/linear_translation_transform.png)                             |
-| **Rotation**          | `Constant`         | No rotation; the object retains its original orientation.                                                                                                                | –                                                                                          |
-|                       | `Euler_Angle`      | Time-dependent rotation using Euler angles. Choose sequence (e.g., ZYX) and provide α, β, γ as CSV, or use the **Import Inverse Kinematics** feature *(See the [Inverse Kinematics](#inverse-kinematics) section for more details.)*.                  | ![Euler](docs/assets/images/euler_angle_rotation_transform.png)                            |
-| **Flexibility**       | `Constant / Rigid` | No deformation; the object behaves as a rigid body.                                                                                                                      | –                                                                                          |
-|                       | `FlexibilityType1` | *(Description to be added in future.)*                                                                                                                                   | –                                                                                          |
-|                       | `FlexibilityType2` | *(Description to be added in future.)*                                                                                                                                   | –                                                                                          |
+| **Transform Type** | **Mode**       | **Description**                                                                                                                                                                                                                        | **Image**                                               |
+| ------------------------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Translation**    | `Constant`         | No translation; the object remains fixed in place.                                                                                                                                                                                           | –                                                            |
+|                          | `Linear`           | Applies a time-dependent translation using the object's Center of Mass (COM) trajectory. CSV input of COM positions is used to move the object over time.                                                                                    | ![Linear](docs/assets/images/linear_translation_transform.png)  |
+| **Rotation**       | `Constant`         | No rotation; the object retains its original orientation.                                                                                                                                                                                    | –                                                            |
+|                          | `Euler_Angle`      | Time-dependent rotation using Euler angles. Choose sequence (e.g., ZYX) and provide α, β, γ as CSV, or use the**Import Inverse Kinematics** feature *(See the [Inverse Kinematics](#inverse-kinematics) section for more details.)*. | ![Euler](docs/assets/images/euler_angle_rotation_transform.png) |
+| **Flexibility**    | `Constant / Rigid` | No deformation; the object behaves as a rigid body.                                                                                                                                                                                          | –                                                            |
+|                          | `FlexibilityType1` | *(Description to be added in future.)*                                                                                                                                                                                                     | –                                                            |
+|                          | `FlexibilityType2` | *(Description to be added in future.)*                                                                                                                                                                                                     | –                                                            |
 
 ---
 
@@ -454,10 +439,8 @@ The **Inverse Kinematics Window** is designed to extract time‐series Euler ang
 
 1. Import 3D Point Data
 
-- Prepare a CSV file with columns:  
-  `time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz`  
-  where A, B, C, D are the four points on the wing plane.
-- Click **Import Data** and select your CSV.  
+- Prepare a CSV file with columns:`time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz`where A, B, C, D are the four points on the wing plane.
+- Click **Import Data** and select your CSV.
 - The 3D coordinates are reconstructed using the Direct Linear Transformation (DLT) algorithm (see reference below).
 
 <p align="center">
@@ -468,28 +451,28 @@ The **Inverse Kinematics Window** is designed to extract time‐series Euler ang
 
 2. Choose Euler Sequence
 
-- In the **Euler Order** dropdown, pick your desired rotation sequence (e.g., `ZYX`, `XYZ`, etc.).  
+- In the **Euler Order** dropdown, pick your desired rotation sequence (e.g., `ZYX`, `XYZ`, etc.).
 - This order determines how α (alpha), β (beta), and γ (gamma) are computed.
 
 ---
 
 3. Visualize Point Trajectories
 
-- On the **Left Panel**, select point **A**, **B**, **C**, or **D** to see its 3D trajectory plot over time.  
+- On the **Left Panel**, select point **A**, **B**, **C**, or **D** to see its 3D trajectory plot over time.
 - Use this to verify tracking accuracy before computing angles.
 
 ---
 
 4. Compute & Preview Euler Angles
 
-- Once the sequence is selected, the window auto‐calculates α, β, γ at each timestamp.  
+- Once the sequence is selected, the window auto‐calculates α, β, γ at each timestamp.
 - Real‐time line plots appear below the 3D view for each angle component.
 
 ---
 
 5. Export to Sprite Creator
 
-- When you’re satisfied with the results, click **Finish**.  
+- When you’re satisfied with the results, click **Finish**.
 - The computed Euler angles and selected sequence are sent directly to the **Sprite Creator Window** for further processing.
 
 ---
@@ -509,27 +492,31 @@ References
 
 Access the Render Settings Window either during **New Project** creation or via **Render → Configure Render** in the **Project Editor**.
 
-| **Window**            | **Description**                                                                                                                                                                                           | **Preview**                                                                                                           |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| **Project Creator**   | Configure render options as you set up a new project. Adjust video format, resolution, camera placement, lighting, and output settings before creation.                                                  | <img src="docs/assets/images/render_window_project_creator.png" alt="Render Settings in Project Creator" width="300"/> |
-| **Project Editor**    | Re‑open and tweak render settings on an existing project. All parameters—video format, camera, light, STL export, and reflection—can be modified without restarting the project workflow.               | <img src="docs/assets/images/render_window_project_editor.png" alt="Render Settings in Project Editor" width="300"/>    |
+| **Window**          | **Description**                                                                                                                                                                        | **Preview**                                                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Project Creator** | Configure render options as you set up a new project. Adjust video format, resolution, camera placement, lighting, and output settings before creation.                                      | `<img src="docs/assets/images/render_window_project_creator.png" alt="Render Settings in Project Creator" width="300"/>` |
+| **Project Editor**  | Re‑open and tweak render settings on an existing project. All parameters—video format, camera, light, STL export, and reflection—can be modified without restarting the project workflow. | `<img src="docs/assets/images/render_window_project_editor.png" alt="Render Settings in Project Editor" width="300"/>`   |
 
 ---
 
-##### 1. Video Settings  
-- **Frame Format**: Select image format for each frame (e.g., PNG, JPEG).  
+##### 1. Video Settings
+
+- **Frame Format**: Select image format for each frame (e.g., PNG, JPEG).
 - **Resolution**: Define output resolution (width × height) for video frames.
 
-##### 2. Camera Settings  
-- **Location**: Specify camera position in the global X, Y, Z axes.  
+##### 2. Camera Settings
+
+- **Location**: Specify camera position in the global X, Y, Z axes.
 - **Rotation**: Define camera orientation via rotation angles about X, Y, Z.
 
-##### 3. Light Settings  
-- **Position**: Set light source coordinates in X, Y, Z.  
+##### 3. Light Settings
+
+- **Position**: Set light source coordinates in X, Y, Z.
 - **Power**: Adjust light intensity to illuminate the scene.
 
-##### 4. Other Options  
-- **STL Export**: Enable “Save STL per Frame” to output geometry snapshots for CFD or post‑processing.  
+##### 4. Other Options
+
+- **STL Export**: Enable “Save STL per Frame” to output geometry snapshots for CFD or post‑processing.
 - **Reflection Plane**: Choose XY, YZ, or XZ for automatic mirroring—useful for paired wing simulations without duplicating sprite definitions.
 
 </details>
@@ -541,10 +528,10 @@ Full API and user documentation is available at:
 
 ## Acknowledgements
 
-
 ## ✅ To-Do List
+
 - [ ] Add example projects
-- [ ] Improve the documentation
+- [X] Improve the documentation
 - [ ] Finalise paper.md
 - [ ] Link all referenced sections consistently across README
 - [ ] Add algorithm references (e.g., DLT explanation) with citations
