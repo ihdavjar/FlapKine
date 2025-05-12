@@ -1,0 +1,2556 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="app.ui.editor package" href="app.ui.editor.html" /><link rel="prev" title="app.ui package" href="app.ui.html" />
+
+    <link rel="shortcut icon" href="../../_static/flapkine_icon.ico"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>app.ui.creators package - FlapKine v0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=310afbb2" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">FlapKine v0.1.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/flapkine_icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/flapkine_icon.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">FlapKine v0.1.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">📥 Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user_guide.html">🚀 User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of 🚀 User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/launching.html">🧭 Launching the Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/opening_project.html">📂 Opening an Existing Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/creating_project.html">🆕 Creating a New Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/creating_scene.html">🏗️ Creating a Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/creating_sprite.html">🧩 Creating a Sprite</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user_guide/window_reference.html">🔎 Windows Overview</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of 🔎 Windows Overview</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="app.html">app package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of app package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="app.ui.html">app.ui package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of app.ui package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">app.ui.creators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.ui.editor.html">app.ui.editor package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="app.widgets.html">app.widgets package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of app.widgets package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.widgets.main.html">app.widgets.main package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.widgets.misc.html">app.widgets.misc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../src/src.html">src package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of src package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.blender.html">src.blender package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../src/src.core.html">src.core package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of src.core package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../src/src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../src/src.core.transforms.html">src.core.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.utils.html">src.utils package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/api_reference/app/app.ui.creators.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="app-ui-creators-package">
+<h1>app.ui.creators package<a class="headerlink" href="#app-ui-creators-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-app.ui.creators.project_creator">
+<span id="app-ui-creators-project-creator-module"></span><h2>app.ui.creators.project_creator module<a class="headerlink" href="#module-app.ui.creators.project_creator" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.project_creator.</span></span><span class="sig-name descname"><span class="pre">ProjectCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<section id="projectcreator-class">
+<h3>ProjectCreator Class<a class="headerlink" href="#projectcreator-class" title="Link to this heading">¶</a></h3>
+<p>This class defines the main GUI window for the FlapKine project creation module.</p>
+<p>It enables importing or generating scene data, configuring essential parameters such as
+video resolution, camera and lighting setup, STL output, and reflection properties,
+and finalizing the project setup with or without default configuration profiles.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.project_folder">
+<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.project_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Path to the directory where the new project will be initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.menu_bar">
+<span class="sig-name descname"><span class="pre">menu_bar</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.menu_bar" title="Link to this definition">¶</a></dt>
+<dd><p>Custom top menu bar that handles application-level actions like exit or minimize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="app.widgets.misc.html#app.widgets.misc.menu_bar.MenuBar" title="app.widgets.misc.menu_bar.MenuBar">MenuBar</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.text_editor_scene">
+<span class="sig-name descname"><span class="pre">text_editor_scene</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.text_editor_scene" title="Link to this definition">¶</a></dt>
+<dd><p>Input field for the path of the scene file to import.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.open_button">
+<span class="sig-name descname"><span class="pre">open_button</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.open_button" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a file dialog to import a scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.create_button">
+<span class="sig-name descname"><span class="pre">create_button</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_button" title="Link to this definition">¶</a></dt>
+<dd><p>Launches the CreateScene window to generate a new scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.default_config_checkbox">
+<span class="sig-name descname"><span class="pre">default_config_checkbox</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.default_config_checkbox" title="Link to this definition">¶</a></dt>
+<dd><p>Enables or disables using default configuration settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.import_config_button">
+<span class="sig-name descname"><span class="pre">import_config_button</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.import_config_button" title="Link to this definition">¶</a></dt>
+<dd><p>Button to initiate creation of a custom configuration profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.config_group">
+<span class="sig-name descname"><span class="pre">config_group</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.config_group" title="Link to this definition">¶</a></dt>
+<dd><p>Group box containing all video, camera, and light configuration controls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QGroupBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.frame_format">
+<span class="sig-name descname"><span class="pre">frame_format</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.frame_format" title="Link to this definition">¶</a></dt>
+<dd><p>Dropdown menu for selecting video frame format (e.g., PNG, JPEG).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.resolution_x">
+<span class="sig-name descname"><span class="pre">resolution_x</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.resolution_x" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the horizontal resolution of the output video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.resolution_y">
+<span class="sig-name descname"><span class="pre">resolution_y</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.resolution_y" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the vertical resolution of the output video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_location_x">
+<span class="sig-name descname"><span class="pre">camera_location_x</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_x" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_location_y">
+<span class="sig-name descname"><span class="pre">camera_location_y</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_y" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_location_z">
+<span class="sig-name descname"><span class="pre">camera_location_z</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_z" title="Link to this definition">¶</a></dt>
+<dd><p>Spin boxes for defining camera position in 3D space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha">
+<span class="sig-name descname"><span class="pre">camera_rotation_alpha</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta">
+<span class="sig-name descname"><span class="pre">camera_rotation_beta</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma">
+<span class="sig-name descname"><span class="pre">camera_rotation_gamma</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma" title="Link to this definition">¶</a></dt>
+<dd><p>Spin boxes for defining camera rotation angles (Roll α, Pitch β, Yaw γ).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.light_location_x">
+<span class="sig-name descname"><span class="pre">light_location_x</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.light_location_x" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.light_location_y">
+<span class="sig-name descname"><span class="pre">light_location_y</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.light_location_y" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.light_location_z">
+<span class="sig-name descname"><span class="pre">light_location_z</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.light_location_z" title="Link to this definition">¶</a></dt>
+<dd><p>Spin boxes for defining light position in 3D space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.light_power">
+<span class="sig-name descname"><span class="pre">light_power</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.light_power" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the power level of the scene lighting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.stl_enable">
+<span class="sig-name descname"><span class="pre">stl_enable</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.stl_enable" title="Link to this definition">¶</a></dt>
+<dd><p>Enables STL file generation for the final output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.reflect_xy">
+<span class="sig-name descname"><span class="pre">reflect_xy</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.reflect_xy" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.reflect_yz">
+<span class="sig-name descname"><span class="pre">reflect_yz</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.reflect_yz" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.reflect_xz">
+<span class="sig-name descname"><span class="pre">reflect_xz</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.reflect_xz" title="Link to this definition">¶</a></dt>
+<dd><p>Checkboxes to enable reflection across the XY, YZ, or XZ planes respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.ok_button">
+<span class="sig-name descname"><span class="pre">ok_button</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.ok_button" title="Link to this definition">¶</a></dt>
+<dd><p>Finalizes the creation of the project with all selected settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__(project_folder:</span> <span class="pre">str):</span></span></dt>
+<dd><p>Initializes the window and sets up the user interface and interactions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">initUI():</span></span></dt>
+<dd><p>Composes and organizes the complete interface layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_central_widget():</span></span></dt>
+<dd><p>Defines the central widget and primary layout structure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_scene_import(primary_color:</span> <span class="pre">str):</span></span></dt>
+<dd><p>Initializes the section for importing or creating scenes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_config_options():</span></span></dt>
+<dd><p>Adds toggle options for using default or custom configurations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_config_group(primary_color:</span> <span class="pre">str):</span></span></dt>
+<dd><p>Builds the configuration container for video, camera, and light settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_video_settings():</span></span></dt>
+<dd><p>Adds UI elements related to video format and resolution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_resolution_inputs():</span></span></dt>
+<dd><p>Assembles spin boxes for video resolution input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_camera_settings():</span></span></dt>
+<dd><p>Adds input fields for configuring camera position and orientation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_camera_controls(location_layout:</span> <span class="pre">QHBoxLayout,</span> <span class="pre">rotation_layout:</span> <span class="pre">QHBoxLayout):</span></span></dt>
+<dd><p>Populates the camera control section with coordinate and rotation controls.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_light_settings():</span></span></dt>
+<dd><p>Adds input fields for configuring light source position and power.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setup_other_settings():</span></span></dt>
+<dd><p>Adds extra controls for STL export and axis-based reflection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">import_scene():</span></span></dt>
+<dd><p>Opens a file dialog to allow users to select and import a scene file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_scene():</span></span></dt>
+<dd><p>Opens the CreateScene interface for building new scenes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">on_scene_created(scene_data:</span> <span class="pre">dict):</span></span></dt>
+<dd><p>Callback function that processes newly created scene data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">process_default_config():</span></span></dt>
+<dd><p>Loads and applies default configuration presets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_new_config():</span></span></dt>
+<dd><p>Opens the interface for defining a new custom configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_the_project():</span></span></dt>
+<dd><p>Consolidates all inputs and generates the project directory and metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">center():</span></span></dt>
+<dd><p>Moves the window to the center of the user’s screen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">toggle_checkboxes(checked_box:</span> <span class="pre">QCheckBox):</span></span></dt>
+<dd><p>Ensures only one axis reflection checkbox can be active at a time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">about_button_fun():</span></span></dt>
+<dd><p>Displays application and author information in an About dialog.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.about_button_fun">
+<span class="sig-name descname"><span class="pre">about_button_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.about_button_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.about_button_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Displays an ‘About FlapKine’ information dialog.</p>
+<p>Shows details about the developer, version, and purpose of the application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.add_camera_controls">
+<span class="sig-name descname"><span class="pre">add_camera_controls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_layout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.add_camera_controls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.add_camera_controls" title="Link to this definition">¶</a></dt>
+<dd><p>Adds camera position and rotation controls to the given layouts.</p>
+<p>Dynamically creates labeled <cite>QDoubleSpinBox</cite> widgets for both camera location (X, Y, Z)
+and rotation (Roll α, Pitch β, Yaw γ), and assigns them to class attributes for access.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera location widgets are added.</p></li>
+<li><p><strong>rotation_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera rotation widgets are added.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>SpinBoxes Created:</dt><dd><ul class="simple">
+<li><p>Location: camera_location_x, camera_location_y, camera_location_z (range: -1000 to 1000)</p></li>
+<li><p>Rotation: camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma (range: -360 to 360)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.center">
+<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.center" title="Link to this definition">¶</a></dt>
+<dd><p>Centers the application window on the screen.</p>
+<p>Calculates screen and window dimensions, then moves the window to the center position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.create_new_config">
+<span class="sig-name descname"><span class="pre">create_new_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.create_new_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_new_config" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a blank configuration setup for a new project.</p>
+<p>When the ‘New Config’ toggle button is enabled, this method populates all relevant
+input fields with baseline default values, effectively clearing any previous data
+and preparing the UI for a new configuration. If the toggle is disabled, the
+configuration group is disabled.</p>
+<dl class="simple">
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Resets video resolution to 640x480.</p></li>
+<li><p>Sets all camera position and rotation spinboxes to 0.</p></li>
+<li><p>Resets light position and power to 0.</p></li>
+<li><p>Disables all reflection checkboxes and STL saving option.</p></li>
+<li><p>Enables or disables the configuration group box accordingly.</p></li>
+</ul>
+</dd>
+<dt>UI Elements Updated:</dt><dd><ul class="simple">
+<li><p>frame_format</p></li>
+<li><p>resolution_x, resolution_y</p></li>
+<li><p>camera_location_x/y/z</p></li>
+<li><p>camera_rotation_alpha/beta/gamma</p></li>
+<li><p>light_location_x/y/z</p></li>
+<li><p>light_power</p></li>
+<li><p>reflect_xy, reflect_yz, reflect_xz</p></li>
+<li><p>stl_enable</p></li>
+<li><p>config_group (enabled/disabled)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.create_scene">
+<span class="sig-name descname"><span class="pre">create_scene</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.create_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_scene" title="Link to this definition">¶</a></dt>
+<dd><p>Opens the scene creation window.</p>
+<p>Launches a <cite>CreateScene</cite> dialog and connects its <cite>sceneCreated</cite> signal
+to the <cite>on_scene_created</cite> handler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.create_the_project">
+<span class="sig-name descname"><span class="pre">create_the_project</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.create_the_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_the_project" title="Link to this definition">¶</a></dt>
+<dd><p>Finalizes and creates the project with the configured scene and settings.</p>
+<p>This method performs the full setup of the project directory, including:
+- Directory structure creation for images, videos, and data.
+- Copying or serializing the scene file into the project folder.
+- Saving a configuration JSON file based on current UI state.
+- Launching the project rendering window.</p>
+<dl>
+<dt>Project Structure Created:</dt><dd><ul>
+<li><dl>
+<dt>&lt;project_folder&gt;/</dt><dd><p>├── scene.pkl
+├── config.json
+└── data/</p>
+<blockquote>
+<div><p>├── images/
+└── videos/</p>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Configuration Saved (<cite>config.json</cite>):</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>VideoRender:</dt><dd><ul>
+<li><p>OutputPath: ‘data/images’</p></li>
+<li><p>STLPath: ‘data/stl’</p></li>
+<li><p>FrameFormat: selected from dropdown</p></li>
+<li><p>resolution_x/y: selected resolution values</p></li>
+<li><p>film_transparent: fixed as False</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Camera:</dt><dd><ul>
+<li><p>location: (x, y, z) position</p></li>
+<li><p>rotation_euler: (alpha, beta, gamma) angles</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Light:</dt><dd><ul>
+<li><p>location: (x, y, z) position</p></li>
+<li><p>energy: integer power value</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>STL: Boolean, from checkbox</p></li>
+<li><p>Reflect: ‘XY’, ‘YZ’, ‘XZ’ or None based on user selection</p></li>
+</ul>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>If <cite>scene_data</cite> exists, it is pickled and saved.</p></li>
+<li><p>Otherwise, the provided <cite>.pkl</cite> scene file is copied to the project folder.</p></li>
+<li><p>After setup, a new <cite>ProjectWindow</cite> instance is launched and the current window is closed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.import_scene">
+<span class="sig-name descname"><span class="pre">import_scene</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.import_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.import_scene" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a file dialog to import a scene <cite>.pkl</cite> file.</p>
+<p>Sets the selected file path in the scene input field and updates the open button’s appearance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.initUI">
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.initUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.initUI" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up the main UI layout for the Project Creator window.</p>
+<dl class="simple">
+<dt>Constructs and arranges the primary user interface elements required for setting up a FlapKine project:</dt><dd><ul class="simple">
+<li><p>Scene Import Section: For importing or creating a scene file.</p></li>
+<li><p>Configuration Options: Enables toggling between default and custom configuration.</p></li>
+<li><p>Configuration Group: Contains settings for video format, camera, and lighting.</p></li>
+<li><p>Other Settings: Includes STL export toggle and reflection axis checkboxes.</p></li>
+<li><p>Final Action Button: “Create Project” button to confirm and finalize project setup.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The method also centers the window on screen and dynamically uses the current palette’s primary color
+to style relevant UI sections.</p>
+<dl class="simple">
+<dt>Components Added to Main Layout:</dt><dd><ul class="simple">
+<li><p>Scene import widgets</p></li>
+<li><p>Config options and grouped settings</p></li>
+<li><p>STL and reflection options</p></li>
+<li><p>“Create Project” QPushButton (connected to <cite>create_the_project</cite>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.on_scene_created">
+<span class="sig-name descname"><span class="pre">on_scene_created</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.on_scene_created"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.on_scene_created" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the scene data returned from the scene creation window.</p>
+<p>Stores the scene data and updates the ‘Create’ button’s appearance to indicate success.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.process_default_config">
+<span class="sig-name descname"><span class="pre">process_default_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.process_default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.process_default_config" title="Link to this definition">¶</a></dt>
+<dd><p>Applies default configuration settings from a JSON file.</p>
+<p>If the ‘Use Default Config’ checkbox is checked, this method loads predefined
+configuration values from <cite>default_config.json</cite> and applies them to the respective
+input fields for video resolution, camera parameters, lighting, reflection axes,
+and STL export. If the checkbox is unchecked, the configuration section is disabled.</p>
+<dl class="simple">
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Loads JSON from <cite>src/config/default_config.json</cite>.</p></li>
+<li><p>Sets resolution (X, Y), camera location (X, Y, Z), and camera rotation (α, β, γ).</p></li>
+<li><p>Sets light position (X, Y, Z) and light power.</p></li>
+<li><p>Configures reflection plane (XY, YZ, XZ) and STL checkbox state.</p></li>
+<li><p>Enables or disables the configuration group box accordingly.</p></li>
+</ul>
+</dd>
+<dt>UI Elements Updated:</dt><dd><ul class="simple">
+<li><p>frame_format</p></li>
+<li><p>resolution_x, resolution_y</p></li>
+<li><p>camera_location_x/y/z</p></li>
+<li><p>camera_rotation_alpha/beta/gamma</p></li>
+<li><p>light_location_x/y/z</p></li>
+<li><p>light_power</p></li>
+<li><p>reflect_xy, reflect_yz, reflect_xz</p></li>
+<li><p>stl_enable</p></li>
+<li><p>config_group (enabled/disabled)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_camera_settings">
+<span class="sig-name descname"><span class="pre">setup_camera_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_camera_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_camera_settings" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up the camera configuration section within the config group.</p>
+<p>Creates a stylized group box labeled “Camera Settings” containing controls for camera
+position and rotation. The layout is divided into two horizontal sections:
+one for camera location and another for rotation.</p>
+<dl class="simple">
+<dt>Subcomponents Added:</dt><dd><ul class="simple">
+<li><p>Camera Location Controls: via <cite>add_camera_controls</cite></p></li>
+<li><p>Camera Rotation Controls: via <cite>add_camera_controls</cite></p></li>
+<li><p>Styled <cite>QGroupBox</cite> with bold teal border and custom title padding</p></li>
+</ul>
+</dd>
+</dl>
+<p>The assembled group is added to the main configuration layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_central_widget">
+<span class="sig-name descname"><span class="pre">setup_central_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_central_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_central_widget" title="Link to this definition">¶</a></dt>
+<dd><p>Configures the central widget and main layout of the Project Creator window.</p>
+<p>Initializes the main UI container by setting a <cite>QWidget</cite> as the central widget of the main window.
+A vertical box layout (<cite>QVBoxLayout</cite>) is then assigned to this widget, serving as the base layout
+for all subsequent UI components in the application.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>central_widget</cite>: Main container widget for all UI elements.</p></li>
+<li><p><cite>main_layout</cite>: Vertical layout used to stack UI sections top-to-bottom.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_config_group">
+<span class="sig-name descname"><span class="pre">setup_config_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_config_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_config_group" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up the configuration group section.</p>
+<p>Initializes the grouped container for all configuration settings including video, camera,
+and lighting controls. This section is disabled by default and is enabled upon creating
+a new custom configuration.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>config_group</cite>: QGroupBox titled “Configurations”</p></li>
+<li><dl class="simple">
+<dt><cite>config_layout</cite>: Vertical layout containing:</dt><dd><ul>
+<li><p>Video settings (via <cite>setup_video_settings()</cite>)</p></li>
+<li><p>Camera settings (via <cite>setup_camera_settings()</cite>)</p></li>
+<li><p>Light settings (via <cite>setup_light_settings()</cite>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_config_options">
+<span class="sig-name descname"><span class="pre">setup_config_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_config_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_config_options" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up configuration option widgets.</p>
+<p>Initializes the interface section that allows the user to choose between using default
+configuration settings or creating a new custom configuration.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>default_config_checkbox</cite>: A checkbox to enable or disable usage of default config.</p></li>
+<li><p><cite>import_config_button</cite>: A toggle button to create a new custom configuration.</p></li>
+</ul>
+</dd>
+<dt>Connections:</dt><dd><ul class="simple">
+<li><p><cite>default_config_checkbox.stateChanged</cite> → <cite>process_default_config()</cite></p></li>
+<li><p><cite>import_config_button.toggled</cite> → <cite>create_new_config()</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_light_settings">
+<span class="sig-name descname"><span class="pre">setup_light_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_light_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_light_settings" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up the light configuration panel within the configuration layout.</p>
+<p>Creates a styled <cite>QGroupBox</cite> labeled “Light Settings”, including controls
+for adjusting light location (X, Y, Z) and power level. Each axis input
+is represented by a <cite>QDoubleSpinBox</cite>, and power is controlled by a <cite>QSpinBox</cite>.</p>
+<dl class="simple">
+<dt>UI Elements Initialized:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Location:</dt><dd><ul>
+<li><p>X, Y, Z SpinBoxes (<cite>light_location_x</cite>, <cite>light_location_y</cite>, <cite>light_location_z</cite>)</p></li>
+<li><p>Range: -1000 to 1000</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Power:</dt><dd><ul>
+<li><p>SpinBox <cite>light_power</cite></p></li>
+<li><p>Range: 0 to 10000</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Visual Styling:</dt><dd><ul class="simple">
+<li><p>Group title and border styled with orange tones for visual grouping.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_other_settings">
+<span class="sig-name descname"><span class="pre">setup_other_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_other_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_other_settings" title="Link to this definition">¶</a></dt>
+<dd><p>Sets up additional configuration options under the “Other Settings” group.</p>
+<p>Adds controls for STL file saving and axis reflection toggles.
+Includes checkboxes for reflecting the scene geometry about XY, YZ, and XZ planes,
+as well as a toggle for enabling STL export.</p>
+<dl class="simple">
+<dt>UI Elements:</dt><dd><ul class="simple">
+<li><p>Save STL: Checkbox (<cite>stl_enable</cite>)</p></li>
+<li><dl class="simple">
+<dt>Axis Reflection: Checkboxes (<cite>reflect_xy</cite>, <cite>reflect_yz</cite>, <cite>reflect_xz</cite>)</dt><dd><ul>
+<li><p>Each connected to <cite>toggle_checkboxes()</cite> for handling exclusive selection.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Styling:</dt><dd><ul class="simple">
+<li><p>Group box styled in purple tones for clear visual separation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_resolution_inputs">
+<span class="sig-name descname"><span class="pre">setup_resolution_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_resolution_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_resolution_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>Adds input controls for setting video resolution.</p>
+<p>Initializes two spin boxes for specifying horizontal (X) and vertical (Y) resolution values,
+and appends them to the resolution settings layout with appropriate labels.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>resolution_x</cite>: Spin box for horizontal resolution (0 to 1920)</p></li>
+<li><p><cite>resolution_y</cite>: Spin box for vertical resolution (0 to 1080)</p></li>
+<li><p>Title label: “Resolution” (Times, size 7)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_scene_import">
+<span class="sig-name descname"><span class="pre">setup_scene_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_scene_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_scene_import" title="Link to this definition">¶</a></dt>
+<dd><p>Creates the scene import section of the Project Creator window.</p>
+<dl class="simple">
+<dt>Adds UI components for importing an existing scene file or creating a new one. This section includes:</dt><dd><ul class="simple">
+<li><p>A label indicating the purpose of the section.</p></li>
+<li><p>A line edit to show or input the path to the scene file.</p></li>
+<li><p>An “Open” button with folder icon to trigger a file dialog for scene selection.</p></li>
+<li><p>A “Create” button with a plus-folder icon to open a scene creation interface.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Button click events are connected to respective handler methods (<cite>import_scene</cite>, <cite>create_scene</cite>).</p>
+<dl class="simple">
+<dt>Components Added:</dt><dd><ul class="simple">
+<li><p>QLabel: “Import Scene”</p></li>
+<li><p>QLineEdit: <cite>text_editor_scene</cite> for displaying scene path</p></li>
+<li><p>QPushButton: <cite>open_button</cite> to import a file</p></li>
+<li><p>QPushButton: <cite>create_button</cite> to create a new scene</p></li>
+<li><p>HBox Layout: Wraps the above components horizontally and adds to the main layout</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>primary_color</strong> (<em>str</em>) – The primary UI color used for icons in this section.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_video_settings">
+<span class="sig-name descname"><span class="pre">setup_video_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_video_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_video_settings" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes">
+<span class="sig-name descname"><span class="pre">toggle_checkboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked_box</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.toggle_checkboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes" title="Link to this definition">¶</a></dt>
+<dd><p>Enforces mutual exclusivity among axis reflection checkboxes.</p>
+<p>When one checkbox is selected, all others are unchecked.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-app.ui.creators.scene_creator">
+<span id="app-ui-creators-scene-creator-module"></span><h2>app.ui.creators.scene_creator module<a class="headerlink" href="#module-app.ui.creators.scene_creator" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.scene_creator.</span></span><span class="sig-name descname"><span class="pre">SceneCreator</span></span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<section id="scenecreator-class">
+<h3>SceneCreator Class<a class="headerlink" href="#scenecreator-class" title="Link to this heading">¶</a></h3>
+<p>This class defines the GUI window for creating and importing a scene in the FlapKine application.</p>
+<p>It allows users to add multiple sprites by either importing pre-saved <cite>.pkl</cite> scene files or creating new ones
+via a custom sprite builder. The final scene data is constructed from these sprites and emitted as a <cite>Scene</cite> object.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.sceneCreated">
+<span class="sig-name descname"><span class="pre">sceneCreated</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.sceneCreated" title="Link to this definition">¶</a></dt>
+<dd><p>Custom signal emitted with a <cite>Scene</cite> object after the scene is finalized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.menu_bar">
+<span class="sig-name descname"><span class="pre">menu_bar</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.menu_bar" title="Link to this definition">¶</a></dt>
+<dd><p>Top-level custom menu bar providing actions like minimize, maximize, restore, exit, and about.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="app.widgets.misc.html#app.widgets.misc.menu_bar.MenuBar" title="app.widgets.misc.menu_bar.MenuBar">MenuBar</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.main_widget">
+<span class="sig-name descname"><span class="pre">main_widget</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.main_widget" title="Link to this definition">¶</a></dt>
+<dd><p>Central widget containing the entire GUI layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QWidget</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.sprites_list_layout">
+<span class="sig-name descname"><span class="pre">sprites_list_layout</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.sprites_list_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Layout to which all sprite group widgets (representing individual sprite entries) are added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.sprite_list">
+<span class="sig-name descname"><span class="pre">sprite_list</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.sprite_list" title="Link to this definition">¶</a></dt>
+<dd><p>Holds sprite data objects that are either loaded from file or generated via UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.text_editor_scene">
+<span class="sig-name descname"><span class="pre">text_editor_scene</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.text_editor_scene" title="Link to this definition">¶</a></dt>
+<dd><p>Input field for specifying or displaying the path of a sprite/scene file to import.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.open_button">
+<span class="sig-name descname"><span class="pre">open_button</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.open_button" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a file dialog to import an existing <cite>.pkl</cite> scene file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.create_button">
+<span class="sig-name descname"><span class="pre">create_button</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.create_button" title="Link to this definition">¶</a></dt>
+<dd><p>Launches the sprite creation interface to build a new sprite and attach it to the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QPushButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.window">
+<span class="sig-name descname"><span class="pre">window</span></span><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.window" title="Link to this definition">¶</a></dt>
+<dd><p>Instance of the SpriteCreator dialog window for generating new sprite data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator" title="app.ui.creators.sprite_creator.SpriteCreator">SpriteCreator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__():</span></span></dt>
+<dd><p>Initializes the GUI, sets up the menu bar, central layout, and connects signals to handlers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.initUI">
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QVBoxLayout:</span></span></span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.initUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.initUI" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the core layout including sprite controls and an import button, and returns the root layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_sprite():</span></span></dt>
+<dd><p>Dynamically creates a new sprite entry group with input fields and buttons for import or creation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">import_sprite(sprite_group:</span> <span class="pre">QGroupBox):</span></span></dt>
+<dd><p>Opens a file dialog to import a <cite>.pkl</cite> sprite file and sets the path in the associated input field.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_sprite(sprite_group:</span> <span class="pre">QGroupBox):</span></span></dt>
+<dd><p>Opens a sprite creation window and connects its result to the current sprite group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">save_sprite(sprite_group:</span> <span class="pre">QGroupBox):</span></span></dt>
+<dd><p>Retrieves created sprite data from the sprite creation dialog and stores it for final scene building.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">drop_sprite():</span></span></dt>
+<dd><p>Removes the last sprite group entry from the list, simulating a stack-based deletion of sprites.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">okay_button_fun():</span></span></dt>
+<dd><p>Gathers all sprite data (from created or imported sources), builds a <cite>Scene</cite> object, emits it, and closes the window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">center():</span></span></dt>
+<dd><p>Centers the main window on the user’s screen using screen and window geometry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">about_button_fun():</span></span></dt>
+<dd><p>Displays an informational dialog with app version, developer info, and a description of FlapKine’s purpose.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.about_button_fun">
+<span class="sig-name descname"><span class="pre">about_button_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.about_button_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.about_button_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Displays an ‘About FlapKine’ information dialog.</p>
+<p>Shows details about the developer, version, and purpose of the application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.add_sprite">
+<span class="sig-name descname"><span class="pre">add_sprite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.add_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.add_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Dynamically adds a new sprite input group to the scene creator layout.</p>
+<p>Creates a labeled group box for each sprite, allowing the user to either import or create
+a new sprite scene. Each group includes a text field for naming the scene, along with
+‘Open’ and ‘Create’ buttons connected to their respective handler functions.</p>
+<dl class="simple">
+<dt>Components Added:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>QGroupBox: Labeled as “Sprite &lt;n&gt;”, where n is the current sprite count</dt><dd><ul>
+<li><p>Font: Times, size 8</p></li>
+<li><dl class="simple">
+<dt>Layout: QHBoxLayout containing:</dt><dd><ul>
+<li><dl class="simple">
+<dt>QLineEdit: For entering the scene name</dt><dd><ul>
+<li><p>Placeholder: “Enter Scene Name”</p></li>
+<li><p>Font: Times, size 7</p></li>
+<li><p>Expands horizontally</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>QPushButton: “Open”</dt><dd><ul>
+<li><p>Icon: Folder open icon (color matched to palette foreground)</p></li>
+<li><p>Connected to <cite>import_sprite</cite> with sprite group context</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>QPushButton: “Create”</dt><dd><ul>
+<li><p>Icon: Folder plus icon (color matched to palette foreground)</p></li>
+<li><p>Connected to <cite>create_sprite</cite> with sprite group context</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<section id="updates">
+<h4>Updates<a class="headerlink" href="#updates" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>self.sprites_list_layout<span class="classifier">QVBoxLayout</span></dt><dd><p>Appends the newly created sprite group to the vertical sprite list layout.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.center">
+<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.center" title="Link to this definition">¶</a></dt>
+<dd><p>Centers the application window on the screen.</p>
+<p>Calculates screen and window dimensions, then moves the window to the center position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.create_sprite">
+<span class="sig-name descname"><span class="pre">create_sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite_group</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.create_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.create_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Launches the sprite creation interface and connects the result to the given sprite group.</p>
+<p>Opens a new <cite>SpriteCreator</cite> window that allows the user to build a custom sprite. Upon
+successful sprite creation (signaled via the <cite>SpriteCreated</cite> signal), the sprite data
+is passed to the <cite>save_sprite()</cite> method which updates the associated <cite>sprite_group</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sprite_group</strong> (<em>QGroupBox</em>) – The sprite group container that will be updated with the created sprite information.</p></li>
+<li><p><strong>Behavior</strong></p></li>
+<li><p><strong>--------</strong></p></li>
+<li><p><strong>dialog.</strong> (<em>- Initializes and displays a SpriteCreator</em>)</p></li>
+<li><p><strong>that</strong> (<em>- Connects the SpriteCreated signal to a lambda function</em>) – <ul>
+<li><p>Triggers <cite>save_sprite(sprite_group)</cite> on sprite creation.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.drop_sprite">
+<span class="sig-name descname"><span class="pre">drop_sprite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.drop_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.drop_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the most recently added sprite input group from the UI.</p>
+<p>This method checks if any sprite input groups exist within the <cite>sprites_list_layout</cite>.
+If present, it removes the last added <cite>QGroupBox</cite> widget and schedules it for deletion,
+effectively updating the scene creator interface.</p>
+<section id="behavior">
+<h4>Behavior<a class="headerlink" href="#behavior" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Identifies and removes the last widget in <cite>self.sprites_list_layout</cite>.</p></li>
+<li><p>Ensures proper memory cleanup by calling <cite>deleteLater()</cite> on the removed widget.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.import_sprite">
+<span class="sig-name descname"><span class="pre">import_sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite_group</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.import_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.import_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the import of a sprite scene from a <cite>.pkl</cite> file into the given sprite group.</p>
+<p>Opens a file dialog for the user to select a pickle file representing a pre-saved sprite
+scene. Upon selection, the file path is displayed in the group’s <cite>QLineEdit</cite>, and the
+corresponding ‘Open’ button is visually updated to indicate success.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sprite_group</strong> (<em>QGroupBox</em>) – The container widget representing a single sprite input group whose child widgets
+(text field and open button) are updated.</p></li>
+<li><p><strong>Behavior</strong></p></li>
+<li><p><strong>--------</strong></p></li>
+<li><p><strong>files.</strong> (<em>- Launches a file dialog restricted to .pkl</em>)</p></li>
+<li><p><strong>selected</strong> (<em>- If a valid file is</em>) – <ul>
+<li><p>Sets the file path in the <cite>QLineEdit</cite> of the group.</p></li>
+<li><p>Changes the background color of the first <cite>QPushButton</cite> (assumed to be ‘Open’) to green.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QVBoxLayout</span></span></span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.initUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the user interface layout for the SceneCreator window.</p>
+<p>Assembles the core layout for sprite management and scene import. This includes interactive
+controls for adding or removing sprite blocks, configuring scene entries, and finalizing
+the import process. All components are organized using vertical and horizontal layouts
+to ensure a structured and intuitive interface.</p>
+<dl class="simple">
+<dt>UI Components:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Sprite Controls GroupBox:</dt><dd><ul>
+<li><p>Title: “Sprite Controls”</p></li>
+<li><p>Font: Times, size 9</p></li>
+<li><dl class="simple">
+<dt>Contains:</dt><dd><ul>
+<li><dl class="simple">
+<dt>Horizontal layout with:</dt><dd><ul>
+<li><p>QLabel: “Manage Sprites:”</p></li>
+<li><p>QPushButton: Add (connected to <cite>add_sprite</cite>)</p></li>
+<li><p>QPushButton: Drop (connected to <cite>drop_sprite</cite>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Vertical layout container for dynamically added sprite groups</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Import Scene Button:</dt><dd><ul>
+<li><p>Label: “Import Scene”</p></li>
+<li><p>Font: Times, size 9</p></li>
+<li><p>Style: Increased font size and padding</p></li>
+<li><p>Connected to <cite>okay_button_fun</cite> to finalize and emit the scene</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The main vertical layout containing all scene creation controls.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>QVBoxLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.okay_button_fun">
+<span class="sig-name descname"><span class="pre">okay_button_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.okay_button_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.okay_button_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Finalizes the scene creation and emits the constructed scene data.</p>
+<p>This method processes all sprite input groups in the UI, loads their corresponding
+<cite>.pkl</cite> files (if not already loaded), and compiles them into a <cite>Scene</cite> object. Once
+constructed, the <cite>sceneCreated</cite> signal is emitted with the new scene, and the window
+is closed.</p>
+<section id="id1">
+<h4>Behavior<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Checks if <cite>self.sprite_list</cite> is empty:</dt><dd><ul>
+<li><p>If so, iterates through all sprite input widgets.</p></li>
+<li><p>Extracts file paths from <cite>QLineEdit</cite> entries and loads corresponding <cite>.pkl</cite> data.</p></li>
+<li><p>Appends loaded sprite data to <cite>self.sprite_list</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Instantiates a <cite>Scene</cite> object using the loaded sprite data.</p></li>
+<li><p>Emits <cite>sceneCreated</cite> signal with the new <cite>Scene</cite> instance.</p></li>
+<li><p>Closes the <cite>SceneCreator</cite> window.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.save_sprite">
+<span class="sig-name descname"><span class="pre">save_sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite_group</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.save_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.save_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Saves the newly created sprite and updates the corresponding UI group.</p>
+<p>Retrieves the sprite data from the <cite>SpriteCreator</cite> window and appends it to the internal
+sprite list. Additionally, visually confirms sprite creation by updating the style of
+the ‘Create’ button in the provided <cite>sprite_group</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sprite_group</strong> (<em>QGroupBox</em>) – The UI container representing the sprite entry to be updated with visual feedback.</p></li>
+<li><p><strong>Behavior</strong></p></li>
+<li><p><strong>--------</strong></p></li>
+<li><p><strong>sprite_group.</strong> (<em>- Changes the second QPushButton's background color to green within</em>)</p></li>
+<li><p><strong>self.sprite_list.</strong> (<em>- Appends the newly created sprite data</em><em> (</em><em>self.window.sprite_data</em><em>) </em><em>to</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">sceneCreated</span></span><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
+<p>types is normally a sequence of individual types.  Each type is either a
+type object or a string that is the name of a C++ type.  Alternatively
+each type could itself be a sequence of types each describing a different
+overloaded signal.
+name is the optional C++ name of the signal.  If it is not specified then
+the name of the class attribute that is bound to the signal is used.
+revision is the optional revision of the signal that is exported to QML.
+If it is not specified then 0 is used.
+arguments is the optional sequence of the names of the signal’s arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal(<a href="#id3"><span class="problematic" id="id4">*</span></a>types, name</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str = …, revision</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-app.ui.creators.sprite_creator">
+<span id="app-ui-creators-sprite-creator-module"></span><h2>app.ui.creators.sprite_creator module<a class="headerlink" href="#module-app.ui.creators.sprite_creator" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.sprite_creator.</span></span><span class="sig-name descname"><span class="pre">SpriteCreator</span></span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<section id="spritecreator-class">
+<h3>SpriteCreator Class<a class="headerlink" href="#spritecreator-class" title="Link to this heading">¶</a></h3>
+<p>This class provides the graphical interface for creating and configuring a 3D sprite
+within the FlapKine application. Users can import STL files, apply transformation types
+(translation, rotation, flexibility), and optionally use inverse kinematics data for
+automated rotation specification.</p>
+<p>It also supports setting initial pose parameters and provides a 3D visualization
+of the configured object using VTK.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.SpriteCreated">
+<span class="sig-name descname"><span class="pre">SpriteCreated</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.SpriteCreated" title="Link to this definition">¶</a></dt>
+<dd><p>Signal emitted when the sprite is fully configured and ready.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.menu_bar">
+<span class="sig-name descname"><span class="pre">menu_bar</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.menu_bar" title="Link to this definition">¶</a></dt>
+<dd><p>Custom menu bar for handling file-related and application-level actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="app.widgets.misc.html#app.widgets.misc.menu_bar.MenuBar" title="app.widgets.misc.menu_bar.MenuBar">MenuBar</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.sprite_name">
+<span class="sig-name descname"><span class="pre">sprite_name</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.sprite_name" title="Link to this definition">¶</a></dt>
+<dd><p>Input field for naming the 3D sprite.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.sprite_stl_path">
+<span class="sig-name descname"><span class="pre">sprite_stl_path</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.sprite_stl_path" title="Link to this definition">¶</a></dt>
+<dd><p>Path input for selecting and displaying the STL file to be imported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QLineEdit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.vtkWidget">
+<span class="sig-name descname"><span class="pre">vtkWidget</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.vtkWidget" title="Link to this definition">¶</a></dt>
+<dd><p>VTK widget used for interactive 3D rendering of the sprite object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QVTKRenderWindowInteractor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.ren">
+<span class="sig-name descname"><span class="pre">ren</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.ren" title="Link to this definition">¶</a></dt>
+<dd><p>VTK renderer object responsible for managing the scene display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>vtkRenderer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.translation_transform">
+<span class="sig-name descname"><span class="pre">translation_transform</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform" title="Link to this definition">¶</a></dt>
+<dd><p>Dropdown menu for selecting the translation transformation strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.rotation_transform">
+<span class="sig-name descname"><span class="pre">rotation_transform</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.rotation_transform" title="Link to this definition">¶</a></dt>
+<dd><p>Dropdown menu for selecting the rotation transformation strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform">
+<span class="sig-name descname"><span class="pre">flexibility_transform</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform" title="Link to this definition">¶</a></dt>
+<dd><p>Dropdown menu for selecting the flexibility transformation method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QComboBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox">
+<span class="sig-name descname"><span class="pre">enable_checkbox</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox" title="Link to this definition">¶</a></dt>
+<dd><p>Checkbox to enable or disable the use of initial condition settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QCheckBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.position_x">
+<span class="sig-name descname"><span class="pre">position_x</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.position_x" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial X-axis position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.position_y">
+<span class="sig-name descname"><span class="pre">position_y</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.position_y" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial Y-axis position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.position_z">
+<span class="sig-name descname"><span class="pre">position_z</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.position_z" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial Z-axis position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.angle_input_alpha">
+<span class="sig-name descname"><span class="pre">angle_input_alpha</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_alpha" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial alpha (roll) angle in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.angle_input_beta">
+<span class="sig-name descname"><span class="pre">angle_input_beta</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_beta" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial beta (pitch) angle in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.angle_input_gamma">
+<span class="sig-name descname"><span class="pre">angle_input_gamma</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_gamma" title="Link to this definition">¶</a></dt>
+<dd><p>Spin box for specifying the initial gamma (yaw) angle in degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>QDoubleSpinBox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.inverse_kinematics">
+<span class="sig-name descname"><span class="pre">inverse_kinematics</span></span><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.inverse_kinematics" title="Link to this definition">¶</a></dt>
+<dd><p>Boolean flag indicating whether inverse kinematics data is being utilized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__():</span></span></dt>
+<dd><p>Initializes the main window, layout, and signal-slot connections.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_ui():</span></span></dt>
+<dd><p>Builds and arranges all UI elements including transformation options and VTK visualization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_menu():</span></span></dt>
+<dd><p>Sets up the application’s menu bar and connects its functionalities.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_sprite_inputs():</span></span></dt>
+<dd><p>Configures the sprite name and STL file input interface.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_transformations():</span></span></dt>
+<dd><p>Builds the UI for configuring translation, rotation, and flexibility transformations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_initial_conditions():</span></span></dt>
+<dd><p>Creates the input controls for manually defining initial orientation and position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">init_finish_controls():</span></span></dt>
+<dd><p>Adds the “Finish” button used to trigger the final sprite assembly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">open_file():</span></span></dt>
+<dd><p>Handles STL file selection and renders the model within the VTK viewport.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">calculate_inverse_kinematics():</span></span></dt>
+<dd><p>Launches the inverse kinematics window and waits for processed data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">process_inv_data():</span></span></dt>
+<dd><p>Receives and stores the angles and order computed from inverse kinematics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">finish_button_fun():</span></span></dt>
+<dd><p>Compiles all transformation settings into a Sprite object and emits the creation signal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">center():</span></span></dt>
+<dd><p>Repositions the window to the center of the screen.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">about_button_fun():</span></span></dt>
+<dd><p>Displays a dialog containing information about the FlapKine application.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">SpriteCreated</span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
+<p>types is normally a sequence of individual types.  Each type is either a
+type object or a string that is the name of a C++ type.  Alternatively
+each type could itself be a sequence of types each describing a different
+overloaded signal.
+name is the optional C++ name of the signal.  If it is not specified then
+the name of the class attribute that is bound to the signal is used.
+revision is the optional revision of the signal that is exported to QML.
+If it is not specified then 0 is used.
+arguments is the optional sequence of the names of the signal’s arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal(<a href="#id6"><span class="problematic" id="id7">*</span></a>types, name</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str = …, revision</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.about_button_fun">
+<span class="sig-name descname"><span class="pre">about_button_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.about_button_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.about_button_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Displays an ‘About FlapKine’ information dialog.</p>
+<p>Shows details about the developer, version, and purpose of the application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.calculate_inverse_kinematics">
+<span class="sig-name descname"><span class="pre">calculate_inverse_kinematics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.calculate_inverse_kinematics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.calculate_inverse_kinematics" title="Link to this definition">¶</a></dt>
+<dd><p>Opens the Inverse Kinematics window and connects its output signal to the data processing slot.</p>
+<p>This method initializes and displays the <cite>InvKineWindow</cite>, which is responsible for loading
+3D coordinate data and computing Euler angles. Once the data is available, it emits the
+<cite>angle_data</cite> signal, which is connected to the <cite>process_inv_data</cite> method for handling.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The inverse kinematics data flow is fully asynchronous and signal-driven.</p></li>
+<li><p>The method assumes <cite>process_inv_data</cite> is implemented and compatible with the signal payload.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.center">
+<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.center" title="Link to this definition">¶</a></dt>
+<dd><p>Centers the application window on the screen.</p>
+<p>Calculates screen and window dimensions, then moves the window to the center position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox_fun">
+<span class="sig-name descname"><span class="pre">enable_checkbox_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.enable_checkbox_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable <cite>group_2</cite> based on the checkbox state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.finish_button_fun">
+<span class="sig-name descname"><span class="pre">finish_button_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.finish_button_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.finish_button_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Finalizes the creation of a Sprite object using user-specified inputs and transformations.</p>
+<p>This function performs the following:</p>
+<ol class="arabic simple">
+<li><p>Retrieves the sprite name and STL file path from the UI.</p></li>
+<li><p>Loads the STL mesh using <cite>numpy-stl</cite>.</p></li>
+<li><dl class="simple">
+<dt>Extracts transformation data for:</dt><dd><ul class="simple">
+<li><p>Flexibility</p></li>
+<li><p>Rotation</p></li>
+<li><p>Translation</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>4. Optionally applies the inverse transformation to reset the mesh using
+the initial conditions if the <cite>enable_checkbox</cite> is checked.
+5. Validates and prepares the full time series of rotation angles and COM positions.
+6. Creates and emits a <cite>Sprite</cite> object containing the transformed mesh and associated data.</p>
+<dl class="simple">
+<dt>Emits:</dt><dd><p>SpriteCreated (pyqtSignal): Emitted with the finalized <cite>Sprite</cite> object.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This method closes the GUI window upon completion.</p></li>
+<li><p>The transformed mesh is reset using <cite>Translation_COM()</cite> and <cite>ConstantF()</cite></p></li>
+</ul>
+<p>when the inverse transformation option is enabled.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><cite>_get_flexibility_transform</cite></p></li>
+<li><p><cite>_get_rotation_transform</cite></p></li>
+<li><p><cite>_get_translation_transform</cite></p></li>
+<li><p><cite>_validate_angles_positions</cite></p></li>
+<li><p><cite>_get_initial_conditions</cite></p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform_fun">
+<span class="sig-name descname"><span class="pre">flexibility_transform_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.flexibility_transform_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the dynamic creation and display of flexibility transformation UI elements.</p>
+<dl>
+<dt>Based on the selected transformation type, this method:</dt><dd><ul class="simple">
+<li><p>Removes any previously displayed flexibility transform group.</p></li>
+<li><p>Checks the current index of the flexibility combo box.</p></li>
+<li><p>Creates and displays the corresponding flexibility group box</p></li>
+</ul>
+<p>for “FlexibleType1” or “FlexibleType2”.</p>
+</dd>
+<dt>Conditions:</dt><dd><ul class="simple">
+<li><p>Index 1: Displays UI for “FlexibleType1”</p></li>
+<li><p>Index 2: Displays UI for “FlexibleType2”</p></li>
+<li><p>Other indices: No UI group is displayed</p></li>
+</ul>
+</dd>
+<dt>UI Elements Managed:</dt><dd><ul class="simple">
+<li><p>Dynamically created group box via <cite>_create_flexibility_group_box</cite></p></li>
+<li><p>Primary color is derived from the application’s current foreground palette</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_angle_group">
+<span class="sig-name descname"><span class="pre">init_angle_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_layout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_angle_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_angle_group" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the Euler angle input group for the sprite’s initial orientation.</p>
+<p>Constructs a <cite>QGroupBox</cite> titled “Initial Euler Angles” containing spin boxes for
+defining the initial rotational orientation using three Euler angles: Alpha, Beta, and Gamma.
+Each angle input is provided via a <cite>QDoubleSpinBox</cite>, allowing values in the range of -360° to 360°.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_layout</strong> (<em>The angle_group is added to the supplied</em>) – The layout into which the angle group is inserted.</p></li>
+<li><p><strong>Initialized</strong> (<em>Components</em>) – <ul>
+<li><p><cite>angle_input_alpha</cite> (QDoubleSpinBox): Input for the Alpha angle (°).</p></li>
+<li><p><cite>angle_input_beta</cite> (QDoubleSpinBox): Input for the Beta angle (°).</p></li>
+<li><p><cite>angle_input_gamma</cite> (QDoubleSpinBox): Input for the Gamma angle (°).</p></li>
+</ul>
+</p></li>
+<li><p><strong>Signals</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>emits</strong> (<em>Each spin box</em>) – <ul>
+<li><p><cite>valueChanged</cite>: Connected to <cite>initial_condition_changed</cite> to propagate changes in orientation.</p></li>
+</ul>
+</p></li>
+<li><p><strong>Styling</strong> (<em>Visual</em>) – <ul>
+<li><p>Purple-themed group box with bold headers and rounded styling.</p></li>
+<li><p>Employs <cite>QFormLayout</cite> for structured alignment of angle labels and inputs.</p></li>
+</ul>
+</p></li>
+<li><p><strong>Layout</strong></p></li>
+<li><p><strong>------</strong></p></li>
+<li><p><strong>parent_layout</strong></p></li>
+<li><p><strong>section.</strong> (<em>typically as part</em><em> of </em><em>the initial conditions</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_finish_controls">
+<span class="sig-name descname"><span class="pre">init_finish_controls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_finish_controls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_finish_controls" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the final control elements for sprite creation.</p>
+<p>Adds a “Finish” button to the main layout, enabling the user to complete and confirm
+the sprite configuration process. The button is connected to the <cite>finish_button_fun</cite>
+slot which handles the finalization logic.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>finish_button</cite> (QPushButton): Labeled “Finish”, triggers completion of sprite setup.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="signals">
+<h4>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>clicked</cite>: Connected to <cite>finish_button_fun</cite> to process and finalize sprite parameters.</p></li>
+</ul>
+</section>
+<section id="layout">
+<h4>Layout<a class="headerlink" href="#layout" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Appended directly to <cite>main_layout</cite>, positioned after all configuration groups.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_initial_conditions">
+<span class="sig-name descname"><span class="pre">init_initial_conditions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_initial_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_initial_conditions" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the initial conditions section for sprite setup.</p>
+<p>Creates a <cite>QGroupBox</cite> titled “Initial Conditions” containing UI controls for setting
+the sprite’s starting position and orientation using position coordinates and Euler angles.
+These controls are grouped and managed through two sub-initialization functions:
+<cite>init_position_group()</cite> and <cite>init_angle_group()</cite>.</p>
+<p>By default, the entire group is disabled and can be toggled via a checkbox labeled
+“Enable Initial Conditions”, allowing optional setup of initial state parameters.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>group_2</cite> (QGroupBox): Container for position and orientation fields.</p></li>
+<li><dl class="simple">
+<dt><cite>enable_checkbox</cite> (QCheckBox): Enables or disables the initial conditions group.</dt><dd><ul>
+<li><p>Connected to: <cite>enable_checkbox_fun()</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Position Inputs: Initialized via <cite>init_position_group()</cite>, includes X, Y, Z spin boxes.</p></li>
+<li><p>Euler Angle Inputs: Initialized via <cite>init_angle_group()</cite>, includes α (alpha), β (beta), γ (gamma).</p></li>
+</ul>
+</dd>
+<dt>Visual Styling:</dt><dd><ul class="simple">
+<li><p>Orange-colored themed group box with bold title and rounded border.</p></li>
+<li><p>Uses <cite>QFormLayout</cite> for neatly aligned form-style UI.</p></li>
+</ul>
+</dd>
+<dt>Layout:</dt><dd><ul class="simple">
+<li><p>Checkbox and group box are added to the main vertical layout (<cite>main_layout</cite>) for integration with the rest of the interface.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_menu">
+<span class="sig-name descname"><span class="pre">init_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_menu" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the custom menu bar for the SpriteCreator window.</p>
+<p>Sets up a <cite>MenuBar</cite> instance and binds it to the main window. Connects core window control
+actions such as exit, minimize, maximize, restore, and about, ensuring responsive GUI behavior.</p>
+<dl class="simple">
+<dt>Menu Actions Connected:</dt><dd><ul class="simple">
+<li><p>‘exit’: Closes the window</p></li>
+<li><p>‘minimize’: Minimizes the window</p></li>
+<li><p>‘maximize’: Maximizes the window</p></li>
+<li><p>‘restore’: Restores the window to its previous size</p></li>
+<li><p>‘about’: Opens the About FlapKine information dialog</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_position_group">
+<span class="sig-name descname"><span class="pre">init_position_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_layout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_position_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_position_group" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the position input group for the sprite’s initial body origin.</p>
+<p>Creates a <cite>QGroupBox</cite> titled “Initial Position of Body Origin” that contains
+spin boxes for specifying the X, Y, and Z coordinates of the sprite’s starting location.
+Each coordinate input is represented using a <cite>QDoubleSpinBox</cite> with a value range from -100 to 100 meters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_layout</strong> (<em>The position_group is appended to the</em>) – The layout to which the initialized position group is added.</p></li>
+<li><p><strong>Initialized</strong> (<em>Components</em>) – <ul>
+<li><p><cite>position_x</cite> (QDoubleSpinBox): Input for X-axis initial position (with “m” suffix).</p></li>
+<li><p><cite>position_y</cite> (QDoubleSpinBox): Input for Y-axis initial position (with “m” suffix).</p></li>
+<li><p><cite>position_z</cite> (QDoubleSpinBox): Input for Z-axis initial position (with “m” suffix).</p></li>
+</ul>
+</p></li>
+<li><p><strong>Signals</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>to</strong> (<em>Each spin box is connected</em>) – <ul>
+<li><p><cite>initial_condition_changed</cite>: Slot triggered when any position value changes.</p></li>
+</ul>
+</p></li>
+<li><p><strong>Styling</strong> (<em>Visual</em>) – <ul>
+<li><p>Teal-themed group box with bold title and rounded border.</p></li>
+<li><p>Uses <cite>QFormLayout</cite> for compact, readable alignment.</p></li>
+</ul>
+</p></li>
+<li><p><strong>Layout</strong></p></li>
+<li><p><strong>------</strong></p></li>
+<li><p><strong>parent_layout</strong></p></li>
+<li><p><strong>function.</strong> (<em>which is passed from the calling</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_sprite_inputs">
+<span class="sig-name descname"><span class="pre">init_sprite_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_sprite_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_sprite_inputs" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the sprite input group (<cite>group_1</cite>) for 3D object configuration.</p>
+<p>Creates a <cite>QGroupBox</cite> titled “3DObject Properties” that allows users to input the sprite name
+and load an STL file. Also sets up a VTK render window for real-time 3D visualization of the imported mesh.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>sprite_name</cite> (QLineEdit): Input field for specifying the name of the sprite.</p></li>
+<li><p><cite>sprite_stl_path</cite> (QLineEdit): Displays the selected STL file path.</p></li>
+<li><p><cite>sprite_stl_open</cite> (QPushButton): Opens a file dialog to select STL file; uses FontAwesome icon.</p></li>
+<li><p><cite>vtkWidget</cite> (QVTKRenderWindowInteractor): Embedded VTK viewport for rendering the 3D mesh.</p></li>
+<li><p><cite>ren</cite> (vtkRenderer): VTK renderer managing scene rendering and background color.</p></li>
+<li><p>Layouts: <cite>QFormLayout</cite> for form-like UI, and <cite>QHBoxLayout</cite> to hold path input and VTK widget.</p></li>
+</ul>
+</dd>
+<dt>Visual Styling:</dt><dd><ul class="simple">
+<li><p>Group box styled with bold text, blue borders, and rounded corners.</p></li>
+<li><p>Labels use “Times” font with consistent size and alignment.</p></li>
+</ul>
+</dd>
+<dt>Connected Actions:</dt><dd><ul class="simple">
+<li><p><cite>sprite_stl_open.clicked</cite>: Triggers <cite>open_file()</cite> to load and visualize the STL file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_transformations">
+<span class="sig-name descname"><span class="pre">init_transformations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_transformations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_transformations" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the transformation controls for sprite configuration.</p>
+<p>Creates a <cite>QGroupBox</cite> titled “Transformations” containing dropdowns for selecting
+different transformation modes: Translation, Rotation, and Flexibility.
+Each dropdown allows the user to choose a transformation strategy for the sprite
+and triggers an associated update function on change.</p>
+<dl class="simple">
+<dt>Components Initialized:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><cite>translation_transform</cite> (QComboBox): Allows selection of translation type (<cite>Constant</cite>, <cite>Linear</cite>).</dt><dd><ul>
+<li><p>Connected to: <cite>translation_transform_fun()</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>rotation_transform</cite> (QComboBox): Allows selection of rotation mode (<cite>Constant</cite>, <cite>Euler_Angles</cite>, <cite>Custom</cite>).</dt><dd><ul>
+<li><p>Connected to: <cite>rotation_transform_fun()</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>flexibility_transform</cite> (QComboBox): Allows selection of flexibility behavior (<cite>Constant</cite>, <cite>FlexibleType1</cite>, <cite>FlexibleType2</cite>, <cite>Custom</cite>).</dt><dd><ul>
+<li><p>Connected to: <cite>flexibility_transform_fun()</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Visual Styling:</dt><dd><ul class="simple">
+<li><p>Group box styled with teal-colored bold borders and rounded corners.</p></li>
+<li><p>Labels use “Times” font for consistency.</p></li>
+<li><p>Each control placed using <cite>QFormLayout</cite> for clean, form-like alignment.</p></li>
+</ul>
+</dd>
+<dt>Layout:</dt><dd><ul class="simple">
+<li><p>All transformation controls are embedded within the existing layout of <cite>group_1</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.init_ui" title="Link to this definition">¶</a></dt>
+<dd><p>Constructs the main UI layout for the SpriteCreator window.</p>
+<p>Initializes and assembles all primary UI sections including menu bar, sprite input fields,
+transformation configuration, initial conditions, and the finalization button.
+Also sets the central widget and applies the main layout for the application.</p>
+<dl class="simple">
+<dt>UI Components Initialized:</dt><dd><ul class="simple">
+<li><p><cite>primary_color</cite>: Derived from the application’s foreground role for consistent theming</p></li>
+<li><p><cite>menu_bar</cite>: Setup using <cite>init_menu()</cite></p></li>
+<li><p><cite>main_layout</cite>: Vertical layout to stack sections</p></li>
+<li><p><cite>sprite_inputs</cite>: Initialized using <cite>init_sprite_inputs()</cite> for name and STL import</p></li>
+<li><p><cite>transformations</cite>: Configured using <cite>init_transformations()</cite> (translation, rotation, flexibility)</p></li>
+<li><p><cite>initial_conditions</cite>: Loaded using <cite>init_initial_conditions()</cite> for position and angle presets</p></li>
+<li><p><cite>finish_controls</cite>: Finalization controls set via <cite>init_finish_controls()</cite></p></li>
+<li><p>Central widget: Main QWidget container with layout applied</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.initial_condition_changed">
+<span class="sig-name descname"><span class="pre">initial_condition_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.initial_condition_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.initial_condition_changed" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the 3D transform of the actor and body axes based on user-defined initial conditions.</p>
+<p>This method reads the initial Euler angles (in degrees) and position vector from the GUI inputs,
+constructs corresponding VTK rotation and translation transforms, and applies the combined
+transform to the 3D actor and associated body axes.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Rotation is performed around X, Y, and Z axes in that order.</p></li>
+<li><p>Transforms are post-multiplied to ensure correct order of translation followed by rotations.</p></li>
+<li><p>The scene is re-rendered to reflect the updated transformation in the VTK widget.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_file">
+<span class="sig-name descname"><span class="pre">open_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_file" title="Link to this definition">¶</a></dt>
+<dd><p>Opens and loads an STL file for rendering using VTK.</p>
+<p>This method prompts the user to select an STL file through a file dialog.
+Upon selection, it performs the following operations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Sets the STL file path in the corresponding input field.</p></li>
+<li><p>Loads the STL geometry using a VTK reader.</p></li>
+<li><p>Creates a VTK actor from the STL data.</p></li>
+<li><p>Computes bounding box dimensions to determine a suitable axis scale.</p></li>
+<li><p>Creates and adds coordinate axes for both inertial and body frames.</p></li>
+<li><p>Renders the scene in the VTK render window.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Workflow Steps:</dt><dd><ol class="arabic simple">
+<li><p>Show <cite>QFileDialog</cite> to select <cite>.stl</cite> file.</p></li>
+<li><p>Load geometry using <cite>_load_stl_file()</cite>.</p></li>
+<li><p>Create visual actor via <cite>_create_actor_from_reader()</cite>.</p></li>
+<li><p>Generate axes using <cite>_create_axes_actor()</cite>.</p></li>
+<li><p>Final rendering prepared via <cite>_prepare_renderer_with_actors()</cite>.</p></li>
+</ol>
+</dd>
+<dt>Axes:</dt><dd><ul class="simple">
+<li><p>Inertial Axes: X, Y, Z (black)</p></li>
+<li><p>Body Axes: A, B, C (black)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Early exit occurs if the user cancels file selection.</p></li>
+<li><p>Actor bounds are used to normalize axis size for consistent visualization.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_m_values_fun">
+<span class="sig-name descname"><span class="pre">open_m_values_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_m_values_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_m_values_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Open a CSV file for M values and update the input field and button style.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_position_file">
+<span class="sig-name descname"><span class="pre">open_position_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_position_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_position_file" title="Link to this definition">¶</a></dt>
+<dd><p>Open a CSV file for COM position and update the input field and button color.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_rotation_alpha">
+<span class="sig-name descname"><span class="pre">open_rotation_alpha</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_rotation_alpha"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_alpha" title="Link to this definition">¶</a></dt>
+<dd><p>Open a CSV file for Alpha angle and update the UI with the selected path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_rotation_beta">
+<span class="sig-name descname"><span class="pre">open_rotation_beta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_rotation_beta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_beta" title="Link to this definition">¶</a></dt>
+<dd><p>Open a CSV file for Beta angle and update the UI with the selected path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.open_rotation_gamma">
+<span class="sig-name descname"><span class="pre">open_rotation_gamma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.open_rotation_gamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_gamma" title="Link to this definition">¶</a></dt>
+<dd><p>Open a CSV file for Gamma angle and update the UI with the selected path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.process_inv_data">
+<span class="sig-name descname"><span class="pre">process_inv_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.process_inv_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.process_inv_data" title="Link to this definition">¶</a></dt>
+<dd><p>Processes the Euler angle results from the inverse kinematics window.</p>
+<p>This method retrieves computed angles and their rotation order from the
+<cite>InvKineWindow</cite>, disables the manual rotation input section to avoid conflict,
+and updates the rotation order in the UI.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Sets <cite>self.inverse_kinematics</cite> to True, indicating automatic angle data is now active.</p></li>
+<li><p>Assumes that <cite>self.window.inv_result</cite> contains a tuple: (angles, order).</p></li>
+<li><p>UI combo box is updated to reflect the computed rotation order.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.rotation_transform_fun">
+<span class="sig-name descname"><span class="pre">rotation_transform_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.rotation_transform_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.rotation_transform_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Handle UI logic based on the selected rotation transform option.</p>
+<p>If ‘Euler_Angles’ is selected, adds an additional group box for configuring
+Euler angle parameters. If the selection is changed to another mode and a
+group box exists, it is removed to clean up the layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun">
+<span class="sig-name descname"><span class="pre">translation_transform_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.translation_transform_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun" title="Link to this definition">¶</a></dt>
+<dd><p>Handles UI logic for the translation transform selection.</p>
+<p>Clears any previously added translation UI components and conditionally adds
+a new group of widgets for configuring the translation transform, based on
+the current selection in the combo box.</p>
+<dl>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>If the selected option is ‘Linear’ (index 1), a new translation configuration</p></li>
+</ul>
+<p>group is created and added to the layout.
+- If ‘Constant’ (index 0), no additional UI is shown.</p>
+</dd>
+<dt>Triggered when:</dt><dd><ul class="simple">
+<li><p>The user changes the selection in the translation transform combo box.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-app.ui.creators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.ui.creators" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="app.ui.editor.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">app.ui.editor package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="app.ui.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">app.ui package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Kalbhavi Vadhi Raj
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">app.ui.creators package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-app.ui.creators.project_creator">app.ui.creators.project_creator module</a><ul>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator"><code class="docutils literal notranslate"><span class="pre">ProjectCreator</span></code></a><ul>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.project_folder"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.project_folder</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.menu_bar"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.menu_bar</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.text_editor_scene"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.text_editor_scene</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.open_button"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.open_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.create_button"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.create_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.default_config_checkbox"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.default_config_checkbox</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.import_config_button"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.import_config_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.config_group"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.config_group</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.frame_format"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.frame_format</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.resolution_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.resolution_x</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.resolution_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.resolution_y</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_x</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_y</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_z"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_z</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_alpha</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_beta</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_gamma</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.light_location_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_x</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.light_location_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_y</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.light_location_z"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_z</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.light_power"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_power</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.stl_enable"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.stl_enable</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.reflect_xy"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.reflect_xy</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.reflect_yz"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.reflect_yz</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.reflect_xz"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.reflect_xz</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.ok_button"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.ok_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.about_button_fun"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.about_button_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.add_camera_controls"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.add_camera_controls()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.center"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.center()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.create_new_config"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.create_new_config()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.create_scene"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.create_scene()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.create_the_project"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.create_the_project()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.import_scene"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.import_scene()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.initUI"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.initUI()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.on_scene_created"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.on_scene_created()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.process_default_config"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.process_default_config()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_camera_settings"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_camera_settings()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_central_widget"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_central_widget()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_config_group"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_config_group()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_config_options"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_config_options()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_light_settings"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_light_settings()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_other_settings"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_other_settings()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_resolution_inputs"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_resolution_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_scene_import"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_scene_import()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.setup_video_settings"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_video_settings()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.toggle_checkboxes()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.ui.creators.scene_creator">app.ui.creators.scene_creator module</a><ul>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator"><code class="docutils literal notranslate"><span class="pre">SceneCreator</span></code></a><ul>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.sceneCreated"><code class="docutils literal notranslate"><span class="pre">SceneCreator.sceneCreated</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.menu_bar"><code class="docutils literal notranslate"><span class="pre">SceneCreator.menu_bar</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.main_widget"><code class="docutils literal notranslate"><span class="pre">SceneCreator.main_widget</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.sprites_list_layout"><code class="docutils literal notranslate"><span class="pre">SceneCreator.sprites_list_layout</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.sprite_list"><code class="docutils literal notranslate"><span class="pre">SceneCreator.sprite_list</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.text_editor_scene"><code class="docutils literal notranslate"><span class="pre">SceneCreator.text_editor_scene</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.open_button"><code class="docutils literal notranslate"><span class="pre">SceneCreator.open_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.create_button"><code class="docutils literal notranslate"><span class="pre">SceneCreator.create_button</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.window"><code class="docutils literal notranslate"><span class="pre">SceneCreator.window</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.initUI"><code class="docutils literal notranslate"><span class="pre">SceneCreator.initUI()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.about_button_fun"><code class="docutils literal notranslate"><span class="pre">SceneCreator.about_button_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.add_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.add_sprite()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.center"><code class="docutils literal notranslate"><span class="pre">SceneCreator.center()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.create_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.create_sprite()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.drop_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.drop_sprite()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.import_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.import_sprite()</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">SceneCreator.initUI()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.okay_button_fun"><code class="docutils literal notranslate"><span class="pre">SceneCreator.okay_button_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.scene_creator.SceneCreator.save_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.save_sprite()</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">SceneCreator.sceneCreated</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.ui.creators.sprite_creator">app.ui.creators.sprite_creator module</a><ul>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator"><code class="docutils literal notranslate"><span class="pre">SpriteCreator</span></code></a><ul>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.SpriteCreated"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.SpriteCreated</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.menu_bar"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.menu_bar</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.sprite_name"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.sprite_name</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.sprite_stl_path"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.sprite_stl_path</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.vtkWidget"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.vtkWidget</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.ren"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.ren</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.translation_transform</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.rotation_transform"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.rotation_transform</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.flexibility_transform</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.enable_checkbox</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.position_x"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.position_x</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.position_y"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.position_y</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.position_z"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.position_z</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_alpha"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.angle_input_alpha</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_beta"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.angle_input_beta</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.angle_input_gamma"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.angle_input_gamma</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.inverse_kinematics"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.inverse_kinematics</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.SpriteCreated</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.about_button_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.about_button_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.calculate_inverse_kinematics"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.calculate_inverse_kinematics()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.center"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.center()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.enable_checkbox_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.finish_button_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.finish_button_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.flexibility_transform_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_angle_group"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_angle_group()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_finish_controls"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_finish_controls()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_initial_conditions"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_initial_conditions()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_menu"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_menu()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_position_group"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_position_group()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_sprite_inputs"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_sprite_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_transformations"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_transformations()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.init_ui"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.init_ui()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.initial_condition_changed"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.initial_condition_changed()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_file"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_file()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_m_values_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_m_values_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_position_file"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_position_file()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_alpha"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_rotation_alpha()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_beta"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_rotation_beta()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_gamma"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_rotation_gamma()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.process_inv_data"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.process_inv_data()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.rotation_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.rotation_transform_fun()</span></code></a></li>
+<li><a class="reference internal" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.translation_transform_fun()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.ui.creators">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=f1555341"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

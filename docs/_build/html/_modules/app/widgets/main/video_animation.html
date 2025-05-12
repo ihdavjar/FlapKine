@@ -1,0 +1,909 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>app.widgets.main.video_animation - FlapKine v0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=275258c8" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">FlapKine v0.1.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../../_static/flapkine_icon.png" alt="Logo"/>
+  </div>
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/flapkine_icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/flapkine_icon.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">FlapKine v0.1.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user_guide.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api_reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for app.widgets.main.video_animation</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QThreadPool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtMultimedia</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMediaPlayer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QProgressBar</span><span class="p">,</span> <span class="n">QSlider</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="p">,</span> <span class="n">QMessageBox</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">icon</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.widgets.misc.render_worker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Worker</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.widgets.misc.video_player</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoPlayer</span>
+
+<div class="viewcode-block" id="VideoAnimation">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VideoAnimation</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    VideoAnimation Class</span>
+<span class="sd">    ====================</span>
+
+<span class="sd">    A PyQt5-based widget for interactive video playback and 3D frame rendering using precomputed </span>
+<span class="sd">    animation data. This class serves as a control center for reviewing and exporting animations </span>
+<span class="sd">    produced from dynamic scene transformations within the FlapKine environment.</span>
+
+<span class="sd">    The widget includes:</span>
+<span class="sd">    - A video player for previewing rendered videos.</span>
+<span class="sd">    - Playback controls (play, pause, repeat).</span>
+<span class="sd">    - A slider for timeline navigation.</span>
+<span class="sd">    - A render button to generate video frames using transformation data.</span>
+<span class="sd">    - A progress bar to monitor rendering status.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project_folder : str</span>
+<span class="sd">        Path to the project directory containing configuration and output files.</span>
+
+<span class="sd">    scene_data : SceneData</span>
+<span class="sd">        The scene object containing transformation functions (angles, rotation, translation) used </span>
+<span class="sd">        to generate frame-wise data.</span>
+
+<span class="sd">    angles : List[float]</span>
+<span class="sd">        List of rotation angles associated with the current scene, used during frame rendering.</span>
+
+<span class="sd">    reflect : List[bool]</span>
+<span class="sd">        Boolean flags indicating which axes (XY, YZ, XZ) are to be reflected during rendering, </span>
+<span class="sd">        derived from config settings.</span>
+
+<span class="sd">    video_playing : bool</span>
+<span class="sd">        Internal flag tracking the current playback state.</span>
+
+<span class="sd">    primary_color : str</span>
+<span class="sd">        Primary color extracted from the application palette, used to style UI icons.</span>
+
+<span class="sd">    video_widget : VideoPlayer</span>
+<span class="sd">        Custom widget responsible for loading and displaying the rendered video.</span>
+
+<span class="sd">    playButton : QPushButton</span>
+<span class="sd">        Toggle button to control video playback (play/pause).</span>
+
+<span class="sd">    repeatButton : QPushButton</span>
+<span class="sd">        Toggle button to enable or disable repeat mode after video ends.</span>
+
+<span class="sd">    positionSlider : QSlider</span>
+<span class="sd">        Slider for seeking through video frames.</span>
+
+<span class="sd">    render_button : QPushButton</span>
+<span class="sd">        Button to initiate frame rendering based on scene transformations.</span>
+
+<span class="sd">    progress_bar : QProgressBar</span>
+<span class="sd">        Visual indicator of the frame rendering progress.</span>
+
+<span class="sd">    config : dict</span>
+<span class="sd">        Dictionary holding video configuration (e.g., resolution), loaded from config.json.</span>
+
+<span class="sd">    worker : Worker</span>
+<span class="sd">        Background thread responsible for generating frames during rendering.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(project_folder, scene_data, parent=None)</span>
+<span class="sd">        Initializes the video animation widget and sets up the UI, configuration, and media loading.</span>
+
+<span class="sd">    _loadConfig()</span>
+<span class="sd">        Loads video rendering configuration from the project’s config.json file.</span>
+
+<span class="sd">    _createWidgets()</span>
+<span class="sd">        Creates and configures all internal widgets, including video player, buttons, and sliders.</span>
+
+<span class="sd">    _createLayout()</span>
+<span class="sd">        Arranges the UI components using QVBoxLayout and QHBoxLayouts for control and render sections.</span>
+
+<span class="sd">    _connectSignals()</span>
+<span class="sd">        Connects UI signals to their corresponding slot functions for interactive behavior.</span>
+
+<span class="sd">    _loadMedia()</span>
+<span class="sd">        Loads the rendered video from the project directory, if it exists.</span>
+
+<span class="sd">    _showError(message)</span>
+<span class="sd">        Displays or logs an error when video loading or configuration fails.</span>
+
+<span class="sd">    playVideo()</span>
+<span class="sd">        Toggles between play and pause states for the video.</span>
+
+<span class="sd">    repeatVideo()</span>
+<span class="sd">        Enables or disables repeat mode and restarts playback if enabled.</span>
+
+<span class="sd">    updateDuration(duration)</span>
+<span class="sd">        Updates the slider’s maximum range based on the video’s total duration.</span>
+
+<span class="sd">    updatePosition(position)</span>
+<span class="sd">        Updates the slider position based on current playback frame.</span>
+
+<span class="sd">    setPosition(position)</span>
+<span class="sd">        Sets the video’s current position based on slider interaction.</span>
+
+<span class="sd">    updateState(state)</span>
+<span class="sd">        Reacts to the media player’s state change and auto-repeats video if required.</span>
+
+<span class="sd">    update_progress(value)</span>
+<span class="sd">        Updates the progress bar’s value during frame rendering.</span>
+
+<span class="sd">    genframes()</span>
+<span class="sd">        Starts the rendering worker thread to compute and export video frames.</span>
+
+<span class="sd">    complete_render()</span>
+<span class="sd">        Handles cleanup and UI updates after rendering is complete and reloads the new video.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VideoAnimation.__init__">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_folder</span><span class="p">,</span> <span class="n">scene_data</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the VideoAnimation widget.</span>
+
+<span class="sd">        Sets up the video animation interface for playback and rendering of 3D scene transformations </span>
+<span class="sd">        within the FlapKine environment. Loads configuration, initializes internal state, and prepares </span>
+<span class="sd">        UI components for interaction.</span>
+
+<span class="sd">        Initialization Tasks:</span>
+<span class="sd">            - Stores references to the project folder and scene data.</span>
+<span class="sd">            - Extracts angle data from the scene&#39;s primary object.</span>
+<span class="sd">            - Loads reflection settings from the `config.json` file.</span>
+<span class="sd">            - Determines the primary UI color from the active palette.</span>
+<span class="sd">            - Initializes video playback state as inactive.</span>
+<span class="sd">            - Calls internal setup methods to build widgets, layouts, signal connections, and media loader.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project_folder : str</span>
+<span class="sd">            Path to the project directory containing configuration and animation output files.</span>
+
+<span class="sd">        scene_data : SceneData</span>
+<span class="sd">            Object holding transformation parameters (angles, rotation, translation) required for frame rendering.</span>
+
+<span class="sd">        parent : QWidget, optional</span>
+<span class="sd">            Optional parent widget for integration within larger PyQt5 interfaces. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">=</span> <span class="n">project_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span> <span class="o">=</span> <span class="n">scene_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">angles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threadpool</span> <span class="o">=</span> <span class="n">QThreadPool</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">reflect</span> <span class="o">=</span> <span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;XY&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;YZ&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;XZ&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span> <span class="o">=</span> <span class="n">reflect</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_playing</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">palette</span><span class="p">()</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foregroundRole</span><span class="p">())</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loadConfig</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_createWidgets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_createLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connectSignals</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loadMedia</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation._loadConfig">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation._loadConfig">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_loadConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads video rendering configuration from config.json.</span>
+
+<span class="sd">        Attempts to read video rendering parameters from the project&#39;s `config.json` file and stores </span>
+<span class="sd">        the parsed dictionary in the `self.config` attribute. If the file is not found, a default </span>
+<span class="sd">        configuration with 640x480 resolution is used instead.</span>
+
+<span class="sd">        File Parsed:</span>
+<span class="sd">            - config.json located in the project directory</span>
+
+<span class="sd">        Attributes Set:</span>
+<span class="sd">            - self.config : dict containing video resolution and rendering parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;VideoRender&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;resolution_x&quot;</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="s2">&quot;resolution_y&quot;</span><span class="p">:</span> <span class="mi">480</span><span class="p">}}</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation._createWidgets">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation._createWidgets">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates and initializes all internal UI widgets.</span>
+
+<span class="sd">        Assembles the core visual components of the video animation interface including the video display, </span>
+<span class="sd">        playback controls, timeline slider, rendering button, and progress bar. Styles and sizes are set </span>
+<span class="sd">        dynamically based on the rendering configuration.</span>
+
+<span class="sd">        Components Initialized:</span>
+<span class="sd">            - `VideoPlayer`: Displays the rendered animation at configured resolution.</span>
+<span class="sd">            - `playButton`: Icon-based button to toggle play/pause.</span>
+<span class="sd">            - `repeatButton`: Checkable button to enable/disable looping.</span>
+<span class="sd">            - `positionSlider`: Horizontal slider styled with custom CSS for frame navigation.</span>
+<span class="sd">            - `render_button`: Triggers frame rendering using transformation data.</span>
+<span class="sd">            - `progress_bar`: Indicates real-time rendering progress.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Video widget size is locked based on resolution from `self.config[&#39;VideoRender&#39;]`.</span>
+<span class="sd">        - All widgets are styled using QtAwesome icons and custom QSS.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Video player</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;resolution_x&#39;</span><span class="p">,</span> <span class="mi">640</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;resolution_y&#39;</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span> <span class="o">=</span> <span class="n">VideoPlayer</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Fixed</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Fixed</span><span class="p">)</span>
+
+        <span class="c1"># Buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.play&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.repeat&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Slider</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span> <span class="o">=</span> <span class="n">QSlider</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QSlider::groove:horizontal {</span>
+<span class="s2">                border: none;</span>
+<span class="s2">                background: #ddd;</span>
+<span class="s2">                height: 8px;</span>
+<span class="s2">                border-radius: 4px;</span>
+<span class="s2">            }</span>
+
+<span class="s2">            QSlider::handle:horizontal {</span>
+<span class="s2">                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);</span>
+<span class="s2">                border: 2px solid #005a9e;</span>
+<span class="s2">                width: 18px;</span>
+<span class="s2">                height: 18px;</span>
+<span class="s2">                margin: -7px 0;</span>
+<span class="s2">                border-radius: 9px;</span>
+<span class="s2">            }</span>
+
+<span class="s2">            QSlider::handle:horizontal:hover {</span>
+<span class="s2">                background: #005a9e;</span>
+<span class="s2">            }</span>
+
+<span class="s2">            QSlider::sub-page:horizontal {</span>
+<span class="s2">                background: #00aaff;</span>
+<span class="s2">                border-radius: 4px;</span>
+<span class="s2">            }</span>
+
+<span class="s2">            QSlider::add-page:horizontal {</span>
+<span class="s2">                background: #ccc;</span>
+<span class="s2">                border-radius: 4px;</span>
+<span class="s2">            }</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>  <span class="c1"># Add style here or inject dynamically</span>
+
+        <span class="c1"># Render Button + Progress Bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Render&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.printer-3d&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="n">QProgressBar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    QProgressBar {</span>
+<span class="s2">        border: 2px solid #005a9e;</span>
+<span class="s2">        border-radius: 5px;</span>
+<span class="s2">        text-align: center;</span>
+<span class="s2">        font-size: 10pt;</span>
+<span class="s2">        background-color: #ddd;</span>
+<span class="s2">        padding: 2px;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    QProgressBar::chunk {</span>
+<span class="s2">        background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #00aaff, stop:1 #005a9e);</span>
+<span class="s2">        border-radius: 5px;</span>
+<span class="s2">    }</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>  <span class="c1"># Add style here</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation._createLayout">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation._createLayout">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_createLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs and applies the layout for the video animation interface.</span>
+
+<span class="sd">        Organizes the widget components into a clean vertical layout structure with logical </span>
+<span class="sd">        grouping for playback controls and rendering tools. Ensures adaptive spacing and </span>
+<span class="sd">        alignment for a responsive UI.</span>
+
+<span class="sd">        Layout Structure:</span>
+<span class="sd">            - `controlLayout` (QHBoxLayout): Holds play, repeat, and slider widgets.</span>
+<span class="sd">            - `renderLayout` (QHBoxLayout): Holds render button and progress bar.</span>
+<span class="sd">            - `layout` (QVBoxLayout): Main vertical layout stacking video widget, control layout, </span>
+<span class="sd">            and render layout with spacing and stretch for balance.</span>
+
+<span class="sd">        Final Layout Assignment:</span>
+<span class="sd">            - Calls `self.setLayout(layout)` to apply the assembled layout to the widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Layouts</span>
+        <span class="n">controlLayout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">controlLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="p">)</span>
+        <span class="n">controlLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="p">)</span>
+        <span class="n">controlLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="p">)</span>
+
+        <span class="n">renderLayout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">renderLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="p">)</span>
+        <span class="n">renderLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addSpacing</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Optional visual buffer</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">controlLayout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">renderLayout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>  <span class="c1"># Push everything above if extra space</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation._connectSignals">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation._connectSignals">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_connectSignals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects UI signals to their corresponding slot functions.</span>
+
+<span class="sd">        Establishes all internal signal-slot connections required for interactive behavior, </span>
+<span class="sd">        including video playback, repeat toggling, slider movement, rendering initiation, </span>
+<span class="sd">        and real-time media updates.</span>
+
+<span class="sd">        Signal Connections:</span>
+<span class="sd">            - `playButton.clicked` → `playVideo()`</span>
+<span class="sd">            - `repeatButton.clicked` → `repeatVideo()`</span>
+<span class="sd">            - `positionSlider.sliderMoved` → `setPosition()`</span>
+<span class="sd">            - `render_button.clicked` → `genframes()`</span>
+<span class="sd">            - `media_player.durationChanged` → `updateDuration()`</span>
+<span class="sd">            - `media_player.positionChanged` → `updatePosition()`</span>
+<span class="sd">            - `media_player.stateChanged` → `updateState()`</span>
+
+<span class="sd">        Purpose:</span>
+<span class="sd">            Ensures responsive video control and rendering feedback through Qt&#39;s event-driven architecture.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repeatVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="o">.</span><span class="n">sliderMoved</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setPosition</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genframes</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">durationChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">updateDuration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">positionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">updatePosition</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">updateState</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation._loadMedia">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation._loadMedia">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_loadMedia</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">project_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">)</span>
+        <span class="n">video_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;data/videos/</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s1">.mp4&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">video_path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setMedia</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showAlertDialog</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Render files not found at: </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.showAlertDialog">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.showAlertDialog">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">showAlertDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays an informational alert dialog with the given title and message.</span>
+
+<span class="sd">        Presents a modal `QMessageBox` configured to convey general information to the user.</span>
+<span class="sd">        Commonly used for confirmations, status updates, or non-critical notices.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : str</span>
+<span class="sd">            The title text displayed on the alert dialog window.</span>
+
+<span class="sd">        message : str</span>
+<span class="sd">            The information content shown inside the dialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">alert_dialog</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">alert_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+        <span class="n">alert_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">alert_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">alert_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+        
+<div class="viewcode-block" id="VideoAnimation.showErrorDialog">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.showErrorDialog">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">showErrorDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a critical error dialog with the specified title and message.</span>
+
+<span class="sd">        Creates and shows a modal `QMessageBox` configured to indicate an error condition.</span>
+<span class="sd">        Typically used to alert users when essential files or configurations are missing.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : str</span>
+<span class="sd">            The title text displayed on the error dialog window.</span>
+
+<span class="sd">        message : str</span>
+<span class="sd">            The detailed error message shown within the dialog content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error_dialog</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">error_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Critical</span><span class="p">)</span>
+        <span class="n">error_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">error_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">error_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.playVideo">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.playVideo">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">playVideo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles video playback state between play and pause.</span>
+
+<span class="sd">        Handles the core play/pause logic based on the internal `video_playing` flag. Updates both the </span>
+<span class="sd">        media player&#39;s state and the icon displayed on the play button to reflect the current action.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">            - If video is playing: pauses playback and updates button to &#39;play&#39; icon.</span>
+<span class="sd">            - If video is paused: starts playback and updates button to &#39;pause&#39; icon.</span>
+
+<span class="sd">        Updates:</span>
+<span class="sd">            - `video_playing` flag</span>
+<span class="sd">            - `playButton` icon using QtAwesome with primary UI color</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_playing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.play&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_playing</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.pause&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_playing</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.repeatVideo">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.repeatVideo">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">repeatVideo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles repeat mode for the video playback.</span>
+
+<span class="sd">        Checks the state of the `repeatButton` and updates the repeat icon accordingly. If repeat mode </span>
+<span class="sd">        is enabled, the video restarts from the beginning and begins playback immediately. If disabled, </span>
+<span class="sd">        it simply reverts the icon to the repeat state.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">            - If checked: sets icon to `repeat-off`, resets position to start, and plays the video.</span>
+<span class="sd">            - If unchecked: sets icon back to `repeat`.</span>
+
+<span class="sd">        UI Updates:</span>
+<span class="sd">            - `repeatButton` icon</span>
+<span class="sd">            - `playButton` icon (set to &#39;pause&#39; if playback is restarted)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.repeat-off&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.pause&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.repeat&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">primary_color</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.updateDuration">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.updateDuration">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateDuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the slider range based on video duration.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        duration : int</span>
+<span class="sd">            Total duration of the video in milliseconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.updatePosition">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.updatePosition">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updatePosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the slider&#39;s value to match the current playback position.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : int</span>
+<span class="sd">            Current position of the video in milliseconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positionSlider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">position</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.setPosition">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.setPosition">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the media player to the given position.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : int</span>
+<span class="sd">            New playback position in milliseconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">position</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.updateState">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.updateState">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles media state changes and auto-repeats video if in repeat mode.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : QMediaPlayer.State</span>
+<span class="sd">            Current state of the media player.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">QMediaPlayer</span><span class="o">.</span><span class="n">StoppedState</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeatButton</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">media_player</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="VideoAnimation.update_progress">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.update_progress">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the progress bar with the given value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : int or float</span>
+<span class="sd">            Current progress percentage (0–100).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.genframes">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.genframes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">genframes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the frame rendering process using a background worker thread.</span>
+
+<span class="sd">        Initializes a `Worker` instance with the current scene parameters and begins the rendering task </span>
+<span class="sd">        asynchronously. Disables the render button during processing and connects progress and completion </span>
+<span class="sd">        signals for real-time UI feedback.</span>
+
+<span class="sd">        Workflow:</span>
+<span class="sd">            - Disables `render_button` to prevent multiple triggers.</span>
+<span class="sd">            - Instantiates `Worker` with `project_folder`, `angles`, `scene_data`, and `reflect`.</span>
+<span class="sd">            - Connects `progress_signal` to `update_progress()` for live updates.</span>
+<span class="sd">            - Starts the worker thread to render frames.</span>
+<span class="sd">            - Connects `finished` signal to `complete_render()` for post-processing and cleanup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">topleftgroup</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worker</span> <span class="o">=</span> <span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threadpool</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worker</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">progress_signal</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_progress</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">complete_render</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoAnimation.complete_render">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.main.html#app.widgets.main.video_animation.VideoAnimation.complete_render">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">complete_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finalizes the rendering process and updates the UI.</span>
+
+<span class="sd">        Re-enables the render button, displays a confirmation dialog with the output video path, </span>
+<span class="sd">        and reloads the rendered video into the video player for immediate preview.</span>
+
+<span class="sd">        Post-Render Actions:</span>
+<span class="sd">            - Enables `render_button` for future rendering.</span>
+<span class="sd">            - Displays alert with the final video path.</span>
+<span class="sd">            - Loads the new video into `video_widget` using `setMedia()`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">project_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">)</span>
+        <span class="n">video_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;data/videos/</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s1">.mp4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showAlertDialog</span><span class="p">(</span><span class="s1">&#39;Alert&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Video rendered successfully at: </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_widget</span><span class="o">.</span><span class="n">setMedia</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">topleftgroup</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Kalbhavi Vadhi Raj
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=f1555341"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

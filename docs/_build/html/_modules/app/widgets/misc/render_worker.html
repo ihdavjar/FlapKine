@@ -1,0 +1,545 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>app.widgets.misc.render_worker - FlapKine v0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=275258c8" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">FlapKine v0.1.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../../_static/flapkine_icon.png" alt="Logo"/>
+  </div>
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/flapkine_icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/flapkine_icon.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">FlapKine v0.1.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user_guide.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api_reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for app.widgets.misc.render_worker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRunnable</span><span class="p">,</span> <span class="n">pyqtSlot</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSignal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">vtk</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkActor</span><span class="p">,</span> <span class="n">vtkCellArray</span><span class="p">,</span> <span class="n">vtkPoints</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">vtkTriangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.vtkRenderingCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">vtkCamera</span><span class="p">,</span> <span class="n">vtkLight</span><span class="p">,</span> <span class="n">vtkWindowToImageFilter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.vtkCommonColor</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkNamedColors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.util.numpy_support</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtk_to_numpy</span>
+
+<div class="viewcode-block" id="RenderSignals">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_worker.RenderSignals">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RenderSignals</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    RenderSignals Class</span>
+<span class="sd">    ===================</span>
+
+<span class="sd">    Defines custom signals for tracking the progress and completion status of the rendering process</span>
+<span class="sd">    in the FlapKine application. This class is used to communicate between the rendering worker thread </span>
+<span class="sd">    and the main GUI, allowing for real-time updates on rendering progress and notification upon completion.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    progress_signal : pyqtSignal(float)</span>
+<span class="sd">        Signal emitted periodically during rendering to indicate the progress percentage (0.0 to 100.0).</span>
+
+<span class="sd">    finished : pyqtSignal()</span>
+<span class="sd">        Signal emitted once the rendering task is fully completed.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        This class only defines signals and does not implement any methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">progress_signal</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="Worker">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_worker.Worker">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Worker</span><span class="p">(</span><span class="n">QRunnable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Worker Class</span>
+<span class="sd">    ============</span>
+
+<span class="sd">    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding </span>
+<span class="sd">    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames </span>
+<span class="sd">    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering </span>
+<span class="sd">    pipeline integration with PyQt5’s multithreading model.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project_folder : str</span>
+<span class="sd">        Path to the project directory containing configuration and data folders.</span>
+
+<span class="sd">    angles : list of float</span>
+<span class="sd">        List of angles (typically camera azimuth or rotation values) used to render frames.</span>
+
+<span class="sd">    scene_data : Any</span>
+<span class="sd">        Scene object responsible for generating STL meshes for each frame.</span>
+
+<span class="sd">    reflect : tuple of bool</span>
+<span class="sd">        A 3-element tuple indicating whether to reflect the STL mesh along the XY, YZ, and XZ planes respectively.</span>
+
+<span class="sd">    signals : RenderSignals</span>
+<span class="sd">        Custom signal object to emit rendering progress and completion signals.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(project_folder, angles, scene_data, reflect):</span>
+<span class="sd">        Initializes the worker with project-specific configuration and rendering parameters.</span>
+
+<span class="sd">    run():</span>
+<span class="sd">        Executes the rendering pipeline. Renders each frame using VTK, optionally saves STL files, and writes</span>
+<span class="sd">        each rendered frame to a video file using OpenCV. Emits progress and completion signals accordingly.</span>
+
+<span class="sd">    stl_mesh_to_vtk(stl_mesh):</span>
+<span class="sd">        Converts a mesh object into `vtkPolyData` using deduplicated vertices via NumPy for efficient rendering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_folder</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">scene_data</span><span class="p">,</span> <span class="n">reflect</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the rendering worker for the FlapKine application.</span>
+
+<span class="sd">        Prepares the QRunnable-based background task responsible for high-performance rendering </span>
+<span class="sd">        and video encoding. Loads essential project parameters such as output folder, rendering </span>
+<span class="sd">        angles, scene data generator, and mesh reflection configuration. Also sets up the </span>
+<span class="sd">        custom signal handler to communicate rendering progress and completion with the main GUI.</span>
+
+<span class="sd">        Components Initialized:</span>
+<span class="sd">            - `project_folder` : Project root directory where output files (videos, STLs) are stored.</span>
+<span class="sd">            - `angles` : List of frame angles to iterate through for rendering.</span>
+<span class="sd">            - `scene_data` : Provides STL mesh generation for each frame.</span>
+<span class="sd">            - `reflect` : Tuple indicating per-axis mesh reflection before rendering or export.</span>
+<span class="sd">            - `signals` : `RenderSignals` instance used to emit `progress_signal` and `finished` events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">=</span> <span class="n">project_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="n">angles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span> <span class="o">=</span> <span class="n">scene_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span> <span class="o">=</span> <span class="n">reflect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">RenderSignals</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Worker.run">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_worker.Worker.run">[docs]</a>
+    <span class="nd">@pyqtSlot</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the background rendering and encoding process.</span>
+
+<span class="sd">        This method is invoked when the `Worker` QRunnable is started via a thread pool.</span>
+<span class="sd">        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes </span>
+<span class="sd">        frame-by-frame, and directly encodes each rendered frame into an `.mp4` video using OpenCV.</span>
+<span class="sd">        It also optionally exports STL files and emits real-time progress updates through </span>
+<span class="sd">        `RenderSignals`.</span>
+
+<span class="sd">        Workflow:</span>
+<span class="sd">            1. Loads rendering configuration from `config.json` in the project folder.</span>
+<span class="sd">            2. Prepares output directories for STL and video data.</span>
+<span class="sd">            3. Initializes the VTK rendering pipeline (renderer, camera, lighting, actor).</span>
+<span class="sd">            4. Iterates over the list of specified angles to:</span>
+<span class="sd">                - Generate STL mesh using `scene_data`</span>
+<span class="sd">                - Optionally save STL to disk</span>
+<span class="sd">                - Convert mesh to `vtkPolyData`</span>
+<span class="sd">                - Render the scene offscreen and capture frame</span>
+<span class="sd">                - Convert VTK image to NumPy array and write to video</span>
+<span class="sd">            5. Emits `progress_signal` every two frames (or final frame).</span>
+<span class="sd">            6. Releases the OpenCV writer and emits `finished` signal on completion.</span>
+
+<span class="sd">        Signals Emitted:</span>
+<span class="sd">            - `progress_signal (float)`: Percentage of frames rendered.</span>
+<span class="sd">            - `finished`: Emitted once rendering and encoding are complete.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;STL&quot;</span><span class="p">]:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;data/stl&#39;</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;data/videos&#39;</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">project_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">)</span>
+        <span class="n">video_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;data/videos/</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s2">.mp4&quot;</span><span class="p">)</span>
+
+        <span class="n">width</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">][</span><span class="s1">&#39;resolution_x&#39;</span><span class="p">]</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">][</span><span class="s1">&#39;resolution_y&#39;</span><span class="p">]</span>
+        <span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span>
+
+        <span class="c1"># OpenCV video writer</span>
+        <span class="n">fourcc</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span><span class="o">*</span><span class="s1">&#39;mp4v&#39;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">fourcc</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+        <span class="c1"># VTK setup</span>
+        <span class="n">renderer</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
+        <span class="n">render_window</span> <span class="o">=</span> <span class="n">vtkRenderWindow</span><span class="p">()</span>
+        <span class="n">render_window</span><span class="o">.</span><span class="n">SetOffScreenRendering</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">render_window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+        <span class="n">render_window</span><span class="o">.</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">render_window</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
+        <span class="n">cam</span> <span class="o">=</span> <span class="n">vtkCamera</span><span class="p">()</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
+
+        <span class="n">light</span> <span class="o">=</span> <span class="n">vtkLight</span><span class="p">()</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">SetLightTypeToSceneLight</span><span class="p">()</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">SetIntensity</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;energy&#39;</span><span class="p">])</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">AddLight</span><span class="p">(</span><span class="n">light</span><span class="p">)</span>
+
+        <span class="n">mapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+        <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">vtkNamedColors</span><span class="p">()</span><span class="o">.</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s2">&quot;RoyalBlue&quot;</span><span class="p">))</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)</span>
+
+        <span class="n">window_to_image</span> <span class="o">=</span> <span class="n">vtkWindowToImageFilter</span><span class="p">()</span>
+        <span class="n">window_to_image</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">render_window</span><span class="p">)</span>
+        <span class="n">window_to_image</span><span class="o">.</span><span class="n">ReadFrontBufferOff</span><span class="p">()</span>
+
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">):</span>
+            <span class="n">stl_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="o">.</span><span class="n">save_stl</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">reflect_xy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                <span class="n">reflect_yz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reflect_xz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;STL&quot;</span><span class="p">]:</span>
+                <span class="n">stl_mesh</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;data/stl/stl_mesh_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.stl&quot;</span><span class="p">))</span>
+
+            <span class="c1"># Convert mesh to VTK polydata</span>
+            <span class="n">poly_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stl_mesh_to_vtk</span><span class="p">(</span><span class="n">stl_mesh</span><span class="p">)</span>
+            <span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">poly_data</span><span class="p">)</span>
+
+            <span class="n">render_window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+            <span class="n">window_to_image</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+            <span class="n">window_to_image</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+
+            <span class="n">vtk_image</span> <span class="o">=</span> <span class="n">window_to_image</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+            <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">vtk_image</span><span class="o">.</span><span class="n">GetDimensions</span><span class="p">()</span>
+
+            <span class="n">vtk_array</span> <span class="o">=</span> <span class="n">vtk_image</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span>
+            <span class="n">np_image</span> <span class="o">=</span> <span class="n">vtk_to_numpy</span><span class="p">(</span><span class="n">vtk_array</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">np_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">np_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">)</span>
+
+            <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">np_image</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">total</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">progress_signal</span><span class="o">.</span><span class="n">emit</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="n">out</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Worker.stl_mesh_to_vtk">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stl_mesh_to_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stl_mesh</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a mesh object to `vtkPolyData` for rendering in VTK.</span>
+
+<span class="sd">        This method performs a memory-efficient STL conversion by flattening and deduplicating </span>
+<span class="sd">        vertex data using NumPy. The resulting unique vertex list and associated triangle indices </span>
+<span class="sd">        are used to construct a `vtkPolyData` object, which is compatible with VTK&#39;s rendering pipeline.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stl_mesh : mesh.Mesh</span>
+<span class="sd">            The STL mesh object containing 3D geometry in the form of triangle vectors.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        vtkPolyData</span>
+<span class="sd">            A VTK-compatible representation of the mesh, ready for visualization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">poly_data</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="p">()</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">vtkPoints</span><span class="p">()</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="n">vtkCellArray</span><span class="p">()</span>
+
+        <span class="n">unique_vertices</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stl_mesh</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">unique_vertices</span><span class="p">:</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">triangle</span> <span class="o">=</span> <span class="n">vtkTriangle</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">])</span>
+            <span class="n">cells</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
+
+        <span class="n">poly_data</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">poly_data</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">poly_data</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Kalbhavi Vadhi Raj
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=f1555341"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
