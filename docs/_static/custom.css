@@ -1,0 +1,62 @@
+/* Center logo in sidebar */
+.bd-sidebar .sidebar-brand-text {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.sidebar-logo-container img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+/* Reduce body font size and tighten layout */
+body {
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+html {
+    font-size: 15px;
+}
+
+/* Tweak sidebar fonts */
+.sidebar-tree {
+    font-size: 14px;
+}
+
+.sidebar-brand-text, .sidebar-brand {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Adjust headings */
+h1, .section h1 {
+    font-size: 24px;
+}
+
+h2, .section h2 {
+    font-size: 20px;
+}
+
+h3, .section h3 {
+    font-size: 18px;
+}
+
+/* Code blocks and literals */
+code, pre {
+    font-size: 14px;
+}
+
+/* Optional: tighter margins for mobile */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,16 @@
+app
+===
+
+.. automodule:: app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: app Modules
+
+   app/core
+   app/ui
+   app/widgets
+   

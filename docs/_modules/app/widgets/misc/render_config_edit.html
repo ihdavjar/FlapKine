@@ -1,0 +1,912 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>app.widgets.misc.render_config_edit - FlapKine v0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=275258c8" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">FlapKine v0.1.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../../_static/flapkine_icon.png" alt="Logo"/>
+  </div>
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/flapkine_icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/flapkine_icon.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">FlapKine v0.1.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user_guide.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api_reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for app.widgets.misc.render_config_edit</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span>
+    <span class="n">QDoubleSpinBox</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span>
+    <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QGroupBox</span><span class="p">,</span> <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QDesktopWidget</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtawesome</span><span class="w"> </span><span class="kn">import</span> <span class="n">icon</span>
+
+<div class="viewcode-block" id="RenderConfig">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RenderConfig</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    RenderConfig Class</span>
+<span class="sd">    ==================</span>
+
+<span class="sd">    Main configuration panel for render settings in the FlapKine application.</span>
+
+<span class="sd">    This class provides a GUI window that allows users to configure video rendering,</span>
+<span class="sd">    camera parameters, lighting settings, STL export, and axis reflection for a 3D</span>
+<span class="sd">    rendering pipeline. The settings are loaded from and saved to a `config.json` file</span>
+<span class="sd">    within the specified project folder.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project_folder : str</span>
+<span class="sd">        Path to the folder containing the configuration file.</span>
+
+<span class="sd">    frame_format : QComboBox</span>
+<span class="sd">        Dropdown for selecting the frame image format (e.g., PNG, JPEG, TIFF).</span>
+
+<span class="sd">    resolution_x : QSpinBox</span>
+<span class="sd">        Spin box to specify horizontal resolution.</span>
+
+<span class="sd">    resolution_y : QSpinBox</span>
+<span class="sd">        Spin box to specify vertical resolution.</span>
+
+<span class="sd">    camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox</span>
+<span class="sd">        Spin boxes to specify camera position in 3D space.</span>
+
+<span class="sd">    camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma : QDoubleSpinBox</span>
+<span class="sd">        Spin boxes to specify camera rotation in Euler angles.</span>
+
+<span class="sd">    light_location_x, light_location_y, light_location_z : QDoubleSpinBox</span>
+<span class="sd">        Spin boxes to specify light source position in 3D space.</span>
+
+<span class="sd">    light_power : QSpinBox</span>
+<span class="sd">        Spin box to control light energy (intensity).</span>
+
+<span class="sd">    stl_enable : QCheckBox</span>
+<span class="sd">        Checkbox to toggle STL mesh saving.</span>
+
+<span class="sd">    reflect_xy, reflect_yz, reflect_xz : QCheckBox</span>
+<span class="sd">        Checkboxes to select the reflection axis (only one can be active at a time).</span>
+
+<span class="sd">    ok_button : QPushButton</span>
+<span class="sd">        Button to save the current configuration and close the window.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(project_folder):</span>
+<span class="sd">        Initializes the main window and constructs the interface.</span>
+
+<span class="sd">    initUI():</span>
+<span class="sd">        Builds and arranges all GUI components and groups.</span>
+
+<span class="sd">    _create_video_settings():</span>
+<span class="sd">        Constructs the video configuration group box.</span>
+
+<span class="sd">    _create_camera_settings():</span>
+<span class="sd">        Constructs the camera configuration group box.</span>
+
+<span class="sd">    _create_light_settings():</span>
+<span class="sd">        Constructs the lighting configuration group box.</span>
+
+<span class="sd">    _create_other_settings():</span>
+<span class="sd">        Constructs the STL and reflection settings panel.</span>
+
+<span class="sd">    _assemble_config_group():</span>
+<span class="sd">        Collects all config panels into a grouped layout.</span>
+
+<span class="sd">    _styled_groupbox(title, color, border_color, layout, font_size):</span>
+<span class="sd">        Returns a styled QGroupBox with custom appearance.</span>
+
+<span class="sd">    _labeled_widget(label_text, widget):</span>
+<span class="sd">        Returns a QWidget with an inline label and the given widget.</span>
+
+<span class="sd">    process_default_config():</span>
+<span class="sd">        Loads the saved configuration from `config.json` and updates the UI.</span>
+
+<span class="sd">    save_config():</span>
+<span class="sd">        Saves the current UI state into `config.json` in the project folder.</span>
+
+<span class="sd">    toggle_checkboxes(checked_box):</span>
+<span class="sd">        Ensures only one reflection checkbox is active at a time.</span>
+
+<span class="sd">    center():</span>
+<span class="sd">        Positions the window at the center of the screen.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_folder</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the RenderConfig window.</span>
+
+<span class="sd">        Sets up the main render configuration window with appropriate title and icon, using</span>
+<span class="sd">        a foreground color extracted from the current theme. Stores the provided project </span>
+<span class="sd">        folder path and initializes the user interface layout and widgets.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project_folder : str</span>
+<span class="sd">            Absolute path to the folder containing the current project data.</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project_folder : str</span>
+<span class="sd">            Stores the path to the project folder for use in render configuration operations.</span>
+
+<span class="sd">        Methods Called</span>
+<span class="sd">        --------------</span>
+<span class="sd">        initUI()</span>
+<span class="sd">            Initializes all UI components and layout for render configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RenderConfig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">primary_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">palette</span><span class="p">()</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foregroundRole</span><span class="p">())</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Configure Render&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.cog&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">primary_color</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">=</span> <span class="n">project_folder</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initUI</span><span class="p">()</span>
+
+<div class="viewcode-block" id="RenderConfig.initUI">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig.initUI">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initUI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize and configure the user interface components of the render configuration panel.</span>
+
+<span class="sd">        This method sets up the main window layout and populates it with grouped sections for</span>
+<span class="sd">        configuring video, camera, and lighting settings. It also adds additional controls such as</span>
+<span class="sd">        STL export toggle and axis reflection options. A confirmation button is included to save</span>
+<span class="sd">        and apply the chosen configuration settings.</span>
+
+<span class="sd">        UI Components Initialized</span>
+<span class="sd">        -------------------------</span>
+<span class="sd">        - Video settings group</span>
+<span class="sd">        - Camera settings group</span>
+<span class="sd">        - Lighting settings group</span>
+<span class="sd">        - STL export and reflection axis controls</span>
+<span class="sd">        - &#39;Ok&#39; confirmation button with icon</span>
+<span class="sd">        - Main vertical layout containing all components</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+        <span class="n">primary_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">palette</span><span class="p">()</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foregroundRole</span><span class="p">())</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+
+        <span class="c1"># Central widget and layout</span>
+        <span class="n">central_widget</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
+
+        <span class="c1"># Configuration sections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_video_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_camera_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_light_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assemble_config_group</span><span class="p">()</span>
+
+        <span class="c1"># Additional options: STL saving and axis reflection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_other_settings</span><span class="p">()</span>
+
+        <span class="c1"># OK button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;mdi.check-circle&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">primary_color</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_config</span><span class="p">)</span>
+
+        <span class="c1"># Add all components to main layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">other_settings_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="p">)</span>
+
+        <span class="c1"># Load defaults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_default_config</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_video_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create and configure the video settings group for render configuration.</span>
+
+<span class="sd">        This includes UI controls for selecting frame format (e.g., PNG, JPEG, TIFF)</span>
+<span class="sd">        and specifying output resolution dimensions (X and Y). All widgets are arranged</span>
+<span class="sd">        in a compact vertical layout and grouped under a styled section titled &quot;Video Settings&quot;.</span>
+
+<span class="sd">        UI Components</span>
+<span class="sd">        -------------</span>
+<span class="sd">        - Frame format dropdown (QComboBox)</span>
+<span class="sd">        - Resolution input (QSpinBox for X and Y)</span>
+<span class="sd">        - Labeled horizontal layout for image format</span>
+<span class="sd">        - Group box titled &quot;Video Settings&quot; with themed styling</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span> <span class="o">=</span> <span class="n">QComboBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="s1">&#39;PNG&#39;</span><span class="p">,</span> <span class="s1">&#39;JPEG&#39;</span><span class="p">,</span> <span class="s1">&#39;TIFF&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+        <span class="n">image_format_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">image_format_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Frame Format&quot;</span><span class="p">)</span>
+        <span class="n">image_format_label</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+        <span class="n">image_format_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">image_format_label</span><span class="p">)</span>
+        <span class="n">image_format_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_x</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_x</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1920</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_y</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_y</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+
+        <span class="n">res_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">res_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Resolution&quot;</span><span class="p">))</span>
+        <span class="n">res_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;  X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution_x</span><span class="p">))</span>
+        <span class="n">res_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;  Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution_y</span><span class="p">))</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">image_format_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">res_layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_styled_groupbox</span><span class="p">(</span><span class="s2">&quot;Video Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;#3498db&quot;</span><span class="p">,</span> <span class="s2">&quot;#2980b9&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_camera_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create and configure the camera settings group for render configuration.</span>
+
+<span class="sd">        This section provides spin box controls for specifying the camera’s 3D location </span>
+<span class="sd">        and orientation in space. Users can input X, Y, Z coordinates for both position </span>
+<span class="sd">        and Euler angle-based rotations. All elements are organized into a labeled layout </span>
+<span class="sd">        and enclosed in a themed &quot;Camera Settings&quot; group box.</span>
+
+<span class="sd">        UI Components</span>
+<span class="sd">        -------------</span>
+<span class="sd">        - Camera location inputs (QDoubleSpinBox for X, Y, Z)</span>
+<span class="sd">        - Camera rotation inputs (QDoubleSpinBox for α, β, γ)</span>
+<span class="sd">        - Labeled horizontal layouts for location and rotation</span>
+<span class="sd">        - Group box titled &quot;Camera Settings&quot; with custom styling</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+
+        <span class="n">loc_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="p">))</span>
+
+        <span class="n">rot_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Rotation&quot;</span><span class="p">))</span>
+        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="p">))</span>
+        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="p">))</span>
+        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="p">))</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">loc_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">rot_layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_styled_groupbox</span><span class="p">(</span><span class="s2">&quot;Camera Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;#16a085&quot;</span><span class="p">,</span> <span class="s2">&quot;#13876a&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_light_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create and configure the light settings group for render configuration.</span>
+
+<span class="sd">        Provides interactive controls to position the scene&#39;s light source in 3D space </span>
+<span class="sd">        and adjust its power intensity. All inputs are grouped into logically labeled </span>
+<span class="sd">        layouts and wrapped within a stylized &quot;Light Settings&quot; section.</span>
+
+<span class="sd">        UI Components</span>
+<span class="sd">        -------------</span>
+<span class="sd">        - Light position inputs (QDoubleSpinBox for X, Y, Z)</span>
+<span class="sd">        - Light intensity input (QSpinBox for power in arbitrary units)</span>
+<span class="sd">        - Labeled layouts for location and power</span>
+<span class="sd">        - Group box titled &quot;Light Settings&quot; with custom orange theme</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_power</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_power</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+        <span class="n">loc_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="p">))</span>
+        <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="p">))</span>
+
+        <span class="n">power_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">power_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Power&quot;</span><span class="p">))</span>
+        <span class="n">power_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Power:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_power</span><span class="p">))</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">loc_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">power_layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_styled_groupbox</span><span class="p">(</span><span class="s2">&quot;Light Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;#e67e22&quot;</span><span class="p">,</span> <span class="s2">&quot;#d35400&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_assemble_config_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assemble the primary configuration group container.</span>
+
+<span class="sd">        Combines individual configuration sections—video, camera, and lighting—</span>
+<span class="sd">        into a unified vertical layout and embeds them within a stylized QGroupBox</span>
+<span class="sd">        labeled &quot;Configurations&quot;.</span>
+
+<span class="sd">        UI Components</span>
+<span class="sd">        -------------</span>
+<span class="sd">        - Vertical layout (`QVBoxLayout`) containing:</span>
+<span class="sd">            - `self.video_group`</span>
+<span class="sd">            - `self.camera_group`</span>
+<span class="sd">            - `self.light_group`</span>
+<span class="sd">        - QGroupBox titled &quot;Configurations&quot; with Times font styling</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">light_group</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_group</span> <span class="o">=</span> <span class="n">QGroupBox</span><span class="p">(</span><span class="s2">&quot;Configurations&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_group</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_group</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_other_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create additional configuration options including STL export and axis reflections.</span>
+
+<span class="sd">        Sets up toggles for saving STL files and applying reflection across the XY, YZ, and XZ planes.</span>
+<span class="sd">        Groups these controls into a styled section labeled &quot;Other Settings&quot;.</span>
+
+<span class="sd">        UI Components</span>
+<span class="sd">        -------------</span>
+<span class="sd">        - STL Export Toggle (`QCheckBox`): `self.stl_enable`</span>
+<span class="sd">        - Axis Reflection Checkboxes:</span>
+<span class="sd">            - `self.reflect_xy`</span>
+<span class="sd">            - `self.reflect_yz`</span>
+<span class="sd">            - `self.reflect_xz`</span>
+<span class="sd">        - Reflect toggles are connected to `self.toggle_checkboxes` for interactive behavior</span>
+<span class="sd">        - Layout assembled into a custom styled group box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stl_enable</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;Save STL&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stl_enable</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;XY&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;YZ&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span> <span class="o">=</span> <span class="n">QCheckBox</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="p">):</span>
+            <span class="n">checkbox</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+            <span class="n">checkbox</span><span class="o">.</span><span class="n">toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">checked</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">checkbox</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle_checkboxes</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">stl_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">reflect_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+
+        <span class="n">stl_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stl_enable</span><span class="p">)</span>
+        <span class="n">reflect_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Reflect about Axes:&quot;</span><span class="p">))</span>
+        <span class="n">reflect_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="p">)</span>
+        <span class="n">reflect_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="p">)</span>
+        <span class="n">reflect_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">stl_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">reflect_layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_settings_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_styled_groupbox</span><span class="p">(</span><span class="s2">&quot;Other Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;#9b59b6&quot;</span><span class="p">,</span> <span class="s2">&quot;#8e44ad&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_styled_groupbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">border_color</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a custom-styled QGroupBox with a colored title and border.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : str</span>
+<span class="sd">            The title text displayed at the top of the group box.</span>
+<span class="sd">        color : str</span>
+<span class="sd">            The font color used for the group box title (hex code or color name).</span>
+<span class="sd">        border_color : str</span>
+<span class="sd">            The color of the border surrounding the group box.</span>
+<span class="sd">        layout : QLayout</span>
+<span class="sd">            The layout manager containing the widgets to be placed inside the group box.</span>
+<span class="sd">        font_size : int, optional</span>
+<span class="sd">            Font size for the title text. Default is 9.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QGroupBox</span>
+<span class="sd">            A styled `QGroupBox` widget containing the provided layout and title.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">QGroupBox</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="p">))</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            QGroupBox </span><span class="se">{{</span>
+<span class="s2">                color: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                font-weight: bold;</span>
+<span class="s2">                border: 2px solid </span><span class="si">{</span><span class="n">border_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                border-radius: 6px;</span>
+<span class="s2">                margin-top: 10px;</span>
+<span class="s2">            </span><span class="se">}}</span>
+<span class="s2">            QGroupBox::title </span><span class="se">{{</span>
+<span class="s2">                subcontrol-origin: margin;</span>
+<span class="s2">                subcontrol-position: top left;</span>
+<span class="s2">                padding: 5px;</span>
+<span class="s2">            </span><span class="se">}}</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">group</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_labeled_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_text</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a widget container with a label and an input/control widget arranged horizontally.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label_text : str</span>
+<span class="sd">            The text to display as a label for the associated widget.</span>
+<span class="sd">        widget : QWidget</span>
+<span class="sd">            The input or control widget (e.g., QSpinBox, QComboBox) to be labeled.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QWidget</span>
+<span class="sd">            A container widget with a horizontal layout including the label and the given widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="n">label_text</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">container</span>
+
+<div class="viewcode-block" id="RenderConfig.process_default_config">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig.process_default_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_default_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load and apply default configuration values from the project directory.</span>
+
+<span class="sd">        This method reads a `config.json` file from the project folder and populates</span>
+<span class="sd">        all render configuration widgets with the corresponding values, including</span>
+<span class="sd">        video resolution, camera position and orientation, lighting parameters, STL saving, </span>
+<span class="sd">        and reflection axis toggles.</span>
+
+<span class="sd">        Configuration File Structure Expected:</span>
+<span class="sd">            - VideoRender: { resolution_x, resolution_y }</span>
+<span class="sd">            - Camera: { location: [x, y, z], rotation_euler: [alpha, beta, gamma] }</span>
+<span class="sd">            - Light: { location: [x, y, z], energy }</span>
+<span class="sd">            - STL: bool</span>
+<span class="sd">            - Reflect: &quot;XY&quot; | &quot;YZ&quot; | &quot;XZ&quot; | None</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If `config.json` is not found in the project directory.</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If required keys are missing in the config file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">][</span><span class="s1">&#39;resolution_x&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;VideoRender&#39;</span><span class="p">][</span><span class="s1">&#39;resolution_y&#39;</span><span class="p">])</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_power</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;energy&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;XY&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;YZ&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Reflect&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;XZ&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">stl_enable</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;STL&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="RenderConfig.save_config">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig.save_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Collect and save the current render configuration to `config.json`.</span>
+
+<span class="sd">        This method gathers all UI state values (video format, resolution, camera parameters,</span>
+<span class="sd">        lighting setup, STL export preference, and reflection axis) and serializes them into</span>
+<span class="sd">        a dictionary. The config is then saved as a JSON file in the project directory under `config.json`.</span>
+
+<span class="sd">        Config Structure:</span>
+<span class="sd">            - VideoRender:</span>
+<span class="sd">                - OutputPath: str (default &#39;data/images&#39;)</span>
+<span class="sd">                - STLPath: str (default &#39;data/stl&#39;)</span>
+<span class="sd">                - FrameFormat: str (&#39;PNG&#39;, &#39;JPEG&#39;, &#39;TIFF&#39;)</span>
+<span class="sd">                - resolution_x: int</span>
+<span class="sd">                - resolution_y: int</span>
+<span class="sd">                - film_transparent: bool (always False)</span>
+<span class="sd">            - Camera:</span>
+<span class="sd">                - location: list[float, float, float]</span>
+<span class="sd">                - rotation_euler: list[float, float, float]</span>
+<span class="sd">            - Light:</span>
+<span class="sd">                - location: list[float, float, float]</span>
+<span class="sd">                - energy: int</span>
+<span class="sd">            - STL: bool</span>
+<span class="sd">            - Reflect: str | None (&quot;XY&quot;, &quot;YZ&quot;, &quot;XZ&quot;, or None)</span>
+
+<span class="sd">        Side Effects</span>
+<span class="sd">        ------------</span>
+<span class="sd">        - Overwrites the `config.json` file in the project folder.</span>
+<span class="sd">        - Closes the configuration window after saving.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;VideoRender&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;OutputPath&#39;</span><span class="p">:</span> <span class="s1">&#39;data/images&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;STLPath&#39;</span><span class="p">:</span> <span class="s1">&#39;data/stl&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;FrameFormat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_format</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>  <span class="p">,</span>
+                <span class="s1">&#39;resolution_x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+                <span class="s1">&#39;resolution_y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolution_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+                <span class="s1">&#39;film_transparent&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;Camera&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
+                <span class="s1">&#39;rotation_euler&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">value</span><span class="p">()]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;Light&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
+                <span class="s1">&#39;energy&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_power</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;STL&#39;</span><span class="p">:</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stl_enable</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
+            
+            <span class="s1">&#39;Reflect&#39;</span><span class="p">:</span> <span class="s1">&#39;XY&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;YZ&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;XZ&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="RenderConfig.toggle_checkboxes">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_checkboxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checked_box</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enforce mutual exclusivity among axis reflection checkboxes.</span>
+
+<span class="sd">        Ensures that only one of the reflection axis checkboxes (XY, YZ, XZ) can be active at a time.</span>
+<span class="sd">        When a checkbox is toggled on, all others are programmatically toggled off.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        checked_box : QCheckBox</span>
+<span class="sd">            The checkbox that was just toggled to the &#39;checked&#39; state.</span>
+
+<span class="sd">        Behavior</span>
+<span class="sd">        --------</span>
+<span class="sd">        - If `checked_box` is checked:</span>
+<span class="sd">            - Automatically unchecks the other two axis checkboxes.</span>
+<span class="sd">        - If `checked_box` is unchecked:</span>
+<span class="sd">            - No action is taken (multiple checkboxes can be off simultaneously).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">checked_box</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="c1"># Uncheck all other checkboxes</span>
+            <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect_xy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_yz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect_xz</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">box</span> <span class="o">!=</span> <span class="n">checked_box</span><span class="p">:</span>
+                    <span class="n">box</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+            
+<div class="viewcode-block" id="RenderConfig.center">
+<a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_config_edit.RenderConfig.center">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Centers the application window on the screen.</span>
+
+<span class="sd">        Calculates screen and window dimensions, then moves the window to the center position.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the screen resolution</span>
+        <span class="n">screen_resolution</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">screenGeometry</span><span class="p">()</span>
+        <span class="n">screen_width</span><span class="p">,</span> <span class="n">screen_height</span> <span class="o">=</span> <span class="n">screen_resolution</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">screen_resolution</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="c1"># Get the window size</span>
+        <span class="n">window_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+        <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">=</span> <span class="n">window_size</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">window_size</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="c1"># Calculate the center of the screen</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">screen_width</span> <span class="o">-</span> <span class="n">window_width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">screen_height</span> <span class="o">-</span> <span class="n">window_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="c1"># Move the window to the center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  </div>
+</div>
+
+    
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Kalbhavi Vadhi Raj
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=f1555341"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+🧭 1. Launching the Application
+===============================
+
+When you launch **Flapkine**, the **Main Window** appears.
+
+You can either:
+
+- **Open an Existing Project**
+- **Create a New Project**
+
+See :ref:`Main Window <main-window>` for component details.
