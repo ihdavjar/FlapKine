@@ -1,5 +1,5 @@
-📂 Opening an Existing Project
-==============================
+Opening an Existing Project
+===========================
 
 To load a saved project:
 
@@ -20,7 +20,7 @@ For layout, features, and tools, see the :doc:`Project Editor Window <window/pro
 - ✅ **Auto Load**: Loads previous animation if available.
 - 🧮 **Manual Render**: Click the **Render** button to generate animations.
 - ⚡ Features:
-  
+
   - In-situ memory rendering (no disk I/O bottlenecks)
   - Multithreading using ``QThreadPool``
   - High-performance VTK pipeline

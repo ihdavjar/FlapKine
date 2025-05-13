@@ -1,5 +1,5 @@
-🔎 Windows Overview
-====================
+Windows Overview
+================
 
 This section describes all interface windows used in Flapkine. Each has a dedicated documentation page:
 

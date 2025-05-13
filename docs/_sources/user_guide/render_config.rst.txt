@@ -1,5 +1,5 @@
-🪟 Render Settings Window
-==========================
+Render Settings Window
+======================
 
 The **Render Settings Window** allows you to configure all rendering parameters, including video output, camera setup, lighting, STL export, and reflection settings.
 
@@ -28,10 +28,10 @@ You can access it in two contexts:
 Video Settings
 --------------
 
-- **Frame Format**:  
+- **Frame Format**:
   Choose the image format for each rendered frame (e.g., **PNG**, **JPEG**).
 
-- **Resolution**:  
+- **Resolution**:
   Specify the output dimensions of each frame in **width × height** (pixels).
 
 ---
@@ -39,10 +39,10 @@ Video Settings
 Camera Settings
 ---------------
 
-- **Location**:  
+- **Location**:
   Set the camera's position in the global coordinate space (**X**, **Y**, **Z**).
 
-- **Rotation**:  
+- **Rotation**:
   Define the camera's orientation using rotation angles around the **X**, **Y**, and **Z** axes.
 
 ---
@@ -50,10 +50,10 @@ Camera Settings
 Light Settings
 --------------
 
-- **Position**:  
+- **Position**:
   Specify the position of the scene light source in **X**, **Y**, and **Z**.
 
-- **Power**:  
+- **Power**:
   Control the intensity (brightness) of the light illuminating the scene.
 
 ---
@@ -61,11 +61,11 @@ Light Settings
 Other Options
 -------------
 
-- **STL Export**:  
+- **STL Export**:
   Enable **Save STL per Frame** to export geometry at each frame—useful for CFD workflows and mesh-based post-processing.
 
-- **Reflection Plane**:  
-  Mirror the rendered geometry across a selected plane (**XY**, **YZ**, or **XZ**).  
+- **Reflection Plane**:
+  Mirror the rendered geometry across a selected plane (**XY**, **YZ**, or **XZ**).
   This is particularly useful for simulating symmetrical wing pairs without duplicating sprite definitions.
 
 ---
