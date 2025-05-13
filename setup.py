@@ -26,5 +26,5 @@ setup(
             'flapkine = app.main:main',  # <- Adjust this based on your actual main entry
         ],
     },
-    python_requires='>=3.6',
+    python_requires='==3.10.3',
 )
