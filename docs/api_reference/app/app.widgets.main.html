@@ -1,64 +1,381 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>app.widgets.main package &#8212; FlapKine v0.1.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="../../_static/groundwork.css?v=594d7a89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=c0ad9c74" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
     <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.widgets.main';</script>
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="app.widgets.misc package" href="app.widgets.misc.html" />
-    <link rel="prev" title="app.widgets package" href="app.widgets.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.misc.html" title="app.widgets.misc package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.html" title="app.widgets package"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="app.html" >app package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="app.widgets.html" accesskey="U">app.widgets package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">app.widgets.main package</a></li> 
-      </ul>
-    </div>  
+    <link rel="prev" title="app.widgets package" href="app.widgets.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="app.html">app package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="app.ui.html">app.ui package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.ui.creators.html">app.ui.creators package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.ui.editor.html">app.ui.editor package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="app.widgets.html">app.widgets package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">app.widgets.main package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.widgets.misc.html">app.widgets.misc package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../src/src.html">src package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/src.blender.html">src.blender package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../src/src.core.html">src.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.core.transforms.html">src.core.transforms package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/src.utils.html">src.utils package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="app.html" class="nav-link">app package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="app.widgets.html" class="nav-link">app.widgets package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">app.widgets.main package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="app-widgets-main-package">
-<h1>app.widgets.main package<a class="headerlink" href="#app-widgets-main-package" title="Link to this heading">¶</a></h1>
+<h1>app.widgets.main package<a class="headerlink" href="#app-widgets-main-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-app.widgets.main.frame_visualiser">
-<span id="app-widgets-main-frame-visualiser-module"></span><h2>app.widgets.main.frame_visualiser module<a class="headerlink" href="#module-app.widgets.main.frame_visualiser" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-main-frame-visualiser-module"></span><h2>app.widgets.main.frame_visualiser module<a class="headerlink" href="#module-app.widgets.main.frame_visualiser" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.frame_visualiser.</span></span><span class="sig-name descname"><span class="pre">Visualizer3DWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.frame_visualiser.</span></span><span class="sig-name descname"><span class="pre">Visualizer3DWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <section id="visualizer3dwidget-class">
-<h3>Visualizer3DWidget Class<a class="headerlink" href="#visualizer3dwidget-class" title="Link to this heading">¶</a></h3>
+<h3>Visualizer3DWidget Class<a class="headerlink" href="#visualizer3dwidget-class" title="Link to this heading">#</a></h3>
 <p>A PyQt5-based widget for interactive 3D visualization and playback of
 flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget
 serves as a real-time visual tool to inspect spatial orientation,
@@ -70,7 +387,7 @@ transformations, and local/global coordinate systems derived from simulation fra
 - Global and per-object body axes visualizations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.scene_data">
-<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.scene_data" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.scene_data" title="Link to this definition">#</a></dt>
 <dd><p>Parsed simulation object containing geometry, frame orientations,
 and object transformations.</p>
 <dl class="field-list simple">
@@ -82,7 +399,7 @@ and object transformations.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.project_folder">
-<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.project_folder" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.project_folder" title="Link to this definition">#</a></dt>
 <dd><p>Path to the project directory containing configuration and assets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -93,7 +410,7 @@ and object transformations.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.angles">
-<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.angles" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.angles" title="Link to this definition">#</a></dt>
 <dd><p>List of orientation angles for animation frames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -104,7 +421,7 @@ and object transformations.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.reflect">
-<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.reflect" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.reflect" title="Link to this definition">#</a></dt>
 <dd><p>Boolean flags indicating whether XY, YZ, or XZ axis reflections are active,
 derived from the project’s config file.</p>
 <dl class="field-list simple">
@@ -116,7 +433,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.actor">
-<span class="sig-name descname"><span class="pre">actor</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.actor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">actor</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.actor" title="Link to this definition">#</a></dt>
 <dd><p>The VTK actor representing the primary STL mesh of the scene.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -127,7 +444,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.body_axes">
-<span class="sig-name descname"><span class="pre">body_axes</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.body_axes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">body_axes</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.body_axes" title="Link to this definition">#</a></dt>
 <dd><p>List of per-object axes actors, visualizing local coordinate systems.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -138,7 +455,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.vtkWidget">
-<span class="sig-name descname"><span class="pre">vtkWidget</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.vtkWidget" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vtkWidget</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.vtkWidget" title="Link to this definition">#</a></dt>
 <dd><p>VTK widget integrated into the PyQt5 layout for rendering the 3D scene.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -149,7 +466,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.ren">
-<span class="sig-name descname"><span class="pre">ren</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.ren" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ren</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.ren" title="Link to this definition">#</a></dt>
 <dd><p>Renderer instance that manages visual elements and camera.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -160,7 +477,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.iren">
-<span class="sig-name descname"><span class="pre">iren</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.iren" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iren</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.iren" title="Link to this definition">#</a></dt>
 <dd><p>Interactor for handling user input and real-time navigation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -171,7 +488,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.slider">
-<span class="sig-name descname"><span class="pre">slider</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">slider</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider" title="Link to this definition">#</a></dt>
 <dd><p>Slider for frame-by-frame navigation through animation data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -182,7 +499,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.slider_label">
-<span class="sig-name descname"><span class="pre">slider_label</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider_label" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">slider_label</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider_label" title="Link to this definition">#</a></dt>
 <dd><p>Label displaying the currently selected frame index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -193,7 +510,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.play_button">
-<span class="sig-name descname"><span class="pre">play_button</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_button" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">play_button</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_button" title="Link to this definition">#</a></dt>
 <dd><p>Button to toggle playback of the simulation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -204,7 +521,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.next_button">
-<span class="sig-name descname"><span class="pre">next_button</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.next_button" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next_button</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.next_button" title="Link to this definition">#</a></dt>
 <dd><p>Button to jump to the next frame in the sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -215,7 +532,7 @@ derived from the project’s config file.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.playing">
-<span class="sig-name descname"><span class="pre">playing</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.playing" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">playing</span></span><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.playing" title="Link to this definition">#</a></dt>
 <dd><p>Internal flag indicating whether playback is active.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -226,61 +543,61 @@ derived from the project’s config file.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the widget and prepare UI and visualization pipeline.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.init_ui">
-<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.init_ui" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.init_ui" title="Link to this definition">#</a></dt>
 <dd><p>Set up the UI layout, controls, slider, buttons, and VTK window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.setup_visualization">
-<span class="sig-name descname"><span class="pre">setup_visualization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.setup_visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.setup_visualization" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setup_visualization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.setup_visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.setup_visualization" title="Link to this definition">#</a></dt>
 <dd><p>Load configuration, generate VTK mesh and actors, initialize the scene.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.create_axes_actor">
-<span class="sig-name descname"><span class="pre">create_axes_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_axes_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_axes_actor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_axes_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_axes_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_axes_actor" title="Link to this definition">#</a></dt>
 <dd><p>Create a global coordinate axes actor scaled to mesh bounds.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.create_body_axes">
-<span class="sig-name descname"><span class="pre">create_body_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_body_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_body_axes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_body_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_body_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_body_axes" title="Link to this definition">#</a></dt>
 <dd><p>Generate a local coordinate system actor for a given object.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.toggle_play">
-<span class="sig-name descname"><span class="pre">toggle_play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.toggle_play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.toggle_play" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.toggle_play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.toggle_play" title="Link to this definition">#</a></dt>
 <dd><p>Toggle animation playback state and update play button icon.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.play_frames">
-<span class="sig-name descname"><span class="pre">play_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.play_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_frames" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">play_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.play_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_frames" title="Link to this definition">#</a></dt>
 <dd><p>Play the animation by advancing the frame slider on a timer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.on_slider_value_changed">
-<span class="sig-name descname"><span class="pre">on_slider_value_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.on_slider_value_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.on_slider_value_changed" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">on_slider_value_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.on_slider_value_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.on_slider_value_changed" title="Link to this definition">#</a></dt>
 <dd><p>Update the scene actors according to the selected frame.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk">
-<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk" title="Link to this definition">#</a></dt>
 <dd><p>Convert an STL mesh from numpy-stl format to VTK polydata.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">create_axes_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_axes_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_axes_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_axes_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
 <dd><p>Create and configure a global coordinate axes actor based on the bounding box of the given mesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -303,7 +620,7 @@ derived from the project’s config file.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">create_body_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_body_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_body_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprite</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.create_body_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
 <dd><p>Create a local coordinate axes actor for a given sprite object, oriented and positioned
 based on its frame orientation and origin.</p>
 <dl class="field-list simple">
@@ -328,12 +645,12 @@ based on its frame orientation and origin.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the user interface components of the 3D visualizer widget.</p>
 <p>Sets up the layout, playback controls, VTK rendering window, and
 prepares the visualization pipeline for the flapping MAV simulation.</p>
 <section id="ui-components">
-<h4>UI Components:<a class="headerlink" href="#ui-components" title="Link to this heading">¶</a></h4>
+<h4>UI Components:<a class="headerlink" href="#ui-components" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Frame slider with frame label for time-step control.</p></li>
 <li><p>Play/pause button and next-frame button.</p></li>
@@ -345,7 +662,7 @@ prepares the visualization pipeline for the flapping MAV simulation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">on_slider_value_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.on_slider_value_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">on_slider_value_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.on_slider_value_changed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
 <dd><p>Update the visualization based on the current slider frame index.</p>
 <p>This method retrieves the frame-specific orientation and position data for each object,
 computes their transformation matrices, and updates the corresponding VTK actors accordingly.
@@ -360,7 +677,7 @@ The slider label is also updated to reflect the current frame index.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">play_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.play_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">play_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.play_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
 <dd><p>Advance the animation by one frame and schedule the next frame if playing.</p>
 <p>This method increments the frame slider to the next value, wraps around at the end,
 and updates the visualization accordingly. If playback is active, it recursively
@@ -374,13 +691,13 @@ schedules the next frame update using a <cite>QTimer</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">setup_visualization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.setup_visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setup_visualization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.setup_visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
 <dd><p>Set up the 3D visualization environment using VTK.</p>
 <p>This method loads the reflection configuration from the project JSON,
 converts the scene’s STL mesh to VTK-compatible format, initializes
 the main actor and coordinate axes, and prepares the interactor for rendering.</p>
 <section id="steps-performed">
-<h4>Steps performed:<a class="headerlink" href="#steps-performed" title="Link to this heading">¶</a></h4>
+<h4>Steps performed:<a class="headerlink" href="#steps-performed" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Load <cite>config.json</cite> to determine reflection plane settings.</p></li>
 <li><p>Generate and convert the scene mesh using <cite>save_stl()</cite> and <cite>stl_mesh_to_vtk()</cite>.</p></li>
@@ -391,7 +708,7 @@ the main actor and coordinate axes, and prepares the interactor for rendering.</
 </ul>
 </section>
 <section id="raises">
-<h4>Raises:<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h4>
+<h4>Raises:<a class="headerlink" href="#raises" title="Link to this heading">#</a></h4>
 <dl class="simple">
 <dt>FileNotFoundError</dt><dd><p>If <cite>config.json</cite> does not exist in the project folder.</p>
 </dd>
@@ -403,7 +720,7 @@ the main actor and coordinate axes, and prepares the interactor for rendering.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
 <dd><p>Convert an STL mesh (numpy-stl) into a VTK <cite>vtkPolyData</cite> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -425,12 +742,12 @@ the main actor and coordinate axes, and prepares the interactor for rendering.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">toggle_play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.toggle_play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.toggle_play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
 <dd><p>Toggle the playback state of the animation and update the play button icon accordingly.</p>
 <p>This method switches between playing and paused states. When toggled to play,
 it initiates the frame-by-frame animation using the <cite>play_frames()</cite> method.</p>
 <section id="side-effects">
-<h4>Side Effects<a class="headerlink" href="#side-effects" title="Link to this heading">¶</a></h4>
+<h4>Side Effects<a class="headerlink" href="#side-effects" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Updates <cite>self.playing</cite> to reflect the current playback state.</p></li>
 <li><p>Changes the play button icon to either a play or pause symbol depending on the state.</p></li>
@@ -448,13 +765,13 @@ it initiates the frame-by-frame animation using the <cite>play_frames()</cite> m
 
 </section>
 <section id="module-app.widgets.main.point_visualiser">
-<span id="app-widgets-main-point-visualiser-module"></span><h2>app.widgets.main.point_visualiser module<a class="headerlink" href="#module-app.widgets.main.point_visualiser" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-main-point-visualiser-module"></span><h2>app.widgets.main.point_visualiser module<a class="headerlink" href="#module-app.widgets.main.point_visualiser" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.point_visualiser.</span></span><span class="sig-name descname"><span class="pre">PointScatterWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.point_visualiser.</span></span><span class="sig-name descname"><span class="pre">PointScatterWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <section id="pointscatterwidget-class">
-<h3>PointScatterWidget Class<a class="headerlink" href="#pointscatterwidget-class" title="Link to this heading">¶</a></h3>
+<h3>PointScatterWidget Class<a class="headerlink" href="#pointscatterwidget-class" title="Link to this heading">#</a></h3>
 <p>A composite PyQt5 widget that enables interactive point selection on a flattened STL mesh
 and visualizes the 3D transformed trajectory of the selected point across animation frames.</p>
 <p>The interface is vertically split into two VTK-based views:
@@ -464,7 +781,7 @@ and visualizes the 3D transformed trajectory of the selected point across animat
 points evolve under dynamic transformations like translation, rotation, and flexibility.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.scene_data">
-<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.scene_data" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.scene_data" title="Link to this definition">#</a></dt>
 <dd><p>The scene object containing STL mesh data and time-varying transformation functions
 (translation, rotation, flexibility) used to compute point trajectories.</p>
 <dl class="field-list simple">
@@ -476,7 +793,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.splitter">
-<span class="sig-name descname"><span class="pre">splitter</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.splitter" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">splitter</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.splitter" title="Link to this definition">#</a></dt>
 <dd><p>Vertical splitter separating the selection view (top) from the 3D scatter view (bottom).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -487,7 +804,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.toprightgroup">
-<span class="sig-name descname"><span class="pre">toprightgroup</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.toprightgroup" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toprightgroup</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.toprightgroup" title="Link to this definition">#</a></dt>
 <dd><p>Container for the top VTK viewport showing the flattened STL mesh for point selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -498,7 +815,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.bottomrightgroup">
-<span class="sig-name descname"><span class="pre">bottomrightgroup</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.bottomrightgroup" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">bottomrightgroup</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.bottomrightgroup" title="Link to this definition">#</a></dt>
 <dd><p>Container for the bottom VTK viewport displaying the 3D scatter plot of transformed points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -509,7 +826,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_1">
-<span class="sig-name descname"><span class="pre">vtk_widget_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vtk_widget_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_1" title="Link to this definition">#</a></dt>
 <dd><p>VTK widget for displaying and interacting with the flattened STL mesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -520,7 +837,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_2">
-<span class="sig-name descname"><span class="pre">vtk_widget_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_2" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">vtk_widget_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_2" title="Link to this definition">#</a></dt>
 <dd><p>VTK widget for displaying the resulting 3D point trajectory visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -531,7 +848,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.ren_1">
-<span class="sig-name descname"><span class="pre">ren_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ren_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_1" title="Link to this definition">#</a></dt>
 <dd><p>VTK renderer for the flattened STL mesh view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -542,7 +859,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.ren_2">
-<span class="sig-name descname"><span class="pre">ren_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_2" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ren_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_2" title="Link to this definition">#</a></dt>
 <dd><p>VTK renderer for the 3D scatter plot view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -553,7 +870,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.iren_1">
-<span class="sig-name descname"><span class="pre">iren_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iren_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_1" title="Link to this definition">#</a></dt>
 <dd><p>Interactor for handling mouse events in the selection viewport.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -564,7 +881,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.iren_2">
-<span class="sig-name descname"><span class="pre">iren_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_2" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iren_2</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_2" title="Link to this definition">#</a></dt>
 <dd><p>Interactor for the 3D scatter plot view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -575,7 +892,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.interactor_style_1">
-<span class="sig-name descname"><span class="pre">interactor_style_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.interactor_style_1" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">interactor_style_1</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.interactor_style_1" title="Link to this definition">#</a></dt>
 <dd><p>Interactor style configured for precise point picking on the STL mesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -586,7 +903,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.last_marker_actor">
-<span class="sig-name descname"><span class="pre">last_marker_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_marker_actor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">last_marker_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_marker_actor" title="Link to this definition">#</a></dt>
 <dd><p>Actor representing the most recently selected point as a sphere.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -597,7 +914,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.last_outline_actor">
-<span class="sig-name descname"><span class="pre">last_outline_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_outline_actor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">last_outline_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_outline_actor" title="Link to this definition">#</a></dt>
 <dd><p>Outline actor surrounding the last marker for visual emphasis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -608,7 +925,7 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.scatter_actor">
-<span class="sig-name descname"><span class="pre">scatter_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.scatter_actor" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scatter_actor</span></span><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.scatter_actor" title="Link to this definition">#</a></dt>
 <dd><p>Actor representing the full 3D trajectory of the selected point across animation frames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -619,43 +936,43 @@ points evolve under dynamic transformations like translation, rotation, and flex
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Initializes the widget with the scene data and invokes the UI construction.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.init_ui">
-<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.init_ui" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.init_ui" title="Link to this definition">#</a></dt>
 <dd><p>Constructs the layout, initializes the VTK viewports, and renders the STL mesh.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.on_click">
-<span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.on_click" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.on_click" title="Link to this definition">#</a></dt>
 <dd><p>Handles mouse click events on the STL mesh and computes the 3D point trajectory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.add_marker_to_vtk">
-<span class="sig-name descname"><span class="pre">add_marker_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.add_marker_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.add_marker_to_vtk" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_marker_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.add_marker_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.add_marker_to_vtk" title="Link to this definition">#</a></dt>
 <dd><p>Places a visual marker and outline at the selected point in the 2D STL view.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.create_3d_scatter_plot">
-<span class="sig-name descname"><span class="pre">create_3d_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.create_3d_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.create_3d_scatter_plot" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_3d_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.create_3d_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.create_3d_scatter_plot" title="Link to this definition">#</a></dt>
 <dd><p>Computes and renders the 3D trajectory of the selected point using transformation functions.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.point_visualiser.PointScatterWidget.stl_mesh_to_vtk">
-<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.stl_mesh_to_vtk" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.point_visualiser.PointScatterWidget.stl_mesh_to_vtk" title="Link to this definition">#</a></dt>
 <dd><p>Converts a NumPy-based STL mesh into a VTK PolyData object for rendering.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id8">
-<span class="sig-name descname"><span class="pre">add_marker_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.add_marker_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_marker_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.add_marker_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
 <dd><p>Adds a visual marker to the 2D STL view at the selected 3D position.</p>
 <p>This method renders a red 3D sphere and a semi-transparent white outline
 sphere at the specified <cite>position</cite> to visually indicate a user-selected
@@ -697,7 +1014,7 @@ should be placed on the STL mesh.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">create_3d_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.create_3d_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_3d_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.create_3d_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
 <dd><p>Generates and renders a 3D scatter plot of a selected point’s trajectory over time.</p>
 <p>This method computes and visualizes the dynamic 3D trajectory of a selected point from
 its 2D projection using the object’s transformation pipeline: flexibility, rotation, and
@@ -739,7 +1056,7 @@ spatial reference.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Link to this definition">#</a></dt>
 <dd><p>Builds the UI layout and initializes VTK visualization panels.</p>
 <p>This method constructs the vertical layout of the PointScatterWidget, including two main
 interactive viewports arranged using a QSplitter. The top panel displays a flattened 2D
@@ -747,7 +1064,7 @@ projection of the STL mesh for point selection, while the bottom panel is config
 the 3D trajectory scatter plot corresponding to the selected point. The method also sets up the
 required VTK renderers, interactor styles, and loads the STL mesh from the provided scene data.</p>
 <section id="id11">
-<h4>UI Components<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<h4>UI Components<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><dl class="simple">
 <dt>QSplitter (Vertical):</dt><dd><ul>
@@ -773,7 +1090,7 @@ required VTK renderers, interactor styles, and loads the STL mesh from the provi
 </ul>
 </section>
 <section id="vtk-setup">
-<h4>VTK Setup<a class="headerlink" href="#vtk-setup" title="Link to this heading">¶</a></h4>
+<h4>VTK Setup<a class="headerlink" href="#vtk-setup" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Renderer for top view (<cite>ren_1</cite>) with background color set</p></li>
 <li><p>Interactor style set to <cite>vtkInteractorStyleImage</cite> for 2D point interaction</p></li>
@@ -792,7 +1109,7 @@ required VTK renderers, interactor styles, and loads the STL mesh from the provi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id12">
-<span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
 <dd><p>Handles left mouse button click event on the 2D STL view.</p>
 <p>This method is triggered when the user clicks on the top VTK viewport displaying
 the 2D projection of the STL mesh. It uses <cite>vtkCellPicker</cite> to convert the screen
@@ -823,7 +1140,7 @@ clicked location on the mesh.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id13">
-<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/point_visualiser.html#PointScatterWidget.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Link to this definition">#</a></dt>
 <dd><p>Converts an STL mesh into a VTK-compatible <cite>vtkPolyData</cite> object.</p>
 <p>This method transforms a NumPy-based STL mesh, typically from <cite>numpy-stl</cite>, into
 VTK’s <cite>vtkPolyData</cite> format. It ensures unique vertex mapping and constructs triangular
@@ -864,13 +1181,13 @@ properly constructed triangle cells suitable for VTK visualization.</p></li>
 
 </section>
 <section id="module-app.widgets.main.video_animation">
-<span id="app-widgets-main-video-animation-module"></span><h2>app.widgets.main.video_animation module<a class="headerlink" href="#module-app.widgets.main.video_animation" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-main-video-animation-module"></span><h2>app.widgets.main.video_animation module<a class="headerlink" href="#module-app.widgets.main.video_animation" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.video_animation.</span></span><span class="sig-name descname"><span class="pre">VideoAnimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.main.video_animation.</span></span><span class="sig-name descname"><span class="pre">VideoAnimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <section id="videoanimation-class">
-<h3>VideoAnimation Class<a class="headerlink" href="#videoanimation-class" title="Link to this heading">¶</a></h3>
+<h3>VideoAnimation Class<a class="headerlink" href="#videoanimation-class" title="Link to this heading">#</a></h3>
 <p>A PyQt5-based widget for interactive video playback and 3D frame rendering using precomputed
 animation data. This class serves as a control center for reviewing and exporting animations
 produced from dynamic scene transformations within the FlapKine environment.</p>
@@ -882,7 +1199,7 @@ produced from dynamic scene transformations within the FlapKine environment.</p>
 - A progress bar to monitor rendering status.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.project_folder">
-<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.project_folder" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.project_folder" title="Link to this definition">#</a></dt>
 <dd><p>Path to the project directory containing configuration and output files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -893,7 +1210,7 @@ produced from dynamic scene transformations within the FlapKine environment.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.scene_data">
-<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.scene_data" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.scene_data" title="Link to this definition">#</a></dt>
 <dd><p>The scene object containing transformation functions (angles, rotation, translation) used
 to generate frame-wise data.</p>
 <dl class="field-list simple">
@@ -905,7 +1222,7 @@ to generate frame-wise data.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.angles">
-<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.angles" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.angles" title="Link to this definition">#</a></dt>
 <dd><p>List of rotation angles associated with the current scene, used during frame rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -916,7 +1233,7 @@ to generate frame-wise data.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.reflect">
-<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.reflect" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.reflect" title="Link to this definition">#</a></dt>
 <dd><p>Boolean flags indicating which axes (XY, YZ, XZ) are to be reflected during rendering,
 derived from config settings.</p>
 <dl class="field-list simple">
@@ -928,7 +1245,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.video_playing">
-<span class="sig-name descname"><span class="pre">video_playing</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.video_playing" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">video_playing</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.video_playing" title="Link to this definition">#</a></dt>
 <dd><p>Internal flag tracking the current playback state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -939,7 +1256,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.primary_color">
-<span class="sig-name descname"><span class="pre">primary_color</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.primary_color" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">primary_color</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.primary_color" title="Link to this definition">#</a></dt>
 <dd><p>Primary color extracted from the application palette, used to style UI icons.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -950,7 +1267,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.video_widget">
-<span class="sig-name descname"><span class="pre">video_widget</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.video_widget" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">video_widget</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.video_widget" title="Link to this definition">#</a></dt>
 <dd><p>Custom widget responsible for loading and displaying the rendered video.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -961,7 +1278,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.playButton">
-<span class="sig-name descname"><span class="pre">playButton</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.playButton" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">playButton</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.playButton" title="Link to this definition">#</a></dt>
 <dd><p>Toggle button to control video playback (play/pause).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -972,7 +1289,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.repeatButton">
-<span class="sig-name descname"><span class="pre">repeatButton</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.repeatButton" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">repeatButton</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.repeatButton" title="Link to this definition">#</a></dt>
 <dd><p>Toggle button to enable or disable repeat mode after video ends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -983,7 +1300,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.positionSlider">
-<span class="sig-name descname"><span class="pre">positionSlider</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.positionSlider" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">positionSlider</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.positionSlider" title="Link to this definition">#</a></dt>
 <dd><p>Slider for seeking through video frames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -994,7 +1311,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.render_button">
-<span class="sig-name descname"><span class="pre">render_button</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.render_button" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">render_button</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.render_button" title="Link to this definition">#</a></dt>
 <dd><p>Button to initiate frame rendering based on scene transformations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1005,7 +1322,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.progress_bar">
-<span class="sig-name descname"><span class="pre">progress_bar</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.progress_bar" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">progress_bar</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.progress_bar" title="Link to this definition">#</a></dt>
 <dd><p>Visual indicator of the frame rendering progress.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1016,7 +1333,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.config">
-<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.config" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.config" title="Link to this definition">#</a></dt>
 <dd><p>Dictionary holding video configuration (e.g., resolution), loaded from config.json.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1027,7 +1344,7 @@ derived from config settings.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.worker">
-<span class="sig-name descname"><span class="pre">worker</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.worker" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">worker</span></span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.worker" title="Link to this definition">#</a></dt>
 <dd><p>Background thread responsible for generating frames during rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1038,103 +1355,103 @@ derived from config settings.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Initializes the video animation widget and sets up the UI, configuration, and media loading.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._loadConfig">
-<span class="sig-name descname"><span class="pre">_loadConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._loadConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._loadConfig" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_loadConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._loadConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._loadConfig" title="Link to this definition">#</a></dt>
 <dd><p>Loads video rendering configuration from the project’s config.json file.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._createWidgets">
-<span class="sig-name descname"><span class="pre">_createWidgets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._createWidgets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._createWidgets" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_createWidgets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._createWidgets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._createWidgets" title="Link to this definition">#</a></dt>
 <dd><p>Creates and configures all internal widgets, including video player, buttons, and sliders.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._createLayout">
-<span class="sig-name descname"><span class="pre">_createLayout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._createLayout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._createLayout" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_createLayout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._createLayout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._createLayout" title="Link to this definition">#</a></dt>
 <dd><p>Arranges the UI components using QVBoxLayout and QHBoxLayouts for control and render sections.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._connectSignals">
-<span class="sig-name descname"><span class="pre">_connectSignals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._connectSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._connectSignals" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_connectSignals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._connectSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._connectSignals" title="Link to this definition">#</a></dt>
 <dd><p>Connects UI signals to their corresponding slot functions for interactive behavior.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._loadMedia">
-<span class="sig-name descname"><span class="pre">_loadMedia</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._loadMedia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._loadMedia" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_loadMedia</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation._loadMedia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._loadMedia" title="Link to this definition">#</a></dt>
 <dd><p>Loads the rendered video from the project directory, if it exists.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation._showError">
-<span class="sig-name descname"><span class="pre">_showError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._showError" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_showError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation._showError" title="Link to this definition">#</a></dt>
 <dd><p>Displays or logs an error when video loading or configuration fails.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.playVideo">
-<span class="sig-name descname"><span class="pre">playVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.playVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.playVideo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">playVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.playVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.playVideo" title="Link to this definition">#</a></dt>
 <dd><p>Toggles between play and pause states for the video.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.repeatVideo">
-<span class="sig-name descname"><span class="pre">repeatVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.repeatVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.repeatVideo" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">repeatVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.repeatVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.repeatVideo" title="Link to this definition">#</a></dt>
 <dd><p>Enables or disables repeat mode and restarts playback if enabled.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.updateDuration">
-<span class="sig-name descname"><span class="pre">updateDuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateDuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updateDuration" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateDuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateDuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updateDuration" title="Link to this definition">#</a></dt>
 <dd><p>Updates the slider’s maximum range based on the video’s total duration.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.updatePosition">
-<span class="sig-name descname"><span class="pre">updatePosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updatePosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updatePosition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updatePosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updatePosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updatePosition" title="Link to this definition">#</a></dt>
 <dd><p>Updates the slider position based on current playback frame.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.setPosition">
-<span class="sig-name descname"><span class="pre">setPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.setPosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.setPosition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.setPosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.setPosition" title="Link to this definition">#</a></dt>
 <dd><p>Sets the video’s current position based on slider interaction.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.updateState">
-<span class="sig-name descname"><span class="pre">updateState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updateState" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.updateState" title="Link to this definition">#</a></dt>
 <dd><p>Reacts to the media player’s state change and auto-repeats video if required.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.update_progress">
-<span class="sig-name descname"><span class="pre">update_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.update_progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.update_progress" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.update_progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.update_progress" title="Link to this definition">#</a></dt>
 <dd><p>Updates the progress bar’s value during frame rendering.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.genframes">
-<span class="sig-name descname"><span class="pre">genframes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.genframes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.genframes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">genframes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.genframes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.genframes" title="Link to this definition">#</a></dt>
 <dd><p>Starts the rendering worker thread to compute and export video frames.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.complete_render">
-<span class="sig-name descname"><span class="pre">complete_render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.complete_render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.complete_render" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">complete_render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.complete_render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.complete_render" title="Link to this definition">#</a></dt>
 <dd><p>Handles cleanup and UI updates after rendering is complete and reloads the new video.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">complete_render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.complete_render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">complete_render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.complete_render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Link to this definition">#</a></dt>
 <dd><p>Finalizes the rendering process and updates the UI.</p>
 <p>Re-enables the render button, displays a confirmation dialog with the output video path,
 and reloads the rendered video into the video player for immediate preview.</p>
@@ -1150,7 +1467,7 @@ and reloads the rendered video into the video player for immediate preview.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id15">
-<span class="sig-name descname"><span class="pre">genframes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.genframes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">genframes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.genframes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Link to this definition">#</a></dt>
 <dd><p>Starts the frame rendering process using a background worker thread.</p>
 <p>Initializes a <cite>Worker</cite> instance with the current scene parameters and begins the rendering task
 asynchronously. Disables the render button during processing and connects progress and completion
@@ -1169,7 +1486,7 @@ signals for real-time UI feedback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id16">
-<span class="sig-name descname"><span class="pre">playVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.playVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">playVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.playVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Link to this definition">#</a></dt>
 <dd><p>Toggles video playback state between play and pause.</p>
 <p>Handles the core play/pause logic based on the internal <cite>video_playing</cite> flag. Updates both the
 media player’s state and the icon displayed on the play button to reflect the current action.</p>
@@ -1189,7 +1506,7 @@ media player’s state and the icon displayed on the play button to reflect the 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id17">
-<span class="sig-name descname"><span class="pre">repeatVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.repeatVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">repeatVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.repeatVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id17" title="Link to this definition">#</a></dt>
 <dd><p>Toggles repeat mode for the video playback.</p>
 <p>Checks the state of the <cite>repeatButton</cite> and updates the repeat icon accordingly. If repeat mode
 is enabled, the video restarts from the beginning and begins playback immediately. If disabled,
@@ -1210,7 +1527,7 @@ it simply reverts the icon to the repeat state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id18">
-<span class="sig-name descname"><span class="pre">setPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.setPosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id18" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.setPosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id18" title="Link to this definition">#</a></dt>
 <dd><p>Sets the media player to the given position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1221,7 +1538,7 @@ it simply reverts the icon to the repeat state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.showAlertDialog">
-<span class="sig-name descname"><span class="pre">showAlertDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.showAlertDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.showAlertDialog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">showAlertDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.showAlertDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.showAlertDialog" title="Link to this definition">#</a></dt>
 <dd><p>Displays an informational alert dialog with the given title and message.</p>
 <p>Presents a modal <cite>QMessageBox</cite> configured to convey general information to the user.
 Commonly used for confirmations, status updates, or non-critical notices.</p>
@@ -1237,7 +1554,7 @@ Commonly used for confirmations, status updates, or non-critical notices.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.main.video_animation.VideoAnimation.showErrorDialog">
-<span class="sig-name descname"><span class="pre">showErrorDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.showErrorDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.showErrorDialog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">showErrorDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.showErrorDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.video_animation.VideoAnimation.showErrorDialog" title="Link to this definition">#</a></dt>
 <dd><p>Displays a critical error dialog with the specified title and message.</p>
 <p>Creates and shows a modal <cite>QMessageBox</cite> configured to indicate an error condition.
 Typically used to alert users when essential files or configurations are missing.</p>
@@ -1253,7 +1570,7 @@ Typically used to alert users when essential files or configurations are missing
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id19">
-<span class="sig-name descname"><span class="pre">updateDuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateDuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id19" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateDuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateDuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id19" title="Link to this definition">#</a></dt>
 <dd><p>Updates the slider range based on video duration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1264,7 +1581,7 @@ Typically used to alert users when essential files or configurations are missing
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id20">
-<span class="sig-name descname"><span class="pre">updatePosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updatePosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id20" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updatePosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updatePosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id20" title="Link to this definition">#</a></dt>
 <dd><p>Updates the slider’s value to match the current playback position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1275,7 +1592,7 @@ Typically used to alert users when essential files or configurations are missing
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id21">
-<span class="sig-name descname"><span class="pre">updateState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id21" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.updateState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id21" title="Link to this definition">#</a></dt>
 <dd><p>Handles media state changes and auto-repeats video if in repeat mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1286,7 +1603,7 @@ Typically used to alert users when essential files or configurations are missing
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id22">
-<span class="sig-name descname"><span class="pre">update_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.update_progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id22" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/video_animation.html#VideoAnimation.update_progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id22" title="Link to this definition">#</a></dt>
 <dd><p>Updates the progress bar with the given value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1300,202 +1617,241 @@ Typically used to alert users when essential files or configurations are missing
 
 </section>
 <section id="module-app.widgets.main">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.widgets.main" title="Link to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.widgets.main" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
-          </div>
-        </div>
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="app.widgets.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">app.widgets package</p>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/flapkine_icon.ico" alt="Logo of FlapKine"/>
-            </a></p>
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">app.widgets.main package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-app.widgets.main.frame_visualiser">app.widgets.main.frame_visualiser module</a><ul>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.scene_data"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.scene_data</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.project_folder"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.project_folder</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.angles"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.angles</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.reflect"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.reflect</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.actor"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.actor</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.body_axes"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.body_axes</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.vtkWidget"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.vtkWidget</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.ren"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.ren</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.iren"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.iren</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.slider</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider_label"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.slider_label</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_button"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_button</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.next_button"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.next_button</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.playing"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.playing</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.init_ui"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.init_ui()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.setup_visualization"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.setup_visualization()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_axes_actor"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_axes_actor()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_body_axes"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_body_axes()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.toggle_play"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.toggle_play()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_frames"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_frames()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.on_slider_value_changed"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.on_slider_value_changed()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
-<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_axes_actor()</span></code></a></li>
-<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_body_axes()</span></code></a></li>
-<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.init_ui()</span></code></a></li>
-<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.on_slider_value_changed()</span></code></a></li>
-<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_frames()</span></code></a></li>
-<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.setup_visualization()</span></code></a></li>
-<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
-<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.toggle_play()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.main.point_visualiser">app.widgets.main.point_visualiser module</a><ul>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.scene_data"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.scene_data</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.splitter"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.splitter</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.toprightgroup"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.toprightgroup</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.bottomrightgroup"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.bottomrightgroup</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.vtk_widget_1</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.vtk_widget_2</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.ren_1</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.ren_2</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.iren_1</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.iren_2</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.interactor_style_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.interactor_style_1</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_marker_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.last_marker_actor</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_outline_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.last_outline_actor</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.scatter_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.scatter_actor</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.__init__"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.init_ui"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.init_ui()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.on_click"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.on_click()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.add_marker_to_vtk"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.add_marker_to_vtk()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.create_3d_scatter_plot"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.create_3d_scatter_plot()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.point_visualiser.PointScatterWidget.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.stl_mesh_to_vtk()</span></code></a></li>
-<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.add_marker_to_vtk()</span></code></a></li>
-<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.create_3d_scatter_plot()</span></code></a></li>
-<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.init_ui()</span></code></a></li>
-<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.on_click()</span></code></a></li>
-<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.stl_mesh_to_vtk()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.main.video_animation">app.widgets.main.video_animation module</a><ul>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation"><code class="docutils literal notranslate"><span class="pre">VideoAnimation</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.project_folder"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.project_folder</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.scene_data"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.scene_data</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.angles"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.angles</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.reflect"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.reflect</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.video_playing"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.video_playing</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.primary_color"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.primary_color</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.video_widget"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.video_widget</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.playButton"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playButton</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.repeatButton"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatButton</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.positionSlider"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.positionSlider</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.render_button"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.render_button</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.progress_bar"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.progress_bar</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.config"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.config</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.worker"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.worker</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.__init__"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._loadConfig"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._loadConfig()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._createWidgets"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._createWidgets()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._createLayout"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._createLayout()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._connectSignals"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._connectSignals()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._loadMedia"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._loadMedia()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation._showError"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._showError()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.playVideo"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playVideo()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.repeatVideo"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatVideo()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.updateDuration"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateDuration()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.updatePosition"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updatePosition()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.setPosition"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.setPosition()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.updateState"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateState()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.update_progress"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.update_progress()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.genframes"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.genframes()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.complete_render"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.complete_render()</span></code></a></li>
-<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.complete_render()</span></code></a></li>
-<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.genframes()</span></code></a></li>
-<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playVideo()</span></code></a></li>
-<li><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatVideo()</span></code></a></li>
-<li><a class="reference internal" href="#id18"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.setPosition()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.showAlertDialog"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.showAlertDialog()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.main.video_animation.VideoAnimation.showErrorDialog"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.showErrorDialog()</span></code></a></li>
-<li><a class="reference internal" href="#id19"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateDuration()</span></code></a></li>
-<li><a class="reference internal" href="#id20"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updatePosition()</span></code></a></li>
-<li><a class="reference internal" href="#id21"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateState()</span></code></a></li>
-<li><a class="reference internal" href="#id22"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.update_progress()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.main">Module contents</a></li>
-</ul>
-</li>
-</ul>
+    </a>
+    <a class="right-next"
+       href="app.widgets.misc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">app.widgets.misc package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="app.widgets.html"
-                          title="previous chapter">app.widgets package</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="app.widgets.misc.html"
-                          title="next chapter">app.widgets.misc package</a></p>
-  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.main.frame_visualiser">app.widgets.main.frame_visualiser module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.scene_data"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.scene_data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.project_folder"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.project_folder</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.angles"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.angles</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.reflect"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.reflect</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.actor"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.actor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.body_axes"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.body_axes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.vtkWidget"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.vtkWidget</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.ren"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.ren</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.iren"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.iren</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.slider</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.slider_label"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.slider_label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_button"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_button</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.next_button"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.next_button</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.playing"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.playing</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.__init__"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.init_ui"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.init_ui()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.setup_visualization"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.setup_visualization()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_axes_actor"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_axes_actor()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.create_body_axes"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_body_axes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.toggle_play"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.toggle_play()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.play_frames"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_frames()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.on_slider_value_changed"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.on_slider_value_changed()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_axes_actor()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_body_axes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.init_ui()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.on_slider_value_changed()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_frames()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.setup_visualization()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.toggle_play()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.main.point_visualiser">app.widgets.main.point_visualiser module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.scene_data"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.scene_data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.splitter"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.splitter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.toprightgroup"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.toprightgroup</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.bottomrightgroup"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.bottomrightgroup</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.vtk_widget_1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.vtk_widget_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.vtk_widget_2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.ren_1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.ren_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.ren_2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.iren_1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.iren_2"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.iren_2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.interactor_style_1"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.interactor_style_1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_marker_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.last_marker_actor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.last_outline_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.last_outline_actor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.scatter_actor"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.scatter_actor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.__init__"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.init_ui"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.init_ui()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.on_click"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.on_click()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.add_marker_to_vtk"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.add_marker_to_vtk()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.create_3d_scatter_plot"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.create_3d_scatter_plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.point_visualiser.PointScatterWidget.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.stl_mesh_to_vtk()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.add_marker_to_vtk()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.create_3d_scatter_plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.init_ui()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.on_click()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">PointScatterWidget.stl_mesh_to_vtk()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.main.video_animation">app.widgets.main.video_animation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation"><code class="docutils literal notranslate"><span class="pre">VideoAnimation</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.project_folder"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.project_folder</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.scene_data"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.scene_data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.angles"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.angles</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.reflect"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.reflect</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.video_playing"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.video_playing</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.primary_color"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.primary_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.video_widget"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.video_widget</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.playButton"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playButton</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.repeatButton"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatButton</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.positionSlider"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.positionSlider</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.render_button"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.render_button</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.progress_bar"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.progress_bar</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.config"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.config</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.worker"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.worker</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.__init__"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._loadConfig"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._loadConfig()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._createWidgets"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._createWidgets()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._createLayout"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._createLayout()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._connectSignals"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._connectSignals()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._loadMedia"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._loadMedia()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation._showError"><code class="docutils literal notranslate"><span class="pre">VideoAnimation._showError()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.playVideo"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playVideo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.repeatVideo"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatVideo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.updateDuration"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateDuration()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.updatePosition"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updatePosition()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.setPosition"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.setPosition()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.updateState"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateState()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.update_progress"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.update_progress()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.genframes"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.genframes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.complete_render"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.complete_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.complete_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.genframes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.playVideo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.repeatVideo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.setPosition()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.showAlertDialog"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.showAlertDialog()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.video_animation.VideoAnimation.showErrorDialog"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.showErrorDialog()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateDuration()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updatePosition()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.updateState()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">VideoAnimation.update_progress()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.main">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
       <li><a href="../../_sources/api_reference/app/app.widgets.main.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kalbhavi Vadhi Raj.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.misc.html" title="app.widgets.misc package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.html" title="app.widgets package"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="app.html" >app package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="app.widgets.html" >app.widgets package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">app.widgets.main package</a></li> 
-      </ul>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Kalbhavi Vadhi Raj.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>

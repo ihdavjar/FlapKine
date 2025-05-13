@@ -1,61 +1,378 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>src.core.transforms package &#8212; FlapKine v0.1.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="../../_static/groundwork.css?v=594d7a89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=c0ad9c74" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
     <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/src/src.core.transforms';</script>
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="src.utils package" href="src.utils.html" />
-    <link rel="prev" title="src.core.inverse_kinematics package" href="src.core.inverse_kinematics.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="src.utils.html" title="src.utils package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="src.core.inverse_kinematics.html" title="src.core.inverse_kinematics package"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="src.core.html" accesskey="U">src.core package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">src.core.transforms package</a></li> 
-      </ul>
-    </div>  
+    <link rel="prev" title="src.core.inverse_kinematics package" href="src.core.inverse_kinematics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../app/app.html">app package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../app/app.core.html">app.core package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../app/app.ui.html">app.ui package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.ui.creators.html">app.ui.creators package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.ui.editor.html">app.ui.editor package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../app/app.widgets.html">app.widgets package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.widgets.main.html">app.widgets.main package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.widgets.misc.html">app.widgets.misc package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="src.html">src package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="src.blender.html">src.blender package</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="src.core.html">src.core package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">src.core.transforms package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="src.html" class="nav-link">src package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="src.core.html" class="nav-link">src.core package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">src.core.transforms package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="src-core-transforms-package">
-<h1>src.core.transforms package<a class="headerlink" href="#src-core-transforms-package" title="Link to this heading">¶</a></h1>
+<h1>src.core.transforms package<a class="headerlink" href="#src-core-transforms-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-src.core.transforms.euler_angles">
-<span id="src-core-transforms-euler-angles-module"></span><h2>src.core.transforms.euler_angles module<a class="headerlink" href="#module-src.core.transforms.euler_angles" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-euler-angles-module"></span><h2>src.core.transforms.euler_angles module<a class="headerlink" href="#module-src.core.transforms.euler_angles" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.Rx">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Rx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Rx" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Rx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Rx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Rx" title="Link to this definition">#</a></dt>
 <dd><p>Theta: angle in radians</p>
 <p>Returns:
 3x3 rotation matrix about x axis</p>
@@ -63,7 +380,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.Ry">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Ry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Ry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Ry" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Ry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Ry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Ry" title="Link to this definition">#</a></dt>
 <dd><p>Theta: angle in radians</p>
 <p>Returns:
 3x3 rotation matrix about y axis</p>
@@ -71,7 +388,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.Rz">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Rz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Rz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Rz" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">Rz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#Rz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.Rz" title="Link to this definition">#</a></dt>
 <dd><p>Theta: angle in radians</p>
 <p>Returns:
 3x3 rotation matrix about z axis</p>
@@ -79,73 +396,73 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_x_y_x">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_y_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_y_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_x" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_y_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_y_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_x_y_z">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_y_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_y_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_z" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_y_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_y_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_z" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_x_z_x">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_z_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_z_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_x" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_z_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_z_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_x_z_y">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_z_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_z_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_y" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_x_z_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_x_z_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_y_x_y">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_y" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_y_x_z">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_x_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_x_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_z" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_x_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_x_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_z" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_y_z_x">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_z_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_z_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_x" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_z_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_z_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_y_z_y">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_z_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_z_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_y" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_y_z_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_y_z_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_z_x_y">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_y" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_z_x_z">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_x_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_x_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_z" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_x_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_x_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_z" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_z_y_x">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_y_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_y_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_x" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_y_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_y_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.euler_angles.rotation_matrix_z_y_z">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_y_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_y_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_z" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.euler_angles.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix_z_y_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/euler_angles.html#rotation_matrix_z_y_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_z" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-src.core.transforms.flexibility">
-<span id="src-core-transforms-flexibility-module"></span><h2>src.core.transforms.flexibility module<a class="headerlink" href="#module-src.core.transforms.flexibility" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-flexibility-module"></span><h2>src.core.transforms.flexibility module<a class="headerlink" href="#module-src.core.transforms.flexibility" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.ConstantF">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">ConstantF</span></span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#ConstantF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.ConstantF" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">ConstantF</span></span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#ConstantF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.ConstantF" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_Transform" title="src.core.transforms.flexibility.Flexibility_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flexibility_Transform</span></code></a></p>
 <section id="constantf-class">
-<h3>ConstantF Class<a class="headerlink" href="#constantf-class" title="Link to this heading">¶</a></h3>
+<h3>ConstantF Class<a class="headerlink" href="#constantf-class" title="Link to this heading">#</a></h3>
 <p>No-operation (identity) flexibility transform.</p>
 <p>This transform returns the input 3D point array unchanged. It can be used in contexts
 where no deformation is required but the pipeline expects a transform instance.</p>
@@ -165,10 +482,10 @@ where no deformation is required but the pipeline expects a transform instance.<
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_Transform">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_Transform" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_Transform" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="flexibility-transform-class">
-<h3>Flexibility_Transform Class<a class="headerlink" href="#flexibility-transform-class" title="Link to this heading">¶</a></h3>
+<h3>Flexibility_Transform Class<a class="headerlink" href="#flexibility-transform-class" title="Link to this heading">#</a></h3>
 <p>Abstract base class for all time-dependent flexibility transforms in the FlapKine framework.</p>
 <p>This class serves as a blueprint for defining spatial deformation transforms that vary
 over time. It enforces implementation of the <cite>__call__</cite> method in subclasses, where the
@@ -190,17 +507,17 @@ Must be implemented by derived classes.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_type1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_type1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_type1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_type1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_Transform" title="src.core.transforms.flexibility.Flexibility_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flexibility_Transform</span></code></a></p>
 <section id="flexibility-type1-class">
-<h3>Flexibility_type1 Class<a class="headerlink" href="#flexibility-type1-class" title="Link to this heading">¶</a></h3>
+<h3>Flexibility_type1 Class<a class="headerlink" href="#flexibility-type1-class" title="Link to this heading">#</a></h3>
 <p>Sinusoidal deformation transform along selectable axes.</p>
 <p>Applies periodic sinusoidal deformations to a 3D point cloud based on time <cite>t</cite> and
 configurable parameters such as axis selection, time period, and waveform shape.
 The deformation magnitude at each point depends on its cross-axes (e.g., YZ affects X).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.x" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.x" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the X-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -211,7 +528,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.y" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the Y-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -222,7 +539,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.z">
-<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.z" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.z" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the Z-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -233,7 +550,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.major_axis">
-<span class="sig-name descname"><span class="pre">major_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.major_axis" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">major_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.major_axis" title="Link to this definition">#</a></dt>
 <dd><p>Controls the primary axis for sinusoidal wave generation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -244,7 +561,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.minor_axis">
-<span class="sig-name descname"><span class="pre">minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.minor_axis" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.minor_axis" title="Link to this definition">#</a></dt>
 <dd><p>Controls the secondary axis used in wave generation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -255,7 +572,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.time_period">
-<span class="sig-name descname"><span class="pre">time_period</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.time_period" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">time_period</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.time_period" title="Link to this definition">#</a></dt>
 <dd><p>Period of the sinusoidal deformation in time steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -266,7 +583,7 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type1.p">
-<span class="sig-name descname"><span class="pre">p</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.p" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">p</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type1.p" title="Link to this definition">#</a></dt>
 <dd><p>Controls the steepness and sharpness of the waveform.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -292,17 +609,17 @@ The deformation magnitude at each point depends on its cross-axes (e.g., YZ affe
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_type2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_type2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.flexibility.</span></span><span class="sig-name descname"><span class="pre">Flexibility_type2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/flexibility.html#Flexibility_type2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_Transform" title="src.core.transforms.flexibility.Flexibility_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flexibility_Transform</span></code></a></p>
 <section id="flexibility-type2-class">
-<h3>Flexibility_type2 Class<a class="headerlink" href="#flexibility-type2-class" title="Link to this heading">¶</a></h3>
+<h3>Flexibility_type2 Class<a class="headerlink" href="#flexibility-type2-class" title="Link to this heading">#</a></h3>
 <p>Empirical deformation transform driven by a time-dependent value array.</p>
 <p>Applies deformative forces to a 3D point cloud based on a user-provided <cite>array_values</cite>,
 which modulates the waveform amplitude over time. Useful for applying non-analytical or
 externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.x" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.x" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the X-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -313,7 +630,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.y" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the Y-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -324,7 +641,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.z">
-<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.z" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.z" title="Link to this definition">#</a></dt>
 <dd><p>Whether to apply deformation along the Z-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -335,7 +652,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.min_minor_axis">
-<span class="sig-name descname"><span class="pre">min_minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.min_minor_axis" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">min_minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.min_minor_axis" title="Link to this definition">#</a></dt>
 <dd><p>Lower bound for the minor axis parameter in waveform generation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -346,7 +663,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.major_axis">
-<span class="sig-name descname"><span class="pre">major_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.major_axis" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">major_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.major_axis" title="Link to this definition">#</a></dt>
 <dd><p>Primary shaping parameter for the sinusoidal wave.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -357,7 +674,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.minor_axis">
-<span class="sig-name descname"><span class="pre">minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.minor_axis" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">minor_axis</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.minor_axis" title="Link to this definition">#</a></dt>
 <dd><p>Secondary shaping parameter for the sinusoidal wave.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -368,7 +685,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.array_values">
-<span class="sig-name descname"><span class="pre">array_values</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.array_values" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">array_values</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.array_values" title="Link to this definition">#</a></dt>
 <dd><p>Time-indexed array containing modulation values for the waveform.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -379,7 +696,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.time_period">
-<span class="sig-name descname"><span class="pre">time_period</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.time_period" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">time_period</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.time_period" title="Link to this definition">#</a></dt>
 <dd><p>Period of the waveform over time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -390,7 +707,7 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.flexibility.Flexibility_type2.p">
-<span class="sig-name descname"><span class="pre">p</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.p" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">p</span></span><a class="headerlink" href="#src.core.transforms.flexibility.Flexibility_type2.p" title="Link to this definition">#</a></dt>
 <dd><p>Shape parameter for the waveform’s slope and intensity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -416,10 +733,10 @@ externally generated flexibility profiles (e.g., sensor or simulation data).</p>
 
 </section>
 <section id="module-src.core.transforms.functional_flexibility">
-<span id="src-core-transforms-functional-flexibility-module"></span><h2>src.core.transforms.functional_flexibility module<a class="headerlink" href="#module-src.core.transforms.functional_flexibility" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-functional-flexibility-module"></span><h2>src.core.transforms.functional_flexibility module<a class="headerlink" href="#module-src.core.transforms.functional_flexibility" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.functional_flexibility.functional_Flexibility_type1">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.functional_flexibility.</span></span><span class="sig-name descname"><span class="pre">functional_Flexibility_type1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/functional_flexibility.html#functional_Flexibility_type1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type1" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.functional_flexibility.</span></span><span class="sig-name descname"><span class="pre">functional_Flexibility_type1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/functional_flexibility.html#functional_Flexibility_type1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type1" title="Link to this definition">#</a></dt>
 <dd><p>Computes the Z-axis displacement of a point on a flexible surface using an elliptical deformation model.</p>
 <p>This function models the time-dependent vertical displacement <cite>Z_M_x_y_t</cite> of a surface
 (e.g., a flexible wing or membrane) based on its spatial coordinates <cite>(x, y)</cite>, time <cite>t</cite>,
@@ -449,7 +766,7 @@ across the surface span.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.functional_flexibility.functional_Flexibility_type2">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.functional_flexibility.</span></span><span class="sig-name descname"><span class="pre">functional_Flexibility_type2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z_M_x_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/functional_flexibility.html#functional_Flexibility_type2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type2" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.functional_flexibility.</span></span><span class="sig-name descname"><span class="pre">functional_Flexibility_type2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z_M_x_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minor_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/functional_flexibility.html#functional_Flexibility_type2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type2" title="Link to this definition">#</a></dt>
 <dd><p>Computes the Z-axis displacement of a point using a modified elliptical deformation model (Type 2).</p>
 <p>This function calculates the vertical displacement <cite>Z_M_x_y_t</cite> for a point on a flexible structure
 (such as a deformable wing) based on its spatial location <cite>(x, y)</cite>, a minimum Y reference (<cite>y_min</cite>),
@@ -479,13 +796,13 @@ for span-wise locations below a threshold defined by the parameter <cite>p</cite
 
 </section>
 <section id="module-src.core.transforms.rotation">
-<span id="src-core-transforms-rotation-module"></span><h2>src.core.transforms.rotation module<a class="headerlink" href="#module-src.core.transforms.rotation" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-rotation-module"></span><h2>src.core.transforms.rotation module<a class="headerlink" href="#module-src.core.transforms.rotation" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.rotation.ConstantR">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">ConstantR</span></span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#ConstantR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.ConstantR" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">ConstantR</span></span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#ConstantR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.ConstantR" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.rotation.Rotation_Transform" title="src.core.transforms.rotation.Rotation_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rotation_Transform</span></code></a></p>
 <section id="constantr-class">
-<h3>ConstantR Class<a class="headerlink" href="#constantr-class" title="Link to this heading">¶</a></h3>
+<h3>ConstantR Class<a class="headerlink" href="#constantr-class" title="Link to this heading">#</a></h3>
 <p>A subclass of <cite>Rotation_Transform</cite> that performs no rotation on the input data.</p>
 <p>This transform simply returns the input data without any modifications,
 effectively serving as a placeholder for situations where no rotation is desired.</p>
@@ -500,17 +817,17 @@ effectively serving as a placeholder for situations where no rotation is desired
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.rotation.Rotation_EulerAngles">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">Rotation_EulerAngles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#Rotation_EulerAngles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.Rotation_EulerAngles" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">Rotation_EulerAngles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#Rotation_EulerAngles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.Rotation_EulerAngles" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.rotation.Rotation_Transform" title="src.core.transforms.rotation.Rotation_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rotation_Transform</span></code></a></p>
 <section id="rotation-eulerangles-class">
-<h3>Rotation_EulerAngles Class<a class="headerlink" href="#rotation-eulerangles-class" title="Link to this heading">¶</a></h3>
+<h3>Rotation_EulerAngles Class<a class="headerlink" href="#rotation-eulerangles-class" title="Link to this heading">#</a></h3>
 <p>A subclass of <cite>Rotation_Transform</cite> that applies a rotation to input data using Euler angles.</p>
 <p>This transform performs a rotation on the input data based on the specified Euler angle sequence.
 The available rotation sequences are Proper Euler angles (e.g., ‘ZXZ’, ‘XYX’, ‘ZYZ’) and Tait-Bryan angles
 (e.g., ‘ZYX’, ‘YXZ’). The rotation is achieved by multiplying the input data by the corresponding rotation matrix.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.transforms.rotation.Rotation_EulerAngles.type">
-<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#src.core.transforms.rotation.Rotation_EulerAngles.type" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#src.core.transforms.rotation.Rotation_EulerAngles.type" title="Link to this definition">#</a></dt>
 <dd><p>The type of Euler angle rotation, such as ‘ZXZ’, ‘XYX’, ‘ZYZ’, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -536,10 +853,10 @@ The available rotation sequences are Proper Euler angles (e.g., ‘ZXZ’, ‘XY
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.rotation.Rotation_Transform">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">Rotation_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#Rotation_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.Rotation_Transform" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.rotation.</span></span><span class="sig-name descname"><span class="pre">Rotation_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/rotation.html#Rotation_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.rotation.Rotation_Transform" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="rotation-transform-class">
-<h3>Rotation_Transform Class<a class="headerlink" href="#rotation-transform-class" title="Link to this heading">¶</a></h3>
+<h3>Rotation_Transform Class<a class="headerlink" href="#rotation-transform-class" title="Link to this heading">#</a></h3>
 <p>Base class for rotational transformations.</p>
 <p>This class serves as an abstract base for all rotational transformations.
 Any subclass must implement the <cite>__call__</cite> method to apply a specific
@@ -556,13 +873,13 @@ This method must be implemented by subclasses.</p>
 
 </section>
 <section id="module-src.core.transforms.translation">
-<span id="src-core-transforms-translation-module"></span><h2>src.core.transforms.translation module<a class="headerlink" href="#module-src.core.transforms.translation" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-translation-module"></span><h2>src.core.transforms.translation module<a class="headerlink" href="#module-src.core.transforms.translation" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.translation.ConstantT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">ConstantT</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#ConstantT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.ConstantT" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">ConstantT</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#ConstantT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.ConstantT" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.translation.Translation_Transform" title="src.core.transforms.translation.Translation_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Translation_Transform</span></code></a></p>
 <section id="constantt-class">
-<h3>ConstantT Class<a class="headerlink" href="#constantt-class" title="Link to this heading">¶</a></h3>
+<h3>ConstantT Class<a class="headerlink" href="#constantt-class" title="Link to this heading">#</a></h3>
 <p>A translation transform that applies no translation to the input data.</p>
 <p>This class overrides the <cite>__call__</cite> method of the <cite>Translation_Transform</cite> base class
 and simply returns the input data unchanged, effectively performing no translation.
@@ -579,10 +896,10 @@ translation might be conditionally applied.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.translation.Translation_COM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">Translation_COM</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#Translation_COM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.Translation_COM" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">Translation_COM</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#Translation_COM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.Translation_COM" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.core.transforms.translation.Translation_Transform" title="src.core.transforms.translation.Translation_Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Translation_Transform</span></code></a></p>
 <section id="translation-com-class">
-<h3>Translation_COM Class<a class="headerlink" href="#translation-com-class" title="Link to this heading">¶</a></h3>
+<h3>Translation_COM Class<a class="headerlink" href="#translation-com-class" title="Link to this heading">#</a></h3>
 <p>A translation transform that applies a constant translation to the input data based on
 a specified position vector.</p>
 <p>This class implements the <cite>__call__</cite> method of the <cite>Translation_Transform</cite> base class
@@ -600,10 +917,10 @@ specified vector.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.transforms.translation.Translation_Transform">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">Translation_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#Translation_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.Translation_Transform" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.transforms.translation.</span></span><span class="sig-name descname"><span class="pre">Translation_Transform</span></span><a class="reference internal" href="../../_modules/src/core/transforms/translation.html#Translation_Transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.translation.Translation_Transform" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="translation-transform-class">
-<h3>Translation_Transform Class<a class="headerlink" href="#translation-transform-class" title="Link to this heading">¶</a></h3>
+<h3>Translation_Transform Class<a class="headerlink" href="#translation-transform-class" title="Link to this heading">#</a></h3>
 <p>Abstract base class for translation transformations.</p>
 <p>This class serves as a base for all translation transformations, requiring subclasses
 to implement the <cite>__call__</cite> method to perform the translation operation. The translation
@@ -620,10 +937,10 @@ Must be implemented by subclasses.</p>
 
 </section>
 <section id="module-src.core.transforms.vtk_transform">
-<span id="src-core-transforms-vtk-transform-module"></span><h2>src.core.transforms.vtk_transform module<a class="headerlink" href="#module-src.core.transforms.vtk_transform" title="Link to this heading">¶</a></h2>
+<span id="src-core-transforms-vtk-transform-module"></span><h2>src.core.transforms.vtk_transform module<a class="headerlink" href="#module-src.core.transforms.vtk_transform" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.transforms.vtk_transform.vtk_rotation">
-<span class="sig-prename descclassname"><span class="pre">src.core.transforms.vtk_transform.</span></span><span class="sig-name descname"><span class="pre">vtk_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">vtkTransform</span></span></span><a class="reference internal" href="../../_modules/src/core/transforms/vtk_transform.html#vtk_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.vtk_transform.vtk_rotation" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.core.transforms.vtk_transform.</span></span><span class="sig-name descname"><span class="pre">vtk_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">vtkTransform</span></span></span><a class="reference internal" href="../../_modules/src/core/transforms/vtk_transform.html#vtk_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.transforms.vtk_transform.vtk_rotation" title="Link to this definition">#</a></dt>
 <dd><p>Returns a vtkTransform object that applies the specified rotation sequence based on the given rotation type and angles.</p>
 <p>This function supports different types of Euler angle rotations (ZXZ, XYX, YZY, etc.) and returns the corresponding
 vtkTransform object that applies the specified sequence of rotations. The angles are provided in radians and are
@@ -654,156 +971,195 @@ The transformations are concatenated in the specified order, resulting in a sing
 
 </section>
 <section id="module-src.core.transforms">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.core.transforms" title="Link to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.core.transforms" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
-          </div>
-        </div>
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="src.core.inverse_kinematics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">src.core.inverse_kinematics package</p>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/flapkine_icon.ico" alt="Logo of FlapKine"/>
-            </a></p>
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">src.core.transforms package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.core.transforms.euler_angles">src.core.transforms.euler_angles module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.Rx"><code class="docutils literal notranslate"><span class="pre">Rx()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.Ry"><code class="docutils literal notranslate"><span class="pre">Ry()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.Rz"><code class="docutils literal notranslate"><span class="pre">Rz()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_y_x()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_y_z()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_z_x()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_z_y()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_x_y()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_x_z()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_z_x()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_z_y()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_x_y()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_x_z()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_y_x()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_y_z()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms.flexibility">src.core.transforms.flexibility module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.ConstantF"><code class="docutils literal notranslate"><span class="pre">ConstantF</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_Transform"><code class="docutils literal notranslate"><span class="pre">Flexibility_Transform</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.x"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.x</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.y"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.y</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.z"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.z</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.major_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.major_axis</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.minor_axis</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.time_period"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.time_period</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type1.p"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.p</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.x"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.x</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.y"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.y</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.z"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.z</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.min_minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.min_minor_axis</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.major_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.major_axis</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.minor_axis</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.array_values"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.array_values</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.time_period"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.time_period</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.flexibility.Flexibility_type2.p"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.p</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms.functional_flexibility">src.core.transforms.functional_flexibility module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type1"><code class="docutils literal notranslate"><span class="pre">functional_Flexibility_type1()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type2"><code class="docutils literal notranslate"><span class="pre">functional_Flexibility_type2()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms.rotation">src.core.transforms.rotation module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.rotation.ConstantR"><code class="docutils literal notranslate"><span class="pre">ConstantR</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.rotation.Rotation_EulerAngles"><code class="docutils literal notranslate"><span class="pre">Rotation_EulerAngles</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.transforms.rotation.Rotation_EulerAngles.type"><code class="docutils literal notranslate"><span class="pre">Rotation_EulerAngles.type</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#src.core.transforms.rotation.Rotation_Transform"><code class="docutils literal notranslate"><span class="pre">Rotation_Transform</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms.translation">src.core.transforms.translation module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.translation.ConstantT"><code class="docutils literal notranslate"><span class="pre">ConstantT</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.translation.Translation_COM"><code class="docutils literal notranslate"><span class="pre">Translation_COM</span></code></a></li>
-<li><a class="reference internal" href="#src.core.transforms.translation.Translation_Transform"><code class="docutils literal notranslate"><span class="pre">Translation_Transform</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms.vtk_transform">src.core.transforms.vtk_transform module</a><ul>
-<li><a class="reference internal" href="#src.core.transforms.vtk_transform.vtk_rotation"><code class="docutils literal notranslate"><span class="pre">vtk_rotation()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core.transforms">Module contents</a></li>
-</ul>
-</li>
-</ul>
+    </a>
+    <a class="right-next"
+       href="src.utils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">src.utils package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="src.core.inverse_kinematics.html"
-                          title="previous chapter">src.core.inverse_kinematics package</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="src.utils.html"
-                          title="next chapter">src.utils package</a></p>
-  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.euler_angles">src.core.transforms.euler_angles module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.Rx"><code class="docutils literal notranslate"><span class="pre">Rx()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.Ry"><code class="docutils literal notranslate"><span class="pre">Ry()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.Rz"><code class="docutils literal notranslate"><span class="pre">Rz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_y_x()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_x_y_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_y_z()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_z_x()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_x_z_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_x_z_y()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_x_y()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_y_x_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_x_z()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_z_x()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_y_z_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_y_z_y()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_y"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_x_y()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_z_x_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_x_z()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_x"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_y_x()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.euler_angles.rotation_matrix_z_y_z"><code class="docutils literal notranslate"><span class="pre">rotation_matrix_z_y_z()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.flexibility">src.core.transforms.flexibility module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.ConstantF"><code class="docutils literal notranslate"><span class="pre">ConstantF</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_Transform"><code class="docutils literal notranslate"><span class="pre">Flexibility_Transform</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.x"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.y"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.y</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.z"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.z</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.major_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.major_axis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.minor_axis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.time_period"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.time_period</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type1.p"><code class="docutils literal notranslate"><span class="pre">Flexibility_type1.p</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.x"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.y"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.y</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.z"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.z</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.min_minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.min_minor_axis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.major_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.major_axis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.minor_axis"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.minor_axis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.array_values"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.array_values</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.time_period"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.time_period</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.flexibility.Flexibility_type2.p"><code class="docutils literal notranslate"><span class="pre">Flexibility_type2.p</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.functional_flexibility">src.core.transforms.functional_flexibility module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type1"><code class="docutils literal notranslate"><span class="pre">functional_Flexibility_type1()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.functional_flexibility.functional_Flexibility_type2"><code class="docutils literal notranslate"><span class="pre">functional_Flexibility_type2()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.rotation">src.core.transforms.rotation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.rotation.ConstantR"><code class="docutils literal notranslate"><span class="pre">ConstantR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.rotation.Rotation_EulerAngles"><code class="docutils literal notranslate"><span class="pre">Rotation_EulerAngles</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.rotation.Rotation_EulerAngles.type"><code class="docutils literal notranslate"><span class="pre">Rotation_EulerAngles.type</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.rotation.Rotation_Transform"><code class="docutils literal notranslate"><span class="pre">Rotation_Transform</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.translation">src.core.transforms.translation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.translation.ConstantT"><code class="docutils literal notranslate"><span class="pre">ConstantT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.translation.Translation_COM"><code class="docutils literal notranslate"><span class="pre">Translation_COM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.translation.Translation_Transform"><code class="docutils literal notranslate"><span class="pre">Translation_Transform</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms.vtk_transform">src.core.transforms.vtk_transform module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.transforms.vtk_transform.vtk_rotation"><code class="docutils literal notranslate"><span class="pre">vtk_rotation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.transforms">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
       <li><a href="../../_sources/api_reference/src/src.core.transforms.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kalbhavi Vadhi Raj.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="src.utils.html" title="src.utils package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="src.core.inverse_kinematics.html" title="src.core.inverse_kinematics package"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="src.core.html" >src.core package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">src.core.transforms package</a></li> 
-      </ul>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Kalbhavi Vadhi Raj.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>

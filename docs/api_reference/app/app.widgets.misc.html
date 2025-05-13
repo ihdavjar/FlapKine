@@ -1,65 +1,382 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>app.widgets.misc package &#8212; FlapKine v0.1.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="../../_static/groundwork.css?v=594d7a89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=c0ad9c74" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
     <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.widgets.misc';</script>
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="src package" href="../src/src.html" />
-    <link rel="prev" title="app.widgets.main package" href="app.widgets.main.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../src/src.html" title="src package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.main.html" title="app.widgets.main package"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="app.html" >app package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="app.widgets.html" accesskey="U">app.widgets package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">app.widgets.misc package</a></li> 
-      </ul>
-    </div>  
+    <link rel="prev" title="app.widgets.main package" href="app.widgets.main.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="app.html">app package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.core.html">app.core package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="app.ui.html">app.ui package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.ui.creators.html">app.ui.creators package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.ui.editor.html">app.ui.editor package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="app.widgets.html">app.widgets package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.widgets.main.html">app.widgets.main package</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">app.widgets.misc package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../src/src.html">src package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/src.blender.html">src.blender package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../src/src.core.html">src.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/src.core.transforms.html">src.core.transforms package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/src.utils.html">src.utils package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="app.html" class="nav-link">app package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="app.widgets.html" class="nav-link">app.widgets package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">app.widgets.misc package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="app-widgets-misc-package">
-<h1>app.widgets.misc package<a class="headerlink" href="#app-widgets-misc-package" title="Link to this heading">¶</a></h1>
+<h1>app.widgets.misc package<a class="headerlink" href="#app-widgets-misc-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-app.widgets.misc.menu_bar">
-<span id="app-widgets-misc-menu-bar-module"></span><h2>app.widgets.misc.menu_bar module<a class="headerlink" href="#module-app.widgets.misc.menu_bar" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-misc-menu-bar-module"></span><h2>app.widgets.misc.menu_bar module<a class="headerlink" href="#module-app.widgets.misc.menu_bar" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.menu_bar.MenuBar">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.menu_bar.</span></span><span class="sig-name descname"><span class="pre">MenuBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/menu_bar.html#MenuBar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.menu_bar.MenuBar" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.menu_bar.</span></span><span class="sig-name descname"><span class="pre">MenuBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/menu_bar.html#MenuBar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.menu_bar.MenuBar" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMenuBar</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.menu_bar.MenuBar.connect_actions">
-<span class="sig-name descname"><span class="pre">connect_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handlers</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals.None" title="app.widgets.misc.render_worker.RenderSignals.None"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/widgets/misc/menu_bar.html#MenuBar.connect_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.menu_bar.MenuBar.connect_actions" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">connect_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handlers</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals.None" title="app.widgets.misc.render_worker.RenderSignals.None"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/widgets/misc/menu_bar.html#MenuBar.connect_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.menu_bar.MenuBar.connect_actions" title="Link to this definition">#</a></dt>
 <dd><p>Connects menu actions to their corresponding handler functions.</p>
 <p>Iterates through a predefined set of menu actions and links them to the corresponding
 handler functions provided in the <cite>handlers</cite> dictionary. Each action is enabled if a
@@ -104,13 +421,13 @@ to their corresponding function references.</p>
 
 </section>
 <section id="module-app.widgets.misc.render_config_edit">
-<span id="app-widgets-misc-render-config-edit-module"></span><h2>app.widgets.misc.render_config_edit module<a class="headerlink" href="#module-app.widgets.misc.render_config_edit" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-misc-render-config-edit-module"></span><h2>app.widgets.misc.render_config_edit module<a class="headerlink" href="#module-app.widgets.misc.render_config_edit" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_config_edit.</span></span><span class="sig-name descname"><span class="pre">RenderConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_config_edit.</span></span><span class="sig-name descname"><span class="pre">RenderConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <section id="renderconfig-class">
-<h3>RenderConfig Class<a class="headerlink" href="#renderconfig-class" title="Link to this heading">¶</a></h3>
+<h3>RenderConfig Class<a class="headerlink" href="#renderconfig-class" title="Link to this heading">#</a></h3>
 <p>Main configuration panel for render settings in the FlapKine application.</p>
 <p>This class provides a GUI window that allows users to configure video rendering,
 camera parameters, lighting settings, STL export, and axis reflection for a 3D
@@ -118,7 +435,7 @@ rendering pipeline. The settings are loaded from and saved to a <cite>config.jso
 within the specified project folder.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.project_folder">
-<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.project_folder" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.project_folder" title="Link to this definition">#</a></dt>
 <dd><p>Path to the folder containing the configuration file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -129,7 +446,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.frame_format">
-<span class="sig-name descname"><span class="pre">frame_format</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.frame_format" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">frame_format</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.frame_format" title="Link to this definition">#</a></dt>
 <dd><p>Dropdown for selecting the frame image format (e.g., PNG, JPEG, TIFF).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -140,7 +457,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.resolution_x">
-<span class="sig-name descname"><span class="pre">resolution_x</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_x" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">resolution_x</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_x" title="Link to this definition">#</a></dt>
 <dd><p>Spin box to specify horizontal resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -151,7 +468,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.resolution_y">
-<span class="sig-name descname"><span class="pre">resolution_y</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">resolution_y</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_y" title="Link to this definition">#</a></dt>
 <dd><p>Spin box to specify vertical resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -195,7 +512,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.light_power">
-<span class="sig-name descname"><span class="pre">light_power</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.light_power" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">light_power</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.light_power" title="Link to this definition">#</a></dt>
 <dd><p>Spin box to control light energy (intensity).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -206,7 +523,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.stl_enable">
-<span class="sig-name descname"><span class="pre">stl_enable</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.stl_enable" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_enable</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.stl_enable" title="Link to this definition">#</a></dt>
 <dd><p>Checkbox to toggle STL mesh saving.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -228,7 +545,7 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.ok_button">
-<span class="sig-name descname"><span class="pre">ok_button</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.ok_button" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ok_button</span></span><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.ok_button" title="Link to this definition">#</a></dt>
 <dd><p>Button to save the current configuration and close the window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -317,21 +634,21 @@ within the specified project folder.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.center">
-<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.center" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.center" title="Link to this definition">#</a></dt>
 <dd><p>Centers the application window on the screen.</p>
 <p>Calculates screen and window dimensions, then moves the window to the center position.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.initUI">
-<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.initUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.initUI" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.initUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.initUI" title="Link to this definition">#</a></dt>
 <dd><p>Initialize and configure the user interface components of the render configuration panel.</p>
 <p>This method sets up the main window layout and populates it with grouped sections for
 configuring video, camera, and lighting settings. It also adds additional controls such as
 STL export toggle and axis reflection options. A confirmation button is included to save
 and apply the chosen configuration settings.</p>
 <section id="ui-components-initialized">
-<h4>UI Components Initialized<a class="headerlink" href="#ui-components-initialized" title="Link to this heading">¶</a></h4>
+<h4>UI Components Initialized<a class="headerlink" href="#ui-components-initialized" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Video settings group</p></li>
 <li><p>Camera settings group</p></li>
@@ -345,7 +662,7 @@ and apply the chosen configuration settings.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.process_default_config">
-<span class="sig-name descname"><span class="pre">process_default_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.process_default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.process_default_config" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">process_default_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.process_default_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.process_default_config" title="Link to this definition">#</a></dt>
 <dd><p>Load and apply default configuration values from the project directory.</p>
 <p>This method reads a <cite>config.json</cite> file from the project folder and populates
 all render configuration widgets with the corresponding values, including
@@ -373,7 +690,7 @@ and reflection axis toggles.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.save_config">
-<span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.save_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.save_config" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.save_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.save_config" title="Link to this definition">#</a></dt>
 <dd><p>Collect and save the current render configuration to <cite>config.json</cite>.</p>
 <p>This method gathers all UI state values (video format, resolution, camera parameters,
 lighting setup, STL export preference, and reflection axis) and serializes them into
@@ -414,7 +731,7 @@ a dictionary. The config is then saved as a JSON file in the project directory u
 </dd>
 </dl>
 <section id="side-effects">
-<h4>Side Effects<a class="headerlink" href="#side-effects" title="Link to this heading">¶</a></h4>
+<h4>Side Effects<a class="headerlink" href="#side-effects" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Overwrites the <cite>config.json</cite> file in the project folder.</p></li>
 <li><p>Closes the configuration window after saving.</p></li>
@@ -424,7 +741,7 @@ a dictionary. The config is then saved as a JSON file in the project directory u
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes">
-<span class="sig-name descname"><span class="pre">toggle_checkboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked_box</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.toggle_checkboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toggle_checkboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked_box</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_config_edit.html#RenderConfig.toggle_checkboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes" title="Link to this definition">#</a></dt>
 <dd><p>Enforce mutual exclusivity among axis reflection checkboxes.</p>
 <p>Ensures that only one of the reflection axis checkboxes (XY, YZ, XZ) can be active at a time.
 When a checkbox is toggled on, all others are programmatically toggled off.</p>
@@ -452,19 +769,19 @@ When a checkbox is toggled on, all others are programmatically toggled off.</p>
 
 </section>
 <section id="module-app.widgets.misc.render_worker">
-<span id="app-widgets-misc-render-worker-module"></span><h2>app.widgets.misc.render_worker module<a class="headerlink" href="#module-app.widgets.misc.render_worker" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-misc-render-worker-module"></span><h2>app.widgets.misc.render_worker module<a class="headerlink" href="#module-app.widgets.misc.render_worker" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.RenderSignals">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_worker.</span></span><span class="sig-name descname"><span class="pre">RenderSignals</span></span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#RenderSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_worker.</span></span><span class="sig-name descname"><span class="pre">RenderSignals</span></span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#RenderSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <section id="rendersignals-class">
-<h3>RenderSignals Class<a class="headerlink" href="#rendersignals-class" title="Link to this heading">¶</a></h3>
+<h3>RenderSignals Class<a class="headerlink" href="#rendersignals-class" title="Link to this heading">#</a></h3>
 <p>Defines custom signals for tracking the progress and completion status of the rendering process
 in the FlapKine application. This class is used to communicate between the rendering worker thread
 and the main GUI, allowing for real-time updates on rendering progress and notification upon completion.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.RenderSignals.progress_signal">
-<span class="sig-name descname"><span class="pre">progress_signal</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.progress_signal" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">progress_signal</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.progress_signal" title="Link to this definition">#</a></dt>
 <dd><p>Signal emitted periodically during rendering to indicate the progress percentage (0.0 to 100.0).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -475,7 +792,7 @@ and the main GUI, allowing for real-time updates on rendering progress and notif
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.RenderSignals.finished">
-<span class="sig-name descname"><span class="pre">finished</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.finished" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">finished</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.finished" title="Link to this definition">#</a></dt>
 <dd><p>Signal emitted once the rendering task is fully completed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -486,13 +803,13 @@ and the main GUI, allowing for real-time updates on rendering progress and notif
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.RenderSignals.None">
-<span class="sig-name descname"><span class="pre">None</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.None" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">None</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.widgets.misc.render_worker.RenderSignals.None" title="Link to this definition">#</a></dt>
 <dd><p>This class only defines signals and does not implement any methods.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">finished</span></span><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">finished</span></span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
 <dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
 <p>types is normally a sequence of individual types.  Each type is either a
 type object or a string that is the name of a C++ type.  Alternatively
@@ -515,7 +832,7 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">progress_signal</span></span><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">progress_signal</span></span><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
 <dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
 <p>types is normally a sequence of individual types.  Each type is either a
 type object or a string that is the name of a C++ type.  Alternatively
@@ -541,17 +858,17 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_worker.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.render_worker.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QRunnable</span></code></p>
 <section id="worker-class">
-<h3>Worker Class<a class="headerlink" href="#worker-class" title="Link to this heading">¶</a></h3>
+<h3>Worker Class<a class="headerlink" href="#worker-class" title="Link to this heading">#</a></h3>
 <p>High-performance <cite>QRunnable</cite> designed to handle offscreen VTK rendering and real-time video encoding
 for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames
 to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering
 pipeline integration with PyQt5’s multithreading model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.project_folder">
-<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.project_folder" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">project_folder</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.project_folder" title="Link to this definition">#</a></dt>
 <dd><p>Path to the project directory containing configuration and data folders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -562,7 +879,7 @@ pipeline integration with PyQt5’s multithreading model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.angles">
-<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.angles" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.angles" title="Link to this definition">#</a></dt>
 <dd><p>List of angles (typically camera azimuth or rotation values) used to render frames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -573,7 +890,7 @@ pipeline integration with PyQt5’s multithreading model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.scene_data">
-<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.scene_data" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scene_data</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.scene_data" title="Link to this definition">#</a></dt>
 <dd><p>Scene object responsible for generating STL meshes for each frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -584,7 +901,7 @@ pipeline integration with PyQt5’s multithreading model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.reflect">
-<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.reflect" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reflect</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.reflect" title="Link to this definition">#</a></dt>
 <dd><p>A 3-element tuple indicating whether to reflect the STL mesh along the XY, YZ, and XZ planes respectively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -595,7 +912,7 @@ pipeline integration with PyQt5’s multithreading model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.signals">
-<span class="sig-name descname"><span class="pre">signals</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.signals" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">signals</span></span><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.signals" title="Link to this definition">#</a></dt>
 <dd><p>Custom signal object to emit rendering progress and completion signals.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -625,7 +942,7 @@ each rendered frame to a video file using OpenCV. Emits progress and completion 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.run" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.run" title="Link to this definition">#</a></dt>
 <dd><p>Executes the background rendering and encoding process.</p>
 <p>This method is invoked when the <cite>Worker</cite> QRunnable is started via a thread pool.
 It performs offscreen rendering of a 3D scene using VTK, generates STL meshes
@@ -662,7 +979,7 @@ It also optionally exports STL files and emits real-time progress updates throug
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk">
-<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk" title="Link to this definition">#</a></dt>
 <dd><p>Converts a mesh object to <cite>vtkPolyData</cite> for rendering in VTK.</p>
 <p>This method performs a memory-efficient STL conversion by flattening and deduplicating
 vertex data using NumPy. The resulting unique vertex list and associated triangle indices
@@ -685,19 +1002,19 @@ are used to construct a <cite>vtkPolyData</cite> object, which is compatible wit
 
 </section>
 <section id="module-app.widgets.misc.video_player">
-<span id="app-widgets-misc-video-player-module"></span><h2>app.widgets.misc.video_player module<a class="headerlink" href="#module-app.widgets.misc.video_player" title="Link to this heading">¶</a></h2>
+<span id="app-widgets-misc-video-player-module"></span><h2>app.widgets.misc.video_player module<a class="headerlink" href="#module-app.widgets.misc.video_player" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.video_player.</span></span><span class="sig-name descname"><span class="pre">VideoPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">640</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">480</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.video_player.</span></span><span class="sig-name descname"><span class="pre">VideoPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">640</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">480</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <section id="videoplayer-class">
-<h3>VideoPlayer Class<a class="headerlink" href="#videoplayer-class" title="Link to this heading">¶</a></h3>
+<h3>VideoPlayer Class<a class="headerlink" href="#videoplayer-class" title="Link to this heading">#</a></h3>
 <p>A lightweight QWidget-based video player for embedding video playback within PyQt5 GUIs.</p>
 <p>This player uses <cite>QMediaPlayer</cite> and <cite>QVideoWidget</cite> to load and display local video files
 with support for resizing and basic control operations like pause/play.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer.video_widget">
-<span class="sig-name descname"><span class="pre">video_widget</span></span><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.video_widget" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">video_widget</span></span><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.video_widget" title="Link to this definition">#</a></dt>
 <dd><p>Widget used to render video content within the layout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -708,7 +1025,7 @@ with support for resizing and basic control operations like pause/play.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer.media_player">
-<span class="sig-name descname"><span class="pre">media_player</span></span><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.media_player" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">media_player</span></span><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.media_player" title="Link to this definition">#</a></dt>
 <dd><p>Media player responsible for managing video playback and rendering to <cite>video_widget</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -737,7 +1054,7 @@ with support for resizing and basic control operations like pause/play.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer.resizeEvent">
-<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent" title="Link to this definition">#</a></dt>
 <dd><p>Resizes the video widget to fit the available window space.</p>
 <p>Ensures that the embedded video stretches appropriately while maintaining layout behavior.</p>
 <dl class="field-list simple">
@@ -749,7 +1066,7 @@ with support for resizing and basic control operations like pause/play.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer.setMedia">
-<span class="sig-name descname"><span class="pre">setMedia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer.setMedia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.setMedia" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setMedia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer.setMedia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.setMedia" title="Link to this definition">#</a></dt>
 <dd><p>Loads and prepares a video file for playback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -767,143 +1084,182 @@ with support for resizing and basic control operations like pause/play.</p>
 
 </section>
 <section id="module-app.widgets.misc">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.widgets.misc" title="Link to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.widgets.misc" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
-          </div>
-        </div>
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="app.widgets.main.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">app.widgets.main package</p>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/flapkine_icon.ico" alt="Logo of FlapKine"/>
-            </a></p>
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">app.widgets.misc package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-app.widgets.misc.menu_bar">app.widgets.misc.menu_bar module</a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.menu_bar.MenuBar"><code class="docutils literal notranslate"><span class="pre">MenuBar</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.menu_bar.MenuBar.connect_actions"><code class="docutils literal notranslate"><span class="pre">MenuBar.connect_actions()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.misc.render_config_edit">app.widgets.misc.render_config_edit module</a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig"><code class="docutils literal notranslate"><span class="pre">RenderConfig</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.project_folder"><code class="docutils literal notranslate"><span class="pre">RenderConfig.project_folder</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.frame_format"><code class="docutils literal notranslate"><span class="pre">RenderConfig.frame_format</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_x"><code class="docutils literal notranslate"><span class="pre">RenderConfig.resolution_x</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_y"><code class="docutils literal notranslate"><span class="pre">RenderConfig.resolution_y</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.light_power"><code class="docutils literal notranslate"><span class="pre">RenderConfig.light_power</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.stl_enable"><code class="docutils literal notranslate"><span class="pre">RenderConfig.stl_enable</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.ok_button"><code class="docutils literal notranslate"><span class="pre">RenderConfig.ok_button</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.center"><code class="docutils literal notranslate"><span class="pre">RenderConfig.center()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.initUI"><code class="docutils literal notranslate"><span class="pre">RenderConfig.initUI()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.process_default_config"><code class="docutils literal notranslate"><span class="pre">RenderConfig.process_default_config()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.save_config"><code class="docutils literal notranslate"><span class="pre">RenderConfig.save_config()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes"><code class="docutils literal notranslate"><span class="pre">RenderConfig.toggle_checkboxes()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.misc.render_worker">app.widgets.misc.render_worker module</a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals"><code class="docutils literal notranslate"><span class="pre">RenderSignals</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals.progress_signal"><code class="docutils literal notranslate"><span class="pre">RenderSignals.progress_signal</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals.finished"><code class="docutils literal notranslate"><span class="pre">RenderSignals.finished</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.RenderSignals.None"><code class="docutils literal notranslate"><span class="pre">RenderSignals.None()</span></code></a></li>
-<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">RenderSignals.finished</span></code></a></li>
-<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">RenderSignals.progress_signal</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker"><code class="docutils literal notranslate"><span class="pre">Worker</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.project_folder"><code class="docutils literal notranslate"><span class="pre">Worker.project_folder</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.angles"><code class="docutils literal notranslate"><span class="pre">Worker.angles</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.scene_data"><code class="docutils literal notranslate"><span class="pre">Worker.scene_data</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.reflect"><code class="docutils literal notranslate"><span class="pre">Worker.reflect</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.signals"><code class="docutils literal notranslate"><span class="pre">Worker.signals</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.run"><code class="docutils literal notranslate"><span class="pre">Worker.run()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">Worker.stl_mesh_to_vtk()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.misc.video_player">app.widgets.misc.video_player module</a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.video_player.VideoPlayer"><code class="docutils literal notranslate"><span class="pre">VideoPlayer</span></code></a><ul>
-<li><a class="reference internal" href="#app.widgets.misc.video_player.VideoPlayer.video_widget"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.video_widget</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.video_player.VideoPlayer.media_player"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.media_player</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.resizeEvent()</span></code></a></li>
-<li><a class="reference internal" href="#app.widgets.misc.video_player.VideoPlayer.setMedia"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.setMedia()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-app.widgets.misc">Module contents</a></li>
-</ul>
-</li>
-</ul>
+    </a>
+    <a class="right-next"
+       href="../src/src.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">src package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="app.widgets.main.html"
-                          title="previous chapter">app.widgets.main package</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../src/src.html"
-                          title="next chapter">src package</a></p>
-  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.misc.menu_bar">app.widgets.misc.menu_bar module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.menu_bar.MenuBar"><code class="docutils literal notranslate"><span class="pre">MenuBar</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.menu_bar.MenuBar.connect_actions"><code class="docutils literal notranslate"><span class="pre">MenuBar.connect_actions()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.misc.render_config_edit">app.widgets.misc.render_config_edit module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig"><code class="docutils literal notranslate"><span class="pre">RenderConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.project_folder"><code class="docutils literal notranslate"><span class="pre">RenderConfig.project_folder</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.frame_format"><code class="docutils literal notranslate"><span class="pre">RenderConfig.frame_format</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_x"><code class="docutils literal notranslate"><span class="pre">RenderConfig.resolution_x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.resolution_y"><code class="docutils literal notranslate"><span class="pre">RenderConfig.resolution_y</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.light_power"><code class="docutils literal notranslate"><span class="pre">RenderConfig.light_power</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.stl_enable"><code class="docutils literal notranslate"><span class="pre">RenderConfig.stl_enable</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.ok_button"><code class="docutils literal notranslate"><span class="pre">RenderConfig.ok_button</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.center"><code class="docutils literal notranslate"><span class="pre">RenderConfig.center()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.initUI"><code class="docutils literal notranslate"><span class="pre">RenderConfig.initUI()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.process_default_config"><code class="docutils literal notranslate"><span class="pre">RenderConfig.process_default_config()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.save_config"><code class="docutils literal notranslate"><span class="pre">RenderConfig.save_config()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_config_edit.RenderConfig.toggle_checkboxes"><code class="docutils literal notranslate"><span class="pre">RenderConfig.toggle_checkboxes()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.misc.render_worker">app.widgets.misc.render_worker module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.RenderSignals"><code class="docutils literal notranslate"><span class="pre">RenderSignals</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.RenderSignals.progress_signal"><code class="docutils literal notranslate"><span class="pre">RenderSignals.progress_signal</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.RenderSignals.finished"><code class="docutils literal notranslate"><span class="pre">RenderSignals.finished</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.RenderSignals.None"><code class="docutils literal notranslate"><span class="pre">RenderSignals.None()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">RenderSignals.finished</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">RenderSignals.progress_signal</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker"><code class="docutils literal notranslate"><span class="pre">Worker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.project_folder"><code class="docutils literal notranslate"><span class="pre">Worker.project_folder</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.angles"><code class="docutils literal notranslate"><span class="pre">Worker.angles</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.scene_data"><code class="docutils literal notranslate"><span class="pre">Worker.scene_data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.reflect"><code class="docutils literal notranslate"><span class="pre">Worker.reflect</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.signals"><code class="docutils literal notranslate"><span class="pre">Worker.signals</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.run"><code class="docutils literal notranslate"><span class="pre">Worker.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">Worker.stl_mesh_to_vtk()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.misc.video_player">app.widgets.misc.video_player module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer"><code class="docutils literal notranslate"><span class="pre">VideoPlayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.video_widget"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.video_widget</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.media_player"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.media_player</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.resizeEvent()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.setMedia"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.setMedia()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-app.widgets.misc">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
       <li><a href="../../_sources/api_reference/app/app.widgets.misc.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kalbhavi Vadhi Raj.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../src/src.html" title="src package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="app.widgets.main.html" title="app.widgets.main package"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="app.html" >app package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="app.widgets.html" >app.widgets package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">app.widgets.misc package</a></li> 
-      </ul>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Kalbhavi Vadhi Raj.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>

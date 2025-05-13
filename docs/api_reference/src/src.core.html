@@ -1,54 +1,369 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>src.core package &#8212; FlapKine v0.1.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=6625fa76" />
-    <link rel="stylesheet" type="text/css" href="../../_static/groundwork.css?v=594d7a89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=c0ad9c74" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
     <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/src/src.core';</script>
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="src.core.inverse_kinematics package" href="src.core.inverse_kinematics.html" />
-    <link rel="prev" title="src.blender package" href="src.blender.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="src.core.inverse_kinematics.html" title="src.core.inverse_kinematics package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="src.blender.html" title="src.blender package"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="src.html" accesskey="U">src package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">src.core package</a></li> 
-      </ul>
-    </div>  
+    <link rel="prev" title="src.blender package" href="src.blender.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../app/app.html">app package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../app/app.core.html">app.core package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../app/app.ui.html">app.ui package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.ui.creators.html">app.ui.creators package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.ui.editor.html">app.ui.editor package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../app/app.widgets.html">app.widgets package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.widgets.main.html">app.widgets.main package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../app/app.widgets.misc.html">app.widgets.misc package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="src.html">src package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="src.blender.html">src.blender package</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">src.core package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.core.transforms.html">src.core.transforms package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="src.html" class="nav-link">src package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">src.core package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="src-core-package">
-<h1>src.core package<a class="headerlink" href="#src-core-package" title="Link to this heading">¶</a></h1>
+<h1>src.core package<a class="headerlink" href="#src-core-package" title="Link to this heading">#</a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.core.inverse_kinematics.html">src.core.inverse_kinematics package</a><ul>
@@ -138,16 +453,16 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-src.core.core">
-<span id="src-core-core-module"></span><h2>src.core.core module<a class="headerlink" href="#module-src.core.core" title="Link to this heading">¶</a></h2>
+<span id="src-core-core-module"></span><h2>src.core.core module<a class="headerlink" href="#module-src.core.core" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.core.Object3D">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Object3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.translation.Translation_Transform" title="src.core.transforms.translation.Translation_Transform"><span class="pre">Translation_Transform</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.rotation.Rotation_Transform" title="src.core.transforms.rotation.Rotation_Transform"><span class="pre">Rotation_Transform</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">flexibility_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.flexibility.Flexibility_Transform" title="src.core.transforms.flexibility.Flexibility_Transform"><span class="pre">Flexibility_Transform</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Object3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Object3D" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Object3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.translation.Translation_Transform" title="src.core.transforms.translation.Translation_Transform"><span class="pre">Translation_Transform</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.rotation.Rotation_Transform" title="src.core.transforms.rotation.Rotation_Transform"><span class="pre">Rotation_Transform</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">flexibility_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.transforms.html#src.core.transforms.flexibility.Flexibility_Transform" title="src.core.transforms.flexibility.Flexibility_Transform"><span class="pre">Flexibility_Transform</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Object3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Object3D" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="object3d-class">
-<h3>Object3D Class<a class="headerlink" href="#object3d-class" title="Link to this heading">¶</a></h3>
+<h3>Object3D Class<a class="headerlink" href="#object3d-class" title="Link to this heading">#</a></h3>
 <p>A class representing a 3D object with a mesh that can undergo transformations
 including flexibility, rotation, and translation.</p>
 <p>This class allows for the application of transformations to the mesh of a 3D object,
@@ -156,7 +471,7 @@ transformations are applied sequentially to the mesh data, and the transformed m
 is returned.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Object3D.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.core.core.Object3D.name" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.core.core.Object3D.name" title="Link to this definition">#</a></dt>
 <dd><p>The name of the 3D object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -167,7 +482,7 @@ is returned.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Object3D.stl_mesh">
-<span class="sig-name descname"><span class="pre">stl_mesh</span></span><a class="headerlink" href="#src.core.core.Object3D.stl_mesh" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stl_mesh</span></span><a class="headerlink" href="#src.core.core.Object3D.stl_mesh" title="Link to this definition">#</a></dt>
 <dd><p>The mesh of the 3D object, typically in the form of an STL file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -178,7 +493,7 @@ is returned.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Object3D.translation_transform">
-<span class="sig-name descname"><span class="pre">translation_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.translation_transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">translation_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.translation_transform" title="Link to this definition">#</a></dt>
 <dd><p>The transformation applied to the object for translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -189,7 +504,7 @@ is returned.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Object3D.rotation_transform">
-<span class="sig-name descname"><span class="pre">rotation_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.rotation_transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rotation_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.rotation_transform" title="Link to this definition">#</a></dt>
 <dd><p>The transformation applied to the object for rotation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -200,7 +515,7 @@ is returned.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Object3D.flexibility_transform">
-<span class="sig-name descname"><span class="pre">flexibility_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.flexibility_transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flexibility_transform</span></span><a class="headerlink" href="#src.core.core.Object3D.flexibility_transform" title="Link to this definition">#</a></dt>
 <dd><p>The transformation applied to the object for flexibility (deformation).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -224,7 +539,7 @@ at a given time.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.core.core.Object3D.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Object3D.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Object3D.transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Object3D.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Object3D.transform" title="Link to this definition">#</a></dt>
 <dd><p>Apply the specified transformations (flexibility, rotation, translation) to the mesh.</p>
 <p>This method applies the flexibility transformation, followed by the rotation and
 translation transformations to the mesh vertices. The transformed mesh is then returned.</p>
@@ -255,10 +570,10 @@ translation transformations to the mesh vertices. The transformed mesh is then r
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.core.Scene">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="scene-class">
-<h3>Scene Class<a class="headerlink" href="#scene-class" title="Link to this heading">¶</a></h3>
+<h3>Scene Class<a class="headerlink" href="#scene-class" title="Link to this heading">#</a></h3>
 <p>A class representing a 3D scene containing multiple sprite objects that can be
 transformed over time. Each sprite in the scene is an instance of the <cite>Sprite</cite> class,
 and the transformations applied to the scene depend on the time step.</p>
@@ -266,7 +581,7 @@ and the transformations applied to the scene depend on the time step.</p>
 the scene, either returning their original or transformed meshes based on the time step.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Scene.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><a class="headerlink" href="#src.core.core.Scene.objects" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><a class="headerlink" href="#src.core.core.Scene.objects" title="Link to this definition">#</a></dt>
 <dd><p>A list of <cite>Sprite</cite> objects that make up the 3D scene.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -289,7 +604,7 @@ the scene, either returning their original or transformed meshes based on the ti
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.core.core.Scene.save_stl">
-<span class="sig-name descname"><span class="pre">save_stl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_yz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene.save_stl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene.save_stl" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save_stl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_yz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene.save_stl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene.save_stl" title="Link to this definition">#</a></dt>
 <dd><p>Save the transformed meshes to STL files with optional reflections.</p>
 <p>This method applies transformations to all objects in the scene at the given time step <cite>t</cite>.
 If reflection flags are set (e.g., <cite>reflect_xy</cite>, <cite>reflect_yz</cite>, or <cite>reflect_xz</cite>), it applies
@@ -319,7 +634,7 @@ meshes and their reflected versions into a single mesh and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.core.core.Scene.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene.transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene.transform" title="Link to this definition">#</a></dt>
 <dd><p>Apply transformations to all sprite objects in the scene at the given time step.</p>
 <p>This method iterates through all <cite>Sprite</cite> objects in the scene and applies the
 corresponding transformations based on the provided time step <cite>t</cite>. If the time
@@ -347,10 +662,10 @@ to apply to the sprite objects in the scene.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="src.core.core.Sprite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.core.core.Object3D" title="src.core.core.Object3D"><span class="pre">Object3D</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Sprite" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.core.core.</span></span><span class="sig-name descname"><span class="pre">Sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.core.core.Object3D" title="src.core.core.Object3D"><span class="pre">Object3D</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Sprite" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <section id="sprite-class">
-<h3>Sprite Class<a class="headerlink" href="#sprite-class" title="Link to this heading">¶</a></h3>
+<h3>Sprite Class<a class="headerlink" href="#sprite-class" title="Link to this heading">#</a></h3>
 <p>A class representing a 3D sprite object that can be transformed over time based on
 its positions and angles.</p>
 <p>This class uses an <cite>Object3D</cite> instance to represent the sprite and applies
@@ -358,7 +673,7 @@ transformations (translation and rotation) over time. The sprite’s position an
 rotation are stored for each time step and can be used to compute its transformation.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Sprite.object_">
-<span class="sig-name descname"><span class="pre">object_</span></span><a class="headerlink" href="#src.core.core.Sprite.object_" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">object_</span></span><a class="headerlink" href="#src.core.core.Sprite.object_" title="Link to this definition">#</a></dt>
 <dd><p>The 3D object that represents the sprite.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -369,7 +684,7 @@ rotation are stored for each time step and can be used to compute its transforma
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Sprite.positions">
-<span class="sig-name descname"><span class="pre">positions</span></span><a class="headerlink" href="#src.core.core.Sprite.positions" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">positions</span></span><a class="headerlink" href="#src.core.core.Sprite.positions" title="Link to this definition">#</a></dt>
 <dd><p>An array of 3D positions (x, y, z) at different time steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -380,7 +695,7 @@ rotation are stored for each time step and can be used to compute its transforma
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Sprite.angles">
-<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#src.core.core.Sprite.angles" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">angles</span></span><a class="headerlink" href="#src.core.core.Sprite.angles" title="Link to this definition">#</a></dt>
 <dd><p>An array of rotation angles (alpha, beta, gamma) at different time steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -391,7 +706,7 @@ rotation are stored for each time step and can be used to compute its transforma
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Sprite.frame_origin">
-<span class="sig-name descname"><span class="pre">frame_origin</span></span><a class="headerlink" href="#src.core.core.Sprite.frame_origin" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">frame_origin</span></span><a class="headerlink" href="#src.core.core.Sprite.frame_origin" title="Link to this definition">#</a></dt>
 <dd><p>The origin of the sprite’s local frame of reference (default is [0, 0, 0]).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -402,7 +717,7 @@ rotation are stored for each time step and can be used to compute its transforma
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.core.core.Sprite.frame_orientation">
-<span class="sig-name descname"><span class="pre">frame_orientation</span></span><a class="headerlink" href="#src.core.core.Sprite.frame_orientation" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">frame_orientation</span></span><a class="headerlink" href="#src.core.core.Sprite.frame_orientation" title="Link to this definition">#</a></dt>
 <dd><p>The orientation of the sprite’s local frame of reference (default is [0, 0, 0]).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -425,7 +740,7 @@ rotation are stored for each time step and can be used to compute its transforma
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.core.core.Sprite.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Sprite.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Sprite.transform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Sprite.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Sprite.transform" title="Link to this definition">#</a></dt>
 <dd><p>Apply the transformation to the sprite at the given time step.</p>
 <p>This method transforms the sprite using the stored <cite>positions</cite> and <cite>angles</cite> for the
 given time step <cite>t</cite>. It calls the <cite>transform</cite> method of the <cite>Object3D</cite> instance
@@ -451,114 +766,154 @@ to apply translation, rotation, and any other transformations.</p>
 
 </section>
 <section id="module-src.core">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.core" title="Link to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.core" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
-          </div>
-        </div>
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="src.blender.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">src.blender package</p>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/flapkine_icon.ico" alt="Logo of FlapKine"/>
-            </a></p>
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">src.core package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-src.core.core">src.core.core module</a><ul>
-<li><a class="reference internal" href="#src.core.core.Object3D"><code class="docutils literal notranslate"><span class="pre">Object3D</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.core.Object3D.name"><code class="docutils literal notranslate"><span class="pre">Object3D.name</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Object3D.stl_mesh"><code class="docutils literal notranslate"><span class="pre">Object3D.stl_mesh</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Object3D.translation_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.translation_transform</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Object3D.rotation_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.rotation_transform</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Object3D.flexibility_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.flexibility_transform</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Object3D.transform"><code class="docutils literal notranslate"><span class="pre">Object3D.transform()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#src.core.core.Scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.core.Scene.objects"><code class="docutils literal notranslate"><span class="pre">Scene.objects</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Scene.save_stl"><code class="docutils literal notranslate"><span class="pre">Scene.save_stl()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Scene.transform"><code class="docutils literal notranslate"><span class="pre">Scene.transform()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#src.core.core.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code></a><ul>
-<li><a class="reference internal" href="#src.core.core.Sprite.object_"><code class="docutils literal notranslate"><span class="pre">Sprite.object_</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Sprite.positions"><code class="docutils literal notranslate"><span class="pre">Sprite.positions</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Sprite.angles"><code class="docutils literal notranslate"><span class="pre">Sprite.angles</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Sprite.frame_origin"><code class="docutils literal notranslate"><span class="pre">Sprite.frame_origin</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Sprite.frame_orientation"><code class="docutils literal notranslate"><span class="pre">Sprite.frame_orientation</span></code></a></li>
-<li><a class="reference internal" href="#src.core.core.Sprite.transform"><code class="docutils literal notranslate"><span class="pre">Sprite.transform()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-src.core">Module contents</a></li>
-</ul>
-</li>
-</ul>
+    </a>
+    <a class="right-next"
+       href="src.core.inverse_kinematics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">src.core.inverse_kinematics package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="src.blender.html"
-                          title="previous chapter">src.blender package</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="src.core.inverse_kinematics.html"
-                          title="next chapter">src.core.inverse_kinematics package</a></p>
-  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core.core">src.core.core module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D"><code class="docutils literal notranslate"><span class="pre">Object3D</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.name"><code class="docutils literal notranslate"><span class="pre">Object3D.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.stl_mesh"><code class="docutils literal notranslate"><span class="pre">Object3D.stl_mesh</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.translation_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.translation_transform</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.rotation_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.rotation_transform</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.flexibility_transform"><code class="docutils literal notranslate"><span class="pre">Object3D.flexibility_transform</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Object3D.transform"><code class="docutils literal notranslate"><span class="pre">Object3D.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Scene.objects"><code class="docutils literal notranslate"><span class="pre">Scene.objects</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Scene.save_stl"><code class="docutils literal notranslate"><span class="pre">Scene.save_stl()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Scene.transform"><code class="docutils literal notranslate"><span class="pre">Scene.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite"><code class="docutils literal notranslate"><span class="pre">Sprite</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.object_"><code class="docutils literal notranslate"><span class="pre">Sprite.object_</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.positions"><code class="docutils literal notranslate"><span class="pre">Sprite.positions</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.angles"><code class="docutils literal notranslate"><span class="pre">Sprite.angles</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.frame_origin"><code class="docutils literal notranslate"><span class="pre">Sprite.frame_origin</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.frame_orientation"><code class="docutils literal notranslate"><span class="pre">Sprite.frame_orientation</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.core.core.Sprite.transform"><code class="docutils literal notranslate"><span class="pre">Sprite.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.core">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
       <li><a href="../../_sources/api_reference/src/src.core.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
     </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kalbhavi Vadhi Raj.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
     </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="src.core.inverse_kinematics.html" title="src.core.inverse_kinematics package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="src.blender.html" title="src.blender package"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">FlapKine v0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="src.html" >src package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">src.core package</a></li> 
-      </ul>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
     </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2025, Kalbhavi Vadhi Raj.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
-    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>
