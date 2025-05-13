@@ -31,6 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f2372999" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -41,11 +42,12 @@
     <script src="_static/documentation_options.js?v=5e3f2911"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide';</script>
     <link rel="icon" href="_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Launching the Application" href="user_guide/launching.html" />
+    <link rel="next" title="Methodology" href="user_guide/methodology.html" />
     <link rel="prev" title="📥 Installation" href="installation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -147,7 +149,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="api_reference/index.html">
-    API Reference
+    📦 API Reference
   </a>
 </li>
 
@@ -240,7 +242,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="api_reference/index.html">
-    API Reference
+    📦 API Reference
   </a>
 </li>
 
@@ -271,8 +273,9 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Guide Contents</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="user_guide/methodology.html">Methodology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/launching.html">Launching the Application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/opening_project.html">Opening an Existing Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/creating_project.html">Creating a New Project</a></li>
@@ -288,7 +291,10 @@
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/render_config.html">Render Settings Window</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="user_guide/transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="user_guide/transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/transform/translation_transform.html">Translation Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/transform/rotation_transform.html">Rotation Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/transform/flexibility_transform.html">Flexibility Transform</a></li>
 </ul>
 </details></li>
 </ul>
@@ -350,26 +356,19 @@
                   
   <section id="user-guide">
 <h1>🚀 User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
-<p>Welcome to <strong>Flapkine</strong>, your GUI-based platform for 3D kinematic visualization and point tracking on STL models. This guide walks you through launching the application, managing projects, and understanding key features.</p>
+<p>This guide provides a structured walkthrough of <strong>FlapKine</strong>’s graphical interface, from launching the application to configuring scenes and transformations.</p>
+<p>Use the navigation below to explore key features, workflows, and reference panels.</p>
 <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guide Contents</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/methodology.html">Methodology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/launching.html">Launching the Application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide/opening_project.html">Opening an Existing Project</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/opening_project.html#rendering-options">⚙️ Rendering Options</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/opening_project.html">Opening an Existing Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/creating_project.html">Creating a New Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/creating_scene.html">Creating a Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/creating_sprite.html">Creating a Sprite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/window_reference.html">Windows Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide/render_config.html">Render Settings Window</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/render_config.html#video-settings">Video Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/render_config.html#camera-settings">Camera Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/render_config.html#light-settings">Light Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/render_config.html#other-options">Other Options</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/render_config.html">Render Settings Window</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/transform_reference.html">Transform Reference</a></li>
 </ul>
 </div>
@@ -395,11 +394,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="user_guide/launching.html"
+       href="user_guide/methodology.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Launching the Application</p>
+        <p class="prev-next-title">Methodology</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

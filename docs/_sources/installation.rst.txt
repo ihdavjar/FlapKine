@@ -15,34 +15,20 @@ Download the latest release from the `Releases Page <https://github.com/ihdavjar
 
    .. code-block:: bash
 
-      git clone https://github.com/your-username/flapkine.git
+      git clone https://github.com/ihdavjar/FlapKine.git
       cd FlapKine
 
-2. **(Optional but Recommended) Create a Virtual Environment**
+2. **(Recommended) Create a Conda Virtual Environment**
 
    .. code-block:: bash
 
-      python -m venv venv
+      conda create -n flapkine-env python=3.10.3
 
 3. **Activate the Virtual Environment**
 
-   - **Windows PowerShell**
+   .. code-block:: bash
 
-     .. code-block:: powershell
-
-        .\venv\Scripts\Activate.ps1
-
-   - **Windows CMD**
-
-     .. code-block:: batch
-
-        venv\Scripts\activate.bat
-
-   - **macOS / Linux**
-
-     .. code-block:: bash
-
-        source venv/bin/activate
+      conda activate flapkine-env
 
 4. **Install Required Dependencies**
 
@@ -58,6 +44,6 @@ Download the latest release from the `Releases Page <https://github.com/ihdavjar
 
 .. note::
 
-   You can deactivate the virtual environment at any time by typing ``deactivate``.
+   You can deactivate the virtual environment at any time by typing ``conda deactivate``.
 
 ---

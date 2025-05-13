@@ -1,44 +1,35 @@
 .. FlapKine documentation master file, created by
    sphinx-quickstart on Mon May 12 18:06:40 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-FlapKine
-========
+FlapKine Documentation
+======================
 
-**FlapKine** is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control — designed for **researchers**, **roboticists**, and **engineers** who demand **precision**, **control**, and **speed** in one sleek GUI.
+**FlapKine** is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control. Designed for **researchers**, **roboticists**, and **engineers**, it enables precise analysis, visualization, and export of flapping-wing dynamics using STL models and camera-tracked experimental data.
+
+📦 Built with PyQt5 and VTK | 🎯 Research-grade accuracy | 🧬 Bio-inspired robotics ready
+
+---
+
+.. include:: overview.rst
 
 ---
 
 🔧 Features
------------
+----------
 
-- 🧠 **Inverse Kinematics Engine**
-  Compute and visualize 3D joint trajectories using custom analytical models.
-
-- 🎮 **Interactive Animation Playback**
-  Control timelines, playback speed, and rendering in real time.
-
-- 🧭 **STL Mesh Visualization**
-  Import and display STL files with real-time transformation tracking.
-
-- 🛠️ **Project Setup Panel**
-  Configure video, camera paths, STL export, lighting, and reflection planes.
-
-- 💾 **Video Export**
-  Render and export animations as high-quality JPEG frame sequences.
-
-- ⚡ **Optimized Performance**
-  Built with **VTK** and **PyQt5**, featuring multithreaded rendering for speed.
+- 🧠 **Inverse Kinematics Engine** – Analyze and visualize 3D joint trajectories using custom analytical models.
+- 🧭 **3D STL Mesh Viewer** – Import STL files, track kinematic transformation in real-time.
+- 🛠️ **Project Configuration** – Set up video recording, camera paths, lighting, and export parameters.
+- 💾 **Frame Export** – Save frame-by-frame JPEG render outputs.
 
 ---
 
-📚 Contents
------------
+📚 Table of Contents
+--------------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents
+   :maxdepth: 1
+   :caption: Getting Started
 
    installation
    user_guide

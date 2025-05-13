@@ -18,7 +18,7 @@ Steps:
 5. **Render Settings**:
    - ✅ Load default settings (via checkbox)
    - ⚙️ Customize manually if needed
-     See :ref:`Render Configuration <render-configuration>`
+     See :ref:`Render Configuration <render_config>` for details.
 
 6. Hit **Create Project** to proceed to the **Project Editor Window**.
    See :doc:`Project Editor Window <window/project_editor_window>` for details.

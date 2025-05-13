@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>FlapKine &#8212; FlapKine v0.1.1 documentation</title>
+    <title>FlapKine Documentation &#8212; FlapKine v0.1.1 documentation</title>
   
   
   
@@ -31,6 +31,7 @@
 <link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f2372999" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -41,6 +42,7 @@
     <script src="_static/documentation_options.js?v=5e3f2911"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="icon" href="_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -146,7 +148,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="api_reference/index.html">
-    API Reference
+    📦 API Reference
   </a>
 </li>
 
@@ -241,7 +243,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="api_reference/index.html">
-    API Reference
+    📦 API Reference
   </a>
 </li>
 
@@ -295,54 +297,43 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="flapkine">
-<h1>FlapKine<a class="headerlink" href="#flapkine" title="Link to this heading">#</a></h1>
-<p><strong>FlapKine</strong> is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control — designed for <strong>researchers</strong>, <strong>roboticists</strong>, and <strong>engineers</strong> who demand <strong>precision</strong>, <strong>control</strong>, and <strong>speed</strong> in one sleek GUI.</p>
+  <section id="flapkine-documentation">
+<h1>FlapKine Documentation<a class="headerlink" href="#flapkine-documentation" title="Link to this heading">#</a></h1>
+<p><strong>FlapKine</strong> is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control. Designed for <strong>researchers</strong>, <strong>roboticists</strong>, and <strong>engineers</strong>, it enables precise analysis, visualization, and export of flapping-wing dynamics using STL models and camera-tracked experimental data.</p>
+<p>📦 Built with PyQt5 and VTK | 🎯 Research-grade accuracy | 🧬 Bio-inspired robotics ready</p>
+<p>—</p>
+</section>
+<section id="overview">
+<h1>📖 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h1>
+<p><strong>FlapKine</strong> is a software toolkit for the kinematic analysis of flapping-wing mechanisms. Developed to support bio-inspired robotics and aerodynamics research, it provides an intuitive and customizable framework for analyzing forward and inverse kinematics.</p>
+<p>Key features of FlapKine include:</p>
+<ul class="simple">
+<li><p>Support for arbitrary Euler angle sequences</p></li>
+<li><p>Modular transformation workflows</p></li>
+<li><p>Custom STL-based 3D animation and export</p></li>
+</ul>
+<p>FlapKine was utilized in our studies to analyze a two-degree-of-freedom flapping-wing system. Its inverse kinematics computations were validated against stereo camera experimental data, processed via the Direct Linear Transformation (DLT) algorithm.</p>
+<p>This streamlined system allows researchers to generate visualizations, perform parameter sweeps, and directly export STL animations for use in external solvers like CFD packages.</p>
+<p><strong>Keywords</strong>: Flapping-Wing Mechanisms, Bio-Inspired Robotics, Inverse Kinematics, Motion Tracking, DLT, Stereo Camera, STL, CFD</p>
 <p>—</p>
 <section id="features">
 <h2>🔧 Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>🧠 <strong>Inverse Kinematics Engine</strong>
-Compute and visualize 3D joint trajectories using custom analytical models.</p></li>
-<li><p>🎮 <strong>Interactive Animation Playback</strong>
-Control timelines, playback speed, and rendering in real time.</p></li>
-<li><p>🧭 <strong>STL Mesh Visualization</strong>
-Import and display STL files with real-time transformation tracking.</p></li>
-<li><p>🛠️ <strong>Project Setup Panel</strong>
-Configure video, camera paths, STL export, lighting, and reflection planes.</p></li>
-<li><p>💾 <strong>Video Export</strong>
-Render and export animations as high-quality JPEG frame sequences.</p></li>
-<li><p>⚡ <strong>Optimized Performance</strong>
-Built with <strong>VTK</strong> and <strong>PyQt5</strong>, featuring multithreaded rendering for speed.</p></li>
+<li><p>🧠 <strong>Inverse Kinematics Engine</strong> – Analyze and visualize 3D joint trajectories using custom analytical models.</p></li>
+<li><p>🧭 <strong>3D STL Mesh Viewer</strong> – Import STL files, track kinematic transformation in real-time.</p></li>
+<li><p>🛠️ <strong>Project Configuration</strong> – Set up video recording, camera paths, lighting, and export parameters.</p></li>
+<li><p>💾 <strong>Frame Export</strong> – Save frame-by-frame JPEG render outputs.</p></li>
 </ul>
 <p>—</p>
 </section>
-<section id="contents">
-<h2>📚 Contents<a class="headerlink" href="#contents" title="Link to this heading">#</a></h2>
+<section id="table-of-contents">
+<h2>📚 Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">📥 Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#option-a-windows-installer">🔹 Option A: Windows Installer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#option-b-developer-mode-python">🔹 Option B: Developer Mode (Python)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">🚀 User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/launching.html">Launching the Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/opening_project.html">Opening an Existing Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/creating_project.html">Creating a New Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/creating_scene.html">Creating a Scene</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/creating_sprite.html">Creating a Sprite</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/window_reference.html">Windows Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/render_config.html">Render Settings Window</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide/transform_reference.html">Transform Reference</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/app/app.html">app package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference/src/src.html">src package</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">📥 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">🚀 User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/index.html">📦 API Reference</a></li>
 </ul>
 </div>
 </section>
@@ -386,9 +377,14 @@ Built with <strong>VTK</strong> and <strong>PyQt5</strong>, featuring multithrea
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">FlapKine Documentation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📖 Overview</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">🔧 Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">📚 Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">📚 Table of Contents</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
   <div class="sidebar-secondary-item">
