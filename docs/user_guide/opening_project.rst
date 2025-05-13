@@ -26,4 +26,4 @@ For layout, features, and tools, see the :doc:`Project Editor Window <window/pro
   - High-performance VTK pipeline
   - Non-essential UI widgets are disabled during rendering
 
-For render configuration options, see the :doc:`Render Configuration <window/main_window>`
+For render configuration options, see the :doc:`Render Configuration <render_config>`

@@ -1,12 +1,15 @@
 🚀 User Guide
 =============
 
-Welcome to **Flapkine**, your GUI-based platform for 3D kinematic visualization and point tracking on STL models. This guide walks you through launching the application, managing projects, and understanding key features.
+This guide provides a structured walkthrough of **FlapKine**'s graphical interface, from launching the application to configuring scenes and transformations.
+
+Use the navigation below to explore key features, workflows, and reference panels.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: Guide Contents
 
+   user_guide/methodology
    user_guide/launching
    user_guide/opening_project
    user_guide/creating_project

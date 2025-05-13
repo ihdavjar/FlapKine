@@ -26,6 +26,12 @@ extensions = [
 ]
 autosummary_generate = True
 
+# Add custom CSS
+
+html_static_path = ['_static']
+html_css_files = [
+    'custom.css',
+]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
