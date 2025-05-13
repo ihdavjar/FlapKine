@@ -104,7 +104,7 @@ class RenderConfig(QMainWindow):
         Initialize the RenderConfig window.
 
         Sets up the main render configuration window with appropriate title and icon, using
-        a foreground color extracted from the current theme. Stores the provided project 
+        a foreground color extracted from the current theme. Stores the provided project
         folder path and initializes the user interface layout and widgets.
 
         Parameters
@@ -228,9 +228,9 @@ class RenderConfig(QMainWindow):
         """
         Create and configure the camera settings group for render configuration.
 
-        This section provides spin box controls for specifying the camera’s 3D location 
-        and orientation in space. Users can input X, Y, Z coordinates for both position 
-        and Euler angle-based rotations. All elements are organized into a labeled layout 
+        This section provides spin box controls for specifying the camera’s 3D location
+        and orientation in space. Users can input X, Y, Z coordinates for both position
+        and Euler angle-based rotations. All elements are organized into a labeled layout
         and enclosed in a themed "Camera Settings" group box.
 
         UI Components
@@ -276,8 +276,8 @@ class RenderConfig(QMainWindow):
         """
         Create and configure the light settings group for render configuration.
 
-        Provides interactive controls to position the scene's light source in 3D space 
-        and adjust its power intensity. All inputs are grouped into logically labeled 
+        Provides interactive controls to position the scene's light source in 3D space
+        and adjust its power intensity. All inputs are grouped into logically labeled
         layouts and wrapped within a stylized "Light Settings" section.
 
         UI Components
@@ -452,7 +452,7 @@ class RenderConfig(QMainWindow):
 
         This method reads a `config.json` file from the project folder and populates
         all render configuration widgets with the corresponding values, including
-        video resolution, camera position and orientation, lighting parameters, STL saving, 
+        video resolution, camera position and orientation, lighting parameters, STL saving,
         and reflection axis toggles.
 
         Configuration File Structure Expected:
@@ -475,7 +475,7 @@ class RenderConfig(QMainWindow):
         self.frame_format.setCurrentIndex(0)
         self.resolution_x.setValue(config['VideoRender']['resolution_x'])
         self.resolution_y.setValue(config['VideoRender']['resolution_y'])
-            
+
         self.camera_location_x.setValue(config['Camera']['location'][0])
         self.camera_location_y.setValue(config['Camera']['location'][1])
         self.camera_location_z.setValue(config['Camera']['location'][2])
@@ -500,7 +500,7 @@ class RenderConfig(QMainWindow):
             self.reflect_xy.setChecked(False)
             self.reflect_yz.setChecked(False)
             self.reflect_xz.setChecked(False)
-        
+
         self.stl_enable.setChecked(config["STL"])
 
     def save_config(self):
@@ -551,7 +551,7 @@ class RenderConfig(QMainWindow):
                 'energy': self.light_power.value()
             },
             'STL': True if self.stl_enable.isChecked() else False,
-            
+
             'Reflect': 'XY' if self.reflect_xy.isChecked() else 'YZ' if self.reflect_yz.isChecked() else 'XZ' if self.reflect_xz.isChecked() else None
         }
 
@@ -559,7 +559,7 @@ class RenderConfig(QMainWindow):
             json.dump(config, file)
 
         self.close()
-    
+
     def toggle_checkboxes(self, checked_box):
         """
         Enforce mutual exclusivity among axis reflection checkboxes.
@@ -584,7 +584,7 @@ class RenderConfig(QMainWindow):
             for box in [self.reflect_xy, self.reflect_yz, self.reflect_xz]:
                 if box != checked_box:
                     box.setChecked(False)
-            
+
     def center(self):
         """
         Centers the application window on the screen.
@@ -601,5 +601,4 @@ class RenderConfig(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y)  
-    
+        self.move(x, y)

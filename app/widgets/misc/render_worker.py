@@ -16,7 +16,7 @@ class RenderSignals(QObject):
     ===================
 
     Defines custom signals for tracking the progress and completion status of the rendering process
-    in the FlapKine application. This class is used to communicate between the rendering worker thread 
+    in the FlapKine application. This class is used to communicate between the rendering worker thread
     and the main GUI, allowing for real-time updates on rendering progress and notification upon completion.
 
     Attributes
@@ -41,9 +41,9 @@ class Worker(QRunnable):
     Worker Class
     ============
 
-    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding 
-    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames 
-    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering 
+    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding
+    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames
+    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering
     pipeline integration with PyQt5’s multithreading model.
 
     Attributes
@@ -80,9 +80,9 @@ class Worker(QRunnable):
         """
         Initializes the rendering worker for the FlapKine application.
 
-        Prepares the QRunnable-based background task responsible for high-performance rendering 
-        and video encoding. Loads essential project parameters such as output folder, rendering 
-        angles, scene data generator, and mesh reflection configuration. Also sets up the 
+        Prepares the QRunnable-based background task responsible for high-performance rendering
+        and video encoding. Loads essential project parameters such as output folder, rendering
+        angles, scene data generator, and mesh reflection configuration. Also sets up the
         custom signal handler to communicate rendering progress and completion with the main GUI.
 
         Components Initialized:
@@ -105,9 +105,9 @@ class Worker(QRunnable):
         Executes the background rendering and encoding process.
 
         This method is invoked when the `Worker` QRunnable is started via a thread pool.
-        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes 
+        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes
         frame-by-frame, and directly encodes each rendered frame into an `.mp4` video using OpenCV.
-        It also optionally exports STL files and emits real-time progress updates through 
+        It also optionally exports STL files and emits real-time progress updates through
         `RenderSignals`.
 
         Workflow:
@@ -211,8 +211,8 @@ class Worker(QRunnable):
         """
         Converts a mesh object to `vtkPolyData` for rendering in VTK.
 
-        This method performs a memory-efficient STL conversion by flattening and deduplicating 
-        vertex data using NumPy. The resulting unique vertex list and associated triangle indices 
+        This method performs a memory-efficient STL conversion by flattening and deduplicating
+        vertex data using NumPy. The resulting unique vertex list and associated triangle indices
         are used to construct a `vtkPolyData` object, which is compatible with VTK's rendering pipeline.
 
         Parameters

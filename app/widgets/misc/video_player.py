@@ -10,7 +10,7 @@ class VideoPlayer(QWidget):
 
     A lightweight QWidget-based video player for embedding video playback within PyQt5 GUIs.
 
-    This player uses `QMediaPlayer` and `QVideoWidget` to load and display local video files 
+    This player uses `QMediaPlayer` and `QVideoWidget` to load and display local video files
     with support for resizing and basic control operations like pause/play.
 
     Attributes
@@ -70,7 +70,7 @@ class VideoPlayer(QWidget):
         ----------
         video_path : str
             Absolute or relative path to the local video file to be loaded.
-        
+
         Notes
         -----
         - Video is automatically paused after loading. Use `media_player.play()` to begin playback.

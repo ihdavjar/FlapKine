@@ -1,5 +1,5 @@
-🪟 Main Window
-===============
+Main Window
+===========
 
 .. image:: ../../assets/images/main_window.png
    :alt: Main Window
@@ -14,10 +14,10 @@ The **Main Window** is the entry point to the Flapkine application. It allows yo
 Buttons
 -------
 
-- **🆕 New Project**  
+- **🆕 New Project**
   Launches the Project Creator interface where you can import or create a scene and configure render settings.
 
-- **🔓 Open Project**  
+- **🔓 Open Project**
   Opens an existing project directory from your filesystem and loads its saved STL model, render settings, and animation (if available).
 
 Navigation

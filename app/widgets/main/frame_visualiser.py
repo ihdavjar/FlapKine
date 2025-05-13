@@ -24,9 +24,9 @@ class Visualizer3DWidget(QWidget):
     Visualizer3DWidget Class
     ========================
 
-    A PyQt5-based widget for interactive 3D visualization and playback of 
-    flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget 
-    serves as a real-time visual tool to inspect spatial orientation, 
+    A PyQt5-based widget for interactive 3D visualization and playback of
+    flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget
+    serves as a real-time visual tool to inspect spatial orientation,
     transformations, and local/global coordinate systems derived from simulation frames.
 
     The widget includes:
@@ -48,7 +48,7 @@ class Visualizer3DWidget(QWidget):
         List of orientation angles for animation frames.
 
     reflect : List[bool]
-        Boolean flags indicating whether XY, YZ, or XZ axis reflections are active, 
+        Boolean flags indicating whether XY, YZ, or XZ axis reflections are active,
         derived from the project's config file.
 
     actor : vtk.vtkActor
@@ -221,7 +221,7 @@ class Visualizer3DWidget(QWidget):
         self.ren = vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
         self.vtkWidget.setStyleSheet("background-color: #fafafa; border: 1px solid #bbb; border-radius: 10px;")
-        
+
         layout.addLayout(control_layout)
         layout.addWidget(self.vtkWidget)
 
@@ -320,7 +320,7 @@ class Visualizer3DWidget(QWidget):
 
     def create_body_axes(self, sprite):
         """
-        Create a local coordinate axes actor for a given sprite object, oriented and positioned 
+        Create a local coordinate axes actor for a given sprite object, oriented and positioned
         based on its frame orientation and origin.
 
         Parameters

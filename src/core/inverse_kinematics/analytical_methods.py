@@ -5,18 +5,18 @@ def model_analytical(rotation_axis, final_vectors)-> tuple:
     Computes Euler rotation angles based on the specified rotation axis convention.
 
     This function analytically determines the three Euler angles (alpha, beta, gamma)
-    that rotate a reference frame to match the given final vectors, according to the 
+    that rotate a reference frame to match the given final vectors, according to the
     specified Euler rotation convention (e.g., 'ZXZ', 'XYZ', etc.).
 
-    The method assumes that the `final_vectors` represent the axes of the rotated frame 
+    The method assumes that the `final_vectors` represent the axes of the rotated frame
     (typically X, Y, and Z unit vectors) expressed in the original reference frame after transformation.
 
     Parameters
     ----------
     rotation_axis : str
-        The Euler rotation sequence (e.g., 'XYZ', 'ZXZ', 'ZYX', etc.) that defines 
+        The Euler rotation sequence (e.g., 'XYZ', 'ZXZ', 'ZYX', etc.) that defines
         the axis order of the rotations to be solved.
-    
+
     final_vectors : list of sympy.Matrix
         A list containing three SymPy 3D vectors representing the rotated axes after transformation.
         These vectors are used to analytically compute the rotation angles.
@@ -60,7 +60,7 @@ def model_analytical(rotation_axis, final_vectors)-> tuple:
         alpha = np.arctan2(vector_3[1], vector_1[0])
         beta = np.arcsin(vector_3[1]/np.sin(alpha))
         gamma = np.arctan2(vector_2[2], -1*vector_2[0])
-    
+
     elif rotation_axis == 'ZYZ':
         alpha = np.arctan2(vector_2[2], -1*vector_1[2])
         gamma = np.arctan2(vector_3[1], vector_3[0])
@@ -70,12 +70,12 @@ def model_analytical(rotation_axis, final_vectors)-> tuple:
         alpha = np.arctan2(vector_3[0], -1*vector_1[0])
         gamma = np.arctan2(vector_1[2], vector_1[1])
         beta = np.arcsin(vector_3[0]/np.sin(gamma))
-    
+
     elif rotation_axis == 'YXY':
         alpha = np.arctan2(vector_1[0], -1*vector_3[1])
         gamma = np.arctan2(vector_2[0], vector_2[2])
         beta = np.arcsin(vector_1[1]/np.sin(alpha))
-    
+
     elif rotation_axis == 'ZYX':
         alpha = np.arctan2(-1*vector_2[0], vector_1[0])
         beta = np.arccos(vector_1[0]/np.cos(alpha))
@@ -90,7 +90,7 @@ def model_analytical(rotation_axis, final_vectors)-> tuple:
         alpha = np.arctan2(-1*vector_3[1], vector_2[1])
         beta = np.arccos(vector_1[1]/np.cos(alpha))
         gamma = np.arctan2(-1*vector_3[2], vector_3[0])
-    
+
     elif rotation_axis == 'ZXY':
         alpha = np.arctan2(vector_1[1], vector_2[1])
         beta = np.arccos(vector_3[0]/np.sin(alpha))
@@ -110,7 +110,5 @@ def model_analytical(rotation_axis, final_vectors)-> tuple:
     alpha = np.degrees(alpha)
     beta = np.degrees(beta)
     gamma = np.degrees(gamma)
-    
-    return alpha, beta, gamma
 
-    
+    return alpha, beta, gamma

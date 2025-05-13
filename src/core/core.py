@@ -10,12 +10,12 @@ class Object3D:
     Object3D Class
     ==============
 
-    A class representing a 3D object with a mesh that can undergo transformations 
+    A class representing a 3D object with a mesh that can undergo transformations
     including flexibility, rotation, and translation.
 
-    This class allows for the application of transformations to the mesh of a 3D object, 
-    which can include deformations (flexibility), rotations, and translations. The 
-    transformations are applied sequentially to the mesh data, and the transformed mesh 
+    This class allows for the application of transformations to the mesh of a 3D object,
+    which can include deformations (flexibility), rotations, and translations. The
+    transformations are applied sequentially to the mesh data, and the transformed mesh
     is returned.
 
     Attributes
@@ -39,9 +39,9 @@ class Object3D:
     -------
     __init__(name, stl_mesh, translation_transform, rotation_transform, flexibility_transform):
         Initializes the 3D object with its name, mesh, and transformation functions.
-    
+
     transform(position, angles, t):
-        Transforms the mesh by applying flexibility, rotation, and translation transformations 
+        Transforms the mesh by applying flexibility, rotation, and translation transformations
         at a given time.
     """
 
@@ -49,8 +49,8 @@ class Object3D:
         """
         Initialize the 3D object with its name, mesh, and transformation functions.
 
-        This constructor takes the mesh data of the object, applies the specified 
-        transformations (translation, rotation, and flexibility), and stores them as 
+        This constructor takes the mesh data of the object, applies the specified
+        transformations (translation, rotation, and flexibility), and stores them as
         attributes for later use when applying transformations.
 
         Parameters
@@ -87,7 +87,7 @@ class Object3D:
         flexibility_transform : Flexibility_Transform
             Stores the flexibility transformation function for the object.
         """
-        
+
         self.name = name
         self.stl_mesh = stl_mesh
         self.translation_transform = translation_transform
@@ -98,7 +98,7 @@ class Object3D:
         """
         Apply the specified transformations (flexibility, rotation, translation) to the mesh.
 
-        This method applies the flexibility transformation, followed by the rotation and 
+        This method applies the flexibility transformation, followed by the rotation and
         translation transformations to the mesh vertices. The transformed mesh is then returned.
 
         Parameters
@@ -116,7 +116,7 @@ class Object3D:
         -------
         mesh.Mesh
             A new mesh object with the applied transformations (flexibility, rotation, translation).
-        
+
         Methods Called
         --------------
         flexibility_transform()
@@ -131,7 +131,7 @@ class Object3D:
         # Get the vertices of the mesh
         vertices = self.stl_mesh.vectors.copy()
         vertices = vertices.reshape(-1, 3)
-        
+
         # Apply the flexibility transform
         vertices = self.flexibility_transform(vertices, t)
 
@@ -139,12 +139,12 @@ class Object3D:
         vertices = self.rotation_transform(vertices, angles)
 
         # Apply the translation transform
-        vertices = self.translation_transform(vertices, position) 
+        vertices = self.translation_transform(vertices, position)
 
         # Return the transformed mesh copying the original mesh
         temp_stl_mesh = copy.deepcopy(self.stl_mesh)
         temp_stl_mesh.vectors = np.reshape(vertices, (-1, 3, 3))
-        
+
         return temp_stl_mesh
 
 class Sprite:
@@ -152,11 +152,11 @@ class Sprite:
     Sprite Class
     ============
 
-    A class representing a 3D sprite object that can be transformed over time based on 
+    A class representing a 3D sprite object that can be transformed over time based on
     its positions and angles.
 
-    This class uses an `Object3D` instance to represent the sprite and applies 
-    transformations (translation and rotation) over time. The sprite’s position and 
+    This class uses an `Object3D` instance to represent the sprite and applies
+    transformations (translation and rotation) over time. The sprite’s position and
     rotation are stored for each time step and can be used to compute its transformation.
 
     Attributes
@@ -180,7 +180,7 @@ class Sprite:
     -------
     __init__(object_, positions, angles):
         Initializes the sprite object with a 3D object, position and angle arrays.
-    
+
     transform(t):
         Transforms the sprite based on its position and rotation at the given time step `t`.
     """
@@ -188,7 +188,7 @@ class Sprite:
         """
         Initialize the sprite object with a 3D object, position, and angle arrays.
 
-        This constructor takes an `Object3D` instance, positions, and angles, and reshapes 
+        This constructor takes an `Object3D` instance, positions, and angles, and reshapes
         them to ensure correct dimensions for later use in transformation computations.
 
         Parameters
@@ -225,13 +225,13 @@ class Sprite:
         self.frame_origin = [0, 0, 0]
         self.frame_orientation = [0, 0, 0]
 
-    
+
     def transform(self, t):
         """
         Apply the transformation to the sprite at the given time step.
 
-        This method transforms the sprite using the stored `positions` and `angles` for the 
-        given time step `t`. It calls the `transform` method of the `Object3D` instance 
+        This method transforms the sprite using the stored `positions` and `angles` for the
+        given time step `t`. It calls the `transform` method of the `Object3D` instance
         to apply translation, rotation, and any other transformations.
 
         Parameters
@@ -251,17 +251,17 @@ class Sprite:
         """
 
         return self.object_.transform(self.positions[t,:] ,self.angles[t,:], t)
-    
+
 class Scene:
     """
     Scene Class
     ===========
 
-    A class representing a 3D scene containing multiple sprite objects that can be 
-    transformed over time. Each sprite in the scene is an instance of the `Sprite` class, 
+    A class representing a 3D scene containing multiple sprite objects that can be
+    transformed over time. Each sprite in the scene is an instance of the `Sprite` class,
     and the transformations applied to the scene depend on the time step.
 
-    This class provides a `transform` method to apply transformations to each sprite in 
+    This class provides a `transform` method to apply transformations to each sprite in
     the scene, either returning their original or transformed meshes based on the time step.
 
     Attributes
@@ -281,8 +281,8 @@ class Scene:
         """
         Initialize the scene with a list of sprite objects.
 
-        This constructor takes a list of `Sprite` objects that represent the individual 
-        elements in the 3D scene. Each sprite in the scene can be transformed over time 
+        This constructor takes a list of `Sprite` objects that represent the individual
+        elements in the 3D scene. Each sprite in the scene can be transformed over time
         using the `transform` method.
 
         Parameters
@@ -296,15 +296,15 @@ class Scene:
         """
         Apply transformations to all sprite objects in the scene at the given time step.
 
-        This method iterates through all `Sprite` objects in the scene and applies the 
-        corresponding transformations based on the provided time step `t`. If the time 
-        step is negative, it returns the original mesh for each sprite. Otherwise, it applies 
+        This method iterates through all `Sprite` objects in the scene and applies the
+        corresponding transformations based on the provided time step `t`. If the time
+        step is negative, it returns the original mesh for each sprite. Otherwise, it applies
         the transformation based on the current time step and returns the transformed meshes.
 
         Parameters
         ----------
         t : float
-            The time step used to determine which transformation (original or transformed) 
+            The time step used to determine which transformation (original or transformed)
             to apply to the sprite objects in the scene.
 
         Returns
@@ -322,20 +322,20 @@ class Scene:
         if t < 0:
             for spr in self.objects:
                 transformed_objects.append(spr.object_.stl_mesh)
-            
+
         else:
             for spr in self.objects:
                 transformed_objects.append(spr.transform(t))
 
         return transformed_objects
-    
+
     def save_stl(self, t, reflect_xy = False, reflect_yz = False, reflect_xz = False):
         """
         Save the transformed meshes to STL files with optional reflections.
 
         This method applies transformations to all objects in the scene at the given time step `t`.
-        If reflection flags are set (e.g., `reflect_xy`, `reflect_yz`, or `reflect_xz`), it applies 
-        the corresponding reflection to the objects in the scene. The method then combines the transformed 
+        If reflection flags are set (e.g., `reflect_xy`, `reflect_yz`, or `reflect_xz`), it applies
+        the corresponding reflection to the objects in the scene. The method then combines the transformed
         meshes and their reflected versions into a single mesh and returns it.
 
         Parameters
@@ -356,7 +356,7 @@ class Scene:
         -------
         combined_mesh : mesh.Mesh
             A single `mesh.Mesh` object containing all the transformed and optionally reflected objects.
-        
+
         Methods Called
         --------------
         transform(t)
@@ -370,11 +370,11 @@ class Scene:
             reflected_objects = []
 
             for obj in transformed_objects:
-                    
+
                     temp_mesh_copy = copy.deepcopy(obj)
                     # Flip the y-coordinates of the vertices
                     temp_mesh_copy.vectors[:,:,1] = -temp_mesh_copy.vectors[:,:,1]
-                    
+
                     # Append the reflected object to the list
                     reflected_objects.append(temp_mesh_copy)
 
@@ -382,18 +382,18 @@ class Scene:
             combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in full_objects]))
 
             return combined_mesh
-        
+
         elif reflect_yz:
             # Make reflection of the objects in the scene with respect to the yz-plane
             transformed_objects = self.transform(t)
             reflected_objects = []
 
             for obj in transformed_objects:
-                    
+
                     temp_mesh_copy = copy.deepcopy(obj)
                     # Flip the x-coordinates of the vertices
                     temp_mesh_copy.vectors[:,:,0] = -temp_mesh_copy.vectors[:,:,0]
-                    
+
                     # Append the reflected object to the list
                     reflected_objects.append(temp_mesh_copy)
 
@@ -408,11 +408,11 @@ class Scene:
             reflected_objects = []
 
             for obj in transformed_objects:
-                    
+
                     temp_mesh_copy = copy.deepcopy(obj)
                     # Flip the y-coordinates of the vertices
                     temp_mesh_copy.vectors[:,:,1] = -temp_mesh_copy.vectors[:,:,1]
-                    
+
                     # Append the reflected object to the list
                     reflected_objects.append(temp_mesh_copy)
 
@@ -424,6 +424,5 @@ class Scene:
         else:
             transformed_objects = self.transform(t)
             combined_mesh = mesh.Mesh(np.concatenate([obj.data for obj in transformed_objects]))
-        
+
             return combined_mesh
-        

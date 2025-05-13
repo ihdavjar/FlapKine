@@ -1,5 +1,5 @@
-🧭 Launching the Application
-=============================
+Launching the Application
+=========================
 
 When you launch **Flapkine**, the **Main Window** appears.
 

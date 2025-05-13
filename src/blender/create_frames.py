@@ -45,13 +45,13 @@ def genframes(project_path):
     for i in range(len(stl_files)-1):
 
         stl_file_name = f"ellipse_{i}.stl"
-        
+
         # Set file names
         stl_file_path = os.path.join(stl_files_dir, stl_file_name)
 
         # Import STL file as a new object
         bpy.ops.import_mesh.stl(filepath=stl_file_path)
-        
+
         # Select the imported object
         imported_object = bpy.context.selected_objects[0]
 
@@ -63,10 +63,9 @@ def genframes(project_path):
         # Render the image
         bpy.context.scene.render.filepath = output_path
         bpy.ops.render.render(write_still=True)
-        
+
         # Delete the imported object to clear the scene for the next iteration
         bpy.ops.object.select_all(action='DESELECT')
         imported_object.select_set(True)
         bpy.ops.object.delete()
-
     print("Rendering complete")

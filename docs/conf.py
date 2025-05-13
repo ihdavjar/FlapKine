@@ -51,5 +51,4 @@ html_theme_options = {
 
     # Change the sidebar width:
     "sidebar_width": "300px",
-
 }

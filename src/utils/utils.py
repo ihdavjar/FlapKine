@@ -45,10 +45,10 @@ def create_video_from_frames(frames_path, video_path, frame_rate=10, width=640, 
     if libx264:
         output_video_path = video_path
         ffmpeg_command = [
-            "ffmpeg", "-y", "-i", temp_video_path, 
+            "ffmpeg", "-y", "-i", temp_video_path,
             "-vcodec", "libx264", "-pix_fmt", "yuv420p",  # Proper pixel format for PyQt
             "-crf", "23",  # Adjust CRF (lower = better quality, 0 = lossless)
-            "-preset", "medium", 
+            "-preset", "medium",
             output_video_path
         ]
         subprocess.run(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

@@ -1,11 +1,11 @@
 .. _transform_reference:
 
-🔎 Transform Reference
-====================
+Transform Reference
+===================
 
 This section provides detailed descriptions of each transform type available in Flapkine. Each transform is documented in a dedicated page:
 
-.. list-table:: 
+.. list-table::
    :widths: 25 75
    :header-rows: 1
 

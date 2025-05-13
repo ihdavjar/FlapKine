@@ -79,7 +79,7 @@ class ConstantF(Flexibility_Transform):
         """
         return input_
 
-    
+
 class Flexibility_type1(Flexibility_Transform):
     """
     Flexibility_type1 Class
@@ -160,13 +160,13 @@ class Flexibility_type1(Flexibility_Transform):
         self.minor_axis = minor_axis
         self.time_period = time_period
         self.p = p
-    
+
     def __call__(self, input_, t):
         """
         Applies sinusoidal deformation to 3D coordinates based on the selected axes.
 
-        This method modifies the input array by applying sinusoidal transformations 
-        to each coordinate axis (X, Y, Z) based on the other two axes. The deformation 
+        This method modifies the input array by applying sinusoidal transformations
+        to each coordinate axis (X, Y, Z) based on the other two axes. The deformation
         depends on the specified waveform parameters and is time-dependent.
 
         Parameters
@@ -191,11 +191,11 @@ class Flexibility_type1(Flexibility_Transform):
         if self.y:
             for i in range(len(input_)):
                 temp_input[:, 1] = input_[:, 1] + functional_Flexibility_type1(input_[i,0], input_[i,2], t, self.major_axis, self.minor_axis, self.time_period, self.p)
-    
+
         if self.z:
             for i in range(len(input_)):
                 temp_input[:, 2] = input_[:, 2] + functional_Flexibility_type1(input_[i,0], input_[i,1], t, self.major_axis, self.minor_axis, self.time_period, self.p)
-                
+
         return temp_input
 
 class Flexibility_type2(Flexibility_Transform):
@@ -250,9 +250,9 @@ class Flexibility_type2(Flexibility_Transform):
         """
         Initializes the Flexibility_type2 transformation with axis flags and waveform parameters.
 
-        This constructor sets up the deformation behavior for each axis using parameters 
-        such as major and minor radii, dynamic waveform values, and deformation frequency. 
-        The `array_values` parameter enables time-varying flexibility by introducing 
+        This constructor sets up the deformation behavior for each axis using parameters
+        such as major and minor radii, dynamic waveform values, and deformation frequency.
+        The `array_values` parameter enables time-varying flexibility by introducing
         an additional temporal influence on the transformation.
 
         Parameters
@@ -293,16 +293,16 @@ class Flexibility_type2(Flexibility_Transform):
         self.array_values = array_values
         self.time_period = time_period
         self.p = p
-        
-    
+
+
     def __call__(self, input_, t):
         """
         Applies a time-dependent non-linear deformation to the input 3D coordinates.
 
-        This method modifies the input point cloud along selected axes using a 
-        parametric transformation based on elliptical waveforms and a dynamic 
-        `array_values` lookup for time-varying modulation. Each axis is selectively 
-        deformed by evaluating a custom waveform influenced by neighboring axes 
+        This method modifies the input point cloud along selected axes using a
+        parametric transformation based on elliptical waveforms and a dynamic
+        `array_values` lookup for time-varying modulation. Each axis is selectively
+        deformed by evaluating a custom waveform influenced by neighboring axes
         and time `t`.
 
         Parameters
@@ -327,12 +327,12 @@ class Flexibility_type2(Flexibility_Transform):
                 temp_input[:, 0] = input_[:, 0] + functional_Flexibility_type2(input_[i,1], input_[i,2], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
 
         if self.y:
-            for i in range(len(input_)):    
+            for i in range(len(input_)):
                 temp_input[:, 1] = input_[:, 1] + functional_Flexibility_type2(input_[i,0], input_[i,2], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
 
         if self.z:
             for i in range(len(input_)):
                 temp_input[i, 2] = input_[i, 2] + functional_Flexibility_type2(input_[i,0], input_[i,1], self.min_minor_axis, Z_M_x_t, self.major_axis, self.minor_axis, self.time_period, self.p)
-        
+
         return temp_input
-    
+

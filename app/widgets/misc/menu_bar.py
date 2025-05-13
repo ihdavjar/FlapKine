@@ -10,7 +10,7 @@ class MenuBar(QMenuBar):
         A customizable menu bar for the FlapKine application interface.
 
         This class defines and organizes menus and actions for standard application operations such as
-        file handling, editing, window management, rendering settings, and help options. The actions 
+        file handling, editing, window management, rendering settings, and help options. The actions
         can be dynamically connected to custom handlers using the `connect_actions` method.
 
         Attributes
@@ -70,7 +70,7 @@ class MenuBar(QMenuBar):
         """
 
         super().__init__(parent)
-        
+
         # File Menu
         self.file_menu = self.addMenu('File')
         self.new_action = self.file_menu.addAction('New')
@@ -101,15 +101,15 @@ class MenuBar(QMenuBar):
 
         self.setStyleSheet("""
             QMenuBar {
-            background-color: #2c3e50; 
+            background-color: #2c3e50;
             color: white;
             }
             QMenuBar::item {
-            background-color: #2c3e50; 
+            background-color: #2c3e50;
             color: white;
             }
             QMenuBar::item:selected {
-            background-color: #34495e; 
+            background-color: #34495e;
             color: #dcdcdc; /* Lighter color on hover */
             }
         """)
@@ -118,15 +118,15 @@ class MenuBar(QMenuBar):
         """
         Connects menu actions to their corresponding handler functions.
 
-        Iterates through a predefined set of menu actions and links them to the corresponding 
-        handler functions provided in the `handlers` dictionary. Each action is enabled if a 
+        Iterates through a predefined set of menu actions and links them to the corresponding
+        handler functions provided in the `handlers` dictionary. Each action is enabled if a
         handler is available, and disabled otherwise.
 
-        This modular approach allows dynamic configuration of the menu bar based on context 
+        This modular approach allows dynamic configuration of the menu bar based on context
         or application state.
 
         Args:
-            handlers (dict): A dictionary mapping action keys (e.g., 'new', 'open', 'exit') 
+            handlers (dict): A dictionary mapping action keys (e.g., 'new', 'open', 'exit')
                              to their corresponding function references.
 
         Behavior:

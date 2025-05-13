@@ -22,8 +22,8 @@ class Rotation_Transform:
         """
         Applies the rotation transformation to the input data.
 
-        This method should be implemented by subclasses to perform specific rotation 
-        transformations. It accepts the input data and angles, and returns the transformed 
+        This method should be implemented by subclasses to perform specific rotation
+        transformations. It accepts the input data and angles, and returns the transformed
         data after applying the rotation.
 
         Parameters
@@ -32,14 +32,14 @@ class Rotation_Transform:
             The input data to be transformed, typically a 3D coordinate or set of points.
 
         angles : array-like or float
-            The angles (in radians or degrees) for rotation, which may represent 
-            rotation along different axes (e.g., x, y, z) depending on the specific 
+            The angles (in radians or degrees) for rotation, which may represent
+            rotation along different axes (e.g., x, y, z) depending on the specific
             implementation.
 
         Raises
         ------
         NotImplementedError
-            If called directly from this base class, since the method must be 
+            If called directly from this base class, since the method must be
             implemented by a subclass.
         """
         raise NotImplementedError("Each transform must implement the __call__ method.")
@@ -51,7 +51,7 @@ class ConstantR(Rotation_Transform):
 
     A subclass of `Rotation_Transform` that performs no rotation on the input data.
 
-    This transform simply returns the input data without any modifications, 
+    This transform simply returns the input data without any modifications,
     effectively serving as a placeholder for situations where no rotation is desired.
 
     Methods
@@ -60,7 +60,7 @@ class ConstantR(Rotation_Transform):
         Returns the input data as-is without applying any rotation.
 
     """
-    
+
     def __call__(self, input_, angles=None):
         """
         Returns the input data without applying any rotation.
@@ -79,8 +79,8 @@ class ConstantR(Rotation_Transform):
             The unchanged input data.
         """
         return input_
-             
-    
+
+
 
 class Rotation_EulerAngles(Rotation_Transform):
     """
@@ -90,7 +90,7 @@ class Rotation_EulerAngles(Rotation_Transform):
     A subclass of `Rotation_Transform` that applies a rotation to input data using Euler angles.
 
     This transform performs a rotation on the input data based on the specified Euler angle sequence.
-    The available rotation sequences are Proper Euler angles (e.g., 'ZXZ', 'XYX', 'ZYZ') and Tait-Bryan angles 
+    The available rotation sequences are Proper Euler angles (e.g., 'ZXZ', 'XYX', 'ZYZ') and Tait-Bryan angles
     (e.g., 'ZYX', 'YXZ'). The rotation is achieved by multiplying the input data by the corresponding rotation matrix.
 
     Attributes
@@ -107,7 +107,7 @@ class Rotation_EulerAngles(Rotation_Transform):
         Applies the rotation on the input data using the specified Euler angle sequence.
 
     """
-    
+
     def __init__(self, type):
         """
         Initializes the rotation transform with a specified Euler angle sequence type.
@@ -118,7 +118,7 @@ class Rotation_EulerAngles(Rotation_Transform):
             The type of Euler angle rotation (e.g., 'ZXZ', 'XYX', 'ZYZ', 'ZYX', etc.).
         """
         self.type = type
-    
+
     def __call__(self, input_, angles):
         """
         Applies the rotation to the input data using the specified Euler angle sequence.
@@ -138,11 +138,11 @@ class Rotation_EulerAngles(Rotation_Transform):
 
         Notes
         -----
-        This method supports both Proper Euler angles (e.g., 'ZXZ', 'XYX', etc.) and Tait-Bryan angles 
-        (e.g., 'ZYX', 'YXZ', etc.). The rotation is performed using the corresponding rotation matrix 
+        This method supports both Proper Euler angles (e.g., 'ZXZ', 'XYX', etc.) and Tait-Bryan angles
+        (e.g., 'ZYX', 'YXZ', etc.). The rotation is performed using the corresponding rotation matrix
         for the specified sequence of Euler angles.
         """
-        # Proper Euler angles (z-x-z, x-y-x, y-z-y, z-y-z, x-z-x, y-x-y)    
+        # Proper Euler angles (z-x-z, x-y-x, y-z-y, z-y-z, x-z-x, y-x-y)
         if self.type == 'ZXZ':
             rotation_matrix = rotation_matrix_z_x_z(angles[0], angles[1], angles[2])
 
@@ -184,8 +184,8 @@ class Rotation_EulerAngles(Rotation_Transform):
         temp_data = np.dot(input_, rotation_matrix.T)
         return temp_data
 
-        
-    
 
-        
-            
+
+
+
+
