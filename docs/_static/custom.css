@@ -1,62 +1,124 @@
-/* Center logo in sidebar */
-.bd-sidebar .sidebar-brand-text {
-    text-align: center;
-    display: block;
+/* ----------------------------
+   🧭 General Layout Tweaks
+---------------------------- */
+
+/* Limit the maximum width of the main content for better readability */
+.wy-nav-content {
+    max-width: 900px;
     margin: 0 auto;
+    padding: 1em;
 }
 
-.sidebar-logo-container img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-}
-
-/* Reduce body font size and tighten layout */
+/* Make sure body font is compact and clean */
 body {
     font-size: 15px;
     line-height: 1.5;
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
 html {
     font-size: 15px;
 }
 
-/* Tweak sidebar fonts */
+/* ----------------------------
+   🎨 Sidebar Customization
+---------------------------- */
+
+/* Center sidebar brand text */
+.bd-sidebar .sidebar-brand-text,
+.sidebar-brand-text {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    padding-top: 0.5em;
+}
+
+/* Center logo in sidebar and scale responsively */
+.sidebar-logo-container img,
+.bd-sidebar .sidebar-logo img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+    height: auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+/* Sidebar navigation font */
 .sidebar-tree {
     font-size: 14px;
 }
 
-.sidebar-brand-text, .sidebar-brand {
-    font-size: 16px;
-    font-weight: bold;
-}
+/* ----------------------------
+   🏷️ Headings
+---------------------------- */
 
-/* Adjust headings */
 h1, .section h1 {
     font-size: 24px;
+    font-weight: 600;
 }
 
 h2, .section h2 {
     font-size: 20px;
+    font-weight: 500;
 }
 
 h3, .section h3 {
     font-size: 18px;
+    font-weight: 500;
 }
 
-/* Code blocks and literals */
+/* ----------------------------
+   💻 Code & Preformatted Text
+---------------------------- */
+
 code, pre {
     font-size: 14px;
+    background-color: #f6f8fa;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
 }
 
-/* Optional: tighter margins for mobile */
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+/* ----------------------------
+   📱 Mobile Responsiveness
+---------------------------- */
 
-    h1 {
-        font-size: 20px;
+/* Make sidebar collapsible for wide screens */
+.wy-nav-side {
+    width: 250px;
+    transition: width 0.3s ease;
+}
+
+.wy-nav-side.collapsed {
+    width: 60px;
+}
+
+.wy-side-nav-search {
+    overflow: hidden;
+}
+
+/* Expand content when sidebar is collapsed */
+.wy-nav-content-wrap {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+.wy-nav-content-wrap.sidebar-collapsed {
+    margin-left: 60px;
+}
+
+/* Responsive max width for main content */
+.wy-nav-content {
+    max-width: 90%; /* Use 90% of screen width */
+    margin: 0 auto;
+    padding: 1em;
+}
+
+@media screen and (min-width: 1600px) {
+    .wy-nav-content {
+        max-width: 1200px; /* Cap it on ultra-wide screens */
     }
 }
