@@ -195,10 +195,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -293,7 +289,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../transform/translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../transform/rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -360,21 +356,31 @@
                 <article class="bd-article">
                   
   <section id="inverse-kinematics-window">
-<h1>Inverse Kinematics Window<a class="headerlink" href="#inverse-kinematics-window" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1>Inverse Kinematics Window<a class="headerlink" href="#inverse-kinematics-window" title="Link to this heading">#</a></h1>
 <a class="reference internal image-reference" href="../../_images/Inv_kinematics_window.png"><img alt="Inverse Kinematics Window" class="align-center" src="../../_images/Inv_kinematics_window.png" style="width: 600px;" />
 </a>
 <p>The <strong>Inverse Kinematics Window</strong> is designed to extract time‐series Euler angles from your wing’s 3D point data. Follow these steps to import, visualize, and export your kinematics:</p>
 <p>—</p>
-<ol class="arabic simple">
-<li><p><strong>Import 3D Point Data</strong></p></li>
-</ol>
+<p>FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv <a class="footnote-reference brackets" href="#dltdv" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) rather than raw 2D images. Use this workflow to import your landmark trajectories:</p>
+<ol class="arabic">
+<li><p><strong>Prepare your CSV file</strong>
+The file must contain one header row and one data row per time step, with these columns:</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
+0.00,  1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
+0.01,  1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
+...
+</pre></div>
+</div>
 <ul class="simple">
-<li><p>Prepare a CSV file with columns:
-<cite>time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz</cite>
-where A, B, C, D are the four points on the wing plane.</p></li>
-<li><p>Click <strong>Import Data</strong> and select your CSV.</p></li>
-<li><p>The 3D coordinates are reconstructed using the Direct Linear Transformation (DLT) algorithm (see reference below).</p></li>
+<li><p><strong>time</strong>: elapsed time in seconds (or frame index)</p></li>
+<li><p><strong>Ax, Ay, Az</strong>: X, Y, Z coordinates of point A</p></li>
+<li><p><strong>Bx, By, Bz</strong>: X, Y, Z coordinates of point B</p></li>
+<li><p><strong>Cx, Cy, Cz</strong>: X, Y, Z coordinates of point C</p></li>
+<li><p><strong>Dx, Dy, Dz</strong>: X, Y, Z coordinates of point D</p></li>
 </ul>
+<p>Points A–D correspond to the four markers shown in the below image and processed in DLTdv.</p>
+</li>
+</ol>
 <a class="reference internal image-reference" href="assets/images/wing_diagram.jpg"><img alt="Wing Point Configuration" class="align-center" src="assets/images/wing_diagram.jpg" style="width: 400px;" />
 </a>
 <p>—</p>
@@ -410,13 +416,14 @@ where A, B, C, D are the four points on the wing plane.</p></li>
 <li><p>The computed Euler angles and selected sequence are sent directly to the <strong>Sprite Creator Window</strong> for further processing.</p></li>
 </ul>
 <p>—</p>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>DLT (Direct Linear Transformation)</strong> – A standard method for reconstructing 3D coordinates from multi‐camera stereo views.</p></li>
-</ul>
-<p>—</p>
-</section>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="dltdv" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Ty Hedrick. <em>DLTdv: A MATLAB-based tool for 2D video digitizing and 3D reconstruction</em>.
+Available at: <a class="reference external" href="https://biomech.web.unc.edu/dltdv/">https://biomech.web.unc.edu/dltdv/</a></p>
+</aside>
+</aside>
 </section>
 
 
@@ -453,33 +460,6 @@ where A, B, C, D are the four points on the wing plane.</p></li>
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/window/inverse_kinematics.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
-
-</div></div>
               
             
           </div>

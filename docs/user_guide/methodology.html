@@ -42,6 +42,7 @@
     <script src="../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/methodology';</script>
     <link rel="icon" href="../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -293,7 +294,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="transform/translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transform/rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transform/flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform/flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -357,20 +358,22 @@
                 <article class="bd-article">
                   
   <section id="methodology">
-<h1>Methodology<a class="headerlink" href="#methodology" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1>Methodology<a class="headerlink" href="#methodology" title="Link to this heading">#</a></h1>
 <p>The <strong>Flapkine</strong> application is a Python-based open-source framework designed to simulate <strong>flexible flapping dynamics</strong> in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.</p>
 <p>Flapkine is structured into modular components, each specializing in a distinct stage of simulation — from object loading and transformation to scene assembly and time-series playback.</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#purpose-design" id="id3">🎯 Purpose &amp; Design</a></p></li>
-<li><p><a class="reference internal" href="#core-components" id="id4">🧩 Core Components</a></p></li>
-<li><p><a class="reference internal" href="#conceptual-analogy" id="id5">🧠 Conceptual Analogy</a></p></li>
-<li><p><a class="reference internal" href="#graphical-user-interface-gui-overview" id="id6">🖥️ Graphical User Interface (GUI) Overview</a></p></li>
-<li><p><a class="reference internal" href="#open-source-architecture-extendability" id="id7">📦 Open-Source Architecture &amp; Extendability</a></p></li>
+<li><p><a class="reference internal" href="#purpose-design" id="id5">Purpose &amp; Design</a></p></li>
+<li><p><a class="reference internal" href="#core-components" id="id6">Core Components</a></p></li>
+<li><p><a class="reference internal" href="#reference-frames" id="id7">Reference Frames</a></p></li>
+<li><p><a class="reference internal" href="#mesh-representation" id="id8">Mesh Representation</a></p></li>
+<li><p><a class="reference internal" href="#conceptual-analogy" id="id9">Conceptual Analogy</a></p></li>
+<li><p><a class="reference internal" href="#graphical-user-interface-gui-overview" id="id10">Graphical User Interface (GUI) Overview</a></p></li>
+<li><p><a class="reference internal" href="#open-source-architecture-extendability" id="id11">Open-Source Architecture &amp; Extendability</a></p></li>
 </ul>
 </nav>
 <section id="purpose-design">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">🎯 Purpose &amp; Design</a><a class="headerlink" href="#purpose-design" title="Link to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Purpose &amp; Design</a><a class="headerlink" href="#purpose-design" title="Link to this heading">#</a></h2>
 <p>The core design philosophy of Flapkine is to offer an <strong>intuitive, reusable, and flexible simulation framework</strong> for dynamic modeling of flapping systems. The software manipulates triangulated STL mesh data using <strong>custom transformation pipelines</strong>, including:</p>
 <ul class="simple">
 <li><p>Rigid body transformations (translation + rotation)</p></li>
@@ -380,9 +383,9 @@
 <p>Its GUI offers researchers a no-code interface to interactively define, preview, and export kinematic models.</p>
 </section>
 <section id="core-components">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">🧩 Core Components</a><a class="headerlink" href="#core-components" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table" id="id1">
-<caption><span class="caption-text">Main Object-Oriented Components</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Core Components</a><a class="headerlink" href="#core-components" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Main Object-Oriented Components</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 75.0%" />
@@ -397,7 +400,7 @@
 <td><p>Holds STL mesh, name, and transformation pipeline. Applies translation, rotation, and deformation for flexible object simulation.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Sprite</span></code></p></td>
-<td><p>Encapsulates time-series data for a single <code class="docutils literal notranslate"><span class="pre">Object3D</span></code>. Stores dynamic parameters like center of mass, Euler angles, and deformation.</p></td>
+<td><p>Encapsulates time-series data for a single <code class="docutils literal notranslate"><span class="pre">Object3D</span></code>. Stores dynamic parameters like position of body frame origin, Euler angles, and deformation.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Scene</span></code></p></td>
 <td><p>Aggregates multiple <code class="docutils literal notranslate"><span class="pre">Sprite</span></code>. Used to simulate systems with interacting components (e.g., insect wings).</p></td>
@@ -406,16 +409,68 @@
 </table>
 </div>
 <p>These classes are usable independently in Python scripts, and their logic is also exposed via the GUI.</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id4">
 <a class="dark-compatible-image reference internal image-reference" href="../_images/scene_hierarchy.png"><img alt="Scene Hierarchy" class="dark-compatible-image" src="../_images/scene_hierarchy.png" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-text">📊 <strong>Figure:</strong> Object-oriented structure of the Flapkine backend — how Object3D, Sprite, and Scene classes interact.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> Object-oriented structure of the Flapkine backend — how Object3D, Sprite, and Scene classes interact.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
+<section id="reference-frames">
+<span id="id2"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">Reference Frames</a><a class="headerlink" href="#reference-frames" title="Link to this heading">#</a></h2>
+<p>FlapKine uses two primary reference frames to define and apply transformations to 3D objects:</p>
+<section id="inertial-frame">
+<h3>Inertial Frame<a class="headerlink" href="#inertial-frame" title="Link to this heading">#</a></h3>
+<p>The <strong>inertial frame</strong> is the fixed, global coordinate system in which the entire simulation is defined.
+Each project contains exactly one inertial frame, associated with the single <cite>Scene</cite> object:</p>
+<ul class="simple">
+<li><p><strong>Notation</strong>: <span class="math notranslate nohighlight">\(\{O_{E}, \hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}\}\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(O_{E}\)</span> is the origin of the inertial frame.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}\)</span> are its unit basis vectors.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="body-frame">
+<h3>Body Frame<a class="headerlink" href="#body-frame" title="Link to this heading">#</a></h3>
+<p>The <strong>body frame</strong> is the local coordinate system attached to each <cite>Object3D</cite> and defined by the STL mesh:</p>
+<ul class="simple">
+<li><p><strong>Notation</strong>: <span class="math notranslate nohighlight">\(\{O_{B}, \hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}\}\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(O_{B}\)</span> is the origin of the body frame.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}\)</span> are its unit basis vectors.</p></li>
+</ul>
+</li>
+<li><p>If no initial alignment in <a class="reference internal" href="window/sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a> is specified, the body frame coincides with the inertial frame.</p></li>
+</ul>
+</section>
+</section>
+<section id="mesh-representation">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Mesh Representation</a><a class="headerlink" href="#mesh-representation" title="Link to this heading">#</a></h2>
+<p>Each STL file describes a triangular mesh via:</p>
+<ul class="simple">
+<li><p><strong>Vertices</strong>
+Points in 3D space defining the mesh geometry.</p></li>
+<li><p><strong>Connection Relations</strong>
+Triplets of vertex indices that form the mesh’s triangular faces.
+As long as the object remains intact, these relations do not change during the simulation.</p></li>
+</ul>
+<p>Vertices are expressed in homogeneous coordinates in the body frame as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{P}_{B} =
+\begin{bmatrix}
+x_{B} \\
+y_{B} \\
+z_{B} \\
+1
+\end{bmatrix}\end{split}\]</div>
+<p>During simulation, these vertices are transformed by the pipeline defined in <cite>Object3D</cite>.
+See <a class="reference internal" href="transform_reference.html"><span class="doc">Transform Reference</span></a> for full details.</p>
+</section>
 <section id="conceptual-analogy">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">🧠 Conceptual Analogy</a><a class="headerlink" href="#conceptual-analogy" title="Link to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Conceptual Analogy</a><a class="headerlink" href="#conceptual-analogy" title="Link to this heading">#</a></h2>
 <p>To intuitively understand Flapkine’s architecture, imagine the simulation as a <strong>3D stage</strong>:</p>
 <ul class="simple">
 <li><p>The <strong>Scene</strong> is the overall 3D space — it’s the “world” or environment where everything happens. It contains multiple actors (objects), lights, and camera perspectives.</p></li>
@@ -430,14 +485,16 @@
 └── Sprite N → (Object3D + Motion)
 </pre></div>
 </div>
-<p>Each level adds more complexity:
-- <cite>Object3D</cite> → static geometry + transformations
-- <cite>Sprite</cite>   → adds time-based behavior
-- <cite>Scene</cite>    → brings everything together in a dynamic simulation</p>
+<p>Each level adds more complexity:</p>
+<ul class="simple">
+<li><p><cite>Object3D</cite> → static geometry + transformations</p></li>
+<li><p><cite>Sprite</cite>   → adds time-based behavior</p></li>
+<li><p><cite>Scene</cite>    → brings everything together in a dynamic simulation</p></li>
+</ul>
 <p>This layered structure makes it easy to manage and visualize multiple interacting elements in a biomimetic system, such as both wings of an insect or multiple appendages in robotics.</p>
 </section>
 <section id="graphical-user-interface-gui-overview">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">🖥️ Graphical User Interface (GUI) Overview</a><a class="headerlink" href="#graphical-user-interface-gui-overview" title="Link to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Graphical User Interface (GUI) Overview</a><a class="headerlink" href="#graphical-user-interface-gui-overview" title="Link to this heading">#</a></h2>
 <p>Flapkine includes a fully-featured <strong>graphical user interface</strong> designed to simplify 3D simulation setup and visualization, especially for researchers and users without programming backgrounds.</p>
 <p>Key capabilities of the GUI:</p>
 <ul class="simple">
@@ -446,19 +503,19 @@
 <li><p><strong>Camera &amp; Lighting Configuration:</strong> Adjust view angles, lighting sources, and projection styles.</p></li>
 <li><p><strong>Export Outputs:</strong> Render scenes into frame sequences or full-length video files.</p></li>
 </ul>
-<p>📝 For a breakdown of all individual windows and their functionalities, see the <a class="reference internal" href="window_reference.html"><span class="doc">Window Reference</span></a> section.</p>
+<p>For a breakdown of all individual windows and their functionalities, see the <a class="reference internal" href="window_reference.html"><span class="doc">Window Reference</span></a> section.</p>
 <p>—</p>
 </section>
 <section id="open-source-architecture-extendability">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">📦 Open-Source Architecture &amp; Extendability</a><a class="headerlink" href="#open-source-architecture-extendability" title="Link to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Open-Source Architecture &amp; Extendability</a><a class="headerlink" href="#open-source-architecture-extendability" title="Link to this heading">#</a></h2>
 <p>Flapkine is built from the ground up to be:</p>
 <ul class="simple">
-<li><p>🔓 <strong>Fully Open Source:</strong> Licensed under a permissive open-source license to encourage academic and industrial collaboration.</p></li>
-<li><p>🧩 <strong>Modular and Extensible:</strong> Add custom transformation models, extend GUI windows, or replace back-end rendering logic with ease.</p></li>
-<li><p>🧵 <strong>Hybrid Architecture:</strong> Use Flapkine from the GUI <strong>or</strong> via Python scripts and command-line tools.</p></li>
-<li><p>📊 <strong>Research-Ready:</strong> Designed for reproducibility, publication-quality figures, and scientific visualization workflows.</p></li>
+<li><p><strong>Fully Open Source:</strong> Licensed under a permissive open-source license to encourage academic and industrial collaboration.</p></li>
+<li><p><strong>Modular and Extensible:</strong> Add custom transformation models, extend GUI windows, or replace back-end rendering logic with ease.</p></li>
+<li><p><strong>Hybrid Architecture:</strong> Use Flapkine from the GUI <strong>or</strong> via Python scripts and command-line tools.</p></li>
+<li><p><strong>Research-Ready:</strong> Designed for reproducibility, publication-quality figures, and scientific visualization workflows.</p></li>
 </ul>
-<p>📚 For details on mathematical models (e.g., inverse kinematics, axis projections, and deformation strategies), see the <span class="xref std std-doc">Transform Reference</span>.</p>
+<p>For details on mathematical models (e.g., forward kinematics, axis projections, and deformation strategies), <a class="reference internal" href="transform_reference.html"><span class="doc">Transform Reference</span></a>.</p>
 </section>
 </section>
 
@@ -509,22 +566,19 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-design">🎯 Purpose &amp; Design</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components">🧩 Core Components</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-analogy">🧠 Conceptual Analogy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphical-user-interface-gui-overview">🖥️ Graphical User Interface (GUI) Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-architecture-extendability">📦 Open-Source Architecture &amp; Extendability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-design">Purpose &amp; Design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components">Core Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-frames">Reference Frames</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inertial-frame">Inertial Frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#body-frame">Body Frame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh-representation">Mesh Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-analogy">Conceptual Analogy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphical-user-interface-gui-overview">Graphical User Interface (GUI) Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-architecture-extendability">Open-Source Architecture &amp; Extendability</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/user_guide/methodology.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

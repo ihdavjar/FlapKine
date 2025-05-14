@@ -1,3 +1,5 @@
+.. _inverse_kinematics_window:
+
 Inverse Kinematics Window
 =========================
 
@@ -10,13 +12,25 @@ The **Inverse Kinematics Window** is designed to extract time‐series Euler ang
 
 ---
 
-1. **Import 3D Point Data**
+FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv [#DLTdv]_) rather than raw 2D images. Use this workflow to import your landmark trajectories:
 
-- Prepare a CSV file with columns:
-  `time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz`
-  where A, B, C, D are the four points on the wing plane.
-- Click **Import Data** and select your CSV.
-- The 3D coordinates are reconstructed using the Direct Linear Transformation (DLT) algorithm (see reference below).
+1. **Prepare your CSV file**
+   The file must contain one header row and one data row per time step, with these columns:
+
+   .. code-block:: csv
+
+      time, Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
+      0.00,  1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
+      0.01,  1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
+      ...
+
+   - **time**: elapsed time in seconds (or frame index)
+   - **Ax, Ay, Az**: X, Y, Z coordinates of point A
+   - **Bx, By, Bz**: X, Y, Z coordinates of point B
+   - **Cx, Cy, Cz**: X, Y, Z coordinates of point C
+   - **Dx, Dy, Dz**: X, Y, Z coordinates of point D
+
+   Points A–D correspond to the four markers shown in the below image and processed in DLTdv.
 
 .. image:: ../../assets/images/wing_diagram.jpg
    :alt: Wing Point Configuration
@@ -53,9 +67,7 @@ The **Inverse Kinematics Window** is designed to extract time‐series Euler ang
 
 ---
 
-References
-----------
+.. rubric:: References
 
-- **DLT (Direct Linear Transformation)** – A standard method for reconstructing 3D coordinates from multi‐camera stereo views.
-
----
+.. [#DLTdv] Ty Hedrick. *DLTdv: A MATLAB-based tool for 2D video digitizing and 3D reconstruction*.
+   Available at: https://biomech.web.unc.edu/dltdv/

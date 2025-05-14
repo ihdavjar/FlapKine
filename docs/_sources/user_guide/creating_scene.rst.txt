@@ -13,4 +13,4 @@ Steps:
 4. You may:
    - Load existing `Sprite` files
    - Or create new ones
-     See :doc:`🧩 Creating a Sprite <creating_sprite>`
+     See :doc:`Creating a Sprite <creating_sprite>`

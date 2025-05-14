@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Flexibility Transform &#8212; FlapKine v0.1.1 documentation</title>
+    <title>Flexibility Transform (Experimental) &#8212; FlapKine v0.1.1 documentation</title>
   
   
   
@@ -294,7 +294,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Flexibility Transform</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -343,7 +343,7 @@
     
     <li class="breadcrumb-item"><a href="../transform_reference.html" class="nav-link">Transform Reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Flexibility Transform</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Flexibility Transform (Experimental)</span></li>
   </ul>
 </nav>
 </div>
@@ -360,46 +360,43 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="flexibility-transform">
-<span id="id1"></span><h1>Flexibility Transform<a class="headerlink" href="#flexibility-transform" title="Link to this heading">#</a></h1>
+  <section id="flexibility-transform-experimental">
+<span id="flexibility-transform"></span><h1>Flexibility Transform (Experimental)<a class="headerlink" href="#flexibility-transform-experimental" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>This feature is currently under development.</strong>
+Functionality is experimental and subject to change in future releases.</p>
+</div>
 <p>The <code class="code docutils literal notranslate"><span class="pre">FlapKine</span></code> application supports flexible body transformations in addition to standard translation and rotation. This feature enables realistic modeling of deformable structures such as flapping wings. Flexibility is introduced via spatially varying transformation matrices applied per-vertex, enabling time-dependent and location-specific deformation.</p>
-<section id="transform-summary">
-<h2>Transform Summary<a class="headerlink" href="#transform-summary" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table" id="id3">
-<caption><span class="caption-text">Flexibility Transform Modes</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Flexibility Transform Modes</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
 <colgroup>
-<col style="width: 16.7%" />
-<col style="width: 16.7%" />
-<col style="width: 41.7%" />
-<col style="width: 25.0%" />
+<col style="width: 22.2%" />
+<col style="width: 22.2%" />
+<col style="width: 55.6%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Transform Type</strong></p></th>
 <th class="head"><p><strong>Mode</strong></p></th>
 <th class="head"><p><strong>Description</strong></p></th>
-<th class="head"><p><strong>Image</strong></p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>Flexibility</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Constant</span> <span class="pre">/</span> <span class="pre">Rigid</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Constant</span></code></p></td>
 <td><p>No deformation; the object behaves as a rigid body.</p></td>
-<td><p>–</p></td>
 </tr>
 <tr class="row-odd"><td></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">FlexibilityType1</span></code></p></td>
-<td><p>First mode of flexibility inspired by Dong <em>et al.</em> <a class="footnote-reference brackets" href="#dong2022" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> where deformation occurs only along the wing thickness direction. Described in detail below.</p></td>
-<td><p>–</p></td>
+<td><p>First mode of flexibility inspired by Dong <em>et al.</em> <a class="footnote-reference brackets" href="#dong2022" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> where deformation occurs only along the wing thickness direction. Described in detail below.</p></td>
 </tr>
 <tr class="row-even"><td></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">FlexibilityType2</span></code></p></td>
 <td><p><em>(Description to be added in future.)</em></p></td>
-<td><p>–</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</section>
 <section id="mathematical-formulation">
 <h2>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h2>
 <p>Flexibility is modeled by applying a deformation matrix to each vertex in the body frame. The resulting transformation is expressed as:</p>
@@ -483,7 +480,7 @@ f_z(x_B, y_B, z_B) &amp;= h_m(x_B, y_B, t)
 <p class="rubric">References</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="dong2022" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Dong, H., et al. <em>“Thrust performance of a flexible flapping wing.”</em> Journal of Fluids and Structures, 2022.</p>
 </aside>
 </aside>
@@ -537,22 +534,12 @@ f_z(x_B, y_B, z_B) &amp;= h_m(x_B, y_B, t)
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform-summary">Transform Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flexibility-type-1-flapping-induced-deformation">Flexibility Type 1: Flapping-Induced Deformation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-transformation">Final Transformation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-notes">Implementation Notes</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/transform/flexibility_transform.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

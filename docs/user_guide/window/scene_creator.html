@@ -293,7 +293,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../transform/translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../transform/rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -361,31 +361,47 @@
                   
   <section id="scene-creator-window">
 <span id="id1"></span><h1>Scene Creator Window<a class="headerlink" href="#scene-creator-window" title="Link to this heading">#</a></h1>
-<a class="reference internal image-reference" href="../../_images/scene_creator.png"><img alt="Scene Creator Window" class="align-center" src="../../_images/scene_creator.png" style="width: 250px;" />
-</a>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>Assemble your scene by adding, ordering, and configuring individual sprites.</p>
-<p>—</p>
-</section>
 <section id="what-is-a-scene">
 <h2>What Is a Scene?<a class="headerlink" href="#what-is-a-scene" title="Link to this heading">#</a></h2>
-<p>A <strong>Scene</strong> is a collection of <strong>Sprites</strong> (2D/3D objects) that together form the visual environment for your project. Each <strong>Sprite</strong> can be:
-- <strong>Imported</strong> from an existing <cite>.pkl</cite> file
-- <strong>Created</strong> on the fly via the <strong>Sprite Creator Window</strong></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Scene</span></code> is a collection of <code class="docutils literal notranslate"><span class="pre">Sprites</span></code> (2D/3D objects) that together form the visual environment for your project. Each <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> can be:</p>
+<ul class="simple">
+<li><p><strong>Imported</strong> from an existing <cite>.pkl</cite> file</p></li>
+<li><p><strong>Created</strong> on the fly via the <strong>Sprite Creator Window</strong></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference internal" href="../methodology.html"><span class="doc">Methodology</span></a> section for more details on <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> class`.</p>
+</div>
+<p>—</p>
+<a class="reference internal image-reference" href="../../_images/scene_creator.png"><img alt="Scene Creator Window" class="align-center" src="../../_images/scene_creator.png" style="width: 250px;" />
+</a>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The <strong>Scene Creator Window</strong> is where you can assemble and configure the sprites that will populate your scene. It provides a user-friendly interface for adding, removing, and managing sprites.
+The window is divided into two main sections:</p>
+<ul class="simple">
+<li><p><strong>Sprite Management</strong>: This section provides controls for adding, removing, and importing sprites.</p></li>
+<li><p><strong>Sprite List</strong>: Displays the current sprites in your scene.</p></li>
+<li><p><strong>Sprite Controls</strong>: Provides options to add, remove, or import sprites.</p></li>
+</ul>
 <p>—</p>
 </section>
 <section id="adding-sprites">
 <h2>Adding Sprites<a class="headerlink" href="#adding-sprites" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Add Sprite</strong>
-Click the <strong>+ Add</strong> button to append a new sprite entry to the list.</p></li>
-<li><p><strong>Drop Sprite</strong>
-Select an existing sprite in the list, then click the <strong>– Drop</strong> button to remove it.</p></li>
-<li><p><strong>Import Sprite</strong>
-Click <strong>Open</strong> to browse your file system and load a <cite>.pkl</cite> sprite file.</p></li>
-<li><p><strong>Create Sprite</strong>
-Click <strong>Create</strong> to launch the <strong>Sprite Creator Window</strong>, where you can design and save a brand-new sprite.</p></li>
+<ol class="arabic">
+<li><p><strong>Add Sprite</strong></p>
+<p>Click the <strong>+ Add</strong> button to append a new sprite entry to the list.</p>
+</li>
+<li><p><strong>Drop Sprite</strong></p>
+<p>Click the <strong>– Drop</strong> button to remove the last Sprite in the list.</p>
+</li>
+<li><p><strong>Import Sprite</strong></p>
+<p>Click <strong>Open</strong> to browse your file system and load a <cite>.pkl</cite> sprite file.</p>
+</li>
+<li><p><strong>Create Sprite</strong></p>
+<p>Click <strong>Create</strong> to launch the <a class="reference internal" href="sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a>, where you can design and save a brand-new sprite.</p>
+</li>
 </ol>
 <p>—</p>
 </section>
@@ -445,21 +461,12 @@ Click <strong>Create</strong> to launch the <strong>Sprite Creator Window</stron
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-scene">What Is a Scene?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-sprites">Adding Sprites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalizing-your-scene">Finalizing Your Scene</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/window/scene_creator.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

@@ -47,7 +47,7 @@
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Flexibility Transform" href="flexibility_transform.html" />
+    <link rel="next" title="Flexibility Transform (Experimental)" href="flexibility_transform.html" />
     <link rel="prev" title="Translation Transformation" href="translation_transform.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -294,7 +294,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -363,57 +363,121 @@
   <section id="rotation-transformation">
 <span id="rotation-transform"></span><h1>Rotation Transformation<a class="headerlink" href="#rotation-transformation" title="Link to this heading">#</a></h1>
 <p>A rotation transformation modifies the orientation of an object by applying time-dependent or static rotations to its local frame.</p>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>There are two rotation modes:</p>
-<ul class="simple">
-<li><p><strong>Constant</strong>:
-The object retains its original orientation throughout the simulation.</p></li>
-<li><p><strong>Euler_Angle</strong>:
-A time-dependent rotation using Euler angles. Users can define a rotation sequence (e.g., ZYX) and provide angle sequences (alpha), (beta), and (gamma) via a CSV file.
-Alternatively, angle sequences can be automatically imported from the <strong>Inverse Kinematics</strong> module.</p></li>
-</ul>
-<a class="reference internal image-reference" href="../../_images/euler_angle_rotation_transform.png"><img alt="Euler Angle Rotation Transform" class="align-center" src="../../_images/euler_angle_rotation_transform.png" style="width: 500px;" />
-</a>
-</section>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Rotation Modes</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Transform Type</strong></p></th>
+<th class="head"><p><strong>Mode</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Rotation</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Constant</span></code></p></td>
+<td><p>The object retains its original orientation throughout the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Euler_Angle</span></code></p></td>
+<td><p>Applies a time-dependent rotation using Euler angles. See <a class="reference internal" href="#euler-angle"><span class="std std-ref">Euler Angle</span></a> section below.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>—</p>
 <section id="mathematical-model">
 <h2>Mathematical Model<a class="headerlink" href="#mathematical-model" title="Link to this heading">#</a></h2>
-<p>If a rotation transformation is applied, the position vector (mathbf{P}_{B}’) (resulting from translation) is further transformed by the rotation matrix (mathbf{R}_{B}):</p>
+<p>If a rotation transformation is applied, the position vector <span class="math notranslate nohighlight">\(\mathbf{P}_{B}`\)</span> (resulting from translation) is further transformed by the rotation matrix <span class="math notranslate nohighlight">\(\mathbf{R}_{B}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{P}_{B}'' = \mathbf{R}_{B} \cdot \mathbf{P}_{B}'\]</div>
-<p>The rotation matrix (mathbf{R}_{B}) is defined in terms of three angles (alpha), (beta), and (gamma), representing rotations about the object-local axes (hat{mathbf{b}}_1), (hat{mathbf{b}}_2), and (hat{mathbf{b}}_3), respectively.</p>
-<p>In the <code class="docutils literal notranslate"><span class="pre">FlapKine</span></code> application, the rotation matrix is computed using <strong>Euler angles</strong>, a widely used method for describing 3D rotations. The rotation is based on a sequence of axis-specific rotations:</p>
+<p>The rotation matrix is computed from Euler angles if the <code class="docutils literal notranslate"><span class="pre">Euler_Angle</span></code> mode is selected. The rotation matrix is defined as:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)\]</div>
-<p>where (mathbf{R}_{text{axis}_i}(theta)) denotes the rotation matrix about the axis (text{axis}_i) by angle (theta).</p>
-<p>For example, with a rotation sequence of ((X, Y, Z)), the final matrix is:</p>
+<p>Here, <span class="math notranslate nohighlight">\(\mathbf{R}_{\text{axis}_i}(\theta)\)</span> denotes the rotation matrix for a rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span> about the body-fixed axis <span class="math notranslate nohighlight">\(\text{axis}_i\)</span>, constructed so that it operates exclusively on that axis—i.e., it ignores any rotations about the other axes <span class="math notranslate nohighlight">\(\text{axis}_j\)</span> for <span class="math notranslate nohighlight">\(j \neq i\)</span>.</p>
+<p>Example: For rotation sequence (X, Y, Z):</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{R}_{B} = \mathbf{R}_{X}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{Z}(\gamma)\]</div>
+<p>—</p>
+<p>Else if the <code class="docutils literal notranslate"><span class="pre">Constant</span></code> mode is selected, the rotation matrix is set to the identity matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R}_{B} =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
 </section>
-<section id="customization">
-<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">#</a></h2>
-<p>FlapKine supports arbitrary axis sequences like <cite>(Z, Y, X)</cite> or <cite>(X, Y, Z)</cite>, offering:</p>
+<section id="euler-angle">
+<span id="id1"></span><h2>Euler Angle<a class="headerlink" href="#euler-angle" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Euler_Angle</span></code> mode applies time-dependent rotations using Euler angles. This mode allows for detailed control of an object’s orientation over time by specifying a rotation sequence and supplying angle data for each frame.</p>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
+<p>Rotation is applied through a user-defined sequence of three intrinsic (body-fixed) rotations—commonly ZYX, XYZ, etc. In body frame terms X - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_1\)</span>, Y - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_2\)</span>, and Z - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_3\)</span>. The rotation sequence is defined as:</p>
 <ul class="simple">
-<li><p>Compatibility with different Euler angle conventions</p></li>
-<li><p>Greater control over rotation modeling</p></li>
-<li><p>Accurate simulation of flapping-wing kinematics and non-rigid systems</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_1\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_3\)</span>.</p></li>
 </ul>
-<p>This customization is essential for capturing dynamic orientation changes in flexible bio-inspired mechanisms such as flapping wings.</p>
+<p>The rotation matrix is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)\]</div>
+<p>Example: For rotation sequence (Z, Y, X):</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{R}_{B} = \mathbf{R}_{Z}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{X}(\gamma)\]</div>
+</section>
+<section id="input-options">
+<h3>Input Options<a class="headerlink" href="#input-options" title="Link to this heading">#</a></h3>
+<p>Users may provide Euler angle sequences in two ways:</p>
+<ul class="simple">
+<li><p><strong>CSV File Input</strong>: Upload a file with time-varying angle values.</p></li>
+<li><p><strong>Automatic Import</strong>: Import angle sequences directly from the <a class="reference internal" href="../window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse kinematics</span></a> module.</p></li>
+</ul>
+<p>This flexibility supports both manual design and automated workflows.</p>
+<a class="reference internal image-reference" href="../../_images/euler_angle_rotation_transform.png"><img alt="Euler Angle Rotation Transform" class="align-center" src="../../_images/euler_angle_rotation_transform.png" style="width: 500px;" />
+</a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Euler Angle CSV Format</strong></p>
+<p>Each Euler angle (<cite>alpha</cite>, <cite>beta</cite>, <cite>gamma</cite>) must be provided in a <strong>separate CSV file</strong>.</p>
+<p>The format of each file should be:</p>
+<ul class="simple">
+<li><p>A single column containing the angle values in degrees.</p></li>
+<li><p>Each row represents the value of the angle at a specific time step.</p></li>
+<li><p>No header row is required.</p></li>
+</ul>
+<p>Example (<cite>alpha.csv</cite>):</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>0.0
+12.5
+25.0
+18.2
+...
+</pre></div>
+</div>
+<p>Similarly, create <cite>beta.csv</cite> and <cite>gamma.csv</cite> with the corresponding angle sequences.</p>
+</div>
+<p>—</p>
+</section>
 </section>
 <section id="usage-notes">
 <h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>CSV input must include time and the three Euler angles per time step: <cite>time, alpha, beta, gamma</cite>.</p></li>
-<li><p>Ensure the rotation sequence matches the physical or experimental configuration.</p></li>
-<li><p>Euler angles are interpreted in degrees.</p></li>
+<li><p>Euler angles must be in <strong>degrees</strong></p></li>
+<li><p>Rotation sequence must match the physical setup or simulation logic</p></li>
+<li><p>Ensure time series length matches the number of animation frames</p></li>
 </ul>
+<p>—</p>
 </section>
 <section id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="translation_transform.html#translation-transform"><span class="std std-ref">Translation Transformation</span></a></p></li>
-<li><p><span class="xref std std-ref">../window/inverse_kinematics</span></p></li>
 <li><p><a class="reference internal" href="../transform_reference.html#transform-reference"><span class="std std-ref">Transform Reference</span></a></p></li>
+<li><p><a class="reference internal" href="../window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse kinematics</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -442,7 +506,7 @@ Alternatively, angle sequences can be automatically imported from the <strong>In
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Flexibility Transform</p>
+        <p class="prev-next-title">Flexibility Transform (Experimental)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -465,22 +529,16 @@ Alternatively, angle sequences can be automatically imported from the <strong>In
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-model">Mathematical Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization">Customization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-angle">Euler Angle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-options">Input Options</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-notes">Usage Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-topics">Related Topics</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/transform/rotation_transform.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

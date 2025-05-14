@@ -294,7 +294,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -363,21 +363,35 @@
   <section id="translation-transformation">
 <span id="translation-transform"></span><h1>Translation Transformation<a class="headerlink" href="#translation-transformation" title="Link to this heading">#</a></h1>
 <p>A translation transformation modifies the position of an object by shifting its origin without altering its orientation or shape.</p>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>There are two translation modes:</p>
-<ul class="simple">
-<li><p><strong>Constant</strong>:
-The object remains stationary in the scene. No translation is applied.</p></li>
-<li><p><strong>Linear</strong>:
-A time-dependent translation is performed based on the object’s Center of Mass (COM) trajectory. This mode requires a CSV file containing position data for each time step. The object moves along this specified path during the animation.</p></li>
-</ul>
-<a class="reference internal image-reference" href="../../_images/linear_translation_transform.png"><img alt="Linear Translation Transform" class="align-center" src="../../_images/linear_translation_transform.png" style="width: 500px;" />
-</a>
-</section>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Translation Modes</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Transform Type</strong></p></th>
+<th class="head"><p><strong>Mode</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Translation</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Constant</span></code></p></td>
+<td><p>The object remains stationary in the scene. No translation is applied.</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">COM</span></code></p></td>
+<td><p>See <a class="reference internal" href="#com-translation"><span class="std std-ref">COM-Based Translation</span></a> for details.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>—</p>
 <section id="mathematical-model">
 <h2>Mathematical Model<a class="headerlink" href="#mathematical-model" title="Link to this heading">#</a></h2>
-<p>When a translation transformation is applied, the origin (O_B) of the <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> frame is shifted. The position vector (mathbf{P}_B), representing a vertex in the local <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> frame, undergoes the following transformation:</p>
+<p>When a translation transformation is applied, the body origin <span class="math notranslate nohighlight">\(O_B\)</span> of the <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> frame is shifted. The position vector <span class="math notranslate nohighlight">\(\mathbf{P}_B\)</span>, representing a vertex in the local <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> frame, undergoes the following transformation:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{P}_{B}' = \mathbf{T}_{B} \cdot \mathbf{P}_{B}\]</div>
 <p>where:</p>
@@ -389,7 +403,7 @@ y_{B} \\
 z_{B} \\
 1
 \end{bmatrix}\end{split}\]</div>
-<p>is the homogeneous coordinate of the vertex before transformation, and (mathbf{T}_{B}) is the translation matrix:</p>
+<p>and the translation matrix is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{T}_{B} =
 \begin{bmatrix}
@@ -398,15 +412,36 @@ z_{B} \\
 0 &amp; 0 &amp; 1 &amp; t_z \\
 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}\end{split}\]</div>
-<p>Here, (t_x), (t_y), and (t_z) represent the translation distances along the local (hat{mathbf{b}}_1), (hat{mathbf{b}}_2), and (hat{mathbf{b}}_3) axes, respectively.</p>
+<p>Here, <span class="math notranslate nohighlight">\(t_x\)</span>, <span class="math notranslate nohighlight">\(t_y\)</span>, and <span class="math notranslate nohighlight">\(t_z\)</span> represent the translation distances along the inertial <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span>, <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span>, and <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span> axes.</p>
+<p>—</p>
+</section>
+<section id="com-based-translation">
+<span id="com-translation"></span><h2>COM-Based Translation<a class="headerlink" href="#com-based-translation" title="Link to this heading">#</a></h2>
+<p>This mode applies a <strong>time-dependent translation</strong> to the object using an external CSV file.</p>
+<a class="reference internal image-reference" href="../../_images/linear_translation_transform.png"><img alt="Linear Translation Transform" class="align-center" src="../../_images/linear_translation_transform.png" style="width: 500px;" />
+</a>
+<p>Despite the name, the CSV does <strong>not</strong> contain the actual center of mass. Instead, it specifies the <strong>position of the body frame origin</strong> <span class="math notranslate nohighlight">\(O_B\)</span> with respect to the <strong>inertial frame</strong> at each time step. This path is used to animate the object’s motion over time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>CSV Format</strong></p>
+<p>The CSV file should contain:</p>
+<ul class="simple">
+<li><p>Column 1: <span class="math notranslate nohighlight">\(t_x\)</span> (X-position)</p></li>
+<li><p>Column 2: <span class="math notranslate nohighlight">\(t_y\)</span> (Y-position)</p></li>
+<li><p>Column 3: <span class="math notranslate nohighlight">\(t_z\)</span> (Z-position)</p></li>
+</ul>
+<p>Each row corresponds to one time step.</p>
+</div>
+<p>—</p>
 </section>
 <section id="usage-notes">
 <h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>The CSV file for <strong>Linear</strong> translation should contain columns corresponding to time steps and the COM positions: <cite>time, x, y, z</cite>.</p></li>
-<li><p>Ensure that the number of time steps in the CSV matches the total number of frames in the animation for smooth motion.</p></li>
-<li><p>Units for translation are consistent with the coordinate system defined in the project (typically meters or millimeters depending on STL scale).</p></li>
+<li><p>The number of rows in the CSV should match the number of animation frames.</p></li>
+<li><p>Ensure consistent units across STL models, scene setup, and trajectory data.</p></li>
+<li><p>COM translation is ideal for motion capture-based animations, CFD coupling, or prescribed kinematics.</p></li>
 </ul>
+<p>—</p>
 </section>
 <section id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Link to this heading">#</a></h2>
@@ -464,21 +499,12 @@ z_{B} \\
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-model">Mathematical Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#com-based-translation">COM-Based Translation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-notes">Usage Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-topics">Related Topics</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/transform/translation_transform.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

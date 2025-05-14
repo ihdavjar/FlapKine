@@ -293,7 +293,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../transform/translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../transform/rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -381,32 +381,35 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>🎥 <strong>Video Animation</strong></p></td>
+<tr class="row-even"><td><p><strong>Video Animation</strong></p></td>
 <td><p>Renders and displays the animation preview</p></td>
 </tr>
-<tr class="row-odd"><td><p>🧊 <strong>3D Visualizer</strong></p></td>
+<tr class="row-odd"><td><p><strong>3D Visualizer</strong></p></td>
 <td><p>Plays the STL model animation interactively</p></td>
 </tr>
-<tr class="row-even"><td><p>🎯 <strong>Selected Point</strong></p></td>
-<td><p>Enables precise 2D point selection on model surfaces</p></td>
+<tr class="row-even"><td><p><strong>Selected Point</strong></p></td>
+<td><p>Enables precise 2D point selection on STL model surfaces</p></td>
 </tr>
-<tr class="row-odd"><td><p>📊 <strong>Scatter Plot</strong></p></td>
-<td><p>Illustrates the 3D motion trajectory of selected points</p></td>
+<tr class="row-odd"><td><p><strong>Scatter Plot</strong></p></td>
+<td><p>Illustrates the 3D motion trajectory of the selected point</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>—</p>
 </section>
-<section id="video-preview-widget">
-<h2>Video Preview Widget<a class="headerlink" href="#video-preview-widget" title="Link to this heading">#</a></h2>
+<section id="video-animation-widget">
+<h2>Video Animation Widget<a class="headerlink" href="#video-animation-widget" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Overview:</strong>
 Automatically shows the rendered animation if available. Otherwise, users can render the animation using the Render button.</p></li>
-<li><p><strong>Key Features:</strong>
-- <strong>Render Trigger:</strong> Initiates the animation render if it hasn’t been completed.
-- <strong>Status Bar:</strong> Displays real-time rendering progress beside the Render button.
-- <strong>Configurable Rendering:</strong> Adjust render settings via the <cite>Render → Configure Render</cite> menu.</p></li>
+<li><p><strong>Key Features:</strong></p>
+<ul>
+<li><p><strong>Render Button:</strong> Initiates the animation render if it hasn’t been completed.</p></li>
+<li><p><strong>Status Bar:</strong> Displays real-time rendering progress beside the Render button.</p></li>
+<li><p><strong>Configurable Rendering:</strong> Adjust render settings via the <cite>Render → Configure Render</cite> in top menubar.</p></li>
+</ul>
+</li>
 </ul>
 <p>—</p>
 </section>
@@ -414,12 +417,15 @@ Automatically shows the rendered animation if available. Otherwise, users can re
 <h2>3D Visualizer Widget<a class="headerlink" href="#d-visualizer-widget" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Overview:</strong>
-Renders the STL model in motion, providing an interactive 3D experience.</p></li>
-<li><p><strong>Key Features:</strong>
-- <strong>Interactive Controls:</strong> Rotate, zoom, and pan using the mouse.
-- <strong>Playback Controls:</strong> Play, pause, or scrub through the animation timeline.
-- <strong>Visualization Aid:</strong> Helps set camera and lighting configurations for the final video render.
-- <strong>Coordinate Axes:</strong> Displays both body-fixed axes (A, B, C) and inertial axes (X, Y, Z).</p></li>
+Renders the STL model in motion, providing an interactive 3D experience, which can be controlled using the mouse, with functions like rotation, zooming, and panning.</p></li>
+<li><p><strong>Key Features:</strong></p>
+<ul>
+<li><p><strong>Interactive Controls:</strong> Rotate, zoom, and pan using the mouse.</p></li>
+<li><p><strong>Playback Controls:</strong> Play, pause, or scrub through the animation timeline.</p></li>
+<li><p><strong>Visualization Aid:</strong> Helps set camera and lighting configurations for the final video render.</p></li>
+<li><p><strong>Coordinate Axes:</strong> Displays both body-fixed axes (A, B, C) and inertial axes (X, Y, Z).</p></li>
+</ul>
+</li>
 </ul>
 <p>—</p>
 </section>
@@ -428,9 +434,12 @@ Renders the STL model in motion, providing an interactive 3D experience.</p></li
 <ul class="simple">
 <li><p><strong>Overview:</strong>
 Optimized for components like wings where one dimension is significantly smaller; it provides a 2D projection by excluding the smallest axis.</p></li>
-<li><p><strong>Key Features:</strong>
-- <strong>Flattened Projection:</strong> Automatically adjusts to produce a 2D view for easier point selection.
-- <strong>Adaptive Interface:</strong> Works intelligently for both wing-like structures and other object geometries.</p></li>
+<li><p><strong>Key Features:</strong></p>
+<ul>
+<li><p><strong>Flattened Projection:</strong> Automatically adjusts to produce a 2D view for easier point selection.</p></li>
+<li><p><strong>Adaptive Interface:</strong> Works intelligently for both wing-like structures and other object geometries.</p></li>
+</ul>
+</li>
 </ul>
 <p>—</p>
 </section>
@@ -439,10 +448,13 @@ Optimized for components like wings where one dimension is significantly smaller
 <ul class="simple">
 <li><p><strong>Overview:</strong>
 Uses computed forward kinematics to plot the 3D motion of the selected point with respect to the inertial coordinate system (X, Y, Z).</p></li>
-<li><p><strong>Key Features:</strong>
-- <strong>Trajectory Tracking:</strong> Visualizes the motion path in 3D space over time.
-- <strong>Dynamic Analysis:</strong> Ideal for examining oscillations, vibrations, and deformation patterns.
-- <strong>Inertial Axes Reference:</strong> The plot is aligned with the inertial axes (X, Y, Z), providing a global frame of reference for motion.</p></li>
+<li><p><strong>Key Features:</strong></p>
+<ul>
+<li><p><strong>Trajectory Tracking:</strong> Visualizes the motion path in 3D space over time.</p></li>
+<li><p><strong>Dynamic Analysis:</strong> Ideal for examining oscillations, vibrations, and deformation patterns.</p></li>
+<li><p><strong>Inertial Axes Reference:</strong> The plot is aligned with the inertial axes (X, Y, Z), providing a global frame of reference for motion.</p></li>
+</ul>
+</li>
 </ul>
 </section>
 </section>
@@ -496,21 +508,12 @@ Uses computed forward kinematics to plot the 3D motion of the selected point wit
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-overview">Interface Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-preview-widget">Video Preview Widget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-animation-widget">Video Animation Widget</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-visualizer-widget">3D Visualizer Widget</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#point-selector-widget">Point Selector Widget</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-widget">Scatter Plot Widget</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/window/project_editor.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

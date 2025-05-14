@@ -5,26 +5,27 @@ Translation Transformation
 
 A translation transformation modifies the position of an object by shifting its origin without altering its orientation or shape.
 
-Overview
---------
+.. list-table:: Translation Modes
+   :widths: 20 30 50
+   :header-rows: 1
 
-There are two translation modes:
+   * - **Transform Type**
+     - **Mode**
+     - **Description**
+   * - **Translation**
+     - ``Constant``
+     - The object remains stationary in the scene. No translation is applied.
+   * -
+     - ``COM``
+     - See :ref:`COM-Based Translation <com_translation>` for details.
 
-- **Constant**:
-  The object remains stationary in the scene. No translation is applied.
 
-- **Linear**:
-  A time-dependent translation is performed based on the object's Center of Mass (COM) trajectory. This mode requires a CSV file containing position data for each time step. The object moves along this specified path during the animation.
-
-.. image:: ../../assets/images/linear_translation_transform.png
-   :alt: Linear Translation Transform
-   :align: center
-   :width: 500px
+---
 
 Mathematical Model
 ------------------
 
-When a translation transformation is applied, the origin \(O_B\) of the ``Sprite`` frame is shifted. The position vector \(\mathbf{P}_B\), representing a vertex in the local ``Sprite`` frame, undergoes the following transformation:
+When a translation transformation is applied, the body origin :math:`O_B` of the ``Sprite`` frame is shifted. The position vector :math:`\mathbf{P}_B`, representing a vertex in the local ``Sprite`` frame, undergoes the following transformation:
 
 .. math::
 
@@ -42,7 +43,7 @@ where:
    1
    \end{bmatrix}
 
-is the homogeneous coordinate of the vertex before transformation, and \(\mathbf{T}_{B}\) is the translation matrix:
+and the translation matrix is:
 
 .. math::
 
@@ -54,14 +55,47 @@ is the homogeneous coordinate of the vertex before transformation, and \(\mathbf
    0 & 0 & 0 & 1
    \end{bmatrix}
 
-Here, \(t_x\), \(t_y\), and \(t_z\) represent the translation distances along the local \(\hat{\mathbf{b}}_1\), \(\hat{\mathbf{b}}_2\), and \(\hat{\mathbf{b}}_3\) axes, respectively.
+Here, :math:`t_x`, :math:`t_y`, and :math:`t_z` represent the translation distances along the inertial :math:`\hat{\mathbf{e}}_1`, :math:`\hat{\mathbf{e}}_2`, and :math:`\hat{\mathbf{e}}_3` axes.
+
+---
+
+.. _com_translation:
+
+COM-Based Translation
+---------------------
+
+This mode applies a **time-dependent translation** to the object using an external CSV file.
+
+.. image:: ../../assets/images/linear_translation_transform.png
+   :alt: Linear Translation Transform
+   :align: center
+   :width: 500px
+
+
+Despite the name, the CSV does **not** contain the actual center of mass. Instead, it specifies the **position of the body frame origin** :math:`O_B` with respect to the **inertial frame** at each time step. This path is used to animate the object’s motion over time.
+
+.. note::
+
+   **CSV Format**
+
+   The CSV file should contain:
+
+   - Column 1: :math:`t_x` (X-position)
+   - Column 2: :math:`t_y` (Y-position)
+   - Column 3: :math:`t_z` (Z-position)
+
+   Each row corresponds to one time step.
+
+---
 
 Usage Notes
 -----------
 
-- The CSV file for **Linear** translation should contain columns corresponding to time steps and the COM positions: `time, x, y, z`.
-- Ensure that the number of time steps in the CSV matches the total number of frames in the animation for smooth motion.
-- Units for translation are consistent with the coordinate system defined in the project (typically meters or millimeters depending on STL scale).
+- The number of rows in the CSV should match the number of animation frames.
+- Ensure consistent units across STL models, scene setup, and trajectory data.
+- COM translation is ideal for motion capture-based animations, CFD coupling, or prescribed kinematics.
+
+---
 
 Related Topics
 --------------

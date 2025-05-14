@@ -293,7 +293,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../transform/translation_transform.html">Translation Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../transform/rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transform/flexibility_transform.html">Flexibility Transform (Experimental)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -361,58 +361,81 @@
                   
   <section id="sprite-creator-window">
 <span id="id1"></span><h1>Sprite Creator Window<a class="headerlink" href="#sprite-creator-window" title="Link to this heading">#</a></h1>
+<section id="what-is-a-sprite">
+<h2>What Is a Sprite?<a class="headerlink" href="#what-is-a-sprite" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> is a 3D object that can be animated and manipulated within your scene. It can represent anything from a simple geometric shape to a complex model.
+Sprites are defined by their geometry, transforms, and initial placement in 3D space.
+The <strong>Sprite Creator Window</strong> is where you can create and configure these objects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference internal" href="../methodology.html"><span class="doc">Methodology</span></a> section for more details on the <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> class.</p>
+</div>
+<p>—</p>
 <a class="reference internal image-reference" href="../../_images/sprite_creator.png"><img alt="Sprite Creator Window" class="align-center" src="../../_images/sprite_creator.png" style="width: 500px;" />
 </a>
+</section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>Define individual sprites by configuring their geometry, transforms, and initial placement in 3D space.</p>
-<p>—</p>
-</section>
-<section id="d-object-configuration">
-<h2>3D Object Configuration<a class="headerlink" href="#d-object-configuration" title="Link to this heading">#</a></h2>
+<p>The <strong>Sprite Creator Window</strong> is where you can create and configure a new sprite for your scene. It provides a user-friendly interface for defining the geometry, transforms, and initial placement of the sprite in 3D space.
+The window is divided into three main sections:</p>
 <ul class="simple">
-<li><p><strong>Name</strong>
-Enter a unique identifier for your 3D object.</p></li>
-<li><p><strong>STL File</strong>
-Click <strong>Browse</strong> to select the <cite>.stl</cite> mesh file from disk. Once loaded, the built‑in visualizer renders the object with overlapping <strong>Body Axes</strong> (A, B, C) and <strong>Inertial Axes</strong> (X, Y, Z), showing their initial alignment.</p></li>
-<li><p><strong>Transforms</strong>
-Choose how the object will move or deform during animation:
-- <strong>Translation</strong>: Select a preset (e.g., Constant, Linear).
-- <strong>Rotation</strong>: Select a preset (e.g., Constant, Euler Angles).
-- <strong>Flexibility</strong>: Choose a deformation model (e.g., _Constant/Rigid, FlexibilityType1, FlexibilityType2).</p></li>
+<li><p><strong>3D Object Properties</strong>: This section allows you to define the geometry of your sprite, including the STL file and transforms.</p></li>
+<li><p><strong>Initial Conditions</strong>: This section allows you to set the initial position and orientation of the sprite in 3D space.</p></li>
+<li><p><strong>Finalize Your Sprite</strong>: This button finalizes the sprite creation process and returns you to the <strong>Scene Creator Window</strong>.</p></li>
 </ul>
 <p>—</p>
 </section>
-<section id="body-origin-position">
-<h2>Body Origin Position<a class="headerlink" href="#body-origin-position" title="Link to this heading">#</a></h2>
-<p>Adjust the origin of the body axes relative to the inertial frame by setting:</p>
+<section id="d-object-properties">
+<h2>3D Object Properties<a class="headerlink" href="#d-object-properties" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>Sprite Name</strong></p>
+<p>Enter a unique identifier for your 3D object.</p>
+</li>
+<li><p><strong>STL File</strong></p>
+<p>Click <strong>Browse</strong> to select the <cite>.stl</cite> mesh file from disk. Once loaded, the built‑in visualizer renders the object with overlapping <strong>Body Axes</strong> (A, B, C) and <strong>Inertial Axes</strong> (X, Y, Z), showing their initial alignment.</p>
+</li>
+<li><p><strong>Transforms</strong></p>
+<p>Choose how the object will move or deform during animation:</p>
 <ul class="simple">
-<li><p><strong>X Offset</strong></p></li>
-<li><p><strong>Y Offset</strong></p></li>
-<li><p><strong>Z Offset</strong></p></li>
+<li><p><strong>Translation</strong>: Select a preset (e.g., Constant, Linear).</p></li>
+<li><p><strong>Rotation</strong>: Select a preset (e.g., Constant, Euler Angles).</p></li>
+<li><p><strong>Flexibility</strong>: Choose a deformation model (e.g., Constant/Rigid, FlexibilityType1, FlexibilityType2).</p></li>
 </ul>
-<p>All zeroes (<cite>0, 0, 0</cite>) will place the body origin exactly at the inertial origin. Any changes are reflected live in the visualizer.</p>
+</li>
+</ul>
 <p>—</p>
 </section>
-<section id="body-orientation-euler-angles">
-<h2>Body Orientation (Euler Angles)<a class="headerlink" href="#body-orientation-euler-angles" title="Link to this heading">#</a></h2>
-<p>Set the initial orientation with right‑handed Euler angles (in degrees):</p>
-<ol class="arabic simple">
-<li><p><strong>α (Alpha)</strong> – Rotation about the body’s A (roll) axis</p></li>
-<li><p><strong>β (Beta)</strong> – Rotation about the body’s B (pitch) axis</p></li>
-<li><p><strong>γ (Gamma)</strong> – Rotation about the body’s C (yaw) axis</p></li>
-</ol>
-<p>Adjusting these angles reorients the body axes in real time.</p>
+<section id="initial-conditions">
+<h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading">#</a></h2>
+<p>Tick the <strong>Enable Initial Conditions</strong> checkbox to enable the following options:</p>
+<p>:
+- <strong>Initial Position of Body Axes</strong></p>
+<blockquote>
+<div><p>Set the initial position of the body axes in 3D space by entering values for:</p>
+<ul class="simple">
+<li><p><strong>X Position</strong></p></li>
+<li><p><strong>Y Position</strong></p></li>
+<li><p><strong>Z Position</strong></p></li>
+</ul>
+</div></blockquote>
+<p>:
+- <strong>Initial Orientation of Body Axes</strong></p>
+<blockquote>
+<div><p>Set the initial orientation of the body axes in 3D space by entering values for:</p>
+<ul class="simple">
+<li><p><strong>X Orientation</strong></p></li>
+<li><p><strong>Y Orientation</strong></p></li>
+<li><p><strong>Z Orientation</strong></p></li>
+</ul>
+</div></blockquote>
+<p>The visualizer in the <strong>3D Object Properties</strong> section updates in real time to reflect these changes.</p>
 <p>—</p>
 </section>
 <section id="finalize-your-sprite">
 <h2>Finalize Your Sprite<a class="headerlink" href="#finalize-your-sprite" title="Link to this heading">#</a></h2>
 <p>When you’re satisfied with the 3D object parameters, origin position, and orientation, click <strong>Finish</strong>.
-This creates the sprite with your specified settings and returns you to the <strong>Scene Creator Window</strong>.</p>
+This creates the sprite with your specified settings and returns you to the <strong>Scene Creator Window</strong> with the created sprite added to the sprite list of the <strong>Scene Creator Window</strong>.</p>
 <p>—</p>
-</section>
-<section id="transform-reference">
-<h2>Transform Reference<a class="headerlink" href="#transform-reference" title="Link to this heading">#</a></h2>
 <p>For detailed descriptions of each transform type, see the full <strong>Transform Reference</strong> in the <a class="reference internal" href="../transform_reference.html"><span class="doc">Transform Reference</span></a> section.</p>
 </section>
 </section>
@@ -464,23 +487,13 @@ This creates the sprite with your specified settings and returns you to the <str
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-sprite">What Is a Sprite?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-object-configuration">3D Object Configuration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#body-origin-position">Body Origin Position</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#body-orientation-euler-angles">Body Orientation (Euler Angles)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-object-properties">3D Object Properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-conditions">Initial Conditions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finalize-your-sprite">Finalize Your Sprite</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform-reference">Transform Reference</a></li>
 </ul>
   </nav></div>
-
-  <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/user_guide/window/sprite_creator.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
 
 </div></div>
               

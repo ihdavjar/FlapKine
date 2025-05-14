@@ -13,7 +13,7 @@ Steps:
 4. **Scene Setup**:
    - 📁 Import existing scene **OR**
    - ✨ Create a new scene
-     See :doc:`🎬 Creating a Scene <creating_scene>`
+     See :doc:`Creating a Scene <creating_scene>`
 
 5. **Render Settings**:
    - ✅ Load default settings (via checkbox)

@@ -5,69 +5,144 @@ Rotation Transformation
 
 A rotation transformation modifies the orientation of an object by applying time-dependent or static rotations to its local frame.
 
+.. list-table:: Rotation Modes
+   :widths: 20 30 50
+   :header-rows: 1
+
+   * - **Transform Type**
+     - **Mode**
+     - **Description**
+   * - **Rotation**
+     - ``Constant``
+     - The object retains its original orientation throughout the simulation.
+   * -
+     - ``Euler_Angle``
+     - Applies a time-dependent rotation using Euler angles. See :ref:`Euler Angle <euler_angle>` section below.
+
+---
+
+Mathematical Model
+------------------
+
+If a rotation transformation is applied, the position vector :math:`\mathbf{P}_{B}`` (resulting from translation) is further transformed by the rotation matrix :math:`\mathbf{R}_{B}`:
+
+.. math::
+
+   \mathbf{P}_{B}'' = \mathbf{R}_{B} \cdot \mathbf{P}_{B}'
+
+
+The rotation matrix is computed from Euler angles if the ``Euler_Angle`` mode is selected. The rotation matrix is defined as:
+
+.. math::
+
+   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)
+
+Here, :math:`\mathbf{R}_{\text{axis}_i}(\theta)` denotes the rotation matrix for a rotation of angle :math:`\theta` about the body-fixed axis :math:`\text{axis}_i`, constructed so that it operates exclusively on that axis—i.e., it ignores any rotations about the other axes :math:`\text{axis}_j` for :math:`j \neq i`.
+
+Example: For rotation sequence (X, Y, Z):
+
+.. math::
+
+   \mathbf{R}_{B} = \mathbf{R}_{X}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{Z}(\gamma)
+
+---
+
+Else if the ``Constant`` mode is selected, the rotation matrix is set to the identity matrix:
+
+.. math::
+
+   \mathbf{R}_{B} =
+   \begin{bmatrix}
+   1 & 0 & 0 & 0 \\
+   0 & 1 & 0 & 0 \\
+   0 & 0 & 1 & 0 \\
+   0 & 0 & 0 & 1
+   \end{bmatrix}
+
+
+
+.. _euler_angle:
+
+Euler Angle
+-----------
+
+The ``Euler_Angle`` mode applies time-dependent rotations using Euler angles. This mode allows for detailed control of an object’s orientation over time by specifying a rotation sequence and supplying angle data for each frame.
+
 Overview
---------
+^^^^^^^^
 
-There are two rotation modes:
+Rotation is applied through a user-defined sequence of three intrinsic (body-fixed) rotations—commonly ZYX, XYZ, etc. In body frame terms X - :math:`\hat{\mathbf{b}}_1`, Y - :math:`\hat{\mathbf{b}}_2`, and Z - :math:`\hat{\mathbf{b}}_3`. The rotation sequence is defined as:
 
-- **Constant**:
-  The object retains its original orientation throughout the simulation.
+- :math:`\alpha`: Rotation about :math:`\mathbf{axis}_1`.
+- :math:`\beta`: Rotation about :math:`\mathbf{axis}_2`.
+- :math:`\gamma`: Rotation about :math:`\mathbf{axis}_3`.
 
-- **Euler_Angle**:
-  A time-dependent rotation using Euler angles. Users can define a rotation sequence (e.g., ZYX) and provide angle sequences \(\alpha\), \(\beta\), and \(\gamma\) via a CSV file.
-  Alternatively, angle sequences can be automatically imported from the **Inverse Kinematics** module.
+The rotation matrix is computed as:
+
+.. math::
+
+   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)
+
+Example: For rotation sequence (Z, Y, X):
+
+.. math::
+
+   \mathbf{R}_{B} = \mathbf{R}_{Z}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{X}(\gamma)
+
+Input Options
+^^^^^^^^^^^^^
+
+Users may provide Euler angle sequences in two ways:
+
+- **CSV File Input**: Upload a file with time-varying angle values.
+- **Automatic Import**: Import angle sequences directly from the :ref:`Inverse kinematics <inverse_kinematics_window>` module.
+
+This flexibility supports both manual design and automated workflows.
 
 .. image:: ../../assets/images/euler_angle_rotation_transform.png
    :alt: Euler Angle Rotation Transform
    :align: center
    :width: 500px
 
-Mathematical Model
-------------------
 
-If a rotation transformation is applied, the position vector \(\mathbf{P}_{B}'\) (resulting from translation) is further transformed by the rotation matrix \(\mathbf{R}_{B}\):
+.. note::
 
-.. math::
+   **Euler Angle CSV Format**
 
-   \mathbf{P}_{B}'' = \mathbf{R}_{B} \cdot \mathbf{P}_{B}'
+   Each Euler angle (`alpha`, `beta`, `gamma`) must be provided in a **separate CSV file**.
 
-The rotation matrix \(\mathbf{R}_{B}\) is defined in terms of three angles \(\alpha\), \(\beta\), and \(\gamma\), representing rotations about the object-local axes \(\hat{\mathbf{b}}_1\), \(\hat{\mathbf{b}}_2\), and \(\hat{\mathbf{b}}_3\), respectively.
+   The format of each file should be:
 
-In the ``FlapKine`` application, the rotation matrix is computed using **Euler angles**, a widely used method for describing 3D rotations. The rotation is based on a sequence of axis-specific rotations:
+   - A single column containing the angle values in degrees.
+   - Each row represents the value of the angle at a specific time step.
+   - No header row is required.
 
-.. math::
+   Example (`alpha.csv`):
 
-   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)
+   .. code-block:: csv
 
-where \(\mathbf{R}_{\text{axis}_i}(\theta)\) denotes the rotation matrix about the axis \(\text{axis}_i\) by angle \(\theta\).
+      0.0
+      12.5
+      25.0
+      18.2
+      ...
 
-For example, with a rotation sequence of \((X, Y, Z)\), the final matrix is:
+   Similarly, create `beta.csv` and `gamma.csv` with the corresponding angle sequences.
+---
 
-.. math::
-
-   \mathbf{R}_{B} = \mathbf{R}_{X}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{Z}(\gamma)
-
-Customization
--------------
-
-FlapKine supports arbitrary axis sequences like `(Z, Y, X)` or `(X, Y, Z)`, offering:
-
-- Compatibility with different Euler angle conventions
-- Greater control over rotation modeling
-- Accurate simulation of flapping-wing kinematics and non-rigid systems
-
-This customization is essential for capturing dynamic orientation changes in flexible bio-inspired mechanisms such as flapping wings.
 
 Usage Notes
 -----------
 
-- CSV input must include time and the three Euler angles per time step: `time, alpha, beta, gamma`.
-- Ensure the rotation sequence matches the physical or experimental configuration.
-- Euler angles are interpreted in degrees.
+- Euler angles must be in **degrees**
+- Rotation sequence must match the physical setup or simulation logic
+- Ensure time series length matches the number of animation frames
+
+---
 
 Related Topics
 --------------
 
 - :ref:`translation_transform`
-- :ref:`../window/inverse_kinematics`
 - :ref:`transform_reference`
+- :ref:`Inverse kinematics <inverse_kinematics_window>`
