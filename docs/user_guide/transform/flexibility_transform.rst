@@ -1,33 +1,31 @@
 .. _flexibility_transform:
 
-Flexibility Transform
-=====================
+Flexibility Transform (Experimental)
+====================================
+
+.. warning::
+
+   **This feature is currently under development.**
+   Functionality is experimental and subject to change in future releases.
 
 The :code:`FlapKine` application supports flexible body transformations in addition to standard translation and rotation. This feature enables realistic modeling of deformable structures such as flapping wings. Flexibility is introduced via spatially varying transformation matrices applied per-vertex, enabling time-dependent and location-specific deformation.
 
-Transform Summary
------------------
-
 .. list-table:: Flexibility Transform Modes
-   :widths: 20 20 50 30
+   :widths: 20 20 50
    :header-rows: 1
 
    * - **Transform Type**
      - **Mode**
      - **Description**
-     - **Image**
    * - **Flexibility**
-     - ``Constant / Rigid``
+     - ``Constant``
      - No deformation; the object behaves as a rigid body.
-     - –
    * -
      - ``FlexibilityType1``
      - First mode of flexibility inspired by Dong *et al.* [#dong2022]_ where deformation occurs only along the wing thickness direction. Described in detail below.
-     - –
    * -
      - ``FlexibilityType2``
      - *(Description to be added in future.)*
-     - –
 
 Mathematical Formulation
 ------------------------
@@ -41,6 +39,7 @@ Flexibility is modeled by applying a deformation matrix to each vertex in the bo
 where:
 
 - :math:`\mathbf{P}_{B}''` is the vertex after translation and rotation.
+
 - :math:`\mathbf{F}_{B}` is the **flexibility transformation matrix**, defined as:
 
   .. math::

@@ -38,3 +38,5 @@ html_css_files = [
 html_theme = "pydata_sphinx_theme"
 html_logo = "assets/icons/flapkine_icon.ico"  # logo in the top left corner
 html_favicon = "assets/icons/flapkine_icon.ico"  # browser tab icon
+
+html_show_sourcelink = False

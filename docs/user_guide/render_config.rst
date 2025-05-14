@@ -1,3 +1,5 @@
+.. _render_config:
+
 Render Settings Window
 ======================
 
@@ -18,7 +20,7 @@ You can access it in two contexts:
         :alt: Render Settings in Project Creator
         :width: 300
    * - **Project Editor**
-     - Accessed via **Render → Configure Render**. Modify settings for an existing project without restarting.
+     - Accessed via **Render → Configure Render** from top menubar. Modify settings for an existing project without restarting.
      - .. image:: ../assets/images/render_window_project_editor.png
         :alt: Render Settings in Project Editor
         :width: 300

@@ -11,7 +11,8 @@ Project Creator Window
 Overview
 --------
 
-Kick off your FlapKine projects by setting up the scene and render parameters.
+The **Project Creator Window** is the initial interface for creating a new project or loading an existing one. It allows you to set up your scene and configure render settings before diving into the animation process.
+This window is divided into two main sections: **Scene Setup** and **Render Configuration**.
 
 ---
 
@@ -30,14 +31,20 @@ Render Configuration
 --------------------
 
 - **Load Default Settings**
-  - Toggle **“Load Default Render Settings”** to apply FlapKine’s recommended parameters automatically.
+
+  - Toggle **“Use Default Config”** to apply FlapKine’s recommended parameters automatically.
+
   - Individual parameters remain editable if you want to fine‑tune.
 
 - **New Render Configuration**
+
   - Select this option to start with all render parameters set to zero.
+
   - Manually adjust each field to craft a custom setup.
 
-> _See the Render Configuration section for detailed explanations of each parameter._
+.. note::
+
+   The default settings are designed to provide a good starting point for most projects. However, you can customize the render settings to suit your specific needs. For more information on the available parameters and their effects, see :ref:`Render Configuration <render_config>` for details.
 
 ---
 
