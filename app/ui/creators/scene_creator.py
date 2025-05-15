@@ -2,8 +2,8 @@ import os
 import sys
 import pickle
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import pyqtSignal, QUrl
+from PyQt5.QtGui import QFont, QIcon, QDesktopServices
 from PyQt5.QtWidgets import (
     QFileDialog, QDesktopWidget, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
     QPushButton, QVBoxLayout, QWidget, QSizePolicy
@@ -23,7 +23,7 @@ class SceneCreator(QMainWindow):
 
     This class defines the GUI window for creating and importing a scene in the FlapKine application.
 
-    It allows users to add multiple sprites by either importing pre-saved `.pkl` scene files or creating new ones 
+    It allows users to add multiple sprites by either importing pre-saved `.pkl` scene files or creating new ones
     via a custom sprite builder. The final scene data is constructed from these sprites and emitted as a `Scene` object.
 
     Attributes
@@ -95,7 +95,7 @@ class SceneCreator(QMainWindow):
         Initializes the SceneCreator class.
 
         Sets up the main window for the FlapKine scene creation interface. This includes configuring
-        core window properties such as the title and icon, initializing the sprite storage list, 
+        core window properties such as the title and icon, initializing the sprite storage list,
         integrating a custom menu bar, and building the full user interface layout through `initUI()`.
 
         Components Initialized:
@@ -116,7 +116,7 @@ class SceneCreator(QMainWindow):
         self.center()
         self.setWindowTitle("Create Scene")
         if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS 
+            base_path = sys._MEIPASS
         else:
             base_path = os.path.dirname(__file__)
         icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
@@ -131,23 +131,24 @@ class SceneCreator(QMainWindow):
             'minimize': self.showMinimized,
             'maximize': self.showMaximized,
             'restore': self.showNormal,
-            'about': self.about_button_fun
+            'about': self.about_button_fun,
+            'doc': self.show_doc
         })
 
         self.sprite_list = []
 
         self.main_widget = QWidget()
         main_layout = self.initUI()
-        
+
         self.main_widget.setLayout(main_layout)
-        self.setCentralWidget(self.main_widget)        
-    
+        self.setCentralWidget(self.main_widget)
+
     def initUI(self)-> QVBoxLayout:
         """
         Builds the user interface layout for the SceneCreator window.
 
         Assembles the core layout for sprite management and scene import. This includes interactive
-        controls for adding or removing sprite blocks, configuring scene entries, and finalizing 
+        controls for adding or removing sprite blocks, configuring scene entries, and finalizing
         the import process. All components are organized using vertical and horizontal layouts
         to ensure a structured and intuitive interface.
 
@@ -175,18 +176,18 @@ class SceneCreator(QMainWindow):
         """
 
         main_layout = QVBoxLayout()
-        
+
         # Main widget and layout
         sprite_settings_grp = QGroupBox("Sprite Controls")
         sprite_settings_grp.setFont(QFont('Times', 9))
         sprite_layout = QVBoxLayout()
-        
+
         # Add and Drop buttons
         button_layout = QHBoxLayout()
         add_button = QPushButton("Add")
         add_button.setIcon(icon("mdi.plus-box-multiple-outline"))
         add_button.clicked.connect(self.add_sprite)
-        
+
         drop_button = QPushButton("Drop")
         drop_button.setIcon(icon("mdi.minus-box-multiple-outline"))
         drop_button.clicked.connect(self.drop_sprite)
@@ -204,7 +205,7 @@ class SceneCreator(QMainWindow):
         sprite_layout.addLayout(self.sprites_list_layout)
 
         sprite_settings_grp.setLayout(sprite_layout)
-        
+
         # Okay button
         okay_button = QPushButton("Import Scene")
         okay_button.setFont(QFont('Times', 9))
@@ -220,8 +221,8 @@ class SceneCreator(QMainWindow):
         """
         Dynamically adds a new sprite input group to the scene creator layout.
 
-        Creates a labeled group box for each sprite, allowing the user to either import or create 
-        a new sprite scene. Each group includes a text field for naming the scene, along with 
+        Creates a labeled group box for each sprite, allowing the user to either import or create
+        a new sprite scene. Each group includes a text field for naming the scene, along with
         'Open' and 'Create' buttons connected to their respective handler functions.
 
         Components Added:
@@ -254,7 +255,7 @@ class SceneCreator(QMainWindow):
 
         # Create a layout for the group
         sprite_import = QHBoxLayout()
-    
+
         self.text_editor_scene = QLineEdit()
         self.text_editor_scene.setPlaceholderText('Enter Scene Name')
         self.text_editor_scene.setFont(QFont('Times', 7))
@@ -274,14 +275,14 @@ class SceneCreator(QMainWindow):
         sprite_import.addWidget(self.create_button)
         sprite_group.setLayout(sprite_import)
 
-        self.sprites_list_layout.addWidget(sprite_group) 
-    
+        self.sprites_list_layout.addWidget(sprite_group)
+
     def import_sprite(self, sprite_group):
         """
         Handles the import of a sprite scene from a `.pkl` file into the given sprite group.
 
-        Opens a file dialog for the user to select a pickle file representing a pre-saved sprite 
-        scene. Upon selection, the file path is displayed in the group's `QLineEdit`, and the 
+        Opens a file dialog for the user to select a pickle file representing a pre-saved sprite
+        scene. Upon selection, the file path is displayed in the group's `QLineEdit`, and the
         corresponding 'Open' button is visually updated to indicate success.
 
         Parameters
@@ -302,7 +303,7 @@ class SceneCreator(QMainWindow):
         if directory:
             sprite_group.findChild(QLineEdit).setText(directory)
             sprite_group.findChild(QPushButton).setStyleSheet('background-color: green')
-    
+
     def create_sprite(self, sprite_group):
         """
         Launches the sprite creation interface and connects the result to the given sprite group.
@@ -347,7 +348,7 @@ class SceneCreator(QMainWindow):
         """
         sprite_group.findChildren(QPushButton)[1].setStyleSheet('background-color: green')
         self.sprite_list.append(self.window.sprite_data)
-        
+
     def drop_sprite(self):
         """
         Removes the most recently added sprite input group from the UI.
@@ -391,7 +392,7 @@ class SceneCreator(QMainWindow):
                 sprite_name = sprite_group.findChild(QLineEdit).text()
                 sprite_data = pickle.load(open(sprite_name, 'rb'))
                 self.sprite_list.append(sprite_data)
-        
+
         scene_data = Scene(self.sprite_list)
         self.sceneCreated.emit(scene_data)
         self.close()
@@ -412,8 +413,8 @@ class SceneCreator(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y)  
-    
+        self.move(x, y)
+
     def about_button_fun(self):
         """
         Displays an 'About FlapKine' information dialog.
@@ -422,7 +423,20 @@ class SceneCreator(QMainWindow):
         """
         QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
-        <p>Developed by: Kalbhavi Vadhiraj</p>                  
+        <p>Developed by: Kalbhavi Vadhiraj</p>
         <p>Version {__version__}</p>
-        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
 ''')
+
+    def show_doc(self):
+        """
+        Displays the documentation for the FlapKine application.
+
+        This method opens the documentation file in the default web browser.
+        """
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(__file__)
+        doc_path = "https://ihdavjar.github.io/FlapKine/"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))

@@ -1,12 +1,18 @@
 import os
+import time
 import json
 
-from PyQt5.QtCore import Qt, QThreadPool
+from PyQt5.QtCore import Qt, QThreadPool, QCoreApplication
 from PyQt5.QtGui import QFont
-from PyQt5.QtMultimedia import QMediaPlayer
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
-    QProgressBar, QSlider, QSizePolicy, QMessageBox
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QPushButton,
+    QProgressBar,
+    QSlider,
+    QMessageBox,
 )
 
 from qtawesome import icon
@@ -19,8 +25,8 @@ class VideoAnimation(QWidget):
     VideoAnimation Class
     ====================
 
-    A PyQt5-based widget for interactive video playback and 3D frame rendering using precomputed 
-    animation data. This class serves as a control center for reviewing and exporting animations 
+    A PyQt5-based widget for interactive video playback and 3D frame rendering using precomputed
+    animation data. This class serves as a control center for reviewing and exporting animations
     produced from dynamic scene transformations within the FlapKine environment.
 
     The widget includes:
@@ -36,14 +42,14 @@ class VideoAnimation(QWidget):
         Path to the project directory containing configuration and output files.
 
     scene_data : SceneData
-        The scene object containing transformation functions (angles, rotation, translation) used 
+        The scene object containing transformation functions (angles, rotation, translation) used
         to generate frame-wise data.
 
     angles : List[float]
         List of rotation angles associated with the current scene, used during frame rendering.
 
     reflect : List[bool]
-        Boolean flags indicating which axes (XY, YZ, XZ) are to be reflected during rendering, 
+        Boolean flags indicating which axes (XY, YZ, XZ) are to be reflected during rendering,
         derived from config settings.
 
     video_playing : bool
@@ -131,8 +137,8 @@ class VideoAnimation(QWidget):
         """
         Initializes the VideoAnimation widget.
 
-        Sets up the video animation interface for playback and rendering of 3D scene transformations 
-        within the FlapKine environment. Loads configuration, initializes internal state, and prepares 
+        Sets up the video animation interface for playback and rendering of 3D scene transformations
+        within the FlapKine environment. Loads configuration, initializes internal state, and prepares
         UI components for interaction.
 
         Initialization Tasks:
@@ -182,8 +188,8 @@ class VideoAnimation(QWidget):
         """
         Loads video rendering configuration from config.json.
 
-        Attempts to read video rendering parameters from the project's `config.json` file and stores 
-        the parsed dictionary in the `self.config` attribute. If the file is not found, a default 
+        Attempts to read video rendering parameters from the project's `config.json` file and stores
+        the parsed dictionary in the `self.config` attribute. If the file is not found, a default
         configuration with 640x480 resolution is used instead.
 
         File Parsed:
@@ -194,18 +200,15 @@ class VideoAnimation(QWidget):
         """
 
         config_path = os.path.join(self.project_folder, 'config.json')
-        if os.path.exists(config_path):
-            with open(config_path) as f:
-                self.config = json.load(f)
-        else:
-            self.config = {"VideoRender": {"resolution_x": 640, "resolution_y": 480}}
+        with open(config_path) as f:
+            self.config = json.load(f)
 
     def _createWidgets(self):
         """
         Creates and initializes all internal UI widgets.
 
-        Assembles the core visual components of the video animation interface including the video display, 
-        playback controls, timeline slider, rendering button, and progress bar. Styles and sizes are set 
+        Assembles the core visual components of the video animation interface including the video display,
+        playback controls, timeline slider, rendering button, and progress bar. Styles and sizes are set
         dynamically based on the rendering configuration.
 
         Components Initialized:
@@ -223,12 +226,8 @@ class VideoAnimation(QWidget):
         """
 
         # Video player
-        width = self.config['VideoRender'].get('resolution_x', 640)
-        height = self.config['VideoRender'].get('resolution_y', 480)
-        self.video_widget = VideoPlayer(width, height)
-        self.video_widget.setMinimumSize(width, height)
-        self.video_widget.setMaximumSize(width, height)
-        self.video_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.video_widget = VideoPlayer()
+        self.video_widget.setMinimumSize(640, 400)
 
         # Buttons
         self.playButton = QPushButton('')
@@ -301,14 +300,14 @@ class VideoAnimation(QWidget):
         """
         Constructs and applies the layout for the video animation interface.
 
-        Organizes the widget components into a clean vertical layout structure with logical 
-        grouping for playback controls and rendering tools. Ensures adaptive spacing and 
+        Organizes the widget components into a clean vertical layout structure with logical
+        grouping for playback controls and rendering tools. Ensures adaptive spacing and
         alignment for a responsive UI.
 
         Layout Structure:
             - `controlLayout` (QHBoxLayout): Holds play, repeat, and slider widgets.
             - `renderLayout` (QHBoxLayout): Holds render button and progress bar.
-            - `layout` (QVBoxLayout): Main vertical layout stacking video widget, control layout, 
+            - `layout` (QVBoxLayout): Main vertical layout stacking video widget, control layout,
             and render layout with spacing and stretch for balance.
 
         Final Layout Assignment:
@@ -338,8 +337,8 @@ class VideoAnimation(QWidget):
         """
         Connects UI signals to their corresponding slot functions.
 
-        Establishes all internal signal-slot connections required for interactive behavior, 
-        including video playback, repeat toggling, slider movement, rendering initiation, 
+        Establishes all internal signal-slot connections required for interactive behavior,
+        including video playback, repeat toggling, slider movement, rendering initiation,
         and real-time media updates.
 
         Signal Connections:
@@ -365,7 +364,7 @@ class VideoAnimation(QWidget):
 
     def _loadMedia(self):
         project_name = os.path.basename(self.project_folder)
-        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
+        video_path = os.path.join(self.project_folder, "data", "videos", f"{project_name}.mp4")
 
         if os.path.exists(video_path):
             self.video_widget.setMedia(video_path)
@@ -392,7 +391,7 @@ class VideoAnimation(QWidget):
         alert_dialog.setWindowTitle(title)
         alert_dialog.setText(message)
         alert_dialog.exec_()
-        
+
     def showErrorDialog(self, title, message):
         """
         Displays a critical error dialog with the specified title and message.
@@ -418,7 +417,7 @@ class VideoAnimation(QWidget):
         """
         Toggles video playback state between play and pause.
 
-        Handles the core play/pause logic based on the internal `video_playing` flag. Updates both the 
+        Handles the core play/pause logic based on the internal `video_playing` flag. Updates both the
         media player's state and the icon displayed on the play button to reflect the current action.
 
         Behavior:
@@ -442,8 +441,8 @@ class VideoAnimation(QWidget):
         """
         Toggles repeat mode for the video playback.
 
-        Checks the state of the `repeatButton` and updates the repeat icon accordingly. If repeat mode 
-        is enabled, the video restarts from the beginning and begins playback immediately. If disabled, 
+        Checks the state of the `repeatButton` and updates the repeat icon accordingly. If repeat mode
+        is enabled, the video restarts from the beginning and begins playback immediately. If disabled,
         it simply reverts the icon to the repeat state.
 
         Behavior:
@@ -507,7 +506,7 @@ class VideoAnimation(QWidget):
         if state == QMediaPlayer.StoppedState and self.repeatButton.isChecked():
             self.video_widget.media_player.setPosition(0)
             self.video_widget.media_player.play()
-    
+
     def update_progress(self, value):
         """
         Updates the progress bar with the given value.
@@ -523,8 +522,8 @@ class VideoAnimation(QWidget):
         """
         Starts the frame rendering process using a background worker thread.
 
-        Initializes a `Worker` instance with the current scene parameters and begins the rendering task 
-        asynchronously. Disables the render button during processing and connects progress and completion 
+        Initializes a `Worker` instance with the current scene parameters and begins the rendering task
+        asynchronously. Disables the render button during processing and connects progress and completion
         signals for real-time UI feedback.
 
         Workflow:
@@ -538,6 +537,27 @@ class VideoAnimation(QWidget):
         self.parent.topleftgroup.setEnabled(False)
         self.parent.bottomleftgroup.setEnabled(False)
         self.render_button.setEnabled(False)
+
+        with open(os.path.join(self.project_folder, 'config.json')) as f:
+                config = json.load(f)
+
+        reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
+        self.reflect = reflect
+
+        project_name = os.path.basename(self.project_folder)
+        video_path = os.path.join(self.project_folder, f"data/videos/{project_name}.mp4")
+
+        if os.path.exists(video_path):
+            self.video_widget.media_player.stop()
+            self.video_widget.media_player.setMedia(QMediaContent())
+            QCoreApplication.processEvents()
+            for _ in range(3):
+                try:
+                    os.remove(video_path)
+                    break
+                except PermissionError:
+                    time.sleep(0.5)
+
         self.worker = Worker(self.project_folder, self.angles, self.scene_data, self.reflect)
         self.threadpool.start(self.worker)
         self.worker.signals.progress_signal.connect(self.update_progress)
@@ -547,7 +567,7 @@ class VideoAnimation(QWidget):
         """
         Finalizes the rendering process and updates the UI.
 
-        Re-enables the render button, displays a confirmation dialog with the output video path, 
+        Re-enables the render button, displays a confirmation dialog with the output video path,
         and reloads the rendered video into the video player for immediate preview.
 
         Post-Render Actions:
@@ -557,9 +577,14 @@ class VideoAnimation(QWidget):
         """
         self.render_button.setEnabled(True)
         project_name = os.path.basename(self.project_folder)
-        video_path = os.path.join(self.project_folder, f'data/videos/{project_name}.mp4')
+        video_path = os.path.join(self.project_folder, "data", "videos", f"{project_name}.mp4")
         self.showAlertDialog('Alert', f"Video rendered successfully at: {video_path}")
         self.video_widget.setMedia(video_path)
+        self.repeatButton.setChecked(False)
+        self.repeatButton.setIcon(icon("mdi.repeat", color=self.primary_color))
+
+        self.playButton.setIcon(icon("mdi.play", color=self.primary_color))
+        self.video_playing = False
 
         self.parent.right_group.setEnabled(True)
         self.parent.topleftgroup.setEnabled(True)

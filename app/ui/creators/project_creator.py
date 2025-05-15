@@ -3,7 +3,8 @@ import sys
 import json
 import pickle
 
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QFont, QIcon, QDesktopServices
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QFileDialog, QDesktopWidget, QDoubleSpinBox,
     QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
@@ -17,15 +18,15 @@ from app.ui.creators.scene_creator import SceneCreator
 from app.ui.editor.project_editor import ProjectWindow
 from app.widgets.misc.menu_bar import MenuBar
 
-class ProjectCreator(QMainWindow): 
+class ProjectCreator(QMainWindow):
     """
     ProjectCreator Class
     ====================
 
     This class defines the main GUI window for the FlapKine project creation module.
 
-    It enables importing or generating scene data, configuring essential parameters such as 
-    video resolution, camera and lighting setup, STL output, and reflection properties, 
+    It enables importing or generating scene data, configuring essential parameters such as
+    video resolution, camera and lighting setup, STL output, and reflection properties,
     and finalizing the project setup with or without default configuration profiles.
 
     Attributes
@@ -68,10 +69,10 @@ class ProjectCreator(QMainWindow):
     camera_location_z : QDoubleSpinBox
         Spin boxes for defining camera position in 3D space.
 
-    camera_rotation_alpha : QDoubleSpinBox
-    camera_rotation_beta : QDoubleSpinBox
-    camera_rotation_gamma : QDoubleSpinBox
-        Spin boxes for defining camera rotation angles (Roll α, Pitch β, Yaw γ).
+    camera_focal_x : QDoubleSpinBox
+    camera_focal_y : QDoubleSpinBox
+    camera_focal_z : QDoubleSpinBox
+        Spin boxes for defining camera focal point in 3D space.
 
     light_location_x : QDoubleSpinBox
     light_location_y : QDoubleSpinBox
@@ -184,24 +185,25 @@ class ProjectCreator(QMainWindow):
 
         # Set the icon
         if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS 
+            base_path = sys._MEIPASS
         else:
             base_path = os.path.dirname(__file__)
         icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
         self.setWindowIcon(QIcon(icon_path))
 
         self.project_folder = project_folder
-        
+
         # Add the menu bar
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)
-    
+
         self.menu_bar.connect_actions({
             'exit': self.close,
             'minimize': self.showMinimized,
             'maximize': self.showMaximized,
             'restore': self.showNormal,
             'about': self.about_button_fun,
+            'doc': self.show_doc,
         })
 
         self.initUI()
@@ -242,7 +244,7 @@ class ProjectCreator(QMainWindow):
         Configures the central widget and main layout of the Project Creator window.
 
         Initializes the main UI container by setting a `QWidget` as the central widget of the main window.
-        A vertical box layout (`QVBoxLayout`) is then assigned to this widget, serving as the base layout 
+        A vertical box layout (`QVBoxLayout`) is then assigned to this widget, serving as the base layout
         for all subsequent UI components in the application.
 
         Components Initialized:
@@ -300,7 +302,7 @@ class ProjectCreator(QMainWindow):
         """
         Sets up configuration option widgets.
 
-        Initializes the interface section that allows the user to choose between using default 
+        Initializes the interface section that allows the user to choose between using default
         configuration settings or creating a new custom configuration.
 
         Components Initialized:
@@ -331,8 +333,8 @@ class ProjectCreator(QMainWindow):
         """
         Sets up the configuration group section.
 
-        Initializes the grouped container for all configuration settings including video, camera, 
-        and lighting controls. This section is disabled by default and is enabled upon creating 
+        Initializes the grouped container for all configuration settings including video, camera,
+        and lighting controls. This section is disabled by default and is enabled upon creating
         a new custom configuration.
 
         Components Initialized:
@@ -429,69 +431,84 @@ class ProjectCreator(QMainWindow):
         """
         Sets up the camera configuration section within the config group.
 
-        Creates a stylized group box labeled "Camera Settings" containing controls for camera
-        position and rotation. The layout is divided into two horizontal sections:
-        one for camera location and another for rotation.
+        Creates a stylized group box labeled "Camera Settings" containing controls for:
+            - Camera Position
+            - Camera Focal Point
+            - Camera View Up Vector
+
+        Layout Structure:
+            - Three horizontal QHBoxLayouts for each subcomponent
+            - Each axis (X, Y, Z) has its own labeled QDoubleSpinBox
 
         Subcomponents Added:
             - Camera Location Controls: via `add_camera_controls`
-            - Camera Rotation Controls: via `add_camera_controls`
-            - Styled `QGroupBox` with bold teal border and custom title padding
+            - Camera Focal Controls: via `add_camera_controls`
+            - Camera View-Up Controls: via `add_camera_controls`
 
         The assembled group is added to the main configuration layout.
         """
-
         camera_setting_grp = QGroupBox("Camera Settings")
         camera_setting_grp.setFont(QFont('Times', 8))
         camera_setting_grp.setStyleSheet("""
-    QGroupBox {
-        color: #16a085;
-        font-weight: bold;
-        border: 2px solid #13876a;
-        border-radius: 6px;
-        margin-top: 10px;
-    }
-    QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top left;
-        padding: 5px;
-    }
-    """)
-        Camera_settings = QVBoxLayout()
+        QGroupBox {
+            color: #16a085;
+            font-weight: bold;
+            border: 2px solid #13876a;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        QGroupBox::title {
+            subcontrol-origin: margin;
+            subcontrol-position: top left;
+            padding: 5px;
+        }
+        """)
+
+        camera_settings = QVBoxLayout()
         camera_location = QHBoxLayout()
-        camera_rotation = QHBoxLayout()
-        self.add_camera_controls(camera_location, camera_rotation)
-        Camera_settings.addLayout(camera_location)
-        Camera_settings.addLayout(camera_rotation)
-        camera_setting_grp.setLayout(Camera_settings)
+        camera_focal = QHBoxLayout()
+        camera_up = QHBoxLayout()
+
+        self.add_camera_controls(camera_location, camera_focal, camera_up)
+
+        camera_settings.addLayout(camera_location)
+        camera_settings.addLayout(camera_focal)
+        camera_settings.addLayout(camera_up)
+
+        camera_setting_grp.setLayout(camera_settings)
         self.config_layout.addWidget(camera_setting_grp)
 
-    def add_camera_controls(self, location_layout, rotation_layout):
+    def add_camera_controls(self, location_layout, focal_layout, up_layout):
         """
-        Adds camera position and rotation controls to the given layouts.
+        Adds camera position, focal point, and view-up vector controls to the given layouts.
 
-        Dynamically creates labeled `QDoubleSpinBox` widgets for both camera location (X, Y, Z)
-        and rotation (Roll α, Pitch β, Yaw γ), and assigns them to class attributes for access.
+        Each control group is populated with labeled `QDoubleSpinBox` widgets for X, Y, and Z axes.
 
-        Parameters:
-            location_layout (QHBoxLayout): Layout to which camera location widgets are added.
-            rotation_layout (QHBoxLayout): Layout to which camera rotation widgets are added.
+        Parameters
+        ----------
+        location_layout : QHBoxLayout
+            Layout to which camera position (location) spinboxes are added.
 
-        SpinBoxes Created:
-            - Location: camera_location_x, camera_location_y, camera_location_z (range: -1000 to 1000)
-            - Rotation: camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma (range: -360 to 360)
+        focal_layout : QHBoxLayout
+            Layout to which camera focal point spinboxes are added.
+
+        up_layout : QHBoxLayout
+            Layout to which camera view-up vector spinboxes are added.
+
+        Attributes Set
+        --------------
+        camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox
+            Spinboxes for camera position in world coordinates.
+
+        camera_focal_x, camera_focal_y, camera_focal_z : QDoubleSpinBox
+            Spinboxes for focal target point of the camera.
+
+        camera_up_x, camera_up_y, camera_up_z : QDoubleSpinBox
+            Spinboxes for defining the view-up direction of the camera.
         """
 
-        def add_control(label_text, spinbox_attr, min_val, max_val):
-            """
-            Creates a labeled QDoubleSpinBox with specified range.
-            
-            :param label_text: Label text for the spinbox
-            :param spinbox_attr: Attribute name (unused here, passed for context)
-            :param min_val: Minimum value for the spinbox
-            :param max_val: Maximum value for the spinbox
-            :return: Tuple of QWidget containing layout and the QDoubleSpinBox
-            """
+        def add_control(label_text, min_val, max_val):
+            """Creates a QWidget containing a label and a spinbox."""
             wid = QWidget()
             layout = QHBoxLayout()
             label = QLabel(label_text)
@@ -500,27 +517,38 @@ class ProjectCreator(QMainWindow):
             spinbox.setRange(min_val, max_val)
             layout.addWidget(label)
             layout.addWidget(spinbox)
+            layout.setContentsMargins(0, 0, 0, 0)
             wid.setLayout(layout)
             return wid, spinbox
 
+        # Camera Location Controls
         location_layout.addWidget(QLabel('Location'))
         for axis in ['x', 'y', 'z']:
-            wid, spinbox = add_control(axis.upper() + ':', f'camera_location_{axis}', -1000, 1000)
+            wid, spinbox = add_control(axis.upper() + ':', -1000, 1000)
             setattr(self, f'camera_location_{axis}', spinbox)
             location_layout.addWidget(wid)
 
-        rotation_layout.addWidget(QLabel('Rotation'))
-        for axis in ['alpha', 'beta', 'gamma']:
-            wid, spinbox = add_control(axis[-1].upper() + ':', f'camera_rotation_{axis}', -360, 360)
-            setattr(self, f'camera_rotation_{axis}', spinbox)
-            rotation_layout.addWidget(wid)
+        # Camera Focal Controls
+        focal_layout.addWidget(QLabel('Focal Point'))
+        for axis in ['x', 'y', 'z']:
+            wid, spinbox = add_control(axis.upper() + ':', -1000, 1000)
+            setattr(self, f'camera_focal_{axis}', spinbox)
+            focal_layout.addWidget(wid)
+
+        # Camera View-Up Controls
+        up_layout.addWidget(QLabel('View Up'))
+        for axis in ['x', 'y', 'z']:
+            wid, spinbox = add_control(axis.upper() + ':', -1.0, 1.0)
+            spinbox.setSingleStep(0.1)
+            setattr(self, f'camera_up_{axis}', spinbox)
+            up_layout.addWidget(wid)
 
     def setup_light_settings(self):
         """
         Sets up the light configuration panel within the configuration layout.
 
-        Creates a styled `QGroupBox` labeled "Light Settings", including controls 
-        for adjusting light location (X, Y, Z) and power level. Each axis input 
+        Creates a styled `QGroupBox` labeled "Light Settings", including controls
+        for adjusting light location (X, Y, Z) and power level. Each axis input
         is represented by a `QDoubleSpinBox`, and power is controlled by a `QSpinBox`.
 
         UI Elements Initialized:
@@ -588,8 +616,8 @@ class ProjectCreator(QMainWindow):
         """
         Sets up additional configuration options under the "Other Settings" group.
 
-        Adds controls for STL file saving and axis reflection toggles. 
-        Includes checkboxes for reflecting the scene geometry about XY, YZ, and XZ planes, 
+        Adds controls for STL file saving and axis reflection toggles.
+        Includes checkboxes for reflecting the scene geometry about XY, YZ, and XZ planes,
         as well as a toggle for enabling STL export.
 
         UI Elements:
@@ -646,7 +674,7 @@ class ProjectCreator(QMainWindow):
         Sets the selected file path in the scene input field and updates the open button's appearance.
         """
         directory, _ = QFileDialog.getOpenFileName(filter='Scene File (*.pkl)')
-        
+
         if directory:
             self.directory_scene = directory
             self.text_editor_scene.setText(self.directory_scene)
@@ -658,13 +686,13 @@ class ProjectCreator(QMainWindow):
         """
         Opens the scene creation window.
 
-        Launches a `CreateScene` dialog and connects its `sceneCreated` signal 
+        Launches a `CreateScene` dialog and connects its `sceneCreated` signal
         to the `on_scene_created` handler.
         """
         self.window2 = SceneCreator()
         self.window2.show()
         self.window2.sceneCreated.connect(self.on_scene_created)
-  
+
     def on_scene_created(self, scene_data):
         """
         Handles the scene data returned from the scene creation window.
@@ -674,14 +702,14 @@ class ProjectCreator(QMainWindow):
         self.scene_data = scene_data
         # Make the button glow green
         self.create_button.setStyleSheet('background-color: green')
-        
+
     def process_default_config(self):
         """
         Applies default configuration settings from a JSON file.
 
         If the 'Use Default Config' checkbox is checked, this method loads predefined
         configuration values from `default_config.json` and applies them to the respective
-        input fields for video resolution, camera parameters, lighting, reflection axes, 
+        input fields for video resolution, camera parameters, lighting, reflection axes,
         and STL export. If the checkbox is unchecked, the configuration section is disabled.
 
         Behavior:
@@ -695,7 +723,7 @@ class ProjectCreator(QMainWindow):
             - frame_format
             - resolution_x, resolution_y
             - camera_location_x/y/z
-            - camera_rotation_alpha/beta/gamma
+            - camera_focal_x/y/z
             - light_location_x/y/z
             - light_power
             - reflect_xy, reflect_yz, reflect_xz
@@ -706,7 +734,7 @@ class ProjectCreator(QMainWindow):
         if self.default_config_checkbox.isChecked():
 
             if getattr(sys, 'frozen', False):
-                base_path = sys._MEIPASS 
+                base_path = sys._MEIPASS
             else:
                 base_path = os.path.dirname(__file__)
             config_path = os.path.join(base_path, 'src', 'config', 'default_config.json')
@@ -717,14 +745,18 @@ class ProjectCreator(QMainWindow):
             self.frame_format.setCurrentIndex(0)
             self.resolution_x.setValue(config['VideoRender']['resolution_x'])
             self.resolution_y.setValue(config['VideoRender']['resolution_y'])
-            
+
             self.camera_location_x.setValue(config['Camera']['location'][0])
             self.camera_location_y.setValue(config['Camera']['location'][1])
             self.camera_location_z.setValue(config['Camera']['location'][2])
 
-            self.camera_rotation_alpha.setValue(config['Camera']['rotation_euler'][0])
-            self.camera_rotation_beta.setValue(config['Camera']['rotation_euler'][1])
-            self.camera_rotation_gamma.setValue(config['Camera']['rotation_euler'][2])
+            self.camera_focal_x.setValue(config['Camera']['focal'][0])
+            self.camera_focal_y.setValue(config['Camera']['focal'][1])
+            self.camera_focal_z.setValue(config['Camera']['focal'][2])
+
+            self.camera_up_x.setValue(config['Camera']['up'][0])
+            self.camera_up_y.setValue(config['Camera']['up'][1])
+            self.camera_up_z.setValue(config['Camera']['up'][2])
 
             self.light_location_x.setValue(config['Light']['location'][0])
             self.light_location_y.setValue(config['Light']['location'][1])
@@ -748,14 +780,14 @@ class ProjectCreator(QMainWindow):
 
         else:
             self.config_group.setEnabled(False)
-    
+
     def create_new_config(self):
         """
         Initializes a blank configuration setup for a new project.
 
-        When the 'New Config' toggle button is enabled, this method populates all relevant 
-        input fields with baseline default values, effectively clearing any previous data 
-        and preparing the UI for a new configuration. If the toggle is disabled, the 
+        When the 'New Config' toggle button is enabled, this method populates all relevant
+        input fields with baseline default values, effectively clearing any previous data
+        and preparing the UI for a new configuration. If the toggle is disabled, the
         configuration group is disabled.
 
         Behavior:
@@ -769,7 +801,7 @@ class ProjectCreator(QMainWindow):
             - frame_format
             - resolution_x, resolution_y
             - camera_location_x/y/z
-            - camera_rotation_alpha/beta/gamma
+            - camera_focal_x/y/z
             - light_location_x/y/z
             - light_power
             - reflect_xy, reflect_yz, reflect_xz
@@ -787,9 +819,13 @@ class ProjectCreator(QMainWindow):
             self.camera_location_y.setValue(0)
             self.camera_location_z.setValue(0)
 
-            self.camera_rotation_alpha.setValue(0)
-            self.camera_rotation_beta.setValue(0)
-            self.camera_rotation_gamma.setValue(0)
+            self.camera_focal_x.setValue(0)
+            self.camera_focal_y.setValue(0)
+            self.camera_focal_z.setValue(0)
+
+            self.camera_up_x.setValue(0)
+            self.camera_up_y.setValue(0)
+            self.camera_up_z.setValue(1)
 
             self.light_location_x.setValue(0)
             self.light_location_y.setValue(0)
@@ -834,7 +870,8 @@ class ProjectCreator(QMainWindow):
                 - film_transparent: fixed as False
             - Camera:
                 - location: (x, y, z) position
-                - rotation_euler: (alpha, beta, gamma) angles
+                - focal: (x, y, z) focal point
+                - up: (x, y, z) view-up vector
             - Light:
                 - location: (x, y, z) position
                 - energy: integer power value
@@ -849,7 +886,7 @@ class ProjectCreator(QMainWindow):
 
         # Create the project directory
         os.makedirs(self.project_folder)
-        
+
         # Create data directory
         os.makedirs(self.project_folder + '/data')
         os.makedirs(self.project_folder + '/data/images')
@@ -860,7 +897,7 @@ class ProjectCreator(QMainWindow):
             scene_name = os.path.basename(self.directory_scene)
             scene_destination = os.path.join(self.project_folder, 'scene.pkl')
             os.system(f'cp {self.directory_scene} {scene_destination}')
-        
+
         else: # Dump the scene data to the project folder
             scene_destination = os.path.join(self.project_folder, 'scene.pkl')
             pickle.dump(self.scene_data, open(scene_destination, 'wb'))
@@ -879,25 +916,26 @@ class ProjectCreator(QMainWindow):
             },
             'Camera': {
                 'location': [self.camera_location_x.value(), self.camera_location_y.value(), self.camera_location_z.value()],
-                'rotation_euler': [self.camera_rotation_alpha.value(), self.camera_rotation_beta.value(), self.camera_rotation_gamma.value()]
+                'focal': [self.camera_focal_x.value(), self.camera_focal_y.value(), self.camera_focal_z.value()],
+                'up': [self.camera_up_x.value(), self.camera_up_y.value(), self.camera_up_z.value()]
             },
             'Light': {
                 'location': [self.light_location_x.value(), self.light_location_y.value(), self.light_location_z.value()],
                 'energy': self.light_power.value()
             },
             'STL': True if self.stl_enable.isChecked() else False,
-            
+
             'Reflect': 'XY' if self.reflect_xy.isChecked() else 'YZ' if self.reflect_yz.isChecked() else 'XZ' if self.reflect_xz.isChecked() else None
         }
 
         with open(os.path.join(self.project_folder, 'config.json'), 'w') as file:
             json.dump(config, file)
-        
+
         # Rendering the scene
         self.window2 = ProjectWindow(self.project_folder)
         self.window2.show()
         self.close()
-            
+
     def center(self):
         """
         Centers the application window on the screen.
@@ -914,7 +952,7 @@ class ProjectCreator(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y)  
+        self.move(x, y)
 
     def toggle_checkboxes(self, checked_box):
         """
@@ -927,7 +965,7 @@ class ProjectCreator(QMainWindow):
             for box in [self.reflect_xy, self.reflect_yz, self.reflect_xz]:
                 if box != checked_box:
                     box.setChecked(False)
-    
+
     def about_button_fun(self):
         """
         Displays an 'About FlapKine' information dialog.
@@ -936,7 +974,33 @@ class ProjectCreator(QMainWindow):
         """
         QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
-        <p>Developed by: Kalbhavi Vadhiraj</p>                  
+        <p>Developed by: Kalbhavi Vadhiraj</p>
         <p>Version {__version__}</p>
-        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
 ''')
+
+    def about_button_fun(self):
+        """
+        Displays an 'About FlapKine' information dialog.
+
+        Shows details about the developer, version, and purpose of the application.
+        """
+        QMessageBox.about(self, "About FlapKine", f'''
+        <h1>FlapKine</h1>
+        <p>Developed by: Kalbhavi Vadhiraj</p>
+        <p>Version {__version__}</p>
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
+''')
+
+    def show_doc(self):
+        """
+        Displays the documentation for the FlapKine application.
+
+        This method opens the documentation file in the default web browser.
+        """
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(__file__)
+        doc_path = "https://ihdavjar.github.io/FlapKine/"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))

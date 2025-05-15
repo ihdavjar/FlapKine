@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy
 
 class VideoPlayer(QWidget):
     """
@@ -10,7 +10,7 @@ class VideoPlayer(QWidget):
 
     A lightweight QWidget-based video player for embedding video playback within PyQt5 GUIs.
 
-    This player uses `QMediaPlayer` and `QVideoWidget` to load and display local video files 
+    This player uses `QMediaPlayer` and `QVideoWidget` to load and display local video files
     with support for resizing and basic control operations like pause/play.
 
     Attributes
@@ -33,7 +33,7 @@ class VideoPlayer(QWidget):
         Handles resizing of the widget to ensure the video maintains full screen coverage.
     """
 
-    def __init__(self, width=640, height=480):
+    def __init__(self):
         """
         Initializes the video player UI and media components.
 
@@ -51,7 +51,6 @@ class VideoPlayer(QWidget):
         # Create video widget
         self.video_widget = QVideoWidget(self)
         self.video_widget.setSizePolicy(QWidget.sizePolicy(self).Expanding, QWidget.sizePolicy(self).Expanding)
-        self.video_widget.setMinimumSize(400, 225)
 
         layout.addWidget(self.video_widget)
 
@@ -60,7 +59,8 @@ class VideoPlayer(QWidget):
         self.media_player.setVideoOutput(self.video_widget)
 
         # Set initial size
-        self.setMinimumSize(width, height)
+        self.setMinimumSize(640, 400)
+
 
     def setMedia(self, video_path):
         """
@@ -70,7 +70,7 @@ class VideoPlayer(QWidget):
         ----------
         video_path : str
             Absolute or relative path to the local video file to be loaded.
-        
+
         Notes
         -----
         - Video is automatically paused after loading. Use `media_player.play()` to begin playback.
@@ -79,16 +79,3 @@ class VideoPlayer(QWidget):
         self.media_player.setMedia(media)
         self.media_player.pause()
 
-    def resizeEvent(self, event):
-        """
-        Resizes the video widget to fit the available window space.
-
-        Ensures that the embedded video stretches appropriately while maintaining layout behavior.
-
-        Parameters
-        ----------
-        event : QResizeEvent
-            Resize event triggered when the widget is resized by the user or layout system.
-        """
-        self.video_widget.setGeometry(self.rect())
-        super().resizeEvent(event)

@@ -1,11 +1,11 @@
 import os
 import json
-import numpy as np
 import cv2
+import numpy as np
 
 from PyQt5.QtCore import QRunnable, pyqtSlot, QObject, pyqtSignal
 
-from vtk import vtkActor, vtkCellArray, vtkPoints, vtkPolyData, vtkPolyDataMapper, vtkTriangle
+from vtk import vtkActor, vtkCellArray, vtkPoints, vtkPolyData, vtkPolyDataMapper, vtkTriangle, vtkTransform, vtkTransformPolyDataFilter, vtkAppendPolyData
 from vtkmodules.vtkRenderingCore import vtkRenderer, vtkRenderWindow, vtkCamera, vtkLight, vtkWindowToImageFilter
 from vtkmodules.vtkCommonColor import vtkNamedColors
 from vtkmodules.util.numpy_support import vtk_to_numpy
@@ -16,7 +16,7 @@ class RenderSignals(QObject):
     ===================
 
     Defines custom signals for tracking the progress and completion status of the rendering process
-    in the FlapKine application. This class is used to communicate between the rendering worker thread 
+    in the FlapKine application. This class is used to communicate between the rendering worker thread
     and the main GUI, allowing for real-time updates on rendering progress and notification upon completion.
 
     Attributes
@@ -41,9 +41,9 @@ class Worker(QRunnable):
     Worker Class
     ============
 
-    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding 
-    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames 
-    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering 
+    High-performance `QRunnable` designed to handle offscreen VTK rendering and real-time video encoding
+    for the FlapKine application. The class avoids disk-based frame dumps by directly feeding rendered frames
+    to OpenCV’s video writer. It supports STL export, real-time progress updates, and efficient rendering
     pipeline integration with PyQt5’s multithreading model.
 
     Attributes
@@ -80,9 +80,9 @@ class Worker(QRunnable):
         """
         Initializes the rendering worker for the FlapKine application.
 
-        Prepares the QRunnable-based background task responsible for high-performance rendering 
-        and video encoding. Loads essential project parameters such as output folder, rendering 
-        angles, scene data generator, and mesh reflection configuration. Also sets up the 
+        Prepares the QRunnable-based background task responsible for high-performance rendering
+        and video encoding. Loads essential project parameters such as output folder, rendering
+        angles, scene data generator, and mesh reflection configuration. Also sets up the
         custom signal handler to communicate rendering progress and completion with the main GUI.
 
         Components Initialized:
@@ -105,9 +105,9 @@ class Worker(QRunnable):
         Executes the background rendering and encoding process.
 
         This method is invoked when the `Worker` QRunnable is started via a thread pool.
-        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes 
+        It performs offscreen rendering of a 3D scene using VTK, generates STL meshes
         frame-by-frame, and directly encodes each rendered frame into an `.mp4` video using OpenCV.
-        It also optionally exports STL files and emits real-time progress updates through 
+        It also optionally exports STL files and emits real-time progress updates through
         `RenderSignals`.
 
         Workflow:
@@ -156,8 +156,13 @@ class Worker(QRunnable):
 
         cam = vtkCamera()
         cam.SetPosition(*config['Camera']['location'])
-        cam.SetFocalPoint(0, 0, 0)
+        cam.SetFocalPoint(*config['Camera']['focal'])
+        cam.SetViewUp(*config['Camera']['up'])
+
+        renderer.SetActiveCamera(None)
         renderer.SetActiveCamera(cam)
+        cam.Modified()
+        renderer.ResetCameraClippingRange()
 
         light = vtkLight()
         light.SetLightTypeToSceneLight()
@@ -169,6 +174,9 @@ class Worker(QRunnable):
         actor = vtkActor()
         actor.SetMapper(mapper)
         actor.GetProperty().SetColor(vtkNamedColors().GetColor3d("RoyalBlue"))
+        actor.GetProperty().SetFrontfaceCulling(False)
+        actor.GetProperty().SetBackfaceCulling(False)
+
         renderer.AddActor(actor)
         renderer.SetBackground(0.95, 0.95, 0.95)
 
@@ -178,8 +186,8 @@ class Worker(QRunnable):
 
         total = len(self.angles)
         for i, angle in enumerate(self.angles):
-            stl_mesh = self.scene_data.save_stl(i, reflect_xy=self.reflect[0],
-                                                reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
+
+            stl_mesh = self.scene_data.save_stl(i, reflect_xy = self.reflect[0], reflect_yz = self.reflect[1], reflect_xz = self.reflect[2])
 
             if config["STL"]:
                 stl_mesh.save(os.path.join(self.project_folder, f"data/stl/stl_mesh_{i}.stl"))
@@ -208,36 +216,21 @@ class Worker(QRunnable):
         self.signals.finished.emit()
 
     def stl_mesh_to_vtk(self, stl_mesh):
-        """
-        Converts a mesh object to `vtkPolyData` for rendering in VTK.
-
-        This method performs a memory-efficient STL conversion by flattening and deduplicating 
-        vertex data using NumPy. The resulting unique vertex list and associated triangle indices 
-        are used to construct a `vtkPolyData` object, which is compatible with VTK's rendering pipeline.
-
-        Parameters
-        ----------
-        stl_mesh : mesh.Mesh
-            The STL mesh object containing 3D geometry in the form of triangle vectors.
-
-        Returns
-        -------
-        vtkPolyData
-            A VTK-compatible representation of the mesh, ready for visualization.
-        """
         poly_data = vtkPolyData()
         points = vtkPoints()
         cells = vtkCellArray()
 
-        unique_vertices, indices = np.unique(stl_mesh.vectors.reshape(-1, 3), axis=0, return_inverse=True)
-        for v in unique_vertices:
-            points.InsertNextPoint(*v)
-
-        for i in range(0, len(indices), 3):
-            triangle = vtkTriangle()
-            for j in range(3):
-                triangle.GetPointIds().SetId(j, indices[i + j])
-            cells.InsertNextCell(triangle)
+        point_id = 0
+        for triangle in stl_mesh.vectors:
+            ids = []
+            for vertex in triangle:
+                points.InsertNextPoint(vertex[0], vertex[1], vertex[2])
+                ids.append(point_id)
+                point_id += 1
+            vtk_triangle = vtkTriangle()
+            for i in range(3):
+                vtk_triangle.GetPointIds().SetId(i, ids[i])
+            cells.InsertNextCell(vtk_triangle)
 
         poly_data.SetPoints(points)
         poly_data.SetPolys(cells)

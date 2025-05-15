@@ -10,7 +10,8 @@ from PyQt5.QtWidgets import (
 
 from vtk import (
     vtkPolyDataMapper, vtkActor, vtkAxesActor, vtkRenderer,
-    vtkTransform, vtkCellArray, vtkTriangle, vtkPoints, vtkPolyData
+    vtkTransform, vtkCellArray, vtkTriangle, vtkPoints, vtkPolyData, vtkMatrix4x4,
+    vtkTransformPolyDataFilter
 )
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
@@ -24,9 +25,9 @@ class Visualizer3DWidget(QWidget):
     Visualizer3DWidget Class
     ========================
 
-    A PyQt5-based widget for interactive 3D visualization and playback of 
-    flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget 
-    serves as a real-time visual tool to inspect spatial orientation, 
+    A PyQt5-based widget for interactive 3D visualization and playback of
+    flapping-wing Micro Aerial Vehicle (MAV) simulation data. This widget
+    serves as a real-time visual tool to inspect spatial orientation,
     transformations, and local/global coordinate systems derived from simulation frames.
 
     The widget includes:
@@ -48,7 +49,7 @@ class Visualizer3DWidget(QWidget):
         List of orientation angles for animation frames.
 
     reflect : List[bool]
-        Boolean flags indicating whether XY, YZ, or XZ axis reflections are active, 
+        Boolean flags indicating whether XY, YZ, or XZ axis reflections are active,
         derived from the project's config file.
 
     actor : vtk.vtkActor
@@ -212,16 +213,23 @@ class Visualizer3DWidget(QWidget):
         self.next_button.setIcon(icon("mdi.skip-next", color=primary_color))
         self.next_button.clicked.connect(lambda: self.slider.setValue(self.slider.value() + 1))
 
+        self.refresh_button = QPushButton()
+        self.refresh_button.setIcon(icon("mdi.refresh", color=primary_color))
+        self.refresh_button.clicked.connect(self.refresh_fun)
+
         control_layout.addWidget(self.play_button)
         control_layout.addWidget(self.next_button)
         control_layout.addWidget(self.slider)
         control_layout.addWidget(self.slider_label)
+        control_layout.addWidget(self.refresh_button)
+
+
 
         self.vtkWidget = QVTKRenderWindowInteractor(self)
         self.ren = vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
         self.vtkWidget.setStyleSheet("background-color: #fafafa; border: 1px solid #bbb; border-radius: 10px;")
-        
+
         layout.addLayout(control_layout)
         layout.addWidget(self.vtkWidget)
 
@@ -259,7 +267,7 @@ class Visualizer3DWidget(QWidget):
         reflect = [config['Reflect'] == "XY", config['Reflect'] == "YZ", config['Reflect'] == "XZ"]
         self.reflect = reflect
 
-        mesh = self.scene_data.save_stl(-1, reflect_xy=reflect[0], reflect_yz=reflect[1], reflect_xz=reflect[2])
+        mesh = self.scene_data.save_stl(-1)
         poly_data = self.stl_mesh_to_vtk(mesh)
 
         mapper = vtkPolyDataMapper()
@@ -269,6 +277,25 @@ class Visualizer3DWidget(QWidget):
         self.actor.SetMapper(mapper)
         self.actor.GetProperty().SetColor(0.5, 0.7, 1)
         self.actor.GetProperty().SetOpacity(0.7)
+
+        if any(self.reflect):
+
+            reflected_polydata = self.get_reflected_polydata(poly_data, reflect_xy=self.reflect[0], reflect_yz=self.reflect[1], reflect_xz=self.reflect[2])
+            mapper_reflected = vtkPolyDataMapper()
+            mapper_reflected.SetInputData(reflected_polydata)
+
+            self.actor_reflected = vtkActor()
+            self.actor_reflected.SetMapper(mapper)
+            self.actor_reflected.GetProperty().SetColor(0.5, 0.7, 1)
+            self.actor_reflected.GetProperty().SetOpacity(0.7)
+            self.ren.AddActor(self.actor_reflected)
+
+            self.temp_actor = vtkActor()
+            self.temp_actor.SetMapper(mapper_reflected)
+            self.temp_actor.GetProperty().SetColor(0.5, 0.7, 1)
+            self.temp_actor.GetProperty().SetOpacity(0.7)
+            self.ren.AddActor(self.temp_actor)
+
 
         self.ren.SetBackground(0.95, 0.95, 0.95)
         self.ren.AddActor(self.actor)
@@ -308,7 +335,7 @@ class Visualizer3DWidget(QWidget):
         bounds = poly_data.GetBounds()
         max_length = max(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4])
         axes = vtkAxesActor()
-        axes.SetTotalLength(max_length * 0.1, max_length * 0.1, max_length * 0.1)
+        axes.SetTotalLength(max_length * 0.05, max_length * 0.05, max_length * 0.05)
         axes.SetShaftType(0)
         axes.SetAxisLabels(1)
         axes.SetXAxisLabelText("X")
@@ -316,11 +343,25 @@ class Visualizer3DWidget(QWidget):
         axes.SetZAxisLabelText("Z")
         for caption in [axes.GetXAxisCaptionActor2D(), axes.GetYAxisCaptionActor2D(), axes.GetZAxisCaptionActor2D()]:
             caption.GetCaptionTextProperty().SetColor(0, 0, 0)
+
+        color = (0, 0, 0)   # Light blue
+        opacity = 0.7
+
+        shaft_actors = [
+            axes.GetXAxisShaftProperty(),
+            axes.GetYAxisShaftProperty(),
+            axes.GetZAxisShaftProperty()
+        ]
+
+        for prop in shaft_actors:
+            prop.SetColor(*color)
+            prop.SetOpacity(opacity)
+
         return axes
 
     def create_body_axes(self, sprite):
         """
-        Create a local coordinate axes actor for a given sprite object, oriented and positioned 
+        Create a local coordinate axes actor for a given sprite object, oriented and positioned
         based on its frame orientation and origin.
 
         Parameters
@@ -340,7 +381,7 @@ class Visualizer3DWidget(QWidget):
         - Orientation is applied using Euler angles (in radians), converted to degrees for VTK.
         - This actor visually represents the local transformation of each object in the scene.
     """
-        max_length = max(self.actor.GetBounds()[1::2]) * 0.05
+        max_length = max(self.actor.GetBounds()[1::2]) * 0.1
         axes = vtkAxesActor()
         axes.SetTotalLength(max_length, max_length, max_length)
         axes.SetShaftType(0)
@@ -419,6 +460,11 @@ class Visualizer3DWidget(QWidget):
         - Updates the main mesh actor (`self.actor`) transformation based on the last processed object.
         - Triggers a re-render of the VTK render window.
         """
+
+        if hasattr(self, 'temp_actor'):
+            self.ren.RemoveActor(self.temp_actor)
+            del self.temp_actor
+
         index = self.slider.value()
         self.slider_label.setText(f"Frame: {index}")
 
@@ -443,7 +489,87 @@ class Visualizer3DWidget(QWidget):
             self.body_axes[i].SetUserTransform(axes_trans)
 
         self.actor.SetUserTransform(actor_trans)
+
+        if hasattr(self, 'actor_reflected') and self.actor_reflected:
+            reflect_trans = self.get_reflection_transform(
+                reflect_xy=self.reflect[0],
+                reflect_yz=self.reflect[1],
+                reflect_xz=self.reflect[2]
+            )
+
+            reflected_actor_trans = vtkTransform()
+            reflected_actor_trans.PostMultiply()
+
+            reflected_actor_trans.Concatenate(actor_trans)
+            reflected_actor_trans.Concatenate(reflect_trans)
+
+            self.actor_reflected.SetUserTransform(reflected_actor_trans)
+
         self.vtkWidget.GetRenderWindow().Render()
+
+    def get_reflection_transform(self, reflect_xy=False, reflect_yz=False, reflect_xz=False):
+        """
+        Create a vtkTransform that performs reflection across specified planes.
+        """
+        reflection_matrix = vtkMatrix4x4()
+        reflection_matrix.Identity()
+
+        if reflect_xy:
+            reflection_matrix.SetElement(2, 2, -1)  # Reflect Z
+        elif reflect_yz:
+            reflection_matrix.SetElement(0, 0, -1)  # Reflect X
+        elif reflect_xz:
+            reflection_matrix.SetElement(1, 1, -1)  # Reflect Y
+
+        transform = vtkTransform()
+        transform.SetMatrix(reflection_matrix)
+        return transform
+
+
+    def get_reflected_polydata(self, poly_data, reflect_xy=False, reflect_yz=False, reflect_xz=False):
+        """
+        Returns a reflected copy of the input vtkPolyData based on specified reflection plane.
+
+        Parameters
+        ----------
+        poly_data : vtk.vtkPolyData
+            The original mesh to reflect.
+
+        reflect_xy : bool
+            Reflect across the XY plane (invert Z).
+
+        reflect_yz : bool
+            Reflect across the YZ plane (invert X).
+
+        reflect_xz : bool
+            Reflect across the XZ plane (invert Y).
+
+        Returns
+        -------
+        reflected_poly : vtk.vtkPolyData or None
+            The reflected mesh, or None if no reflection flag is set.
+        """
+        if not (reflect_xy or reflect_yz or reflect_xz):
+            return None
+
+        transform = vtkTransform()
+        scale_x, scale_y, scale_z = 1, 1, 1
+
+        if reflect_xy:
+            scale_z = -1
+        elif reflect_yz:
+            scale_x = -1
+        elif reflect_xz:
+            scale_y = -1
+
+        transform.Scale(scale_x, scale_y, scale_z)
+
+        filter = vtkTransformPolyDataFilter()
+        filter.SetInputData(poly_data)
+        filter.SetTransform(transform)
+        filter.Update()
+
+        return filter.GetOutput()
 
     def stl_mesh_to_vtk(self, stl_mesh):
         """
@@ -486,3 +612,19 @@ class Visualizer3DWidget(QWidget):
         poly_data.SetPoints(points)
         poly_data.SetPolys(cells)
         return poly_data
+
+    def refresh_fun(self):
+        """
+        Refresh the visualization by reloading the config file and updating the reflect options.
+
+        This method is called when the refresh button is clicked. It reinitializes the
+        visualization pipeline, including the mesh and axes actors, based on the current
+        """
+
+        for actor in self.ren.GetActors():
+            self.ren.RemoveActor(actor)
+
+        for axes in self.body_axes:
+            self.ren.RemoveActor(axes)
+
+        self.setup_visualization()

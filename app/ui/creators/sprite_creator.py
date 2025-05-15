@@ -3,8 +3,8 @@ import sys
 import numpy as np
 import pandas as pd
 
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QFont, QIcon, QCursor
+from PyQt5.QtCore import Qt, pyqtSignal, QUrl
+from PyQt5.QtGui import QFont, QIcon, QCursor, QDesktopServices
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QFileDialog, QDesktopWidget, QDoubleSpinBox,
     QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox,
@@ -35,12 +35,12 @@ class SpriteCreator(QMainWindow):
     SpriteCreator Class
     ==================
 
-    This class provides the graphical interface for creating and configuring a 3D sprite 
-    within the FlapKine application. Users can import STL files, apply transformation types 
-    (translation, rotation, flexibility), and optionally use inverse kinematics data for 
+    This class provides the graphical interface for creating and configuring a 3D sprite
+    within the FlapKine application. Users can import STL files, apply transformation types
+    (translation, rotation, flexibility), and optionally use inverse kinematics data for
     automated rotation specification.
 
-    It also supports setting initial pose parameters and provides a 3D visualization 
+    It also supports setting initial pose parameters and provides a 3D visualization
     of the configured object using VTK.
 
     Attributes
@@ -145,7 +145,7 @@ class SpriteCreator(QMainWindow):
         Initializes the SpriteCreator class.
 
         Sets up the main window for creating and configuring 3D sprites in the FlapKine environment.
-        Defines core window properties including title, size, position, and application icon. 
+        Defines core window properties including title, size, position, and application icon.
         Initializes the `inverse_kinematics` flag and sets up the full user interface layout using `init_ui()`.
 
         Components Initialized:
@@ -160,9 +160,9 @@ class SpriteCreator(QMainWindow):
         self.inverse_kinematics = False
 
         self.setWindowTitle("Create Sprite")
-        
+
         if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS 
+            base_path = sys._MEIPASS
         else:
             base_path = os.path.dirname(__file__)
         icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
@@ -177,8 +177,8 @@ class SpriteCreator(QMainWindow):
         """
         Constructs the main UI layout for the SpriteCreator window.
 
-        Initializes and assembles all primary UI sections including menu bar, sprite input fields, 
-        transformation configuration, initial conditions, and the finalization button. 
+        Initializes and assembles all primary UI sections including menu bar, sprite input fields,
+        transformation configuration, initial conditions, and the finalization button.
         Also sets the central widget and applies the main layout for the application.
 
         UI Components Initialized:
@@ -211,7 +211,7 @@ class SpriteCreator(QMainWindow):
         """
         Initializes the custom menu bar for the SpriteCreator window.
 
-        Sets up a `MenuBar` instance and binds it to the main window. Connects core window control 
+        Sets up a `MenuBar` instance and binds it to the main window. Connects core window control
         actions such as exit, minimize, maximize, restore, and about, ensuring responsive GUI behavior.
 
         Menu Actions Connected:
@@ -230,14 +230,15 @@ class SpriteCreator(QMainWindow):
             'minimize': self.showMinimized,
             'maximize': self.showMaximized,
             'restore': self.showNormal,
-            'about': self.about_button_fun
+            'about': self.about_button_fun,
+            'doc': self.show_doc
         })
 
     def init_sprite_inputs(self):
         """
         Initializes the sprite input group (`group_1`) for 3D object configuration.
 
-        Creates a `QGroupBox` titled "3DObject Properties" that allows users to input the sprite name 
+        Creates a `QGroupBox` titled "3DObject Properties" that allows users to input the sprite name
         and load an STL file. Also sets up a VTK render window for real-time 3D visualization of the imported mesh.
 
         Components Initialized:
@@ -311,9 +312,9 @@ class SpriteCreator(QMainWindow):
         """
         Initializes the transformation controls for sprite configuration.
 
-        Creates a `QGroupBox` titled "Transformations" containing dropdowns for selecting 
-        different transformation modes: Translation, Rotation, and Flexibility. 
-        Each dropdown allows the user to choose a transformation strategy for the sprite 
+        Creates a `QGroupBox` titled "Transformations" containing dropdowns for selecting
+        different transformation modes: Translation, Rotation, and Flexibility.
+        Each dropdown allows the user to choose a transformation strategy for the sprite
         and triggers an associated update function on change.
 
         Components Initialized:
@@ -388,12 +389,12 @@ class SpriteCreator(QMainWindow):
         """
         Initializes the initial conditions section for sprite setup.
 
-        Creates a `QGroupBox` titled "Initial Conditions" containing UI controls for setting 
-        the sprite’s starting position and orientation using position coordinates and Euler angles. 
-        These controls are grouped and managed through two sub-initialization functions: 
+        Creates a `QGroupBox` titled "Initial Conditions" containing UI controls for setting
+        the sprite’s starting position and orientation using position coordinates and Euler angles.
+        These controls are grouped and managed through two sub-initialization functions:
         `init_position_group()` and `init_angle_group()`.
 
-        By default, the entire group is disabled and can be toggled via a checkbox labeled 
+        By default, the entire group is disabled and can be toggled via a checkbox labeled
         "Enable Initial Conditions", allowing optional setup of initial state parameters.
 
         Components Initialized:
@@ -447,8 +448,8 @@ class SpriteCreator(QMainWindow):
         """
         Initializes the position input group for the sprite's initial body origin.
 
-        Creates a `QGroupBox` titled "Initial Position of Body Origin" that contains 
-        spin boxes for specifying the X, Y, and Z coordinates of the sprite's starting location. 
+        Creates a `QGroupBox` titled "Initial Position of Body Origin" that contains
+        spin boxes for specifying the X, Y, and Z coordinates of the sprite's starting location.
         Each coordinate input is represented using a `QDoubleSpinBox` with a value range from -100 to 100 meters.
 
         Parameters
@@ -507,7 +508,7 @@ class SpriteCreator(QMainWindow):
         """
         Initializes the Euler angle input group for the sprite's initial orientation.
 
-        Constructs a `QGroupBox` titled "Initial Euler Angles" containing spin boxes for 
+        Constructs a `QGroupBox` titled "Initial Euler Angles" containing spin boxes for
         defining the initial rotational orientation using three Euler angles: Alpha, Beta, and Gamma.
         Each angle input is provided via a `QDoubleSpinBox`, allowing values in the range of -360° to 360°.
 
@@ -568,7 +569,7 @@ class SpriteCreator(QMainWindow):
         Initializes the final control elements for sprite creation.
 
         Adds a "Finish" button to the main layout, enabling the user to complete and confirm
-        the sprite configuration process. The button is connected to the `finish_button_fun` 
+        the sprite configuration process. The button is connected to the `finish_button_fun`
         slot which handles the finalization logic.
 
         Components Initialized:
@@ -646,7 +647,7 @@ class SpriteCreator(QMainWindow):
         -------
         vtk.vtkSTLReader
             Configured STL reader instance with the file path set.
-        
+
         """
         reader = vtkSTLReader()
         reader.SetFileName(file_path)
@@ -656,7 +657,7 @@ class SpriteCreator(QMainWindow):
         """
         Creates a VTK actor from a given STL reader.
 
-        Configures a `vtkPolyDataMapper` to process the reader's output and assigns it 
+        Configures a `vtkPolyDataMapper` to process the reader's output and assigns it
         to a `vtkActor`. Sets visual properties such as color and opacity.
 
         Parameters
@@ -682,7 +683,7 @@ class SpriteCreator(QMainWindow):
         """
         Creates a VTK `AxesActor` with custom axis labels, scale, and label color.
 
-        Configures the axis lengths, shaft type, and axis captions for a VTK coordinate 
+        Configures the axis lengths, shaft type, and axis captions for a VTK coordinate
         system representation. Useful for displaying reference frames in 3D scenes.
 
         Parameters
@@ -723,8 +724,8 @@ class SpriteCreator(QMainWindow):
         """
         Prepares the VTK renderer by clearing it and adding specified actors.
 
-        This method removes all existing view props from the renderer, adds the provided 
-        actors to the scene, resets the camera to frame all visible geometry, and triggers 
+        This method removes all existing view props from the renderer, adds the provided
+        actors to the scene, resets the camera to frame all visible geometry, and triggers
         a re-render. It ensures a clean and updated 3D viewport after loading new content.
 
         Parameters
@@ -745,7 +746,7 @@ class SpriteCreator(QMainWindow):
         Handles UI logic for the translation transform selection.
 
         Clears any previously added translation UI components and conditionally adds
-        a new group of widgets for configuring the translation transform, based on 
+        a new group of widgets for configuring the translation transform, based on
         the current selection in the combo box.
 
         Behavior:
@@ -815,7 +816,7 @@ class SpriteCreator(QMainWindow):
                 subcontrol-origin: margin;
                 subcontrol-position: top left;
                 padding: 5px;
-            }   
+            }
         """)
 
         layout = QVBoxLayout()
@@ -869,7 +870,7 @@ class SpriteCreator(QMainWindow):
         Based on the selected transformation type, this method:
             - Removes any previously displayed flexibility transform group.
             - Checks the current index of the flexibility combo box.
-            - Creates and displays the corresponding flexibility group box 
+            - Creates and displays the corresponding flexibility group box
             for "FlexibleType1" or "FlexibleType2".
 
         Conditions:
@@ -901,8 +902,8 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a QGroupBox for the selected flexibility transformation type.
 
-        This method builds a group box containing appropriate input rows based on 
-        the selected flexibility mode (FlexibleType1 or FlexibleType2). Each row 
+        This method builds a group box containing appropriate input rows based on
+        the selected flexibility mode (FlexibleType1 or FlexibleType2). Each row
         consists of axis toggles and transformation-specific parameters.
 
         Parameters
@@ -942,7 +943,7 @@ class SpriteCreator(QMainWindow):
         layout.addLayout(self._create_axis_selector_row())
 
         if selected_index == 1:
-            layout.addLayout(self._create_p_value_row())                        
+            layout.addLayout(self._create_p_value_row())
             layout.addLayout(self._create_time_period_row())
 
         elif selected_index == 2:
@@ -956,14 +957,14 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a horizontal layout with axis selector dropdowns.
 
-        This row provides comboboxes for selecting whether flexibility should be 
-        applied along the X, Y, and Z axes. Each dropdown allows the user to 
+        This row provides comboboxes for selecting whether flexibility should be
+        applied along the X, Y, and Z axes. Each dropdown allows the user to
         choose between 'True' or 'False'.
 
         Returns
         -------
         QHBoxLayout
-            A layout containing axis labels and corresponding boolean selectors 
+            A layout containing axis labels and corresponding boolean selectors
             for the X, Y, and Z axes.
         """
 
@@ -995,13 +996,13 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a horizontal layout for the time period input.
 
-        This row provides a label and a spin box to configure the time period 
+        This row provides a label and a spin box to configure the time period
         parameter associated with the flexibility transform.
 
         Returns
         -------
         QHBoxLayout
-            A layout containing a descriptive label and a QSpinBox 
+            A layout containing a descriptive label and a QSpinBox
             for specifying the time period.
         """
 
@@ -1019,8 +1020,8 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a horizontal layout for specifying M values.
 
-        This layout includes a label, a QLineEdit for user input, and an 
-        "Open" button to load M values from a file. The button icon color is 
+        This layout includes a label, a QLineEdit for user input, and an
+        "Open" button to load M values from a file. The button icon color is
         set using the provided primary color.
 
         Parameters
@@ -1050,13 +1051,13 @@ class SpriteCreator(QMainWindow):
         layout.addWidget(self.path_m_values)
         layout.addWidget(self.open_m_values)
         return layout
-    
+
     def _create_p_value_row(self):
         """
         Create and return a horizontal layout for specifying the value of p.
 
-        The layout consists of a label and a QDoubleSpinBox for entering a 
-        floating-point value between 0 and 1, typically used to control flexibility 
+        The layout consists of a label and a QDoubleSpinBox for entering a
+        floating-point value between 0 and 1, typically used to control flexibility
         parameters in transformations.
 
         Returns
@@ -1082,7 +1083,7 @@ class SpriteCreator(QMainWindow):
         Handle UI logic based on the selected rotation transform option.
 
         If 'Euler_Angles' is selected, adds an additional group box for configuring
-        Euler angle parameters. If the selection is changed to another mode and a 
+        Euler angle parameters. If the selection is changed to another mode and a
         group box exists, it is removed to clean up the layout.
         """
 
@@ -1147,8 +1148,8 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a horizontal layout for selecting Euler angle rotation order.
 
-        This row includes a label and a combo box populated with standard Euler angle 
-        order permutations (both proper and Tait-Bryan sequences), allowing the user 
+        This row includes a label and a combo box populated with standard Euler angle
+        order permutations (both proper and Tait-Bryan sequences), allowing the user
         to define the desired rotational sequence.
 
         Returns:
@@ -1171,8 +1172,8 @@ class SpriteCreator(QMainWindow):
         """
         Create and return a styled QPushButton for importing inverse kinematics data.
 
-        The button allows users to load 3D coordinate data, typically obtained using 
-        DLTdv software, for computing inverse kinematics. When clicked, it triggers 
+        The button allows users to load 3D coordinate data, typically obtained using
+        DLTdv software, for computing inverse kinematics. When clicked, it triggers
         the `calculate_inverse_kinematics` method.
 
         The button includes a tooltip, custom icon, font, and cursor, along with
@@ -1277,7 +1278,7 @@ class SpriteCreator(QMainWindow):
         if directory:
             self.path_angle_alpha.setText(directory)
             self.open_angle_alpha.setStyleSheet("background-color: green")
-        
+
     def open_rotation_beta(self):
         """
         Open a CSV file for Beta angle and update the UI with the selected path.
@@ -1299,7 +1300,7 @@ class SpriteCreator(QMainWindow):
         if directory:
             self.path_angle_gamma.setText(directory)
             self.open_angle_gamma.setStyleSheet("background-color: green")
-    
+
     def open_position_file(self):
         """
         Open a CSV file for COM position and update the input field and button color.
@@ -1310,7 +1311,7 @@ class SpriteCreator(QMainWindow):
         if directory:
             self.position_input.setText(directory)
             self.open_position.setStyleSheet("background-color: green")
-    
+
     def open_m_values_fun(self):
         """
         Open a CSV file for M values and update the input field and button style.
@@ -1321,13 +1322,13 @@ class SpriteCreator(QMainWindow):
         if directory:
             self.path_m_values.setText(directory)
             self.open_m_values.setStyleSheet("background-color: green")
-        
+
     def finish_button_fun(self):
         """
         Finalizes the creation of a Sprite object using user-specified inputs and transformations.
 
         This function performs the following:
-        
+
         1. Retrieves the sprite name and STL file path from the UI.
         2. Loads the STL mesh using `numpy-stl`.
         3. Extracts transformation data for:
@@ -1344,7 +1345,7 @@ class SpriteCreator(QMainWindow):
 
         Notes:
             - This method closes the GUI window upon completion.
-            - The transformed mesh is reset using `Translation_COM()` and `ConstantF()` 
+            - The transformed mesh is reset using `Translation_COM()` and `ConstantF()`
             when the inverse transformation option is enabled.
 
         See Also:
@@ -1390,7 +1391,7 @@ class SpriteCreator(QMainWindow):
 
         This method analyzes the geometry of the STL mesh to compute key spatial parameters
         (major and minor axes), and uses UI inputs to return a corresponding flexibility model:
-        
+
         - ConstantF: No flexibility applied.
         - Flexibility_type1: Sinusoidal-based flexibility with defined axes and time period.
         - Flexibility_type2: Custom M-value driven flexibility using external CSV input.
@@ -1525,7 +1526,7 @@ class SpriteCreator(QMainWindow):
             A tuple containing:
             - `angles` : np.ndarray of shape (3,) — Initial [alpha, beta, gamma] in radians.
             - `positions` : np.ndarray of shape (3,) — Initial [x, y, z] position values.
-        
+
         Notes
         -----
         - Euler angles are converted from degrees to radians using `np.radians`.
@@ -1605,7 +1606,7 @@ class SpriteCreator(QMainWindow):
         alpha = np.radians(alpha)
         beta = np.radians(beta)
         gamma = np.radians(gamma)
-        
+
         angles_temp = np.array([alpha, beta, gamma])
         positions_temp = np.array([x_pos, y_pos, z_pos])
 
@@ -1624,7 +1625,7 @@ class SpriteCreator(QMainWindow):
         final_transform.Concatenate(Rotation_Transform_x)
         final_transform.Concatenate(Rotation_Transform_y)
         final_transform.Concatenate(Rotation_Transform_z)
-        
+
         self.actor.SetUserTransform(final_transform)
         self.axes_body.SetUserTransform(final_transform)
         self.vtkWidget.GetRenderWindow().Render()
@@ -1645,13 +1646,13 @@ class SpriteCreator(QMainWindow):
         self.window = InvKineWindow()
         self.window.show()
         self.window.angle_data.connect(self.process_inv_data)
-    
+
     def process_inv_data(self):
         """
         Processes the Euler angle results from the inverse kinematics window.
 
-        This method retrieves computed angles and their rotation order from the 
-        `InvKineWindow`, disables the manual rotation input section to avoid conflict, 
+        This method retrieves computed angles and their rotation order from the
+        `InvKineWindow`, disables the manual rotation input section to avoid conflict,
         and updates the rotation order in the UI.
 
         Notes
@@ -1665,7 +1666,7 @@ class SpriteCreator(QMainWindow):
         self.rotation_transform_layout.itemAt(1).widget().setEnabled(False)
         self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].setCurrentText(order)
         self.inverse_kinematics = True
-        
+
     def center(self):
         """
         Centers the application window on the screen.
@@ -1682,8 +1683,8 @@ class SpriteCreator(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y) 
-    
+        self.move(x, y)
+
     def about_button_fun(self):
         """
         Displays an 'About FlapKine' information dialog.
@@ -1692,7 +1693,20 @@ class SpriteCreator(QMainWindow):
         """
         QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
-        <p>Developed by: Kalbhavi Vadhiraj</p>                  
+        <p>Developed by: Kalbhavi Vadhiraj</p>
         <p>Version {__version__}</p>
-        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
 ''')
+
+    def show_doc(self):
+        """
+        Displays the documentation for the FlapKine application.
+
+        This method opens the documentation file in the default web browser.
+        """
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(__file__)
+        doc_path = "https://ihdavjar.github.io/FlapKine/"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))

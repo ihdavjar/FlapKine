@@ -39,8 +39,8 @@ class RenderConfig(QMainWindow):
     camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox
         Spin boxes to specify camera position in 3D space.
 
-    camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma : QDoubleSpinBox
-        Spin boxes to specify camera rotation in Euler angles.
+    camera_focal_x, camera_focal_y, camera_focal_z : QDoubleSpinBox
+        Spin boxes to specify camera focal point in 3D space.
 
     light_location_x, light_location_y, light_location_z : QDoubleSpinBox
         Spin boxes to specify light source position in 3D space.
@@ -104,7 +104,7 @@ class RenderConfig(QMainWindow):
         Initialize the RenderConfig window.
 
         Sets up the main render configuration window with appropriate title and icon, using
-        a foreground color extracted from the current theme. Stores the provided project 
+        a foreground color extracted from the current theme. Stores the provided project
         folder path and initializes the user interface layout and widgets.
 
         Parameters
@@ -228,16 +228,17 @@ class RenderConfig(QMainWindow):
         """
         Create and configure the camera settings group for render configuration.
 
-        This section provides spin box controls for specifying the camera’s 3D location 
-        and orientation in space. Users can input X, Y, Z coordinates for both position 
-        and Euler angle-based rotations. All elements are organized into a labeled layout 
+        This section provides spin box controls for specifying the camera’s 3D location
+        and orientation in space. Users can input X, Y, Z coordinates for both position
+        and focal point. All elements are organized into a labeled layout
         and enclosed in a themed "Camera Settings" group box.
 
         UI Components
         -------------
         - Camera location inputs (QDoubleSpinBox for X, Y, Z)
-        - Camera rotation inputs (QDoubleSpinBox for α, β, γ)
-        - Labeled horizontal layouts for location and rotation
+        - Camera focal inputs (QDoubleSpinBox for X, Y, Z)
+        - Camera up vector inputs (QDoubleSpinBox for X, Y, Z)
+        - Labeled horizontal layouts for location and Focal point
         - Group box titled "Camera Settings" with custom styling
         """
         self.camera_location_x = QDoubleSpinBox()
@@ -247,12 +248,20 @@ class RenderConfig(QMainWindow):
         self.camera_location_z = QDoubleSpinBox()
         self.camera_location_z.setRange(-1000, 1000)
 
-        self.camera_rotation_alpha = QDoubleSpinBox()
-        self.camera_rotation_alpha.setRange(-360, 360)
-        self.camera_rotation_beta = QDoubleSpinBox()
-        self.camera_rotation_beta.setRange(-360, 360)
-        self.camera_rotation_gamma = QDoubleSpinBox()
-        self.camera_rotation_gamma.setRange(-360, 360)
+        self.camera_focal_x = QDoubleSpinBox()
+        self.camera_focal_x.setRange(-1000, 1000)
+        self.camera_focal_y = QDoubleSpinBox()
+        self.camera_focal_y.setRange(-1000, 1000)
+        self.camera_focal_z = QDoubleSpinBox()
+        self.camera_focal_z.setRange(-1000, 1000)
+
+        self.camera_up_x = QDoubleSpinBox()
+        self.camera_up_x.setRange(-1, 1)
+        self.camera_up_y = QDoubleSpinBox()
+        self.camera_up_y.setRange(-1, 1)
+        self.camera_up_z = QDoubleSpinBox()
+        self.camera_up_z.setRange(-1, 1)
+
 
         loc_layout = QHBoxLayout()
         loc_layout.addWidget(QLabel("Location"))
@@ -260,15 +269,22 @@ class RenderConfig(QMainWindow):
         loc_layout.addWidget(self._labeled_widget("Y:", self.camera_location_y))
         loc_layout.addWidget(self._labeled_widget("Z:", self.camera_location_z))
 
-        rot_layout = QHBoxLayout()
-        rot_layout.addWidget(QLabel("Rotation"))
-        rot_layout.addWidget(self._labeled_widget("X:", self.camera_rotation_alpha))
-        rot_layout.addWidget(self._labeled_widget("Y:", self.camera_rotation_beta))
-        rot_layout.addWidget(self._labeled_widget("Z:", self.camera_rotation_gamma))
+        foc_layout = QHBoxLayout()
+        foc_layout.addWidget(QLabel("Focal Point"))
+        foc_layout.addWidget(self._labeled_widget("X:", self.camera_focal_x))
+        foc_layout.addWidget(self._labeled_widget("Y:", self.camera_focal_y))
+        foc_layout.addWidget(self._labeled_widget("Z:", self.camera_focal_z))
+
+        up_layout = QHBoxLayout()
+        up_layout.addWidget(QLabel("Up Vector"))
+        up_layout.addWidget(self._labeled_widget("X:", self.camera_up_x))
+        up_layout.addWidget(self._labeled_widget("Y:", self.camera_up_y))
+        up_layout.addWidget(self._labeled_widget("Z:", self.camera_up_z))
 
         layout = QVBoxLayout()
         layout.addLayout(loc_layout)
-        layout.addLayout(rot_layout)
+        layout.addLayout(foc_layout)
+        layout.addLayout(up_layout)
 
         self.camera_group = self._styled_groupbox("Camera Settings", "#16a085", "#13876a", layout, font_size=8)
 
@@ -276,8 +292,8 @@ class RenderConfig(QMainWindow):
         """
         Create and configure the light settings group for render configuration.
 
-        Provides interactive controls to position the scene's light source in 3D space 
-        and adjust its power intensity. All inputs are grouped into logically labeled 
+        Provides interactive controls to position the scene's light source in 3D space
+        and adjust its power intensity. All inputs are grouped into logically labeled
         layouts and wrapped within a stylized "Light Settings" section.
 
         UI Components
@@ -452,12 +468,12 @@ class RenderConfig(QMainWindow):
 
         This method reads a `config.json` file from the project folder and populates
         all render configuration widgets with the corresponding values, including
-        video resolution, camera position and orientation, lighting parameters, STL saving, 
+        video resolution, camera position and orientation, lighting parameters, STL saving,
         and reflection axis toggles.
 
         Configuration File Structure Expected:
             - VideoRender: { resolution_x, resolution_y }
-            - Camera: { location: [x, y, z], rotation_euler: [alpha, beta, gamma] }
+            - Camera: { location: [x, y, z], focal: [x, y, z], up: [x, y, z] }
             - Light: { location: [x, y, z], energy }
             - STL: bool
             - Reflect: "XY" | "YZ" | "XZ" | None
@@ -475,14 +491,18 @@ class RenderConfig(QMainWindow):
         self.frame_format.setCurrentIndex(0)
         self.resolution_x.setValue(config['VideoRender']['resolution_x'])
         self.resolution_y.setValue(config['VideoRender']['resolution_y'])
-            
+
         self.camera_location_x.setValue(config['Camera']['location'][0])
         self.camera_location_y.setValue(config['Camera']['location'][1])
         self.camera_location_z.setValue(config['Camera']['location'][2])
 
-        self.camera_rotation_alpha.setValue(config['Camera']['rotation_euler'][0])
-        self.camera_rotation_beta.setValue(config['Camera']['rotation_euler'][1])
-        self.camera_rotation_gamma.setValue(config['Camera']['rotation_euler'][2])
+        self.camera_focal_x.setValue(config['Camera']['focal'][0])
+        self.camera_focal_y.setValue(config['Camera']['focal'][1])
+        self.camera_focal_z.setValue(config['Camera']['focal'][2])
+
+        self.camera_up_x.setValue(config['Camera']['up'][0])
+        self.camera_up_y.setValue(config['Camera']['up'][1])
+        self.camera_up_z.setValue(config['Camera']['up'][2])
 
         self.light_location_x.setValue(config['Light']['location'][0])
         self.light_location_y.setValue(config['Light']['location'][1])
@@ -500,7 +520,7 @@ class RenderConfig(QMainWindow):
             self.reflect_xy.setChecked(False)
             self.reflect_yz.setChecked(False)
             self.reflect_xz.setChecked(False)
-        
+
         self.stl_enable.setChecked(config["STL"])
 
     def save_config(self):
@@ -521,7 +541,8 @@ class RenderConfig(QMainWindow):
                 - film_transparent: bool (always False)
             - Camera:
                 - location: list[float, float, float]
-                - rotation_euler: list[float, float, float]
+                - focal: list[float, float, float]
+                - up: list[float, float, float] (default [0, 0, 1])
             - Light:
                 - location: list[float, float, float]
                 - energy: int
@@ -544,14 +565,15 @@ class RenderConfig(QMainWindow):
             },
             'Camera': {
                 'location': [self.camera_location_x.value(), self.camera_location_y.value(), self.camera_location_z.value()],
-                'rotation_euler': [self.camera_rotation_alpha.value(), self.camera_rotation_beta.value(), self.camera_rotation_gamma.value()]
+                'focal': [self.camera_focal_x.value(), self.camera_focal_y.value(), self.camera_focal_z.value()],
+                'up': [self.camera_up_x.value(), self.camera_up_y.value(), self.camera_up_z.value()]
             },
             'Light': {
                 'location': [self.light_location_x.value(), self.light_location_y.value(), self.light_location_z.value()],
                 'energy': self.light_power.value()
             },
             'STL': True if self.stl_enable.isChecked() else False,
-            
+
             'Reflect': 'XY' if self.reflect_xy.isChecked() else 'YZ' if self.reflect_yz.isChecked() else 'XZ' if self.reflect_xz.isChecked() else None
         }
 
@@ -559,7 +581,7 @@ class RenderConfig(QMainWindow):
             json.dump(config, file)
 
         self.close()
-    
+
     def toggle_checkboxes(self, checked_box):
         """
         Enforce mutual exclusivity among axis reflection checkboxes.
@@ -584,7 +606,7 @@ class RenderConfig(QMainWindow):
             for box in [self.reflect_xy, self.reflect_yz, self.reflect_xz]:
                 if box != checked_box:
                     box.setChecked(False)
-            
+
     def center(self):
         """
         Centers the application window on the screen.
@@ -601,5 +623,4 @@ class RenderConfig(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y)  
-    
+        self.move(x, y)

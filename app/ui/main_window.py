@@ -1,8 +1,8 @@
 import os
 import sys
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import (
     QDesktopWidget, QMainWindow, QMessageBox,
     QVBoxLayout, QWidget, QLabel, QPushButton, QFileDialog
@@ -21,17 +21,17 @@ class MainWindow(QMainWindow):
     MainWindow Class
     ================
 
-    The main window of the FlapKine application, providing the interface to create and open projects, 
+    The main window of the FlapKine application, providing the interface to create and open projects,
     access menu items, and navigate the application.
 
     Attributes
     ----------
     menu_bar : MenuBar
         Custom menu bar widget containing the application's menu actions.
-        
+
     b_new : QPushButton
         Button for creating a new project.
-        
+
     b_open : QPushButton
         Button for opening an existing project.
 
@@ -71,8 +71,8 @@ class MainWindow(QMainWindow):
         """
         Initializes the main window of the FlapKine application.
 
-        Sets up the window properties including title, icon, and menu bar. Configures actions in the menu 
-        bar such as creating a new project, opening an existing project, minimizing, maximizing, restoring, 
+        Sets up the window properties including title, icon, and menu bar. Configures actions in the menu
+        bar such as creating a new project, opening an existing project, minimizing, maximizing, restoring,
         and showing an about dialog. The UI components are initialized through the `initUI()` method.
 
         Components Initialized:
@@ -93,12 +93,12 @@ class MainWindow(QMainWindow):
 
         # Set the icon
         if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS 
+            base_path = sys._MEIPASS
         else:
             base_path = os.path.dirname(__file__)
         icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
         self.setWindowIcon(QIcon(icon_path))
-        
+
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)
         self.menu_bar.connect_actions({
@@ -107,7 +107,8 @@ class MainWindow(QMainWindow):
             'minimize': self.showMinimized,
             'maximize': self.showMaximized,
             'restore': self.showNormal,
-            'about': self.about_button_fun
+            'about': self.about_button_fun,
+            'doc': self.show_doc
         })
 
         self.initUI()
@@ -116,9 +117,9 @@ class MainWindow(QMainWindow):
         """
         Initializes the user interface for the FlapKine main window.
 
-        Sets up the geometry, central widget, and layout for the main window. Configures the primary color 
-        based on the foreground role, and adds UI components including a title label and buttons for creating 
-        a new project or opening an existing project. The layout and buttons are arranged in a vertical box 
+        Sets up the geometry, central widget, and layout for the main window. Configures the primary color
+        based on the foreground role, and adds UI components including a title label and buttons for creating
+        a new project or opening an existing project. The layout and buttons are arranged in a vertical box
         layout (`QVBoxLayout`), with central alignment.
 
         Components Initialized:
@@ -143,14 +144,14 @@ class MainWindow(QMainWindow):
         title = QLabel("Welcome to FlapKine")
         title.setStyleSheet("font-size: 18px; font-weight: bold; margin-bottom: 10px;")
         title.setAlignment(Qt.AlignCenter)
-        
+
 
         # Adding Buttons
         self.b_new = QPushButton(self)
         self.b_new.setText("  New Project")
         self.b_new.setIcon(icon("fa5.file", color=primary_color))
         self.b_new.clicked.connect(self.create_new_project)
-        
+
 
         self.b_open = QPushButton(self)
         self.b_open.setText("  Open Project")
@@ -161,7 +162,7 @@ class MainWindow(QMainWindow):
         center_layout.addWidget(title)
         center_layout.addWidget(self.b_new)
         center_layout.addWidget(self.b_open)
-        
+
         center_layout.setAlignment(Qt.AlignCenter)
         central_widget.setLayout(center_layout)
         self.setCentralWidget(central_widget)
@@ -171,8 +172,8 @@ class MainWindow(QMainWindow):
         """
         Centers the main window on the screen.
 
-        This method calculates the center position of the screen based on the screen resolution and window size, 
-        and moves the main window to that position. It ensures that the window is always positioned centrally when 
+        This method calculates the center position of the screen based on the screen resolution and window size,
+        and moves the main window to that position. It ensures that the window is always positioned centrally when
         opened or restored.
 
         Components Used:
@@ -190,14 +191,14 @@ class MainWindow(QMainWindow):
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
         # Move the window to the center
-        self.move(x, y)  
-    
+        self.move(x, y)
+
     def create_new_project(self):
         """
         Opens the ProjectCreator window for creating a new project.
 
-        This method prompts the user to select a directory where the new project will be saved. Once a directory 
-        is selected, it initializes the `ProjectCreator` window with the chosen directory and shows it. The main 
+        This method prompts the user to select a directory where the new project will be saved. Once a directory
+        is selected, it initializes the `ProjectCreator` window with the chosen directory and shows it. The main
         window is then closed.
 
         Components Involved:
@@ -208,6 +209,8 @@ class MainWindow(QMainWindow):
         """
         directory, _ = QFileDialog.getSaveFileName(self, 'Select Directory')
 
+        directory = os.path.normpath(directory)
+
         self.window2 = ProjectCreator(directory)
         self.window2.show()
         self.close()
@@ -216,8 +219,8 @@ class MainWindow(QMainWindow):
         """
         Opens an existing project by selecting a directory.
 
-        This method allows the user to select an existing project directory using a file dialog. Once a directory 
-        is selected, it displays the path in a message box. It then opens the `ProjectWindow` for the selected directory 
+        This method allows the user to select an existing project directory using a file dialog. Once a directory
+        is selected, it displays the path in a message box. It then opens the `ProjectWindow` for the selected directory
         and displays it. The main window is closed to focus on the project editor.
 
         Components Involved:
@@ -227,6 +230,8 @@ class MainWindow(QMainWindow):
             - `close()`: Closes the current main window after opening the existing project.
         """
         directory = QFileDialog.getExistingDirectory(self, 'Select Directory')
+
+        directory = os.path.normpath(directory)
 
         self.window2 = ProjectWindow(directory)
         self.window2.show()
@@ -240,7 +245,20 @@ class MainWindow(QMainWindow):
         """
         QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
-        <p>Developed by: Kalbhavi Vadhiraj</p>                  
+        <p>Developed by: Kalbhavi Vadhiraj</p>
         <p>Version {__version__}</p>
-        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
 ''')
+
+    def show_doc(self):
+        """
+        Displays the documentation for the FlapKine application.
+
+        This method opens the documentation file in the default web browser.
+        """
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(__file__)
+        doc_path = "https://ihdavjar.github.io/FlapKine/"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))

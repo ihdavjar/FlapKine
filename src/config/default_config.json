@@ -10,7 +10,8 @@
 
     "Camera": {
         "location": [30, 0, 0],
-        "rotation_euler": [1.572, 0, 1.57]
+        "focal": [0, 0, 0],
+        "up": [0, 0, 1]
     },
 
     "Light": {
@@ -18,7 +19,7 @@
         "energy": 1
     },
     "STL": false,
-    
+
     "Reflect": "XY"
 }
 

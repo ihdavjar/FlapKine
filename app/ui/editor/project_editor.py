@@ -2,11 +2,11 @@ import os
 import sys
 import pickle
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import (
     QDesktopWidget, QGroupBox, QHBoxLayout, QMainWindow, QMessageBox,
-    QVBoxLayout, QWidget, QSplitter,
+    QVBoxLayout, QWidget, QSplitter
 )
 
 from version import __version__
@@ -15,9 +15,9 @@ from app.widgets.misc.render_config_edit import RenderConfig
 from app.widgets.main.video_animation import VideoAnimation
 from app.widgets.main.frame_visualiser import Visualizer3DWidget
 from app.widgets.main.point_visualiser import PointScatterWidget
-    
 
-    
+
+
 class ProjectWindow(QMainWindow):
     """
     ProjectWindow Class
@@ -25,9 +25,9 @@ class ProjectWindow(QMainWindow):
 
     This class represents the main operational GUI window for managing and visualizing a completed FlapKine project.
 
-    It provides a split interface integrating video animation playback, 3D visual scene visualization, and 
-    interactive point manipulation tools. It also includes a custom menu bar for global actions and supports 
-    dynamic reconfiguration of render settings. Scene data is automatically loaded from the project folder and 
+    It provides a split interface integrating video animation playback, 3D visual scene visualization, and
+    interactive point manipulation tools. It also includes a custom menu bar for global actions and supports
+    dynamic reconfiguration of render settings. Scene data is automatically loaded from the project folder and
     used to initialize the application modules.
 
     Attributes
@@ -36,7 +36,7 @@ class ProjectWindow(QMainWindow):
         Path to the FlapKine project directory containing scene data and assets.
 
     menu_bar : MenuBar
-        Custom top menu bar allowing control over application-level features like exit, minimize, 
+        Custom top menu bar allowing control over application-level features like exit, minimize,
         restore, about info, and render configuration.
 
     right_group : PointScatterWidget
@@ -111,14 +111,14 @@ class ProjectWindow(QMainWindow):
         """
 
         super(ProjectWindow, self).__init__()
-        
+
         self.project_folder = project_folder
         self.setWindowTitle("FlapKine")
         self.resize(1280, 800)
         self.center()
-        
+
         if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS 
+            base_path = sys._MEIPASS
         else:
             base_path = os.path.dirname(__file__)
         icon_path = os.path.join(base_path, 'app', 'assets', 'flapkine_icon.png')
@@ -135,6 +135,7 @@ class ProjectWindow(QMainWindow):
             'restore': self.showNormal,
             'about': self.about_button_fun,
             'configure_render': self.change_render_config,
+            'doc': self.show_doc
         })
 
         self.process_project()
@@ -149,7 +150,6 @@ class ProjectWindow(QMainWindow):
         self.right_group = PointScatterWidget(self.scene_data)
         main_splitter.addWidget(self.right_group)
         self.right_group.setMinimumSize(640, 800)
-        self.right_group.setMaximumSize(640, 800)
 
         # ------------------------ LEFT PANE ------------------------
         left_splitter = QSplitter(Qt.Vertical)
@@ -161,7 +161,6 @@ class ProjectWindow(QMainWindow):
         topleft_layout.addWidget(self.topleftgroup)
         topleft_groupbox.setLayout(topleft_layout)
         topleft_groupbox.setMinimumSize(640, 400)
-        topleft_groupbox.setMaximumSize(640, 400)
 
         # --- Bottom Left Group: 3D Visualizer ---
         self.bottomleftgroup = Visualizer3DWidget(self.scene_data, self.project_folder, self.angles)
@@ -170,14 +169,12 @@ class ProjectWindow(QMainWindow):
         bottomleft_layout.addWidget(self.bottomleftgroup)
         bottomleft_groupbox.setLayout(bottomleft_layout)
         bottomleft_groupbox.setMinimumSize(640, 400)
-        bottomleft_groupbox.setMaximumSize(640, 400)
 
         # Add to vertical splitter (left side)
         left_splitter.addWidget(topleft_groupbox)
         left_splitter.addWidget(bottomleft_groupbox)
         left_splitter.setSizes([400, 400])
         left_splitter.setMinimumSize(640, 800)
-        left_splitter.setMaximumSize(640, 800)
 
         # Insert left into main splitter
         main_splitter.insertWidget(0, left_splitter)
@@ -189,8 +186,8 @@ class ProjectWindow(QMainWindow):
         """
         Loads the project scene data from the specified folder.
 
-        Attempts to locate and deserialize the `scene.pkl` file from the given project directory. 
-        If successful, initializes `scene_data` and extracts orientation `angles` from the first 
+        Attempts to locate and deserialize the `scene.pkl` file from the given project directory.
+        If successful, initializes `scene_data` and extracts orientation `angles` from the first
         object in the scene. Displays a critical error dialog if the scene file is missing.
 
         Behavior
@@ -204,10 +201,11 @@ class ProjectWindow(QMainWindow):
         """
 
         scene_path = os.path.join(self.project_folder, 'scene.pkl')
-        
-        if not os.path.exists(scene_path):
+        config_path = os.path.join(self.project_folder, 'config.json')
+
+        if not os.path.exists(scene_path) or not os.path.exists(config_path):
             self.showErrorDialog('Error', f"No project found at: {self.project_folder}")
-            
+
         else:
             with open(scene_path, 'rb') as scene_file:
                 self.scene_data = pickle.load(scene_file)
@@ -220,7 +218,7 @@ class ProjectWindow(QMainWindow):
         Calculates the screen resolution and window size to determine the optimal top-left
         coordinates that position the window in the center of the screen. Adjusts the window
         position accordingly.
-        
+
         Notes
         -----
         This method ensures consistent window placement regardless of screen resolution.
@@ -278,7 +276,7 @@ class ProjectWindow(QMainWindow):
         alert_dialog.setWindowTitle(title)
         alert_dialog.setText(message)
         alert_dialog.exec_()
-    
+
     def change_render_config(self):
         """
         Launches the render configuration interface.
@@ -302,7 +300,20 @@ class ProjectWindow(QMainWindow):
         """
         QMessageBox.about(self, "About FlapKine", f'''
         <h1>FlapKine</h1>
-        <p>Developed by: Kalbhavi Vadhiraj</p>                  
+        <p>Developed by: Kalbhavi Vadhiraj</p>
         <p>Version {__version__}</p>
-        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p> 
+        <p>FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.</p>
 ''')
+
+    def show_doc(self):
+        """
+        Displays the documentation for the FlapKine application.
+
+        This method opens the documentation file in the default web browser.
+        """
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.dirname(__file__)
+        doc_path = "https://ihdavjar.github.io/FlapKine/"
+        QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))
