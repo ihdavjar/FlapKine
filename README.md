@@ -24,7 +24,6 @@ FlapKine is lightweight and relies on a few essential libraries:
 - `pandas`
 - `PyQt5`
 - `vtk`
-- `bpy` *(for Blender-based rendering and STL support)*
 
 Key Features:
 
