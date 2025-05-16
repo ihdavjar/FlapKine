@@ -4,8 +4,8 @@ def vtk_rotation(rotation_type: str, angles: tuple)-> vtk.vtkTransform:
     """
     Returns a vtkTransform object that applies the specified rotation sequence based on the given rotation type and angles.
 
-    This function supports different types of Euler angle rotations (ZXZ, XYX, YZY, etc.) and returns the corresponding 
-    vtkTransform object that applies the specified sequence of rotations. The angles are provided in radians and are 
+    This function supports different types of Euler angle rotations (ZXZ, XYX, YZY, etc.) and returns the corresponding
+    vtkTransform object that applies the specified sequence of rotations. The angles are provided in radians and are
     internally converted to degrees for vtk's rotation functions.
 
     Parameters
@@ -13,7 +13,7 @@ def vtk_rotation(rotation_type: str, angles: tuple)-> vtk.vtkTransform:
     rotation_type : str
         The type of rotation sequence to apply. It should be one of the following:
         'ZXZ', 'XYX', 'YZY', 'ZYZ', 'XZX', 'YXY', 'ZYX', 'YXZ', 'XZY', 'ZXY', 'YZX', 'XYZ'.
-        
+
     angles : tuple
         A tuple of three angles (in radians) representing the rotations about the axes specified by the rotation type.
         The angles will be converted to degrees before applying the rotations.
@@ -90,10 +90,10 @@ def vtk_rotation(rotation_type: str, angles: tuple)-> vtk.vtkTransform:
         transform_3.RotateZ(angles[2])
     else:
         raise ValueError(f"Invalid rotation type: {rotation_type}")
-    
+
     # Concatenate transformations in order
     transform.Concatenate(transform_1)
     transform.Concatenate(transform_2)
     transform.Concatenate(transform_3)
-    
+
     return transform

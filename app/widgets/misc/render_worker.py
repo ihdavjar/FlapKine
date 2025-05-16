@@ -158,6 +158,7 @@ class Worker(QRunnable):
         cam.SetPosition(*config['Camera']['location'])
         cam.SetFocalPoint(*config['Camera']['focal'])
         cam.SetViewUp(*config['Camera']['up'])
+        cam.SetParallelProjection(False)
 
         renderer.SetActiveCamera(None)
         renderer.SetActiveCamera(cam)

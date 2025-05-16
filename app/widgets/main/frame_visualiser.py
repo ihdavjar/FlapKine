@@ -270,6 +270,10 @@ class Visualizer3DWidget(QWidget):
         mesh = self.scene_data.save_stl(-1)
         poly_data = self.stl_mesh_to_vtk(mesh)
 
+        self.slider.setValue(0)
+        self.playing = False
+        self.play_button.setIcon(icon("mdi.play", color=self.palette().color(self.foregroundRole()).name()))
+
         mapper = vtkPolyDataMapper()
         mapper.SetInputData(poly_data)
 
@@ -310,7 +314,14 @@ class Visualizer3DWidget(QWidget):
 
         self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
         self.iren.Initialize()
-        self.ren.ResetCamera()
+
+        camera = self.ren.GetActiveCamera()
+        camera.SetPosition(*(-1*np.array(config['Camera']['location'])))
+        camera.SetFocalPoint(*(-1*np.array(config['Camera']['focal'])))
+        camera.SetViewUp(*(-1*np.array(config['Camera']['up'])))
+        camera.Modified()
+        camera.SetParallelProjection(False)
+        self.ren.ResetCameraClippingRange()
 
     def create_axes_actor(self, poly_data):
         """
@@ -470,15 +481,16 @@ class Visualizer3DWidget(QWidget):
 
         for i, sprite in enumerate(self.scene_data.objects):
             angle = sprite.angles[index]
+
             position = sprite.positions[index]
             axes_pos = sprite.frame_origin
+            axes_pos = np.array(axes_pos)
+            position = np.array(position)
 
             actor_trans = vtkTransform()
-            actor_trans.PostMultiply()
-            actor_trans.Translate(position)
-
             axes_trans = vtkTransform()
-            axes_trans.PostMultiply()
+
+            actor_trans.Translate(position)
             axes_trans.Translate(position + axes_pos)
 
             if hasattr(sprite.object_.rotation_transform, 'type'):
@@ -498,10 +510,10 @@ class Visualizer3DWidget(QWidget):
             )
 
             reflected_actor_trans = vtkTransform()
-            reflected_actor_trans.PostMultiply()
 
-            reflected_actor_trans.Concatenate(actor_trans)
             reflected_actor_trans.Concatenate(reflect_trans)
+            reflected_actor_trans.Concatenate(actor_trans)
+
 
             self.actor_reflected.SetUserTransform(reflected_actor_trans)
 
