@@ -812,7 +812,7 @@ class ProjectCreator(QMainWindow):
         Finalizes and creates the project with the configured scene and settings.
 
         This method performs the full setup of the project directory, including:
-        - Directory structure creation for images, videos, and data.
+        - Directory structure creation for videos, and data.
         - Copying or serializing the scene file into the project folder.
         - Saving a configuration JSON file based on current UI state.
         - Launching the project rendering window.
@@ -822,7 +822,6 @@ class ProjectCreator(QMainWindow):
                 ├── scene.pkl
                 ├── config.json
                 └── data/
-                    ├── images/
                     └── videos/
 
         Configuration Saved (`config.json`):

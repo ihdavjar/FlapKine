@@ -27,9 +27,6 @@ flapkine_installer_output/
 .ipynb_checkpoints/
 
 # Media files
-*.mp4
-*.jpg
-*.gif
 *.stl
 
 # Specific files
