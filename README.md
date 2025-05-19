@@ -56,25 +56,21 @@ Set up FlapKine locally for development using the steps below:
    git clone https://github.com/ihdavjar/FlapKine.git
    cd FlapKine
    ```
-
 2. **(Recommended) Create a Conda Virtual Environment**
 
    ```bash
    conda create -n flapkine-env python=3.10.3
    ```
-
 3. **Activate the Virtual Environment:**
 
    ```bash
    conda activate flapkine-env
    ```
-
 4. **Install Required Dependencies:**
 
    ```bash
    pip install -e.
    ```
-
 5. **Launch the Application:**
 
    ```bash
