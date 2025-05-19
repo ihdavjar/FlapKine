@@ -316,9 +316,9 @@ class Visualizer3DWidget(QWidget):
         self.iren.Initialize()
 
         camera = self.ren.GetActiveCamera()
-        camera.SetPosition(*(-1*np.array(config['Camera']['location'])))
-        camera.SetFocalPoint(*(-1*np.array(config['Camera']['focal'])))
-        camera.SetViewUp(*(-1*np.array(config['Camera']['up'])))
+        camera.SetPosition(*np.array(config['Camera']['location']))
+        camera.SetFocalPoint(*np.array(config['Camera']['focal']))
+        camera.SetViewUp(*np.array(config['Camera']['up']))
         camera.Modified()
         camera.SetParallelProjection(False)
         self.ren.ResetCameraClippingRange()

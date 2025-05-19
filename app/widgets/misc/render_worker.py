@@ -155,9 +155,9 @@ class Worker(QRunnable):
         render_window.SetSize(width, height)
 
         cam = vtkCamera()
-        cam.SetPosition(*config['Camera']['location'])
-        cam.SetFocalPoint(*config['Camera']['focal'])
-        cam.SetViewUp(*config['Camera']['up'])
+        cam.SetPosition(*(-1 * np.array(config['Camera']['location'])))
+        cam.SetFocalPoint(*(-1 * np.array(config['Camera']['focal'])))
+        cam.SetViewUp(*(-1 * np.array(config['Camera']['up'])))
         cam.SetParallelProjection(False)
 
         renderer.SetActiveCamera(None)
@@ -167,7 +167,7 @@ class Worker(QRunnable):
 
         light = vtkLight()
         light.SetLightTypeToSceneLight()
-        light.SetPosition(*config['Light']['location'])
+        light.SetPosition(*(-1 * np.array(config['Light']['location'])))
         light.SetIntensity(config['Light']['energy'])
         renderer.AddLight(light)
 

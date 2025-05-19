@@ -140,7 +140,7 @@ class SpriteCreator(QMainWindow):
 
     SpriteCreated = pyqtSignal(Sprite)
 
-    def __init__(self):
+    def __init__(self, project_folder):
         """
         Initializes the SpriteCreator class.
 
@@ -158,6 +158,7 @@ class SpriteCreator(QMainWindow):
         """
         super(SpriteCreator, self).__init__()
         self.inverse_kinematics = False
+        self.project_folder = project_folder
 
         self.setWindowTitle("Create Sprite")
 
@@ -1121,9 +1122,9 @@ class SpriteCreator(QMainWindow):
         euler_layout.addWidget(QLabel("Euler Angles Time Series:"), 0, 0, 1, 3)
         euler_layout.addWidget(self._create_inverse_kinematics_button(), 0, 3)
 
-        euler_layout.addLayout(self._create_angle_input_row("Alpha", "Time series of Alpha", self.open_rotation_alpha), 1, 0, 1, 3)
-        euler_layout.addLayout(self._create_angle_input_row("Beta", "Time series of Beta", self.open_rotation_beta), 2, 0, 1, 3)
-        euler_layout.addLayout(self._create_angle_input_row("Gamma", "Time series of Gamma", self.open_rotation_gamma), 3, 0, 1, 3)
+        euler_layout.addLayout(self._create_angle_input_row("Angle 1", "Time series of 1st Angle", self.open_rotation_alpha), 1, 0, 1, 3)
+        euler_layout.addLayout(self._create_angle_input_row("Angle 2", "Time series of 2nd Angle", self.open_rotation_beta), 2, 0, 1, 3)
+        euler_layout.addLayout(self._create_angle_input_row("Angle 3", "Time series of 3rd Angle", self.open_rotation_gamma), 3, 0, 1, 3)
 
         layout.addLayout(euler_layout)
 
@@ -1249,8 +1250,8 @@ class SpriteCreator(QMainWindow):
         open_button.clicked.connect(slot_function)
 
         # Save references if needed later
-        setattr(self, f"path_angle_{label_text.lower()}", line_edit)
-        setattr(self, f"open_angle_{label_text.lower()}", open_button)
+        setattr(self, f"path_angle_{'_'.join(label_text.lower().split(' '))}", line_edit)
+        setattr(self, f"open_angle_{'_'.join(label_text.lower().split(' '))}", open_button)
 
         layout.addWidget(label)
         layout.addWidget(line_edit)
@@ -1276,8 +1277,8 @@ class SpriteCreator(QMainWindow):
         directory, _ = QFileDialog.getOpenFileName(filter="CSV Files (*.csv)")
 
         if directory:
-            self.path_angle_alpha.setText(directory)
-            self.open_angle_alpha.setStyleSheet("background-color: green")
+            self.path_angle_angle_1.setText(directory)
+            self.open_angle_angle_1.setStyleSheet("background-color: green")
 
     def open_rotation_beta(self):
         """
@@ -1287,8 +1288,8 @@ class SpriteCreator(QMainWindow):
         directory, _ = QFileDialog.getOpenFileName(filter="CSV Files (*.csv)")
 
         if directory:
-            self.path_angle_beta.setText(directory)
-            self.open_angle_beta.setStyleSheet("background-color: green")
+            self.path_angle_angle_2.setText(directory)
+            self.open_angle_angle_2.setStyleSheet("background-color: green")
 
     def open_rotation_gamma(self):
         """
@@ -1298,8 +1299,8 @@ class SpriteCreator(QMainWindow):
         directory, _ = QFileDialog.getOpenFileName(filter="CSV Files (*.csv)")
 
         if directory:
-            self.path_angle_gamma.setText(directory)
-            self.open_angle_gamma.setStyleSheet("background-color: green")
+            self.path_angle_angle_3.setText(directory)
+            self.open_angle_angle_3.setStyleSheet("background-color: green")
 
     def open_position_file(self):
         """
@@ -1370,7 +1371,7 @@ class SpriteCreator(QMainWindow):
         temp_object = Object3D(sprite_name, stl_mesh, translation_transform, rotation_transform, flexibility_transform)
 
         if self.enable_checkbox.isChecked():
-            no_transform_temp_object = Object3D(sprite_name, stl_mesh, Translation_COM(), rotation_transform, ConstantF())
+            no_transform_temp_object = Object3D(sprite_name, stl_mesh, Translation_COM(), Rotation_EulerAngles('XYZ'), ConstantF())
             angles_temp, positions_temp = self._get_initial_conditions()
             temp_object.stl_mesh = no_transform_temp_object.transform(positions_temp, angles_temp, 0)
 
@@ -1470,8 +1471,12 @@ class SpriteCreator(QMainWindow):
 
         if self.inverse_kinematics:
             angles, order = self.window.inv_result
+            alpha, beta, gamma = angles
+            angles = [np.deg2rad(gamma), np.deg2rad(beta), np.deg2rad(alpha)]
             angles = np.vstack(angles).T
-            return Rotation_EulerAngles(order), angles
+            if len(angles) > 500:
+                angles = angles[::int(len(angles) / 500)]
+            return Rotation_EulerAngles(order[::-1]), angles
 
         widget = self.rotation_transform_layout.itemAt(1).widget()
         order = widget.findChildren(QComboBox)[0].currentText()
@@ -1663,8 +1668,17 @@ class SpriteCreator(QMainWindow):
         """
         angles, order = self.window.inv_result
         alpha_values, beta_values, gamma_values = angles
+        alpha_pd = pd.DataFrame(np.deg2rad(alpha_values))
+        beta_pd = pd.DataFrame(np.deg2rad(beta_values))
+        gamma_pd = pd.DataFrame(np.deg2rad(gamma_values))
+        os.makedirs(os.path.join(self.project_folder, "data/inv_results"), exist_ok=True)
+
+        alpha_pd.to_csv(os.path.join(self.project_folder, "data/inv_results/alpha_data.csv"), index=False, header=False)
+        beta_pd.to_csv(os.path.join(self.project_folder, "data/inv_results/beta_data.csv"), index=False, header=False)
+        gamma_pd.to_csv(os.path.join(self.project_folder, "data/inv_results/gamma_data.csv"), index=False, header=False)
+
         self.rotation_transform_layout.itemAt(1).widget().setEnabled(False)
-        self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].setCurrentText(order)
+        self.rotation_transform_layout.itemAt(1).widget().findChildren(QComboBox)[0].setCurrentText(order[::-1])
         self.inverse_kinematics = True
 
     def center(self):

@@ -689,7 +689,7 @@ class ProjectCreator(QMainWindow):
         Launches a `CreateScene` dialog and connects its `sceneCreated` signal
         to the `on_scene_created` handler.
         """
-        self.window2 = SceneCreator()
+        self.window2 = SceneCreator(self.project_folder)
         self.window2.show()
         self.window2.sceneCreated.connect(self.on_scene_created)
 
@@ -885,12 +885,11 @@ class ProjectCreator(QMainWindow):
         """
 
         # Create the project directory
-        os.makedirs(self.project_folder)
+        os.makedirs(self.project_folder, exist_ok=True)
 
         # Create data directory
-        os.makedirs(self.project_folder + '/data')
-        os.makedirs(self.project_folder + '/data/images')
-        os.makedirs(self.project_folder + '/data/videos')
+        os.makedirs(self.project_folder + '/data', exist_ok=True)
+        os.makedirs(self.project_folder + '/data/videos', exist_ok=True)
 
         # Copy the scene file to the project folder
         if not hasattr(self, 'scene_data'):

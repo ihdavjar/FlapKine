@@ -112,7 +112,7 @@ class InvKineWindow(QMainWindow):
         """
         Initializes the InvKineWindow class.
 
-        Sets up the main window properties, including title, size, and icon. 
+        Sets up the main window properties, including title, size, and icon.
         Initializes the custom menu bar and connects its actions (exit, minimize, maximize, restore).
         Also sets up the central widget and layout for the application's main interface.
 
@@ -141,13 +141,13 @@ class InvKineWindow(QMainWindow):
             'maximize': self.showMaximized,
             'restore': self.showNormal,
         })
-        
+
         main_widget = QWidget()
         self.setCentralWidget(main_widget)
-        
+
         main_layout = self.initUI()
         main_widget.setLayout(main_layout)
-    
+
     def initUI(self)-> QVBoxLayout:
         """
         Sets up the main UI layout for the inverse kinematics window.
@@ -235,7 +235,7 @@ class InvKineWindow(QMainWindow):
         to be used in inverse kinematics calculations. Common intrinsic and extrinsic
         sequences are provided in the options.
 
-        Upon changing the selection, the corresponding angle plots are updated 
+        Upon changing the selection, the corresponding angle plots are updated
         to reflect the new rotation order.
 
         Returns:
@@ -290,7 +290,7 @@ class InvKineWindow(QMainWindow):
         graph_layout.addWidget(main_splitter)
         graph_group.setLayout(graph_layout)
         return graph_group
-    
+
     @staticmethod
     def process_data(data: pd.DataFrame) -> pd.DataFrame:
         """
@@ -628,7 +628,7 @@ class InvKineWindow(QMainWindow):
             - Applies styling for axes and titles to ensure clarity and visual consistency.
 
         These plots help visualize the orientation evolution of the tracked plane using the selected Euler angle convention.
-        
+
         Side Effects:
             - Updates `chart_r_1`, `chart_r_2`, `chart_r_3` with fresh plot data.
             - Triggers a re-render of all three right-side VTK widgets.

@@ -29,7 +29,7 @@ class PointScatterWidget(QWidget):
     Attributes
     ----------
     scene_data : SceneData
-        The scene object containing STL mesh data and time-varying transformation functions 
+        The scene object containing STL mesh data and time-varying transformation functions
         (translation, rotation, flexibility) used to compute point trajectories.
 
     splitter : QSplitter
@@ -132,7 +132,7 @@ class PointScatterWidget(QWidget):
         This method constructs the vertical layout of the PointScatterWidget, including two main
         interactive viewports arranged using a QSplitter. The top panel displays a flattened 2D
         projection of the STL mesh for point selection, while the bottom panel is configured to render
-        the 3D trajectory scatter plot corresponding to the selected point. The method also sets up the 
+        the 3D trajectory scatter plot corresponding to the selected point. The method also sets up the
         required VTK renderers, interactor styles, and loads the STL mesh from the provided scene data.
 
         UI Components
@@ -186,8 +186,18 @@ class PointScatterWidget(QWidget):
         # Load and display flattened STL
         mesh = self.scene_data.objects[0].object_.stl_mesh
         poly_data = self.stl_mesh_to_vtk(mesh)
+
         points = np.array([poly_data.GetPoint(i) for i in range(poly_data.GetNumberOfPoints())])
-        points[:, 2] = 0  # Flatten Z-axis
+
+        min_coords = points.min(axis=0)
+        max_coords = points.max(axis=0)
+        extents = max_coords - min_coords
+
+        flatten_axis = np.argmin(extents)
+        project_axes = [i for i in range(3) if i != flatten_axis]
+
+        points[:, flatten_axis] = points[:, project_axes[1]]
+        points[:, 2] = 0.0
 
         new_points = vtkPoints()
         for p in points:
@@ -228,9 +238,9 @@ class PointScatterWidget(QWidget):
         Handles left mouse button click event on the 2D STL view.
 
         This method is triggered when the user clicks on the top VTK viewport displaying
-        the 2D projection of the STL mesh. It uses `vtkCellPicker` to convert the screen 
-        click coordinates into a 3D position on the mesh surface. The selected point is 
-        then used to both visualize a trajectory scatter plot in 3D space and mark the 
+        the 2D projection of the STL mesh. It uses `vtkCellPicker` to convert the screen
+        click coordinates into a 3D position on the mesh surface. The selected point is
+        then used to both visualize a trajectory scatter plot in 3D space and mark the
         clicked location on the mesh.
 
         Parameters
@@ -267,15 +277,15 @@ class PointScatterWidget(QWidget):
         """
         Adds a visual marker to the 2D STL view at the selected 3D position.
 
-        This method renders a red 3D sphere and a semi-transparent white outline 
-        sphere at the specified `position` to visually indicate a user-selected 
-        point on the mesh. If a previous marker exists, it is removed before 
+        This method renders a red 3D sphere and a semi-transparent white outline
+        sphere at the specified `position` to visually indicate a user-selected
+        point on the mesh. If a previous marker exists, it is removed before
         placing the new one. This enhances visual feedback for user interactions.
 
         Parameters
         ----------
         position : tuple[float, float, float]
-            A 3D coordinate (x, y, z) representing the location where the marker 
+            A 3D coordinate (x, y, z) representing the location where the marker
             should be placed on the STL mesh.
 
         Visual Elements
@@ -345,9 +355,9 @@ class PointScatterWidget(QWidget):
         """
         Generates and renders a 3D scatter plot of a selected point's trajectory over time.
 
-        This method computes and visualizes the dynamic 3D trajectory of a selected point from 
-        its 2D projection using the object's transformation pipeline: flexibility, rotation, and 
-        translation. It draws the resulting points as blue spheres and overlays 3D axes for 
+        This method computes and visualizes the dynamic 3D trajectory of a selected point from
+        its 2D projection using the object's transformation pipeline: flexibility, rotation, and
+        translation. It draws the resulting points as blue spheres and overlays 3D axes for
         spatial reference.
 
         Parameters
@@ -440,8 +450,8 @@ class PointScatterWidget(QWidget):
         """
         Converts an STL mesh into a VTK-compatible `vtkPolyData` object.
 
-        This method transforms a NumPy-based STL mesh, typically from `numpy-stl`, into 
-        VTK’s `vtkPolyData` format. It ensures unique vertex mapping and constructs triangular 
+        This method transforms a NumPy-based STL mesh, typically from `numpy-stl`, into
+        VTK’s `vtkPolyData` format. It ensures unique vertex mapping and constructs triangular
         cell connectivity for accurate 3D rendering within the VTK pipeline.
 
         Parameters

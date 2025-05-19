@@ -90,7 +90,7 @@ class SceneCreator(QMainWindow):
 
     sceneCreated = pyqtSignal(Scene)
 
-    def __init__(self):
+    def __init__(self, project_folder):
         """
         Initializes the SceneCreator class.
 
@@ -112,6 +112,8 @@ class SceneCreator(QMainWindow):
             - Centered window: Positioned to the center of the screen via `center()`
         """
         super(SceneCreator, self).__init__()
+
+        self.project_folder = project_folder
 
         self.center()
         self.setWindowTitle("Create Scene")
@@ -324,7 +326,7 @@ class SceneCreator(QMainWindow):
             - Triggers `save_sprite(sprite_group)` on sprite creation.
         """
 
-        self.window = SpriteCreator()
+        self.window = SpriteCreator(self.project_folder)
         self.window.show()
         self.window.SpriteCreated.connect(lambda : self.save_sprite(sprite_group))
 
