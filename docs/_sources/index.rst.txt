@@ -15,7 +15,7 @@ Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready
 ---
 
 🔧 Features
-----------
+-----------
 
 - **Inverse Kinematics Engine** – Analyze and visualize 3D joint trajectories using custom analytical models.
 - **3D STL Mesh Viewer** – Import STL files, track kinematic transformation in real-time.
@@ -33,4 +33,5 @@ Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready
 
    installation
    user_guide
+   examples
    api_reference/index

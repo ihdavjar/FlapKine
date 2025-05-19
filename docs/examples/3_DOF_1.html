@@ -1,0 +1,604 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3-DOF Flapping Wing &#8212; FlapKine v0.1.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2372999" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/3_DOF_1';</script>
+    <link rel="icon" href="../_static/flapkine_icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="📦 API Reference" href="../api_reference/index.html" />
+    <link rel="prev" title="2-DOF + Translating Flapping Wing" href="2_DOF_Translation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../examples.html">
+    📘 Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_reference/index.html">
+    📦 API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    📥 Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../examples.html">
+    📘 Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_reference/index.html">
+    📦 API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Example Projects</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_DOF_1.html">1-DOF flapping wing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_DOF_Translation.html">2-DOF + Translating Flapping Wing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3-DOF Flapping Wing</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">📘 Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">3-DOF Flapping Wing</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dof-flapping-wing">
+<h1>3-DOF Flapping Wing<a class="headerlink" href="#dof-flapping-wing" title="Link to this heading">#</a></h1>
+<p>This example demonstrates a <strong>3-DOF rotational mechanism</strong> applied to a flapping wing system, showcasing how complex kinematic behaviors can be visualized using <strong>FlapKine</strong>.</p>
+<p>The wing motion in this example is inspired by insect flight kinematics, adapted from a published model <a class="footnote-reference brackets" href="#roccia2011" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. The objective is to verify whether <strong>FlapKine</strong> can faithfully reproduce multi-axis flapping behavior. As shown in this simulation, the system performs as expected and aligns qualitatively with the referenced model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We highly recommend reviewing the simpler example first: <a class="reference internal" href="1_DOF_1.html#dof-1"><span class="std std-ref">1-DOF Flapping Wing</span></a> before attempting this walkthrough.</p>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>This example simulates a wing structure undergoing:</p>
+<ul class="simple">
+<li><p><strong>Rotation</strong> about three orthogonal axes (<cite>z</cite>, <cite>y</cite>, and <cite>x</cite>)</p></li>
+</ul>
+<p>Although no actual translation occurs during the simulation, a <strong>fixed linear translation</strong> is applied to position the body frame origin at <cite>(0, 0, -3)</cite>. This constant offset ensures that the wing does not overlap with its mirrored counterpart when using the <strong>Reflect</strong> feature in FlapKine.</p>
+<p>In biological systems such as insects, left and right wings are physically separated in space. To replicate this spatial arrangement and avoid mesh collision at the inertial origin <cite>(0, 0, 0)</cite>, we use this adjustment as a simple yet effective workaround. The time-series position data (<cite>X</cite>, <cite>Y</cite>, <cite>Z</cite>) reflects this fixed offset throughout the simulation.</p>
+</section>
+<section id="files-included">
+<h2>Files Included<a class="headerlink" href="#files-included" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>`project.zip`</strong>: A compressed archive containing both the full simulation project and the necessary resource files.</p></li>
+</ul>
+<p>Upon extraction, the archive is structured into the following directories:</p>
+<ul class="simple">
+<li><p><strong>`3_DOF_1/`</strong>: Contains the full FlapKine project, ready to be loaded and rendered.</p></li>
+<li><p><strong>`Resource/`</strong>: Contains STL meshes, joint angle CSVs, and supplementary plots used for verification or to reproduce the simulation manually.</p></li>
+</ul>
+</section>
+<section id="project-folder-structure">
+<h2>Project Folder Structure<a class="headerlink" href="#project-folder-structure" title="Link to this heading">#</a></h2>
+<p>The <cite>3_DOF_1/</cite> folder includes the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>3_DOF_1/
+├── scene.pkl          # Scene Class object saved as a pickle file
+├── config.json        # Configuration file with simulation and rendering settings
+└── data/              # Output directory for generated frames or videos
+</pre></div>
+</div>
+</section>
+<section id="resource-files">
+<h2>Resource Files<a class="headerlink" href="#resource-files" title="Link to this heading">#</a></h2>
+<p>The <cite>Resource/</cite> folder contains the required data for kinematic input and visualization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Resource/
+├── angles/
+│   ├── alpha_data.csv    # Rotation about the x-axis (time series values)
+│   ├── beta_data.csv     # Rotation about the y-axis (all zeros)
+│   └── gamma_data.csv    # Rotation about the z-axis (time-series values)
+├── origin_position/
+│   └── pos_data.csv      # Position of Body Origin (time-series values with constant value in this case)
+├── stl/
+│   └── wing.stl          # 3D mesh of the wing
+├── angle_plot.png        # Plot of the rotation angles over time
+└── pos_plot.png          # Plot of the body origin position over time
+</pre></div>
+</div>
+</section>
+<section id="initial-stl-orientation">
+<h2>Initial STL Orientation<a class="headerlink" href="#initial-stl-orientation" title="Link to this heading">#</a></h2>
+<p>The <cite>wing.stl</cite> model is oriented such that:</p>
+<ul class="simple">
+<li><p>The <strong>x-axis</strong> aligns with the wing span (length).</p></li>
+<li><p>The <strong>y-axis</strong> aligns with the wing chord (width).</p></li>
+<li><p>The <strong>z-axis</strong> corresponds to the wing thickness.</p></li>
+</ul>
+</section>
+<section id="simulation-details">
+<h2>Simulation Details<a class="headerlink" href="#simulation-details" title="Link to this heading">#</a></h2>
+<p>This example demonstrates a <strong>three rotational degree of freedom</strong> system, where rotation about the <strong>z-axis</strong>, <strong>y-axis</strong>, and <strong>x-axis</strong> is active. The time-dependent rotation is defined by the files <cite>gamma_data.csv</cite>, <cite>beta_data.csv</cite>, and <cite>alpha_data.csv</cite>, which collectively describe the full 3D orientation of the flapping wing over time.</p>
+<p>Although the system is purely rotational in its kinematic design, a constant positional offset is introduced through the translation files <cite>X.csv</cite>, <cite>Y.csv</cite>, and <cite>Z.csv</cite>. These contain fixed values (0, 0, -3) to shift the body frame origin downward. This offset ensures spatial separation between mirrored wings when using the <strong>Reflect</strong> option, avoiding overlap at the inertial origin <cite>(0, 0, 0)</cite>.</p>
+<p>The corresponding plots below illustrate the time-series data used in the simulation:</p>
+<figure class="align-center" id="id2">
+<a class="dark-compatible-image reference internal image-reference" href="../_images/angles_plot2.png"><img alt="Rotation Angles Plot" class="dark-compatible-image" src="../_images/angles_plot2.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure:</strong> Time-series plot of the rotation angles (<cite>alpha</cite>, <cite>beta</cite>, and <cite>gamma</cite>) defining the wing’s orientation. All three rotational degrees of freedom are active in this simulation.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Although no actual motion occurs along the translational axes, the body frame origin is fixed at a constant offset of (0, 0, -3) using the translation CSV files. This static shift ensures mirrored wings do not collide at the inertial origin when <strong>Reflect</strong> is enabled.</p>
+<figure class="align-center" id="id3">
+<a class="dark-compatible-image reference internal image-reference" href="../_images/pos_plot1.png"><img alt="Position Plot" class="dark-compatible-image" src="../_images/pos_plot1.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure:</strong> Time-series plot of the translational positions (<cite>X</cite>, <cite>Y</cite>, and <cite>Z</cite>) of the body frame origin. The constant values reflect the static positional offset applied throughout the simulation.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="running-the-example">
+<h2>Running the Example<a class="headerlink" href="#running-the-example" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Extract the <cite>project.zip</cite> archive to your desired directory.</p></li>
+<li><p>Launch the <strong>FlapKine</strong> application and select <strong>Load Project</strong>.</p></li>
+<li><p>Navigate to the <cite>3_DOF_1/</cite> folder and choose the directory.</p></li>
+<li><p>The project will load with a pre-configured scene. Below is a screenshot of the loaded project:</p></li>
+</ol>
+<figure class="align-center" id="id4">
+<a class="dark-compatible-image reference internal image-reference" href="../_images/project2.png"><img alt="Project Screenshot" class="dark-compatible-image" src="../_images/project2.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project loaded in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic" start="5">
+<li><p>The project folder does not include the rendered video by default. To generate it, click on the <strong>Render</strong> button in the GUI. The simulation will be rendered and the output video saved under <cite>data/videos/</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference internal" href="../user_guide/window/project_editor.html#project-editor-window"><span class="std std-ref">Project Editor Window</span></a> section for more details about the GUI and its functionality.</p>
+</div>
+</li>
+</ol>
+<p>Below is a short preview showcasing the rendered simulation output for this example:</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/project_video2.gif"><img alt="Rendered Simulation Preview" src="../_images/project_video2.gif" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure:</strong> Rendered simulation preview after completing the scene setup and clicking the <strong>Render</strong> button in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For higher quality or longer playback, you can render a full-resolution <cite>.mp4</cite> video directly using the <strong>Render</strong> button. The video will be saved automatically in the <cite>data/videos/</cite> folder within your project directory.</p>
+</section>
+<section id="reproducing-from-scratch">
+<h2>Reproducing from Scratch<a class="headerlink" href="#reproducing-from-scratch" title="Link to this heading">#</a></h2>
+<p>To recreate this project manually, follow the same reproduction steps outlined in <a class="reference internal" href="2_DOF_Translation.html#dof-translation"><span class="std std-ref">2-DOF + Translating Flapping Wing</span></a>.
+However, make sure to use the corresponding <cite>resources</cite> files provided with this 3-DOF example instead.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="roccia2011" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Roccia, B., Preidikman, S., Massa, J., &amp; Mook, D.
+<em>Development of a Kinematical Model to Study the Aerodynamics of Flapping-Wings.</em>
+International Journal of Micro Air Vehicles, 3(2), 61–88, 2011.
+<a class="reference external" href="https://doi.org/10.1260/1756-8293.3.2.61">https://doi.org/10.1260/1756-8293.3.2.61</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_DOF_Translation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2-DOF + Translating Flapping Wing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api_reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">📦 API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-included">Files Included</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-folder-structure">Project Folder Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-files">Resource Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-stl-orientation">Initial STL Orientation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-details">Simulation Details</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-example">Running the Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducing-from-scratch">Reproducing from Scratch</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kalbhavi Vadhi Raj.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

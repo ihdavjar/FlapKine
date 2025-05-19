@@ -146,6 +146,13 @@
 </li>
 
 
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    📘 Examples
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../index.html">
     📦 API Reference
@@ -235,6 +242,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
     🚀 User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    📘 Examples
   </a>
 </li>
 
@@ -867,7 +881,7 @@ to the <cite>on_scene_created</cite> handler.</p>
 <span class="sig-name descname"><span class="pre">create_the_project</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.create_the_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_the_project" title="Link to this definition">#</a></dt>
 <dd><p>Finalizes and creates the project with the configured scene and settings.</p>
 <p>This method performs the full setup of the project directory, including:
-- Directory structure creation for images, videos, and data.
+- Directory structure creation for videos, and data.
 - Copying or serializing the scene file into the project folder.
 - Saving a configuration JSON file based on current UI state.
 - Launching the project rendering window.</p>
@@ -878,8 +892,7 @@ to the <cite>on_scene_created</cite> handler.</p>
 ├── config.json
 └── data/</p>
 <blockquote>
-<div><p>├── images/
-└── videos/</p>
+<div><p>└── videos/</p>
 </div></blockquote>
 </dd>
 </dl>

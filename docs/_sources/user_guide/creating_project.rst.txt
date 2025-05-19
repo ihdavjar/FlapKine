@@ -21,4 +21,4 @@ Steps:
      See :ref:`Render Configuration <render_config>` for details.
 
 6. Hit **Create Project** to proceed to the **Project Editor Window**.
-   See :doc:`Project Editor Window <window/project_editor_window>` for details.
+   See :ref:`Project Editor Window <project_editor_window>` for details.
