@@ -1,105 +1,139 @@
-2-DOF + Translating flapping wing
-=================================
+.. _2_DOF_INV:
 
-Taking a level further from previous 1-DOF flapping wing system, We move on to 2-DOF flapping wing system, which also incorporates translation along with the rotation of the wing. So technically its 3-DOF (2 rotational + 1 translational).
+2-DOF Inverse Kinematics
+=========================
 
-.. Write this in good box
- We highly recommend going through the example: :ref:`1-DOF Flapping Wing <1_dof_1>` before this.
+This example demonstrates how to use inverse kinematics (IK) for a flapping wing system with two rotational degrees of freedom (DoF).
+
+Using **FlapKine**, the goal is to calculate the Euler angles required to reproduce a desired wing motion. The target motion is first captured using a multi-view stereo camera setup, which provides accurate 3D wing positions.
+
+.. note::
+   Multi-view stereo processing is not currently built into **FlapKine**, but future versions aim to include native support for it.
+
+At present, we use **DLTdv** [#DLTdv]_ to process video recordings and generate 3D positional data. **FlapKine** then takes this data as input and computes a time series of Euler angles needed to recreate the wing motion through inverse kinematics.
+
+This workflow highlights how **FlapKine** serves as a powerful tool for post-processing and analyzing real-world motion capture data using analytical IK models.
 
 Overview
 --------
 
-This example showcases a system with a single degree of freedom (rotation about the z-axis), applied to a wing mesh represented by an STL file. It includes all necessary configuration, angle inputs, and 3D geometry required to visualize the simulation.
+In this example, the wing structure undergoes:
+
+- **Rotation** about two orthogonal axes: the `z`-axis and the `x`-axis.
+
+To compute the Euler rotation angles, we select two pairs of points on the wing:
+
+- Two points along the **wing span** to define the body-frame `x`-axis.
+- Two points along the **wing chord** to establish the orientation in 3D space.
+
+These specific points (A, B, C, D) are marked on the wing as shown in the image below. They are manually tracked frame-by-frame using **DLTdv**.
+
+After tracking, the 2D point data is converted into 3D coordinates using DLTdv's calibration. The result is stored in a frame-wise format as shown below:
+
+.. code-block:: text
+
+   Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
+   1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
+   1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
+   ...
+
+Each row represents a single time frame and includes:
+
+- **Ax, Ay, Az**: 3D coordinates of point A
+- **Bx, By, Bz**: 3D coordinates of point B
+- **Cx, Cy, Cz**: 3D coordinates of point C
+- **Dx, Dy, Dz**: 3D coordinates of point D
+
+These markers correspond to the labeled points in the image below, used to define body orientation and compute IK-based Euler angles.
+
+.. image:: ../assets/images/wing_diagram.jpg
+   :alt: Wing Point Configuration
+   :align: center
+   :width: 400
 
 Files Included
 --------------
 
-- **`project.zip`**: A compressed archive containing both the full simulation project and the necessary resource files.
+- **`project.zip`**: A compressed archive containing the full simulation setup and all necessary resource files.
 
-Upon extraction, the contents of `project.zip` are organized into two main folders:
+After extracting, the contents are organized into the following directories:
 
-- **`1_DOF_1/`**: Contains the actual project setup, which can be loaded into FlapKine.
-- **`Resource/`**: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, joint angle data, and plots.
+- **`2_DOF_INV/`** – Contains the FlapKine project configuration and execution setup.
+- **`resources/`** – Includes supporting assets such as STL meshes, camera videos, calibration data, and tracked 3D coordinates.
 
 Project Folder Structure
 ------------------------
 
-The `1_DOF_1/` folder includes the following::
+The `2_DOF_INV/` directory contains the core FlapKine project files:
 
-    1_DOF_1/
-    ├── scene.pkl          # Serialized scene containing link and joint configurations
-    ├── config.json        # Simulation and rendering settings
-    └── data/              # Output directory for generated frames or videos
+.. code-block:: none
+
+   2_DOF_INV/
+   ├── scene.pkl          # Serialized Scene object containing the simulation setup
+   ├── config.json        # Configuration file for rendering and simulation parameters
+   └── data/              # Directory where output frames and videos are generated
 
 Resource Files
 --------------
 
-The `Resource/` folder contains the required data for kinematic input and visualization::
+The `resources/` directory contains all the data used to reconstruct and analyze the wing motion:
 
-    Resource/
-    ├── angles/
-    │   ├── alpha_data.csv    # Rotation about the x-axis (all zeros)
-    │   ├── beta_data.csv     # Rotation about the y-axis (all zeros)
-    │   └── gamma_data.csv    # Rotation about the z-axis (time-series values)
-    ├── stl/
-    │   └── wing.stl          # 3D mesh of the wing
-    └── angle_plot.png        # Plot of the rotation angles over time
+.. code-block:: none
+
+   resources/
+   ├── videos/
+   │   ├── view_1.mp4                  # Wing motion video from camera 1
+   │   └── view_2.mp4                  # Wing motion video from camera 2
+   │
+   ├── camera_calibration/
+   │   ├── calibration_cube/
+   │   │   ├── view_1.jpg              # Image of calibration object from camera 1
+   │   │   ├── view_2.jpg              # Image of calibration object from camera 2
+   │   │   └── cube_dimensions.jpg     # Reference image showing cube dimensions
+   │   └── calibration_matrix.csv      # Computed stereo calibration matrix
+   │
+   ├── stl/
+   │   └── wing.stl                    # 3D mesh of the wing model
+   │
+   └── dlt_results/
+       └── 3d_positions.csv            # Tracked 3D coordinates of wing markers (A–D)
+
+
 
 Initial STL Orientation
 -----------------------
 
 The `wing.stl` model is oriented such that:
 
-- The **x-axis** aligns with the wing span (length).
-- The **y-axis** aligns with the wing chord (width).
+- The **x-axis** aligns with the wing span.
+- The **y-axis** aligns with the wing chord.
 - The **z-axis** corresponds to the wing thickness.
-
-Simulation Details
-------------------
-
-This is a **single degree-of-freedom** system, where only the rotation about the **z-axis** (`gamma_data.csv`) is active. The `alpha` and `beta` (which can be also seen by visualising the angles using .csv files in ressource) angles are zero throughout the simulation. Below is a plot showing the time-series data for each rotation angle given in the `angles/` folder:
-
-.. figure:: 1_DOF_1/angles_plot.png
-   :class: dark-compatible-image
-   :align: center
-   :width: 80%
-   :alt: Angle Plot
-
-   **Figure:** Time-series plot of the rotation angles (`alpha`, `beta` & `gamma`) used in this example.
 
 Running the Example
 -------------------
 
 1. Extract the `project.zip` archive to your desired directory.
 
-2. Launch the **FlapKine** application and select **Load Project**.
+2. Launch **FlapKine** and select **Load Project**.
 
-3. Navigate to the `1_DOF_1/` folder and choose the directory.
+3. Navigate to the `2_DOF_INV/` folder and open the project.
 
-4. The project will load with a pre-configured scene. Below is a screenshot of the loaded project:
+4. The project will load with the pre-configured scene.
 
-.. figure:: 1_DOF_1/project.png
-    :class: dark-compatible-image
-    :align: center
-    :width: 80%
-    :alt: Project Screenshot
-
-    **Figure:** Screenshot of the project loaded in **FlapKine**.
-
-5. The project folder does not include the rendered video by default. To generate it, click on the **Render** button in the GUI. The simulation will be rendered and the output video saved under `data/videos/`.
+5. To visualize the simulation, click on the **Render** button. The output video will be saved under `data/videos/`.
 
    .. note::
 
-      See the :ref:`Project Editor Window <project_editor_window>` section for more details about the GUI and its functionality.
+      For detailed information on the GUI functionalities, refer to the :ref:`Project Editor Window <project_editor_window>` section.
 
-Below is a short preview showcasing the rendered simulation output for this example:
+Below is a preview of the rendered simulation output:
 
-.. figure:: 1_DOF_1/project_video.gif
+.. figure:: 2_DOF_INV/project_video.gif
    :align: center
    :width: 100%
    :alt: Rendered Simulation Preview
 
-   **Figure:** Rendered simulation preview after completing the scene setup and clicking the **Render** button in **FlapKine**.
+   **Figure:** Rendered simulation preview after executing the inverse kinematics setup in **FlapKine**.
 
 For higher quality or longer playback, you can render a full-resolution `.mp4` video directly using the **Render** button. The video will be saved automatically in the `data/videos/` folder within your project directory.
 
@@ -126,21 +160,12 @@ To manually recreate the above project from scratch:
 4. Start by loading the default rendering configuration:
 
    - Toggle the **Use Default Config** option.
-   - For this example, since the rotation is about the z-axis, set the camera view accordingly:
 
-     - **Camera Position:** (0, 0, 50)
+   - You may change the configuration settings according to your desire. However default config works with this project.
 
-     - **Focal Point:** (0, 0, 0)
+   - Disable **Reflect**
 
-     - **Up Vector:** (0, 1, 0)
-
-     - **Light Source Position:** (0, 0, 20)
-
-     - **Light Energy:** 1
-
-   - Enable **STL** saving if needed.
-
-   .. figure:: 1_DOF_1/config.png
+   .. figure:: 2_DOF_INV/config.png
       :class: dark-compatible-image
       :align: center
       :width: 45%
@@ -165,9 +190,9 @@ To manually recreate the above project from scratch:
 8. In the **Sprite Creator**:
 
    - Assign a name to your ``3DObject``.
-   - Load the STL file from the `Resource/` directory.
+   - Load the STL file from the `resource/stl` directory.
 
-   .. figure:: 1_DOF_1/sprite_creator.png
+   .. figure:: 2_DOF_INV/sprite_creator.png
       :class: dark-compatible-image
       :align: center
       :width: 100%
@@ -177,13 +202,40 @@ To manually recreate the above project from scratch:
 
 9. In the **Transformation** section:
 
-   - Set the **Transform Type** to `Euler_angles`
-   - Set the **Order** to `ZYX`
-   - For **Angle 1**, load `gamma_data.csv`, `beta_data.csv` and `alpha_data.csv` from the resource folder
+   - Set the **Rotation Transform Type** to `Euler_angles`
+
+   - Press the blue coloured inverse kinematics button, to open the :ref:`Inverse Kinematics Window <inverse_kinematics_window>`
+
+   - In the :ref:`Inverse Kinematics Window <inverse_kinematics_window>` choose the data in directory `resources/dlt_results/`.
+
+   - Alternatively here can also use the videos provided to compute the 3D positions independently using software like DLTdv.
+
+   - However the project has this given to not make the process more cumbersome.
+
+   - After getting the data choose the order as `XYZ` this should give the proper calculated euler angles, you can also watch the time series of these angles in the right half plane.
+
+   - In the left half plane you can visualise the trajectory of each of the four points.A B C D.
+
+   - Once you are done press the finsh button.
+
+   - This would add the angles time automatically to :ref:`Sprite Creator Window <sprite_creator_window>`.
+
+.. image:: ../assets/images/Inv_kinematics_window.png
+   :alt: Inverse Kinematics Window
+   :align: center
+   :width: 600
+
+         **Figure:** 3D position data loaded into Inverse kinematics window.
 
 10. Once configuration is complete, click **Finish**. You’ll return to the :ref:`Scene Creator Window <scene_creator_window>` where the new sprite will appear in green, indicating success.
 
 11. Click **Import Scene** to finalize the scene. You’ll be redirected back to the :ref:`Project Creator Window <project_creator_window>`, with the **Create Scene** button now showing green.
 
-12. Finally, click the **Create Project** button. This will generate the same project structure and configuration as in the original `1_DOF_1/` folder provided in `project.zip`.
+12. Finally, click the **Create Project** button. This will generate the same project structure and configuration as in the original `2_DOF_INV/` folder provided in `project.zip`.
 
+
+
+.. rubric:: References
+
+.. [#DLTdv] Ty Hedrick. *DLTdv: A MATLAB-based tool for 2D video digitizing and 3D reconstruction*.
+   Available at: https://biomech.web.unc.edu/dltdv/

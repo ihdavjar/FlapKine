@@ -4,23 +4,21 @@
 FlapKine
 ========
 
-**FlapKine** is a modular, high-performance PyQt5-based application for 3D inverse kinematics visualization and animation control. Designed for **researchers**, **roboticists**, and **engineers**, it enables precise analysis, visualization, and export of flapping-wing dynamics using STL models and camera-tracked experimental data.
+**FlapKine** is a modular, high-performance PyQt5-based application for 3D forward and inverse kinematics visualization. Designed for **researchers**, **roboticists**, and **engineers**, it enables precise analysis, visualization, and export of flapping-wing dynamics using STL models and camera-tracked experimental data.
 
 Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready
-
----
-
-.. include:: overview.rst
 
 ---
 
 🔧 Features
 -----------
 
-- **Inverse Kinematics Engine** – Analyze and visualize 3D joint trajectories using custom analytical models.
-- **3D STL Mesh Viewer** – Import STL files, track kinematic transformation in real-time.
-- **Project Configuration** – Set up video recording, camera paths, lighting, and export parameters.
-- **Frame Export** – Save frame-by-frame JPEG render outputs.
+- **Inverse Kinematics Engine** – Compute and visualize 3D joint trajectories using custom analytical models.
+- **3D STL Mesh Viewer** – Load STL files and observe real-time kinematic transformations.
+- **Project Configuration** – Customize video resolution, camera settings, lighting parameters, and export options.
+- **Frame Export** – Export high-resolution JPG/PNG renders for each frame of the animation.
+- **In-Situ Rendering** – Generate animations directly in memory without saving intermediate frames, enabling significantly faster execution.
+
 
 ---
 

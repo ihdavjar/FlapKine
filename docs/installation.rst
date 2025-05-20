@@ -6,8 +6,6 @@
 
 Download the latest release from the `Releases Page <https://github.com/ihdavjar/FlapKine/releases>`_ and run the installer. This will install FlapKine on your system with optional desktop shortcuts.
 
----
-
 🔹 Option B: Developer Mode (Python)
 ------------------------------------
 
@@ -42,8 +40,19 @@ Download the latest release from the `Releases Page <https://github.com/ihdavjar
 
       python -m FlapKineLauncher.py
 
+.. tip::
+
+   You can deactivate the Conda virtual environment anytime using:
+
+   .. code-block:: bash
+
+      conda deactivate
+
 .. note::
 
-   You can deactivate the virtual environment at any time by typing ``conda deactivate``.
+   To ensure proper playback of rendered videos within the application, make sure your system has the necessary codecs installed.
+   If you encounter playback issues, you can download and install the **K-Lite Codec Pack** from the official website:
+   `K-Lite Codec Pack Download Page <https://codecguide.com/download_kl.htm>`_.
 
----
+
+

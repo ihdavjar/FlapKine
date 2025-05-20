@@ -78,3 +78,5 @@ See :ref:`Methodology <methodology>` for more details on ``Scene`` and other cla
    examples/1_DOF_1
    examples/2_DOF_Translation
    examples/3_DOF_1
+   examples/3_DOF_2
+   examples/2_DOF_INV
