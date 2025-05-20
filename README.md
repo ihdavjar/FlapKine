@@ -140,7 +140,7 @@ This is a single degree-of-freedom system, where only the rotation about the z-a
 Below is a plot showing the time-series data for each rotation angle given in the `angles/` folder:
 
 <p align="center">
-  <img src="docs/_images/angles_plot.png" alt="Angle Plot" width="400">
+  <img src="docs\assets\images\angles_plot.png" alt="Angle Plot" width="400">
 </p>
 
 <p align="center">
