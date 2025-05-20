@@ -44,8 +44,12 @@ Camera Settings
 - **Location**:
   Set the camera's position in the global coordinate space (**X**, **Y**, **Z**).
 
-- **Rotation**:
-  Define the camera's orientation using rotation angles around the **X**, **Y**, and **Z** axes.
+- **Focal Point**:
+  Specify the point in 3D space that the camera looks at. This defines the **direction of view** and is typically set relative to the object of interest (**X**, **Y**, **Z**).
+
+- **Up Vector**:
+  Defines the **camera’s upward direction**, used to control the roll and orientation of the view. Commonly set as (0, 1, 0) for a vertical Y-axis alignment.
+
 
 ---
 

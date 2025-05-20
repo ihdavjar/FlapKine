@@ -35,7 +35,7 @@ The rotation matrix is computed from Euler angles if the ``Euler_Angle`` mode is
 
 .. math::
 
-   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)
+   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\theta_{1}) \cdot \mathbf{R}_{\text{axis}_2}(\theta_{2}) \cdot \mathbf{R}_{\text{axis}_3}(\theta_{3})
 
 Here, :math:`\mathbf{R}_{\text{axis}_i}(\theta)` denotes the rotation matrix for a rotation of angle :math:`\theta` about the body-fixed axis :math:`\text{axis}_i`, constructed so that it operates exclusively on that axis—i.e., it ignores any rotations about the other axes :math:`\text{axis}_j` for :math:`j \neq i`.
 
@@ -43,7 +43,7 @@ Example: For rotation sequence (X, Y, Z):
 
 .. math::
 
-   \mathbf{R}_{B} = \mathbf{R}_{X}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{Z}(\gamma)
+   \mathbf{R}_{B} = \mathbf{R}_{X}(\theta_{1}) \cdot \mathbf{R}_{Y}(\theta_{2}) \cdot \mathbf{R}_{Z}(\theta_{3})
 
 ---
 
@@ -73,21 +73,21 @@ Overview
 
 Rotation is applied through a user-defined sequence of three intrinsic (body-fixed) rotations—commonly ZYX, XYZ, etc. In body frame terms X - :math:`\hat{\mathbf{b}}_1`, Y - :math:`\hat{\mathbf{b}}_2`, and Z - :math:`\hat{\mathbf{b}}_3`. The rotation sequence is defined as:
 
-- :math:`\alpha`: Rotation about :math:`\mathbf{axis}_1`.
-- :math:`\beta`: Rotation about :math:`\mathbf{axis}_2`.
-- :math:`\gamma`: Rotation about :math:`\mathbf{axis}_3`.
+- :math:`\theta_{1}`: Rotation about :math:`\mathbf{axis}_1`.
+- :math:`\theta_{2}`: Rotation about :math:`\mathbf{axis}_2`.
+- :math:`\theta_{3}`: Rotation about :math:`\mathbf{axis}_3`.
 
 The rotation matrix is computed as:
 
 .. math::
 
-   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)
+   \mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\theta_{1}) \cdot \mathbf{R}_{\text{axis}_2}(\theta_{2}) \cdot \mathbf{R}_{\text{axis}_3}(\theta_{3})
 
 Example: For rotation sequence (Z, Y, X):
 
 .. math::
 
-   \mathbf{R}_{B} = \mathbf{R}_{Z}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{X}(\gamma)
+   \mathbf{R}_{B} = \mathbf{R}_{Z}(\theta_{1}) \cdot \mathbf{R}_{Y}(\theta_{2}) \cdot \mathbf{R}_{X}(\theta_{3})
 
 Input Options
 ^^^^^^^^^^^^^
@@ -109,15 +109,24 @@ This flexibility supports both manual design and automated workflows.
 
    **Euler Angle CSV Format**
 
-   Each Euler angle (`alpha`, `beta`, `gamma`) must be provided in a **separate CSV file**.
+   When using Euler rotations, you must provide **three separate CSV files**—one for each rotation angle:
 
-   The format of each file should be:
+   - `Angle I`: Rotation about the first axis in your chosen Euler sequence.
+   - `Angle II`: Rotation about the second axis.
+   - `Angle III`: Rotation about the third axis.
 
-   - A single column containing the angle values in degrees.
-   - Each row represents the value of the angle at a specific time step.
-   - No header row is required.
+   For example, in a (Z, Y, X) rotation sequence:
+   - `Angle I` refers to rotation around the **Z-axis**,
+   - `Angle II` around the **Y-axis**, and
+   - `Angle III` around the **X-axis**.
 
-   Example (`alpha.csv`):
+   **CSV Format Requirements**:
+
+   - Each file must contain a **single column** of angle values (in degrees).
+   - Each row represents the angle at a given **time step**.
+   - **No header row** should be included.
+
+   **Example (`angle_1.csv`)**:
 
    .. code-block:: csv
 
@@ -127,15 +136,14 @@ This flexibility supports both manual design and automated workflows.
       18.2
       ...
 
-   Similarly, create `beta.csv` and `gamma.csv` with the corresponding angle sequences.
----
+   Similarly, create `angle_2.csv` and `angle_3.csv` to represent the remaining two angles in the sequence.
+
 
 
 Usage Notes
 -----------
 
-- Euler angles must be in **degrees**
-- Rotation sequence must match the physical setup or simulation logic
+- Euler angles must be in **radians**
 - Ensure time series length matches the number of animation frames
 
 ---

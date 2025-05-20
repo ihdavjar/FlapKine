@@ -3,7 +3,7 @@
 Methodology
 ===========
 
-The **Flapkine** application is a Python-based open-source framework designed to simulate **flexible flapping dynamics** in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.
+The **Flapkine** application is a Python-based open-source framework designed to simulate **flapping kinematics** in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.
 
 Flapkine is structured into modular components, each specializing in a distinct stage of simulation — from object loading and transformation to scene assembly and time-series playback.
 
@@ -41,7 +41,6 @@ Core Components
 These classes are usable independently in Python scripts, and their logic is also exposed via the GUI.
 
 .. figure:: ../assets/images/scene_hierarchy.png
-   :class: dark-compatible-image
    :align: center
    :width: 80%
    :alt: Scene Hierarchy
@@ -49,6 +48,34 @@ These classes are usable independently in Python scripts, and their logic is als
    **Figure:** Object-oriented structure of the Flapkine backend — how Object3D, Sprite, and Scene classes interact.
 
 .. _reference_frames:
+
+Conceptual Analogy
+------------------
+To intuitively understand Flapkine’s architecture, imagine the simulation as a **3D stage**:
+
+- The **Scene** is the overall 3D space — it’s the "world" or environment where everything happens. It contains multiple actors (objects), lights, and camera perspectives.
+- An **Object3D** is a static 3D model — like a prop or structure on the stage. It knows its shape (via STL mesh), name, and transformation capabilities.
+- A **Sprite** is an **Object3D in motion** — it represents that object undergoing transformations over time (translation, rotation, deformation). It’s the actor performing on stage.
+- The **Scene** is thus a **collection of Sprites**, each of which combines an Object3D and its motion sequence (e.g., wing flap trajectory, body tilt, etc.).
+
+This hierarchy forms a **modular structure**:
+
+.. code-block::
+
+   Scene
+   ├── Sprite 1 → (Object3D + Motion)
+   ├── Sprite 2 → (Object3D + Motion)
+   └── Sprite N → (Object3D + Motion)
+
+Each level adds more complexity:
+
+- `Object3D` → static geometry + transformations
+
+- `Sprite`   → adds time-based behavior
+
+- `Scene`    → brings everything together in a dynamic simulation
+
+This layered structure makes it easy to manage and visualize multiple interacting elements in a biomimetic system, such as both wings of an insect or multiple appendages in robotics.
 
 Reference Frames
 ----------------
@@ -104,35 +131,6 @@ Vertices are expressed in homogeneous coordinates in the body frame as:
 During simulation, these vertices are transformed by the pipeline defined in `Object3D`.
 See :doc:`Transform Reference <transform_reference>` for full details.
 
-
-Conceptual Analogy
-------------------
-To intuitively understand Flapkine’s architecture, imagine the simulation as a **3D stage**:
-
-- The **Scene** is the overall 3D space — it’s the "world" or environment where everything happens. It contains multiple actors (objects), lights, and camera perspectives.
-- An **Object3D** is a static 3D model — like a prop or structure on the stage. It knows its shape (via STL mesh), name, and transformation capabilities.
-- A **Sprite** is an **Object3D in motion** — it represents that object undergoing transformations over time (translation, rotation, deformation). It’s the actor performing on stage.
-- The **Scene** is thus a **collection of Sprites**, each of which combines an Object3D and its motion sequence (e.g., wing flap trajectory, body tilt, etc.).
-
-This hierarchy forms a **modular structure**:
-
-.. code-block::
-
-   Scene
-   ├── Sprite 1 → (Object3D + Motion)
-   ├── Sprite 2 → (Object3D + Motion)
-   └── Sprite N → (Object3D + Motion)
-
-Each level adds more complexity:
-
-- `Object3D` → static geometry + transformations
-
-- `Sprite`   → adds time-based behavior
-
-- `Scene`    → brings everything together in a dynamic simulation
-
-This layered structure makes it easy to manage and visualize multiple interacting elements in a biomimetic system, such as both wings of an insect or multiple appendages in robotics.
-
 Graphical User Interface (GUI) Overview
 ---------------------------------------
 
@@ -144,6 +142,7 @@ Key capabilities of the GUI:
 - **Assign Transformations:** Apply mathematical transformations — through time-series data files.
 - **Camera & Lighting Configuration:** Adjust view angles, lighting sources, and projection styles.
 - **Export Outputs:** Render scenes into frame sequences or full-length video files.
+- **Inverse Kinematics Calculation:** Calculates euler anlges time-series using just the 3-D position of few chosen points on the wing.
 
 For a breakdown of all individual windows and their functionalities, see the :doc:`Window Reference <window_reference>` section.
 

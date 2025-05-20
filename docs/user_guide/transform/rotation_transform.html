@@ -31,7 +31,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f2372999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=4bd69ca1" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -410,11 +410,11 @@
 \[\mathbf{P}_{B}'' = \mathbf{R}_{B} \cdot \mathbf{P}_{B}'\]</div>
 <p>The rotation matrix is computed from Euler angles if the <code class="docutils literal notranslate"><span class="pre">Euler_Angle</span></code> mode is selected. The rotation matrix is defined as:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)\]</div>
+\[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\theta_{1}) \cdot \mathbf{R}_{\text{axis}_2}(\theta_{2}) \cdot \mathbf{R}_{\text{axis}_3}(\theta_{3})\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\mathbf{R}_{\text{axis}_i}(\theta)\)</span> denotes the rotation matrix for a rotation of angle <span class="math notranslate nohighlight">\(\theta\)</span> about the body-fixed axis <span class="math notranslate nohighlight">\(\text{axis}_i\)</span>, constructed so that it operates exclusively on that axis—i.e., it ignores any rotations about the other axes <span class="math notranslate nohighlight">\(\text{axis}_j\)</span> for <span class="math notranslate nohighlight">\(j \neq i\)</span>.</p>
 <p>Example: For rotation sequence (X, Y, Z):</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{R}_{B} = \mathbf{R}_{X}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{Z}(\gamma)\]</div>
+\[\mathbf{R}_{B} = \mathbf{R}_{X}(\theta_{1}) \cdot \mathbf{R}_{Y}(\theta_{2}) \cdot \mathbf{R}_{Z}(\theta_{3})\]</div>
 <p>—</p>
 <p>Else if the <code class="docutils literal notranslate"><span class="pre">Constant</span></code> mode is selected, the rotation matrix is set to the identity matrix:</p>
 <div class="math notranslate nohighlight">
@@ -433,16 +433,16 @@
 <h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
 <p>Rotation is applied through a user-defined sequence of three intrinsic (body-fixed) rotations—commonly ZYX, XYZ, etc. In body frame terms X - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_1\)</span>, Y - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_2\)</span>, and Z - <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_3\)</span>. The rotation sequence is defined as:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_1\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_2\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\gamma\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_3\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_{1}\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_1\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_{2}\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_{3}\)</span>: Rotation about <span class="math notranslate nohighlight">\(\mathbf{axis}_3\)</span>.</p></li>
 </ul>
 <p>The rotation matrix is computed as:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\alpha) \cdot \mathbf{R}_{\text{axis}_2}(\beta) \cdot \mathbf{R}_{\text{axis}_3}(\gamma)\]</div>
+\[\mathbf{R}_{B} = \mathbf{R}_{\text{axis}_1}(\theta_{1}) \cdot \mathbf{R}_{\text{axis}_2}(\theta_{2}) \cdot \mathbf{R}_{\text{axis}_3}(\theta_{3})\]</div>
 <p>Example: For rotation sequence (Z, Y, X):</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{R}_{B} = \mathbf{R}_{Z}(\alpha) \cdot \mathbf{R}_{Y}(\beta) \cdot \mathbf{R}_{X}(\gamma)\]</div>
+\[\mathbf{R}_{B} = \mathbf{R}_{Z}(\theta_{1}) \cdot \mathbf{R}_{Y}(\theta_{2}) \cdot \mathbf{R}_{X}(\theta_{3})\]</div>
 </section>
 <section id="input-options">
 <h3>Input Options<a class="headerlink" href="#input-options" title="Link to this heading">#</a></h3>
@@ -457,14 +457,23 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>Euler Angle CSV Format</strong></p>
-<p>Each Euler angle (<cite>alpha</cite>, <cite>beta</cite>, <cite>gamma</cite>) must be provided in a <strong>separate CSV file</strong>.</p>
-<p>The format of each file should be:</p>
+<p>When using Euler rotations, you must provide <strong>three separate CSV files</strong>—one for each rotation angle:</p>
 <ul class="simple">
-<li><p>A single column containing the angle values in degrees.</p></li>
-<li><p>Each row represents the value of the angle at a specific time step.</p></li>
-<li><p>No header row is required.</p></li>
+<li><p><cite>Angle I</cite>: Rotation about the first axis in your chosen Euler sequence.</p></li>
+<li><p><cite>Angle II</cite>: Rotation about the second axis.</p></li>
+<li><p><cite>Angle III</cite>: Rotation about the third axis.</p></li>
 </ul>
-<p>Example (<cite>alpha.csv</cite>):</p>
+<p>For example, in a (Z, Y, X) rotation sequence:
+- <cite>Angle I</cite> refers to rotation around the <strong>Z-axis</strong>,
+- <cite>Angle II</cite> around the <strong>Y-axis</strong>, and
+- <cite>Angle III</cite> around the <strong>X-axis</strong>.</p>
+<p><strong>CSV Format Requirements</strong>:</p>
+<ul class="simple">
+<li><p>Each file must contain a <strong>single column</strong> of angle values (in degrees).</p></li>
+<li><p>Each row represents the angle at a given <strong>time step</strong>.</p></li>
+<li><p><strong>No header row</strong> should be included.</p></li>
+</ul>
+<p><strong>Example (`angle_1.csv`)</strong>:</p>
 <div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>0.0
 12.5
 25.0
@@ -472,16 +481,14 @@
 ...
 </pre></div>
 </div>
-<p>Similarly, create <cite>beta.csv</cite> and <cite>gamma.csv</cite> with the corresponding angle sequences.</p>
+<p>Similarly, create <cite>angle_2.csv</cite> and <cite>angle_3.csv</cite> to represent the remaining two angles in the sequence.</p>
 </div>
-<p>—</p>
 </section>
 </section>
 <section id="usage-notes">
 <h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Euler angles must be in <strong>degrees</strong></p></li>
-<li><p>Rotation sequence must match the physical setup or simulation logic</p></li>
+<li><p>Euler angles must be in <strong>radians</strong></p></li>
 <li><p>Ensure time series length matches the number of animation frames</p></li>
 </ul>
 <p>—</p>

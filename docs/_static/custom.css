@@ -1,5 +1,9 @@
-.dark-compatible-image {
-  background-color: transparent;
-  display: block;
-  margin: auto;
+/* Remove background for images */
+img {
+    background-color: transparent !important;
+}
+
+/* Optional: make sure image container doesn’t force background */
+figure, .docutils, .figure {
+    background-color: transparent !important;
 }

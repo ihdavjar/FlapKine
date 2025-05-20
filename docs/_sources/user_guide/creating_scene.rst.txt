@@ -5,7 +5,7 @@ To create a new scene:
 
 1. In the **Project Creator Window**, click **Create** under Scene.
 2. You’ll be redirected to the **Scene Creator Window**.
-   See :doc:`🔎 Scene Creator Window <window/scene_creator>`
+   See :doc:`Scene Creator Window <window/scene_creator>`
 
 Steps:
 

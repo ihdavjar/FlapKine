@@ -1,5 +1,7 @@
-3-DOF Flapping Wing
-===================
+.. _3_dof_1:
+
+3-DOF Flapping Wing – Example 1
+===============================
 
 This example demonstrates a **3-DOF rotational mechanism** applied to a flapping wing system, showcasing how complex kinematic behaviors can be visualized using **FlapKine**.
 

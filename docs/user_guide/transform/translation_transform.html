@@ -31,7 +31,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f2372999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=4bd69ca1" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -377,8 +377,8 @@
   <section id="translation-transformation">
 <span id="translation-transform"></span><h1>Translation Transformation<a class="headerlink" href="#translation-transformation" title="Link to this heading">#</a></h1>
 <p>A translation transformation modifies the position of an object by shifting its origin without altering its orientation or shape.</p>
-<div class="pst-scrollable-table-container"><table class="table" id="id1">
-<caption><span class="caption-text">Translation Modes</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Translation Modes</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 20.0%" />
 <col style="width: 30.0%" />
@@ -396,8 +396,8 @@
 <td><p>The object remains stationary in the scene. No translation is applied.</p></td>
 </tr>
 <tr class="row-odd"><td></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">COM</span></code></p></td>
-<td><p>See <a class="reference internal" href="#com-translation"><span class="std std-ref">COM-Based Translation</span></a> for details.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Linear</span></code></p></td>
+<td><p>See <a class="reference internal" href="#linear-translation"><span class="std std-ref">Linear Translation</span></a> for details.</p></td>
 </tr>
 </tbody>
 </table>
@@ -429,12 +429,12 @@ z_{B} \\
 <p>Here, <span class="math notranslate nohighlight">\(t_x\)</span>, <span class="math notranslate nohighlight">\(t_y\)</span>, and <span class="math notranslate nohighlight">\(t_z\)</span> represent the translation distances along the inertial <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span>, <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span>, and <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span> axes.</p>
 <p>—</p>
 </section>
-<section id="com-based-translation">
-<span id="com-translation"></span><h2>COM-Based Translation<a class="headerlink" href="#com-based-translation" title="Link to this heading">#</a></h2>
+<section id="linear-translation">
+<span id="id1"></span><h2>Linear Translation<a class="headerlink" href="#linear-translation" title="Link to this heading">#</a></h2>
 <p>This mode applies a <strong>time-dependent translation</strong> to the object using an external CSV file.</p>
 <a class="reference internal image-reference" href="../../_images/linear_translation_transform.png"><img alt="Linear Translation Transform" class="align-center" src="../../_images/linear_translation_transform.png" style="width: 500px;" />
 </a>
-<p>Despite the name, the CSV does <strong>not</strong> contain the actual center of mass. Instead, it specifies the <strong>position of the body frame origin</strong> <span class="math notranslate nohighlight">\(O_B\)</span> with respect to the <strong>inertial frame</strong> at each time step. This path is used to animate the object’s motion over time.</p>
+<p>The CSV specifies the <strong>position of the body frame origin</strong> <span class="math notranslate nohighlight">\(O_B\)</span> with respect to the <strong>inertial frame</strong> at each time step. This path is used to animate the object’s motion over time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>CSV Format</strong></p>
@@ -514,7 +514,7 @@ z_{B} \\
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-model">Mathematical Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#com-based-translation">COM-Based Translation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-translation">Linear Translation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-notes">Usage Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-topics">Related Topics</a></li>
 </ul>

@@ -16,8 +16,8 @@ A translation transformation modifies the position of an object by shifting its 
      - ``Constant``
      - The object remains stationary in the scene. No translation is applied.
    * -
-     - ``COM``
-     - See :ref:`COM-Based Translation <com_translation>` for details.
+     - ``Linear``
+     - See :ref:`Linear Translation <linear_translation>` for details.
 
 
 ---
@@ -59,10 +59,10 @@ Here, :math:`t_x`, :math:`t_y`, and :math:`t_z` represent the translation distan
 
 ---
 
-.. _com_translation:
+.. _linear_translation:
 
-COM-Based Translation
----------------------
+Linear Translation
+------------------
 
 This mode applies a **time-dependent translation** to the object using an external CSV file.
 
@@ -72,7 +72,7 @@ This mode applies a **time-dependent translation** to the object using an extern
    :width: 500px
 
 
-Despite the name, the CSV does **not** contain the actual center of mass. Instead, it specifies the **position of the body frame origin** :math:`O_B` with respect to the **inertial frame** at each time step. This path is used to animate the object’s motion over time.
+The CSV specifies the **position of the body frame origin** :math:`O_B` with respect to the **inertial frame** at each time step. This path is used to animate the object’s motion over time.
 
 .. note::
 

@@ -31,7 +31,7 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2372999" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bd69ca1" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -290,7 +290,9 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1-DOF flapping wing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_DOF_Translation.html">2-DOF + Translating Flapping Wing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3_DOF_1.html">3-DOF Flapping Wing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_DOF_1.html">3-DOF Flapping Wing – Example 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_DOF_2.html">3-DOF Flapping Wing – Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_DOF_INV.html">2-DOF Inverse Kinematics</a></li>
 </ul>
 </div>
 </nav></div>
@@ -371,7 +373,7 @@
 <p>Upon extraction, the contents of <cite>project.zip</cite> are organized into two main folders:</p>
 <ul class="simple">
 <li><p><strong>`1_DOF_1/`</strong>: Contains the actual project setup, which can be loaded into FlapKine.</p></li>
-<li><p><strong>`Resource/`</strong>: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, angles time series, and plots.</p></li>
+<li><p><strong>`resources/`</strong>: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, angles time series, and plots.</p></li>
 </ul>
 </section>
 <section id="project-folder-structure">
@@ -386,14 +388,16 @@
 </section>
 <section id="resource-files">
 <h2>Resource Files<a class="headerlink" href="#resource-files" title="Link to this heading">#</a></h2>
-<p>The <cite>Resource/</cite> folder contains the required data for kinematic input and visualization:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Resource/
+<p>The <cite>resources/</cite> folder contains the required data for kinematic input and visualization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>resources/
 ├── angles/
 │   ├── alpha_data.csv    # Rotation about the x-axis (all zeros)
 │   ├── beta_data.csv     # Rotation about the y-axis (all zeros)
 │   └── gamma_data.csv    # Rotation about the z-axis (time-series values)
+│
 ├── stl/
 │   └── wing.stl          # 3D mesh of the wing
+│
 └── angle_plot.png        # Plot of the rotation angles over time
 </pre></div>
 </div>
@@ -411,7 +415,7 @@
 <h2>Simulation Details<a class="headerlink" href="#simulation-details" title="Link to this heading">#</a></h2>
 <p>This is a <strong>single degree-of-freedom</strong> system, where only the rotation about the <strong>z-axis</strong> (<cite>gamma_data.csv</cite>) is active. The <cite>alpha</cite> and <cite>beta</cite> (which can be also seen by visualising the angles using .csv files in ressource) angles are zero throughout the simulation. Below is a plot showing the time-series data for each rotation angle given in the <cite>angles/</cite> folder:</p>
 <figure class="align-center" id="id1">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/angles_plot.png"><img alt="Angle Plot" class="dark-compatible-image" src="../_images/angles_plot.png" style="width: 80%;" />
+<a class="reference internal image-reference" href="../_images/angles_plot.png"><img alt="Angle Plot" src="../_images/angles_plot.png" style="width: 80%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> Time-series plot of the rotation angles (<cite>alpha</cite>, <cite>beta</cite> &amp; <cite>gamma</cite>) used in this example.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
@@ -427,7 +431,7 @@
 <li><p>The project will load with a pre-configured scene. Below is a screenshot of the loaded project:</p></li>
 </ol>
 <figure class="align-center" id="id2">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/project.png"><img alt="Project Screenshot" class="dark-compatible-image" src="../_images/project.png" style="width: 80%;" />
+<a class="reference internal image-reference" href="../_images/project.png"><img alt="Project Screenshot" src="../_images/project.png" style="width: 80%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project loaded in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
@@ -459,7 +463,7 @@
 <li><p>Choose your desired destination folder, enter a project name, and click <strong>Save</strong>.</p></li>
 <li><p>The <a class="reference internal" href="../user_guide/window/project_creator.html#project-creator-window"><span class="std std-ref">Project Creator Window</span></a> will open. This is where you can import <code class="docutils literal notranslate"><span class="pre">Scene</span></code> and change rendering configurations.</p>
 <figure class="align-center" id="id4">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/project_creator.png"><img alt="Project Creator Screenshot" class="dark-compatible-image" src="../_images/project_creator.png" style="width: 45%;" />
+<a class="reference internal image-reference" href="../_images/project_creator.png"><img alt="Project Creator Screenshot" src="../_images/project_creator.png" style="width: 45%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
@@ -481,7 +485,7 @@
 <li><p>Enable <strong>STL</strong> saving if needed.</p></li>
 </ul>
 <figure class="align-center" id="id5">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/config.png"><img alt="Configuration Screenshot" class="dark-compatible-image" src="../_images/config.png" style="width: 45%;" />
+<a class="reference internal image-reference" href="../_images/config.png"><img alt="Configuration Screenshot" src="../_images/config.png" style="width: 45%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> Rendering configuration settings in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
@@ -490,7 +494,7 @@
 </li>
 <li><p>To add a model to the scene, click the <strong>Create</strong> button under the <strong>Import Scene</strong> section. This opens the <a class="reference internal" href="../user_guide/window/scene_creator.html#scene-creator-window"><span class="std std-ref">Scene Creator Window</span></a>.</p>
 <figure class="align-center" id="id6">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/scene_creator.png"><img alt="Scene Creator Screenshot" class="dark-compatible-image" src="../_images/scene_creator.png" style="width: 45%;" />
+<a class="reference internal image-reference" href="../_images/scene_creator.png"><img alt="Scene Creator Screenshot" src="../_images/scene_creator.png" style="width: 45%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> Scene creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
@@ -502,10 +506,10 @@
 <li><p>In the <strong>Sprite Creator</strong>:</p>
 <ul class="simple">
 <li><p>Assign a name to your <code class="docutils literal notranslate"><span class="pre">3DObject</span></code>.</p></li>
-<li><p>Load the STL file from the <cite>Resource/</cite> directory.</p></li>
+<li><p>Load the STL file from the <cite>resources/</cite> directory.</p></li>
 </ul>
 <figure class="align-center" id="id7">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/sprite_creator.png"><img alt="Sprite Creator Screenshot" class="dark-compatible-image" src="../_images/sprite_creator.png" style="width: 100%;" />
+<a class="reference internal image-reference" href="../_images/sprite_creator.png"><img alt="Sprite Creator Screenshot" src="../_images/sprite_creator.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Figure:</strong> STL file loaded and Transformation set in the sprite configuration.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>

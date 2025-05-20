@@ -31,7 +31,7 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2372999" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bd69ca1" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -418,8 +418,10 @@ Specify the output dimensions of each frame in <strong>width × height</strong> 
 <ul class="simple">
 <li><p><strong>Location</strong>:
 Set the camera’s position in the global coordinate space (<strong>X</strong>, <strong>Y</strong>, <strong>Z</strong>).</p></li>
-<li><p><strong>Rotation</strong>:
-Define the camera’s orientation using rotation angles around the <strong>X</strong>, <strong>Y</strong>, and <strong>Z</strong> axes.</p></li>
+<li><p><strong>Focal Point</strong>:
+Specify the point in 3D space that the camera looks at. This defines the <strong>direction of view</strong> and is typically set relative to the object of interest (<strong>X</strong>, <strong>Y</strong>, <strong>Z</strong>).</p></li>
+<li><p><strong>Up Vector</strong>:
+Defines the <strong>camera’s upward direction</strong>, used to control the roll and orientation of the view. Commonly set as (0, 1, 0) for a vertical Y-axis alignment.</p></li>
 </ul>
 <p>—</p>
 </section>

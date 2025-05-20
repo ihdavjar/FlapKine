@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2-DOF + Translating flapping wing &#8212; FlapKine v0.1.1 documentation</title>
+    <title>2-DOF Inverse Kinematics &#8212; FlapKine v0.1.1 documentation</title>
   
   
   
@@ -31,7 +31,7 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2372999" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bd69ca1" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <link rel="icon" href="../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="📦 API Reference" href="../api_reference/index.html" />
+    <link rel="prev" title="3-DOF Flapping Wing – Example 2" href="3_DOF_2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -144,7 +146,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../examples.html">
     📘 Examples
   </a>
@@ -214,10 +216,8 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -246,7 +246,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../examples.html">
     📘 Examples
   </a>
@@ -280,6 +280,23 @@
       </div>
     
   </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Example Projects</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_DOF_1.html">1-DOF flapping wing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_DOF_Translation.html">2-DOF + Translating Flapping Wing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_DOF_1.html">3-DOF Flapping Wing – Example 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_DOF_2.html">3-DOF Flapping Wing – Example 2</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2-DOF Inverse Kinematics</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
@@ -316,7 +333,10 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">2-DOF + Translating flapping wing</span></li>
+    
+    <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">📘 Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">2-DOF Inverse Kinematics</span></li>
   </ul>
 </nav>
 </div>
@@ -333,45 +353,87 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="dof-translating-flapping-wing">
-<h1>2-DOF + Translating flapping wing<a class="headerlink" href="#dof-translating-flapping-wing" title="Link to this heading">#</a></h1>
-<p>Taking a level further from previous 1-DOF flapping wing system, We move on to 2-DOF flapping wing system, which also incorporates translation along with the rotation of the wing. So technically its 3-DOF (2 rotational + 1 translational).</p>
+  <section id="dof-inverse-kinematics">
+<span id="dof-inv"></span><h1>2-DOF Inverse Kinematics<a class="headerlink" href="#dof-inverse-kinematics" title="Link to this heading">#</a></h1>
+<p>This example demonstrates how to use inverse kinematics (IK) for a flapping wing system with two rotational degrees of freedom (DoF).</p>
+<p>Using <strong>FlapKine</strong>, the goal is to calculate the Euler angles required to reproduce a desired wing motion. The target motion is first captured using a multi-view stereo camera setup, which provides accurate 3D wing positions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multi-view stereo processing is not currently built into <strong>FlapKine</strong>, but future versions aim to include native support for it.</p>
+</div>
+<p>At present, we use <strong>DLTdv</strong> <a class="footnote-reference brackets" href="#dltdv" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to process video recordings and generate 3D positional data. <strong>FlapKine</strong> then takes this data as input and computes a time series of Euler angles needed to recreate the wing motion through inverse kinematics.</p>
+<p>This workflow highlights how <strong>FlapKine</strong> serves as a powerful tool for post-processing and analyzing real-world motion capture data using analytical IK models.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This example showcases a system with a single degree of freedom (rotation about the z-axis), applied to a wing mesh represented by an STL file. It includes all necessary configuration, angle inputs, and 3D geometry required to visualize the simulation.</p>
+<p>In this example, the wing structure undergoes:</p>
+<ul class="simple">
+<li><p><strong>Rotation</strong> about two orthogonal axes: the <cite>z</cite>-axis and the <cite>x</cite>-axis.</p></li>
+</ul>
+<p>To compute the Euler rotation angles, we select two pairs of points on the wing:</p>
+<ul class="simple">
+<li><p>Two points along the <strong>wing span</strong> to define the body-frame <cite>x</cite>-axis.</p></li>
+<li><p>Two points along the <strong>wing chord</strong> to establish the orientation in 3D space.</p></li>
+</ul>
+<p>These specific points (A, B, C, D) are marked on the wing as shown in the image below. They are manually tracked frame-by-frame using <strong>DLTdv</strong>.</p>
+<p>After tracking, the 2D point data is converted into 3D coordinates using DLTdv’s calibration. The result is stored in a frame-wise format as shown below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
+1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
+1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
+...
+</pre></div>
+</div>
+<p>Each row represents a single time frame and includes:</p>
+<ul class="simple">
+<li><p><strong>Ax, Ay, Az</strong>: 3D coordinates of point A</p></li>
+<li><p><strong>Bx, By, Bz</strong>: 3D coordinates of point B</p></li>
+<li><p><strong>Cx, Cy, Cz</strong>: 3D coordinates of point C</p></li>
+<li><p><strong>Dx, Dy, Dz</strong>: 3D coordinates of point D</p></li>
+</ul>
+<p>These markers correspond to the labeled points in the image below, used to define body orientation and compute IK-based Euler angles.</p>
+<a class="reference internal image-reference" href="../_images/wing_diagram.jpg"><img alt="Wing Point Configuration" class="align-center" src="../_images/wing_diagram.jpg" style="width: 400px;" />
+</a>
 </section>
 <section id="files-included">
 <h2>Files Included<a class="headerlink" href="#files-included" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>`project.zip`</strong>: A compressed archive containing both the full simulation project and the necessary resource files.</p></li>
+<li><p><strong>`project.zip`</strong>: A compressed archive containing the full simulation setup and all necessary resource files.</p></li>
 </ul>
-<p>Upon extraction, the contents of <cite>project.zip</cite> are organized into two main folders:</p>
+<p>After extracting, the contents are organized into the following directories:</p>
 <ul class="simple">
-<li><p><strong>`1_DOF_1/`</strong>: Contains the actual project setup, which can be loaded into FlapKine.</p></li>
-<li><p><strong>`Resource/`</strong>: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, joint angle data, and plots.</p></li>
+<li><p><strong>`2_DOF_INV/`</strong> – Contains the FlapKine project configuration and execution setup.</p></li>
+<li><p><strong>`resources/`</strong> – Includes supporting assets such as STL meshes, camera videos, calibration data, and tracked 3D coordinates.</p></li>
 </ul>
 </section>
 <section id="project-folder-structure">
 <h2>Project Folder Structure<a class="headerlink" href="#project-folder-structure" title="Link to this heading">#</a></h2>
-<p>The <cite>1_DOF_1/</cite> folder includes the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1_DOF_1/
-├── scene.pkl          # Serialized scene containing link and joint configurations
-├── config.json        # Simulation and rendering settings
-└── data/              # Output directory for generated frames or videos
+<p>The <cite>2_DOF_INV/</cite> directory contains the core FlapKine project files:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2_DOF_INV/
+├── scene.pkl          # Serialized Scene object containing the simulation setup
+├── config.json        # Configuration file for rendering and simulation parameters
+└── data/              # Directory where output frames and videos are generated
 </pre></div>
 </div>
 </section>
 <section id="resource-files">
 <h2>Resource Files<a class="headerlink" href="#resource-files" title="Link to this heading">#</a></h2>
-<p>The <cite>Resource/</cite> folder contains the required data for kinematic input and visualization:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Resource/
-├── angles/
-│   ├── alpha_data.csv    # Rotation about the x-axis (all zeros)
-│   ├── beta_data.csv     # Rotation about the y-axis (all zeros)
-│   └── gamma_data.csv    # Rotation about the z-axis (time-series values)
+<p>The <cite>resources/</cite> directory contains all the data used to reconstruct and analyze the wing motion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>resources/
+├── videos/
+│   ├── view_1.mp4                  # Wing motion video from camera 1
+│   └── view_2.mp4                  # Wing motion video from camera 2
+│
+├── camera_calibration/
+│   ├── calibration_cube/
+│   │   ├── view_1.jpg              # Image of calibration object from camera 1
+│   │   ├── view_2.jpg              # Image of calibration object from camera 2
+│   │   └── cube_dimensions.jpg     # Reference image showing cube dimensions
+│   └── calibration_matrix.csv      # Computed stereo calibration matrix
+│
 ├── stl/
-│   └── wing.stl          # 3D mesh of the wing
-└── angle_plot.png        # Plot of the rotation angles over time
+│   └── wing.stl                    # 3D mesh of the wing model
+│
+└── dlt_results/
+    └── 3d_positions.csv            # Tracked 3D coordinates of wing markers (A–D)
 </pre></div>
 </div>
 </section>
@@ -379,51 +441,31 @@
 <h2>Initial STL Orientation<a class="headerlink" href="#initial-stl-orientation" title="Link to this heading">#</a></h2>
 <p>The <cite>wing.stl</cite> model is oriented such that:</p>
 <ul class="simple">
-<li><p>The <strong>x-axis</strong> aligns with the wing span (length).</p></li>
-<li><p>The <strong>y-axis</strong> aligns with the wing chord (width).</p></li>
+<li><p>The <strong>x-axis</strong> aligns with the wing span.</p></li>
+<li><p>The <strong>y-axis</strong> aligns with the wing chord.</p></li>
 <li><p>The <strong>z-axis</strong> corresponds to the wing thickness.</p></li>
 </ul>
 </section>
-<section id="simulation-details">
-<h2>Simulation Details<a class="headerlink" href="#simulation-details" title="Link to this heading">#</a></h2>
-<p>This is a <strong>single degree-of-freedom</strong> system, where only the rotation about the <strong>z-axis</strong> (<cite>gamma_data.csv</cite>) is active. The <cite>alpha</cite> and <cite>beta</cite> (which can be also seen by visualising the angles using .csv files in ressource) angles are zero throughout the simulation. Below is a plot showing the time-series data for each rotation angle given in the <cite>angles/</cite> folder:</p>
-<figure class="align-center" id="id1">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/angles_plot.png"><img alt="Angle Plot" class="dark-compatible-image" src="../_images/angles_plot.png" style="width: 80%;" />
-</a>
-<figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Time-series plot of the rotation angles (<cite>alpha</cite>, <cite>beta</cite> &amp; <cite>gamma</cite>) used in this example.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
 <section id="running-the-example">
 <h2>Running the Example<a class="headerlink" href="#running-the-example" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p>Extract the <cite>project.zip</cite> archive to your desired directory.</p></li>
-<li><p>Launch the <strong>FlapKine</strong> application and select <strong>Load Project</strong>.</p></li>
-<li><p>Navigate to the <cite>1_DOF_1/</cite> folder and choose the directory.</p></li>
-<li><p>The project will load with a pre-configured scene. Below is a screenshot of the loaded project:</p></li>
-</ol>
-<figure class="align-center" id="id2">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/project.png"><img alt="Project Screenshot" class="dark-compatible-image" src="../_images/project.png" style="width: 80%;" />
-</a>
-<figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project loaded in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<ol class="arabic" start="5">
-<li><p>The project folder does not include the rendered video by default. To generate it, click on the <strong>Render</strong> button in the GUI. The simulation will be rendered and the output video saved under <cite>data/videos/</cite>.</p>
+<li><p>Launch <strong>FlapKine</strong> and select <strong>Load Project</strong>.</p></li>
+<li><p>Navigate to the <cite>2_DOF_INV/</cite> folder and open the project.</p></li>
+<li><p>The project will load with the pre-configured scene.</p></li>
+<li><p>To visualize the simulation, click on the <strong>Render</strong> button. The output video will be saved under <cite>data/videos/</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See the <a class="reference internal" href="../user_guide/window/project_editor.html#project-editor-window"><span class="std std-ref">Project Editor Window</span></a> section for more details about the GUI and its functionality.</p>
+<p>For detailed information on the GUI functionalities, refer to the <a class="reference internal" href="../user_guide/window/project_editor.html#project-editor-window"><span class="std std-ref">Project Editor Window</span></a> section.</p>
 </div>
 </li>
 </ol>
-<p>Below is a short preview showcasing the rendered simulation output for this example:</p>
-<figure class="align-center" id="id3">
-<a class="reference internal image-reference" href="../_images/project_video.gif"><img alt="Rendered Simulation Preview" src="../_images/project_video.gif" style="width: 100%;" />
+<p>Below is a preview of the rendered simulation output:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/project_video1.gif"><img alt="Rendered Simulation Preview" src="../_images/project_video1.gif" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Rendered simulation preview after completing the scene setup and clicking the <strong>Render</strong> button in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> Rendered simulation preview after executing the inverse kinematics setup in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>For higher quality or longer playback, you can render a full-resolution <cite>.mp4</cite> video directly using the <strong>Render</strong> button. The video will be saved automatically in the <cite>data/videos/</cite> folder within your project directory.</p>
@@ -435,42 +477,34 @@
 <li><p>Open <strong>FlapKine</strong> and select <strong>New Project</strong>.</p></li>
 <li><p>Choose your desired destination folder, enter a project name, and click <strong>Save</strong>.</p></li>
 <li><p>The <a class="reference internal" href="../user_guide/window/project_creator.html#project-creator-window"><span class="std std-ref">Project Creator Window</span></a> will open. This is where you can import <code class="docutils literal notranslate"><span class="pre">Scene</span></code> and change rendering configurations.</p>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id3">
 <a class="dark-compatible-image reference internal image-reference" href="../_images/project_creator.png"><img alt="Project Creator Screenshot" class="dark-compatible-image" src="../_images/project_creator.png" style="width: 45%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> Screenshot of the project creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
 <li><p>Start by loading the default rendering configuration:</p>
 <ul class="simple">
 <li><p>Toggle the <strong>Use Default Config</strong> option.</p></li>
-<li><p>For this example, since the rotation is about the z-axis, set the camera view accordingly:</p>
-<ul>
-<li><p><strong>Camera Position:</strong> (0, 0, 50)</p></li>
-<li><p><strong>Focal Point:</strong> (0, 0, 0)</p></li>
-<li><p><strong>Up Vector:</strong> (0, 1, 0)</p></li>
-<li><p><strong>Light Source Position:</strong> (0, 0, 20)</p></li>
-<li><p><strong>Light Energy:</strong> 1</p></li>
+<li><p>You may change the configuration settings according to your desire. However default config works with this project.</p></li>
+<li><p>Disable <strong>Reflect</strong></p></li>
 </ul>
-</li>
-<li><p>Enable <strong>STL</strong> saving if needed.</p></li>
-</ul>
-<figure class="align-center" id="id5">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/config.png"><img alt="Configuration Screenshot" class="dark-compatible-image" src="../_images/config.png" style="width: 45%;" />
+<figure class="align-center" id="id4">
+<a class="dark-compatible-image reference internal image-reference" href="../_images/config1.png"><img alt="Configuration Screenshot" class="dark-compatible-image" src="../_images/config1.png" style="width: 45%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Rendering configuration settings in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> Rendering configuration settings in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
 <li><p>To add a model to the scene, click the <strong>Create</strong> button under the <strong>Import Scene</strong> section. This opens the <a class="reference internal" href="../user_guide/window/scene_creator.html#scene-creator-window"><span class="std std-ref">Scene Creator Window</span></a>.</p>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id5">
 <a class="dark-compatible-image reference internal image-reference" href="../_images/scene_creator.png"><img alt="Scene Creator Screenshot" class="dark-compatible-image" src="../_images/scene_creator.png" style="width: 45%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> Scene creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> Scene creator window in <strong>FlapKine</strong>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
@@ -479,27 +513,43 @@
 <li><p>In the <strong>Sprite Creator</strong>:</p>
 <ul class="simple">
 <li><p>Assign a name to your <code class="docutils literal notranslate"><span class="pre">3DObject</span></code>.</p></li>
-<li><p>Load the STL file from the <cite>Resource/</cite> directory.</p></li>
+<li><p>Load the STL file from the <cite>resource/stl</cite> directory.</p></li>
 </ul>
-<figure class="align-center" id="id7">
-<a class="dark-compatible-image reference internal image-reference" href="../_images/sprite_creator.png"><img alt="Sprite Creator Screenshot" class="dark-compatible-image" src="../_images/sprite_creator.png" style="width: 100%;" />
+<figure class="align-center" id="id6">
+<a class="dark-compatible-image reference internal image-reference" href="../_images/sprite_creator1.png"><img alt="Sprite Creator Screenshot" class="dark-compatible-image" src="../_images/sprite_creator1.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Figure:</strong> STL file loaded and Transformation set in the sprite configuration.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+<p><span class="caption-text"><strong>Figure:</strong> STL file loaded and Transformation set in the sprite configuration.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
 <li><p>In the <strong>Transformation</strong> section:</p>
 <ul class="simple">
-<li><p>Set the <strong>Transform Type</strong> to <cite>Euler_angles</cite></p></li>
-<li><p>Set the <strong>Order</strong> to <cite>ZYX</cite></p></li>
-<li><p>For <strong>Angle 1</strong>, load <cite>gamma_data.csv</cite>, <cite>beta_data.csv</cite> and <cite>alpha_data.csv</cite> from the resource folder</p></li>
+<li><p>Set the <strong>Rotation Transform Type</strong> to <cite>Euler_angles</cite></p></li>
+<li><p>Press the blue coloured inverse kinematics button, to open the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a></p></li>
+<li><p>In the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a> choose the data in directory <cite>resources/dlt_results/</cite>.</p></li>
+<li><p>Alternatively here can also use the videos provided to compute the 3D positions independently using software like DLTdv.</p></li>
+<li><p>However the project has this given to not make the process more cumbersome.</p></li>
+<li><p>After getting the data choose the order as <cite>XYZ</cite> this should give the proper calculated euler angles, you can also watch the time series of these angles in the right half plane.</p></li>
+<li><p>In the left half plane you can visualise the trajectory of each of the four points.A B C D.</p></li>
+<li><p>Once you are done press the finsh button.</p></li>
+<li><p>This would add the angles time automatically to <a class="reference internal" href="../user_guide/window/sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a>.</p></li>
 </ul>
 </li>
+</ol>
+<ol class="arabic simple" start="10">
 <li><p>Once configuration is complete, click <strong>Finish</strong>. You’ll return to the <a class="reference internal" href="../user_guide/window/scene_creator.html#scene-creator-window"><span class="std std-ref">Scene Creator Window</span></a> where the new sprite will appear in green, indicating success.</p></li>
 <li><p>Click <strong>Import Scene</strong> to finalize the scene. You’ll be redirected back to the <a class="reference internal" href="../user_guide/window/project_creator.html#project-creator-window"><span class="std std-ref">Project Creator Window</span></a>, with the <strong>Create Scene</strong> button now showing green.</p></li>
-<li><p>Finally, click the <strong>Create Project</strong> button. This will generate the same project structure and configuration as in the original <cite>1_DOF_1/</cite> folder provided in <cite>project.zip</cite>.</p></li>
+<li><p>Finally, click the <strong>Create Project</strong> button. This will generate the same project structure and configuration as in the original <cite>2_DOF_INV/</cite> folder provided in <cite>project.zip</cite>.</p></li>
 </ol>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="dltdv" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Ty Hedrick. <em>DLTdv: A MATLAB-based tool for 2D video digitizing and 3D reconstruction</em>.
+Available at: <a class="reference external" href="https://biomech.web.unc.edu/dltdv/">https://biomech.web.unc.edu/dltdv/</a></p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -513,6 +563,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="3_DOF_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3-DOF Flapping Wing – Example 2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api_reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">📦 API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -537,7 +605,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-folder-structure">Project Folder Structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-files">Resource Files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-stl-orientation">Initial STL Orientation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-details">Simulation Details</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-example">Running the Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducing-from-scratch">Reproducing from Scratch</a></li>
 </ul>

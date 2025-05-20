@@ -24,7 +24,7 @@ Files Included
 Upon extraction, the contents of `project.zip` are organized into two main folders:
 
 - **`1_DOF_1/`**: Contains the actual project setup, which can be loaded into FlapKine.
-- **`Resource/`**: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, angles time series, and plots.
+- **`resources/`**: Contains supporting files required for Reproducing the project from scratch, such as STL meshes, angles time series, and plots.
 
 Project Folder Structure
 ------------------------
@@ -39,15 +39,17 @@ The `1_DOF_1/` folder includes the following::
 Resource Files
 --------------
 
-The `Resource/` folder contains the required data for kinematic input and visualization::
+The `resources/` folder contains the required data for kinematic input and visualization::
 
-    Resource/
+    resources/
     ├── angles/
     │   ├── alpha_data.csv    # Rotation about the x-axis (all zeros)
     │   ├── beta_data.csv     # Rotation about the y-axis (all zeros)
     │   └── gamma_data.csv    # Rotation about the z-axis (time-series values)
+    │
     ├── stl/
     │   └── wing.stl          # 3D mesh of the wing
+    │
     └── angle_plot.png        # Plot of the rotation angles over time
 
 Initial STL Orientation
@@ -65,7 +67,6 @@ Simulation Details
 This is a **single degree-of-freedom** system, where only the rotation about the **z-axis** (`gamma_data.csv`) is active. The `alpha` and `beta` (which can be also seen by visualising the angles using .csv files in ressource) angles are zero throughout the simulation. Below is a plot showing the time-series data for each rotation angle given in the `angles/` folder:
 
 .. figure:: 1_DOF_1/angles_plot.png
-   :class: dark-compatible-image
    :align: center
    :width: 80%
    :alt: Angle Plot
@@ -84,7 +85,6 @@ Running the Example
 4. The project will load with a pre-configured scene. Below is a screenshot of the loaded project:
 
 .. figure:: 1_DOF_1/project.png
-    :class: dark-compatible-image
     :align: center
     :width: 80%
     :alt: Project Screenshot
@@ -121,7 +121,6 @@ To manually recreate the above project from scratch:
 3. The :ref:`Project Creator Window <project_creator_window>` will open. This is where you can import ``Scene`` and change rendering configurations.
 
    .. figure:: 1_DOF_1/project_creator.png
-      :class: dark-compatible-image
       :align: center
       :width: 45%
       :alt: Project Creator Screenshot
@@ -146,7 +145,6 @@ To manually recreate the above project from scratch:
    - Enable **STL** saving if needed.
 
    .. figure:: 1_DOF_1/config.png
-      :class: dark-compatible-image
       :align: center
       :width: 45%
       :alt: Configuration Screenshot
@@ -156,7 +154,6 @@ To manually recreate the above project from scratch:
 5. To add a model to the scene, click the **Create** button under the **Import Scene** section. This opens the :ref:`Scene Creator Window <scene_creator_window>`.
 
    .. figure:: 1_DOF_1/scene_creator.png
-      :class: dark-compatible-image
       :align: center
       :width: 45%
       :alt: Scene Creator Screenshot
@@ -170,10 +167,9 @@ To manually recreate the above project from scratch:
 8. In the **Sprite Creator**:
 
    - Assign a name to your ``3DObject``.
-   - Load the STL file from the `Resource/` directory.
+   - Load the STL file from the `resources/` directory.
 
    .. figure:: 1_DOF_1/sprite_creator.png
-      :class: dark-compatible-image
       :align: center
       :width: 100%
       :alt: Sprite Creator Screenshot
