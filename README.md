@@ -140,7 +140,7 @@ This is a single degree-of-freedom system, where only the rotation about the z-a
 Below is a plot showing the time-series data for each rotation angle given in the `angles/` folder:
 
 <p align="center">
-  <img src="docs\assets\images\angles_plot.png" alt="Angle Plot" width="400">
+  <img src="docs\assets\images\angles_plot.png" alt="Angle Plot" width="800">
 </p>
 
 <p align="center">
@@ -155,7 +155,7 @@ Below is a plot showing the time-series data for each rotation angle given in th
 4. The project will load with a pre-configured scene. Below is a video of the simulation output:
 
 <p align="center">
-  <img src="docs/_images/project_video.gif" alt="Flapping Wing Render Preview" width="600">
+  <img src="docs/_images/project_video.gif" alt="Flapping Wing Render Preview" width="800">
 </p>
 <p align="center">
   <em>Figure: Animation showing the flapping wing simulation rendered by FlapKine.</em>
