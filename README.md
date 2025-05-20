@@ -6,7 +6,7 @@
 
 # FlapKine – A Simulation Toolkit for the Kinematics of Flapping-Wing Micro Aerial Vehicles
 
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.08158/status.svg)](https://doi.org/10.21105/joss.08158)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.08158/status.svg)](https://doi.org/10.1063/5.0232140)
 ![GitHub License](https://img.shields.io/github/license/ihdavjar/FlapKine)
 ![GitHub Release](https://img.shields.io/github/v/release/ihdavjar/FlapKine?include_prereleases)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://ihdavjar.github.io/FlapKine/)
@@ -83,13 +83,94 @@ Set up FlapKine locally for development using the steps below:
 
 ## Example
 
+Get started with **FlapKine** using ready-to-run example projects. Each example showcases a different kinematic configuration and demonstrates how to:
+
+- Set up and simulate motion
+- Visualize results using the FlapKine interface
+- Reproduce the setup entirely from scratch
+
+Each project includes:
+
+- A pre-configured scene file (`scene.pkl`)
+- A complete simulation config (`config.json`)
+- Required resources to build the project from scratch
+- Instructions to both **run** and **rebuild** the project
+
+For detailed insights into the project structure and usage patterns, check out the **[Examples](https://ihdavjar.github.io/FlapKine/examples.html)** section in the **FlapKine** documentation. It showcases practical implementations and helps you understand how the components fit together seamlessly.
+
+## **1-DOF Flapping Wing System**
+
+Download the project.zip [here](path/to/project.zip)
+
+This example simulates a wing structure undergoing:
+
+- Rotation about a single axis (z-axis)
+- Visualization of a 3D wing mesh loaded from an STL file
+
+It includes all necessary configuration settings, time-varying angle inputs, and STL files required to run and reproduce the simulation in FlapKine.
+
+**Files Included**
+
+- `project.zip`: A compressed archive containing both the full simulation project and the necessary resource files.
+
+Upon extraction, the contents of `project.zip` are organized into two main folders:
+
+- `1_DOF_1/`: Contains the actual project setup, which can be loaded into FlapKine.
+- `resources/`: Contains supporting files required for reproducing the project from scratch, such as STL meshes, angle time series, and plots.
+
+**`resources/` Contents**
+
+```python
+resources/
+├── angles/
+│ ├── alpha_data.csv             # Rotation about the x-axis (all zeros)
+│ ├── beta_data.csv              # Rotation about the y-axis (all zeros)
+│ └── gamma_data.csv             # Rotation about the z-axis (time-series values)
+│
+├── stl/
+│ └── wing.stl                   # 3D mesh of the wing
+│
+└── angle_plot.png               # Plot of the rotation angles over time
+```
+
+**Simulation Details**
+
+This is a single degree-of-freedom system, where only the rotation about the z-axis (`gamma_data.csv`) is active. The alpha and beta angles (which can also be verified by visualizing the CSV files in `resources/angles`) remain zero throughout the simulation.
+
+Below is a plot showing the time-series data for each rotation angle given in the `angles/` folder:
+
+<p align="center">
+  <img src="docs/_images/angles_plot.png" alt="Angle Plot" width="400">
+</p>
+
+<p align="center">
+  <em>Figure: Time-series plot of the rotation angles (alpha, beta & gamma) used in this example.</em>
+</p>
+
+**Running the Example**
+
+1. Extract the `project.zip` archive to your desired directory.
+2. Launch the FlapKine application and select **Load Project**.
+3. Navigate to the `1_DOF_1/` folder and select the directory.
+4. The project will load with a pre-configured scene. Below is a video of the simulation output:
+
+<p align="center">
+  <img src="docs/_images/project_video.gif" alt="Flapping Wing Render Preview" width="600">
+</p>
+<p align="center">
+  <em>Figure: Animation showing the flapping wing simulation rendered by FlapKine.</em>
+</p>
+
+For more examples and detailed steps to rebuild the project from scratch, please visit the official documentation:
+[FlapKine Examples and Tutorials](https://ihdavjar.github.io/FlapKine/examples.html)
+
 ## Acknowledgements
 
 ## Contributing and Future
 
 ## ✅ To-Do List
 
-- [ ] Add example projects
+- [X] Add example projects
 - [X] Improve the documentation
 - [ ] Finalise paper.md
 - [X] Link all referenced sections consistently across README
