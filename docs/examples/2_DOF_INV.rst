@@ -30,19 +30,17 @@ These specific points (A, B, C, D) are marked on the wing as shown in the image 
 
 After tracking, the 2D point data is converted into 3D coordinates using DLTdv's calibration. The result is stored in a frame-wise format as shown below:
 
-.. code-block:: text
+   .. code-block::
 
-   Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
-   1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
-   1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
-   ...
+      pt1_x, pt1_y, pt1_z, pt2_x, pt2_y, pt2_z, pt3_x, pt3_y, pt3_z, pt4_x, pt4_y, pt4_z
+      1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
+      1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
+      ...
 
-Each row represents a single time frame and includes:
-
-- **Ax, Ay, Az**: 3D coordinates of point A
-- **Bx, By, Bz**: 3D coordinates of point B
-- **Cx, Cy, Cz**: 3D coordinates of point C
-- **Dx, Dy, Dz**: 3D coordinates of point D
+   - **pt1_x, pt1_y, pt1_z**: X, Y, Z coordinates of point A
+   - **pt2_x, pt2_y, pt2_z**: X, Y, Z coordinates of point B
+   - **pt3_x, pt3_y, pt3_z**: X, Y, Z coordinates of point C
+   - **pt4_x, pt4_y, pt4_z**: X, Y, Z coordinates of point D
 
 These markers correspond to the labeled points in the image below, used to define body orientation and compute IK-based Euler angles.
 
@@ -202,23 +200,23 @@ To manually recreate the above project from scratch:
 
 9. In the **Transformation** section:
 
-   - Set the **Rotation Transform Type** to `Euler_angles`
+   - Set the **Rotation Transform Type** to ``Euler_angles``.
 
-   - Press the blue coloured inverse kinematics button, to open the :ref:`Inverse Kinematics Window <inverse_kinematics_window>`
+   - Click the blue-colored **Inverse Kinematics** button to open the :ref:`Inverse Kinematics Window <inverse_kinematics_window>`.
 
-   - In the :ref:`Inverse Kinematics Window <inverse_kinematics_window>` choose the data in directory `resources/dlt_results/`.
+   - In the :ref:`Inverse Kinematics Window <inverse_kinematics_window>`, press the **Import Data** button and select the dataset located in the ``resources/dlt_results/`` directory.
 
-   - Alternatively here can also use the videos provided to compute the 3D positions independently using software like DLTdv.
+   - Alternatively, you may compute the 3D positions independently using external software such as **DLTdv**, based on the provided video files.
 
-   - However the project has this given to not make the process more cumbersome.
+   - However, for convenience, the required data has been pre-generated and included with the project to streamline the workflow.
 
-   - After getting the data choose the order as `XYZ` this should give the proper calculated euler angles, you can also watch the time series of these angles in the right half plane.
+   - After selecting the data, set the rotation order to ``XYZ``. This will yield correctly calculated Euler angles. The time series of these angles will be displayed in the right-hand panel.
 
-   - In the left half plane you can visualise the trajectory of each of the four points.A B C D.
+   - The left-hand panel provides a 3D visualization of the trajectories for each of the four tracked points: **A**, **B**, **C**, and **D**.
 
-   - Once you are done press the finsh button.
+   - Once the analysis is complete, click the **Finish** button.
 
-   - This would add the angles time automatically to :ref:`Sprite Creator Window <sprite_creator_window>`.
+   - The computed Euler angle time series will then be automatically transferred to the :ref:`Sprite Creator Window <sprite_creator_window>`.
 
 .. image:: ../assets/images/Inv_kinematics_window.png
    :alt: Inverse Kinematics Window
