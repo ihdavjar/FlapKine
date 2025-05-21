@@ -368,7 +368,7 @@ class SpriteCreator(QMainWindow):
         rotation_label = QLabel("Rotation Transform:")
         rotation_label.setFont(QFont('Times', 7))
         self.rotation_transform = QComboBox()
-        self.rotation_transform.addItems(["Constant", "Euler_Angles", "Custom"])
+        self.rotation_transform.addItems(["Constant", "Euler_Angles"])
         self.rotation_transform.currentIndexChanged.connect(self.rotation_transform_fun)
         self.rotation_transform_layout.addWidget(self.rotation_transform)
         transformation_group_layout.addRow(rotation_label, self.rotation_transform_layout)
@@ -378,7 +378,7 @@ class SpriteCreator(QMainWindow):
         flexibility_label = QLabel("Flexibility Transform:")
         flexibility_label.setFont(QFont('Times', 7))
         self.flexibility_transform = QComboBox()
-        self.flexibility_transform.addItems(["Constant", "FlexibleType1", "FlexibleType2", "Custom"])
+        self.flexibility_transform.addItems(["Constant", "FlexibleType1", "FlexibleType2"])
         self.flexibility_transform.currentIndexChanged.connect(self.flexibility_transform_fun)
         self.flexibility_transform_layout.addWidget(self.flexibility_transform)
         transformation_group_layout.addRow(flexibility_label, self.flexibility_transform_layout)
@@ -851,7 +851,7 @@ class SpriteCreator(QMainWindow):
 
         hbox = QHBoxLayout()
         self.position_input = QLineEdit()
-        self.position_input.setPlaceholderText("Time series of COM position")
+        self.position_input.setPlaceholderText("Time series of body origin position")
 
         self.open_position = QPushButton("Open")
         self.open_position.setFont(QFont('Times', 7))

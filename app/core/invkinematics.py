@@ -686,9 +686,9 @@ class InvKineWindow(QMainWindow):
             chart.GetTitleProperties().ShallowCopy(text_prop)
 
         # Update each chart with new data
-        update_chart(self.chart_r_1, alpha_values, "alpha", (1, 0, 0))  # Red
-        update_chart(self.chart_r_2, beta_values, "beta", (0, 1, 0))  # Green
-        update_chart(self.chart_r_3, gamma_values, "gamma", (0, 0, 1))  # Blue
+        update_chart(self.chart_r_1, alpha_values, "Angle I", (1, 0, 0))  # Red
+        update_chart(self.chart_r_2, beta_values, "Angle II", (0, 1, 0))  # Green
+        update_chart(self.chart_r_3, gamma_values, "Angle III", (0, 0, 1))  # Blue
 
         # Render updated charts
         self.vtkWidget_r_1.GetRenderWindow().Render()
