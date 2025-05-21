@@ -148,4 +148,4 @@ However, make sure to use the corresponding `resources` files provided with this
 
 .. rubric:: Download
 
-Get the resource from: `Download Link <https://example.com/your-download-link>`_
+Get the resource from: `Download Link <https://github.com/ihdavjar/FlapKine/raw/refs/heads/main/examples/3_DOF_2/project.zip?download=>`_
