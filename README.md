@@ -20,10 +20,10 @@ The GUI is built to assist researchers who may not be proficient in programming,
 
 FlapKine is lightweight and relies on a few essential libraries:
 
-- `numpy`
-- `pandas`
-- `PyQt5`
-- `vtk`
+- [NumPy](https://numpy.org/)
+- [Pandas](https://pandas.pydata.org/)
+- [PyQt5](https://riverbankcomputing.com/software/pyqt/intro)
+- [VTK (Visualization Toolkit)](https://vtk.org/)
 
 Key Features:
 
@@ -31,14 +31,13 @@ Key Features:
 - Control timelines, playback speed, and rendering in real time.
 - Import and display STL files with real-time transformation tracking.
 - **Project Setup Panel** — Configure video, camera paths, STL export, lighting, and reflections.
-- Export animations as high-quality JPEG sequences.
 - **Optimized Performance** — Built on VTK + PyQt5 with multithreaded rendering for speed.
 
 For the full **documentation**, tutorials, and API reference, visit the [FlapKine Docs](https://ihdavjar.github.io/FlapKine)!
 
 The source code can be found in the [GitHub repository](https://github.com/ihdavjar/FlapKine) and is fully open source under **MIT license**. Consider starring PathSim to support its development.
 
-## 📥 Installation
+## Installation
 
 ### 🔹 Option A: Windows Installer
 
@@ -77,7 +76,7 @@ Set up FlapKine locally for development using the steps below:
    python -m FlapKineLauncher.py
    ```
 
-> **Note:** For proper video rendering support, you **must install** the [K-Lite Codec Pack](https://codecguide.com/download_kl.htm) (Basic or Standard version is enough).  
+> **Note:** For proper video rendering support, you **must install** the [K-Lite Codec Pack](https://codecguide.com/download_kl.htm) (Basic or Standard version is enough).
 > Without it, some video player features may not work, due to missing codec issues.
 ---
 
@@ -100,7 +99,7 @@ For detailed insights into the project structure and usage patterns, check out t
 
 ## **1-DOF Flapping Wing System**
 
-Download the project.zip [here](path/to/project.zip)
+Download the [project.zip](https://github.com/ihdavjar/FlapKine/raw/refs/heads/main/examples/1_DOF_1/project.zip?download=)
 
 This example simulates a wing structure undergoing:
 
