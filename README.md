@@ -165,7 +165,27 @@ For more examples and detailed steps to rebuild the project from scratch, please
 
 ## Acknowledgements
 
-## Contributing and Future
+FlapKine has been developed as part of an undergraduate research initiative with strong interdisciplinary underpinnings spanning mechanical design, computer vision, and applied machine learning. Special thanks to:
+
+- **Professors and Mentors** at *IIT Jodhpur* for their constant guidance and feedback during the development of the analytical models and kinematic pipelines.
+- The open-source communities behind **VTK**, **PyQt5**, and **NumPy**, whose robust libraries form the backbone of this simulation toolkit.
+- Researchers and users of **DLTdv** tools for inspiring the need for a modern, standalone 3D tracking solution tailored to flapping-wing MAVs.
+
+
+## Contributing and Future Roadmap
+
+Contributions to **FlapKine** are welcome and encouraged! Whether it's code, bug reports, feature suggestions, or documentation improvements — feel free to open a [GitHub Issue](https://github.com/ihdavjar/FlapKine/issues) or submit a [Pull Request](https://github.com/ihdavjar/FlapKine/pulls).
+
+### Planned Enhancements
+
+- **Flexible Wing Models (in progress):** Enable simulation of deformable and compliant wing structures, moving beyond rigid-body assumptions.
+- **Multi-View Calibration System:** Integrate multi-stereo camera calibration tools natively within the GUI for seamless experimental video setup.
+- **DLTdv Replacement Pipeline:** Implement a modern Direct Linear Transform-based module to reconstruct 3D points from video footage, eliminating reliance on software like **DLTdv**.
+- **Plugin Architecture:** Enable external researchers to contribute new kinematic models or analysis tools as plug-and-play modules.
+
+The long-term goal is to position FlapKine as a **self-sufficient, GUI-driven alternative** to legacy motion tracking tools used in flapping-wing biomechanics and robotics, while retaining code-level access for power users.
+
+If you're passionate about bio-inspired flight, computer vision, or robotics — your contribution can shape the next chapter of FlapKine.
 
 ## ✅ To-Do List
 
