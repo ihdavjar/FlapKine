@@ -239,3 +239,7 @@ To manually recreate the above project from scratch:
 
 .. [#DLTdv] Ty Hedrick. *DLTdv: A MATLAB-based tool for 2D video digitizing and 3D reconstruction*.
    Available at: https://biomech.web.unc.edu/dltdv/
+
+.. rubric:: Download
+
+Get the resource from: `Download Link <https://example.com/your-download-link>`_

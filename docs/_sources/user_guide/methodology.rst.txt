@@ -3,7 +3,7 @@
 Methodology
 ===========
 
-The **Flapkine** application is a Python-based open-source framework designed to simulate **flapping kinematics** in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.
+The **Flapkine** application is a Python-based open-source framework designed to simulate **flapping wing kinematics** in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.
 
 Flapkine is structured into modular components, each specializing in a distinct stage of simulation — from object loading and transformation to scene assembly and time-series playback.
 
@@ -18,7 +18,6 @@ The core design philosophy of Flapkine is to offer an **intuitive, reusable, and
 
 - Rigid body transformations (translation + rotation)
 - Deformable transformations (flexible flapping motion)
-- Time-dependent playback via animation logic
 
 Its GUI offers researchers a no-code interface to interactively define, preview, and export kinematic models.
 
@@ -92,7 +91,7 @@ Each project contains exactly one inertial frame, associated with the single `Sc
 
   - :math:`O_{E}` is the origin of the inertial frame.
 
-  - :math:`\hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}` are its unit basis vectors.
+  - :math:`\hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}` are its unit basis vectors. (In app these are shown as `X`, `Y` and `Z`)
 
 Body Frame
 ^^^^^^^^^^
@@ -102,7 +101,7 @@ The **body frame** is the local coordinate system attached to each `Object3D` an
 
   - :math:`O_{B}` is the origin of the body frame.
 
-  - :math:`\hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}` are its unit basis vectors.
+  - :math:`\hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}` are its unit basis vectors. (In app these are shown as `A`, `B` and `C`)
 
 - If no initial alignment in :ref:`Sprite Creator Window <sprite_creator_window>` is specified, the body frame coincides with the inertial frame.
 
@@ -154,7 +153,7 @@ Flapkine is built from the ground up to be:
 
 - **Fully Open Source:** Licensed under a permissive open-source license to encourage academic and industrial collaboration.
 - **Modular and Extensible:** Add custom transformation models, extend GUI windows, or replace back-end rendering logic with ease.
-- **Hybrid Architecture:** Use Flapkine from the GUI **or** via Python scripts and command-line tools.
+- **Hybrid Architecture:** Use Flapkine from the GUI **or** via Python scripts.
 - **Research-Ready:** Designed for reproducibility, publication-quality figures, and scientific visualization workflows.
 
 For details on mathematical models (e.g., forward kinematics, axis projections, and deformation strategies), :doc:`Transform Reference <transform_reference>`.

@@ -188,3 +188,6 @@ To manually recreate the above project from scratch:
 
 12. Finally, click the **Create Project** button. This will generate the same project structure and configuration as in the original `1_DOF_1/` folder provided in `project.zip`.
 
+.. rubric:: Download
+
+Get the resource from: `Download Link <https://example.com/your-download-link>`_

@@ -12,25 +12,24 @@ The **Inverse Kinematics Window** is designed to extract time‐series Euler ang
 
 ---
 
-FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv [#DLTdv]_) rather than raw 2D images. Use this workflow to import your landmark trajectories:
+FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv [#DLTdv]_) rather than raw multi-view images/video. Use this workflow to import your landmark trajectories:
 
 1. **Prepare your CSV file**
    The file must contain one header row and one data row per time step, with these columns:
 
    .. code-block::
 
-      Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
+      pt1_x, pt1_y, pt1_z, pt2_x, pt2_y, pt2_z, pt3_x, pt3_y, pt3_z, pt4_x, pt4_y, pt4_z
       1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
       1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
       ...
 
-   - **time**: elapsed time in seconds (or frame index)
-   - **Ax, Ay, Az**: X, Y, Z coordinates of point A
-   - **Bx, By, Bz**: X, Y, Z coordinates of point B
-   - **Cx, Cy, Cz**: X, Y, Z coordinates of point C
-   - **Dx, Dy, Dz**: X, Y, Z coordinates of point D
+   - **pt1_x, pt1_y, pt1_z**: X, Y, Z coordinates of point A
+   - **pt2_x, pt2_y, pt2_z**: X, Y, Z coordinates of point B
+   - **pt3_x, pt3_y, pt3_z**: X, Y, Z coordinates of point C
+   - **pt4_x, pt4_y, pt4_z**: X, Y, Z coordinates of point D
 
-   Points A–D correspond to the four markers shown in the below image and processed in DLTdv.
+   Points (pt1-4) correspond to the four markers (A–D) shown in the below image and processed in DLTdv.
 
 .. image:: ../../assets/images/wing_diagram.jpg
    :alt: Wing Point Configuration
@@ -39,10 +38,13 @@ FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv [#DLTdv]_) rather
 
 ---
 
+   These points were specifically selected as these are aligned along the two body axes (:math:`\hat{b_{1}}` and :math:`\hat{b_{2}}`), the other axis (:math:`\hat{b_{3}}``) is obtained by taking cross-product of these two. Then these are analytically solved to give euler angles.
+   See :ref:`Inverse Kinematics API <inverse_kinematics_code>`
+
 2. **Choose Euler Sequence**
 
 - In the **Euler Order** dropdown, pick your desired rotation sequence (e.g., `ZYX`, `XYZ`, etc.).
-- This order determines how α (alpha), β (beta), and γ (gamma) are computed.
+- This order determines how Angle I, Angle II, and Angle III are computed.
 
 ---
 
@@ -55,7 +57,7 @@ FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv [#DLTdv]_) rather
 
 4. **Compute & Preview Euler Angles**
 
-- Once the sequence is selected, the window auto‐calculates α, β, γ at each timestamp.
+- Once the sequence is selected, the window auto‐calculates Angle I, Angle II, and Angle III at each timestamp.
 - Real‐time line plots appear below the 3D view for each angle component.
 
 ---

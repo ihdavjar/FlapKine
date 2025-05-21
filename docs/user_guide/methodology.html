@@ -373,7 +373,7 @@
                   
   <section id="methodology">
 <span id="id1"></span><h1>Methodology<a class="headerlink" href="#methodology" title="Link to this heading">#</a></h1>
-<p>The <strong>Flapkine</strong> application is a Python-based open-source framework designed to simulate <strong>flapping kinematics</strong> in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.</p>
+<p>The <strong>Flapkine</strong> application is a Python-based open-source framework designed to simulate <strong>flapping wing kinematics</strong> in biomimetic systems. It combines object-oriented architecture, STL-based geometry, and user-defined kinematic models to create rich, interactive 3D simulations.</p>
 <p>Flapkine is structured into modular components, each specializing in a distinct stage of simulation — from object loading and transformation to scene assembly and time-series playback.</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
@@ -392,7 +392,6 @@
 <ul class="simple">
 <li><p>Rigid body transformations (translation + rotation)</p></li>
 <li><p>Deformable transformations (flexible flapping motion)</p></li>
-<li><p>Time-dependent playback via animation logic</p></li>
 </ul>
 <p>Its GUI offers researchers a no-code interface to interactively define, preview, and export kinematic models.</p>
 </section>
@@ -466,7 +465,7 @@ Each project contains exactly one inertial frame, associated with the single <ci
 <li><p><strong>Notation</strong>: <span class="math notranslate nohighlight">\(\{O_{E}, \hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}\}\)</span></p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(O_{E}\)</span> is the origin of the inertial frame.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}\)</span> are its unit basis vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_{1}, \hat{\mathbf{e}}_{2}, \hat{\mathbf{e}}_{3}\)</span> are its unit basis vectors. (In app these are shown as <cite>X</cite>, <cite>Y</cite> and <cite>Z</cite>)</p></li>
 </ul>
 </li>
 </ul>
@@ -478,7 +477,7 @@ Each project contains exactly one inertial frame, associated with the single <ci
 <li><p><strong>Notation</strong>: <span class="math notranslate nohighlight">\(\{O_{B}, \hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}\}\)</span></p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(O_{B}\)</span> is the origin of the body frame.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}\)</span> are its unit basis vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_{1}, \hat{\mathbf{b}}_{2}, \hat{\mathbf{b}}_{3}\)</span> are its unit basis vectors. (In app these are shown as <cite>A</cite>, <cite>B</cite> and <cite>C</cite>)</p></li>
 </ul>
 </li>
 <li><p>If no initial alignment in <a class="reference internal" href="window/sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a> is specified, the body frame coincides with the inertial frame.</p></li>
@@ -527,7 +526,7 @@ See <a class="reference internal" href="transform_reference.html"><span class="d
 <ul class="simple">
 <li><p><strong>Fully Open Source:</strong> Licensed under a permissive open-source license to encourage academic and industrial collaboration.</p></li>
 <li><p><strong>Modular and Extensible:</strong> Add custom transformation models, extend GUI windows, or replace back-end rendering logic with ease.</p></li>
-<li><p><strong>Hybrid Architecture:</strong> Use Flapkine from the GUI <strong>or</strong> via Python scripts and command-line tools.</p></li>
+<li><p><strong>Hybrid Architecture:</strong> Use Flapkine from the GUI <strong>or</strong> via Python scripts.</p></li>
 <li><p><strong>Research-Ready:</strong> Designed for reproducibility, publication-quality figures, and scientific visualization workflows.</p></li>
 </ul>
 <p>For details on mathematical models (e.g., forward kinematics, axis projections, and deformation strategies), <a class="reference internal" href="transform_reference.html"><span class="doc">Transform Reference</span></a>.</p>

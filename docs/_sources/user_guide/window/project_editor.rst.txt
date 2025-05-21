@@ -63,7 +63,7 @@ Video Animation Widget
 
   - **Playback Controls:** Play, pause, or scrub through the animation timeline.
 
-  - **Visualization Aid:** Helps set camera and lighting configurations for the final video render.
+  - **Visualization Aid:** Helps to set camera and lighting configurations for the final video render.
 
   - **Coordinate Axes:** Displays both body-fixed axes (A, B, C) and inertial axes (X, Y, Z).
 
@@ -79,7 +79,7 @@ Point Selector Widget
 
   - **Flattened Projection:** Automatically adjusts to produce a 2D view for easier point selection.
 
-  - **Adaptive Interface:** Works intelligently for both wing-like structures and other object geometries.
+  - **Adaptive Interface:** Works intelligently for wing-like structures.
 
 ---
 
@@ -92,7 +92,5 @@ Scatter Plot Widget
 - **Key Features:**
 
   - **Trajectory Tracking:** Visualizes the motion path in 3D space over time.
-
-  - **Dynamic Analysis:** Ideal for examining oscillations, vibrations, and deformation patterns.
 
   - **Inertial Axes Reference:** The plot is aligned with the inertial axes (X, Y, Z), providing a global frame of reference for motion.

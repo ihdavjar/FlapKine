@@ -145,3 +145,7 @@ However, make sure to use the corresponding `resources` files provided with this
    *Development of a Kinematical Model to Study the Aerodynamics of Flapping-Wings.*
    International Journal of Micro Air Vehicles, 3(2), 61–88, 2011.
    https://doi.org/10.1260/1756-8293.3.2.61
+
+.. rubric:: Download
+
+Get the resource from: `Download Link <https://example.com/your-download-link>`_

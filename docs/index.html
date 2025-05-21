@@ -313,17 +313,24 @@
                   
   <section id="flapkine">
 <h1>FlapKine<a class="headerlink" href="#flapkine" title="Link to this heading">#</a></h1>
-<p><strong>FlapKine</strong> is a modular, high-performance PyQt5-based application for 3D forward and inverse kinematics visualization. Designed for <strong>researchers</strong>, <strong>roboticists</strong>, and <strong>engineers</strong>, it enables precise analysis, visualization, and export of flapping-wing dynamics using STL models and camera-tracked experimental data.</p>
+<p><strong>FlapKine</strong> is a modular, high-performance PyQt5-based application for 3D forward and inverse kinematics visualization. Designed for <strong>researchers</strong>, <strong>roboticists</strong>, and <strong>engineers</strong>, it enables precise visualization, and export of flapping-wing kinematics using STL models and camera-tracked experimental data.</p>
 <p>Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready</p>
+<a class="reference external image-reference" href="https://doi.org/10.1063/5.0232140"><img alt="JOSS DOI" src="https://joss.theoj.org/papers/10.21105/joss.08158/status.svg" />
+</a>
+<img alt="GitHub License" src="https://img.shields.io/github/license/ihdavjar/FlapKine" />
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/ihdavjar/FlapKine?include_prereleases" />
+<a class="reference external image-reference" href="https://ihdavjar.github.io/FlapKine/"><img alt="Documentation" src="https://img.shields.io/badge/docs-online-brightgreen.svg" />
+</a>
+<a class="reference external image-reference" href="https://codecov.io/gh/ihdavjar/FlapKine"><img alt="Code Coverage" src="https://codecov.io/gh/ihdavjar/FlapKine/branch/master/graph/badge.svg" />
+</a>
 <p>—</p>
 <section id="features">
 <h2>🔧 Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Inverse Kinematics Engine</strong> – Compute and visualize 3D joint trajectories using custom analytical models.</p></li>
+<li><p><strong>Inverse Kinematics Engine</strong> – Compute euler angles and visualize 3D point trajectories using custom analytical models.</p></li>
 <li><p><strong>3D STL Mesh Viewer</strong> – Load STL files and observe real-time kinematic transformations.</p></li>
 <li><p><strong>Project Configuration</strong> – Customize video resolution, camera settings, lighting parameters, and export options.</p></li>
-<li><p><strong>Frame Export</strong> – Export high-resolution JPG/PNG renders for each frame of the animation.</p></li>
-<li><p><strong>In-Situ Rendering</strong> – Generate animations directly in memory without saving intermediate frames, enabling significantly faster execution.</p></li>
+<li><p><strong>In-Situ Rendering</strong> – Generate animations directly in memory without removing I/O overhead, enabling significantly faster execution.</p></li>
 </ul>
 <p>—</p>
 </section>

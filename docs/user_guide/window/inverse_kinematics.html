@@ -42,6 +42,7 @@
     <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/window/inverse_kinematics';</script>
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -375,35 +376,38 @@
 </a>
 <p>The <strong>Inverse Kinematics Window</strong> is designed to extract time‐series Euler angles from your wing’s 3D point data. Follow these steps to import, visualize, and export your kinematics:</p>
 <p>—</p>
-<p>FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv <a class="footnote-reference brackets" href="#dltdv" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) rather than raw 2D images. Use this workflow to import your landmark trajectories:</p>
+<p>FlapKine expects pre-computed 3D coordinates (e.g., from DLTdv <a class="footnote-reference brackets" href="#dltdv" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) rather than raw multi-view images/video. Use this workflow to import your landmark trajectories:</p>
 <ol class="arabic">
 <li><p><strong>Prepare your CSV file</strong>
 The file must contain one header row and one data row per time step, with these columns:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ax</span><span class="p">,</span> <span class="n">Ay</span><span class="p">,</span> <span class="n">Az</span><span class="p">,</span> <span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span><span class="p">,</span> <span class="n">Cx</span><span class="p">,</span> <span class="n">Cy</span><span class="p">,</span> <span class="n">Cz</span><span class="p">,</span> <span class="n">Dx</span><span class="p">,</span> <span class="n">Dy</span><span class="p">,</span> <span class="n">Dz</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pt1_x</span><span class="p">,</span> <span class="n">pt1_y</span><span class="p">,</span> <span class="n">pt1_z</span><span class="p">,</span> <span class="n">pt2_x</span><span class="p">,</span> <span class="n">pt2_y</span><span class="p">,</span> <span class="n">pt2_z</span><span class="p">,</span> <span class="n">pt3_x</span><span class="p">,</span> <span class="n">pt3_y</span><span class="p">,</span> <span class="n">pt3_z</span><span class="p">,</span> <span class="n">pt4_x</span><span class="p">,</span> <span class="n">pt4_y</span><span class="p">,</span> <span class="n">pt4_z</span>
 <span class="mf">1.23</span><span class="p">,</span> <span class="mf">4.56</span><span class="p">,</span> <span class="mf">7.89</span><span class="p">,</span> <span class="mf">2.34</span><span class="p">,</span> <span class="mf">5.67</span><span class="p">,</span> <span class="mf">8.90</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">,</span> <span class="mf">6.78</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">,</span> <span class="mf">4.56</span><span class="p">,</span> <span class="mf">7.89</span><span class="p">,</span> <span class="mf">0.12</span>
 <span class="mf">1.25</span><span class="p">,</span> <span class="mf">4.58</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">2.36</span><span class="p">,</span> <span class="mf">5.69</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">,</span> <span class="mf">3.47</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">9.03</span><span class="p">,</span> <span class="mf">4.58</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">0.14</span>
 <span class="o">...</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><strong>time</strong>: elapsed time in seconds (or frame index)</p></li>
-<li><p><strong>Ax, Ay, Az</strong>: X, Y, Z coordinates of point A</p></li>
-<li><p><strong>Bx, By, Bz</strong>: X, Y, Z coordinates of point B</p></li>
-<li><p><strong>Cx, Cy, Cz</strong>: X, Y, Z coordinates of point C</p></li>
-<li><p><strong>Dx, Dy, Dz</strong>: X, Y, Z coordinates of point D</p></li>
+<li><p><strong>pt1_x, pt1_y, pt1_z</strong>: X, Y, Z coordinates of point A</p></li>
+<li><p><strong>pt2_x, pt2_y, pt2_z</strong>: X, Y, Z coordinates of point B</p></li>
+<li><p><strong>pt3_x, pt3_y, pt3_z</strong>: X, Y, Z coordinates of point C</p></li>
+<li><p><strong>pt4_x, pt4_y, pt4_z</strong>: X, Y, Z coordinates of point D</p></li>
 </ul>
-<p>Points A–D correspond to the four markers shown in the below image and processed in DLTdv.</p>
+<p>Points (pt1-4) correspond to the four markers (A–D) shown in the below image and processed in DLTdv.</p>
 </li>
 </ol>
 <a class="reference internal image-reference" href="../../_images/wing_diagram.jpg"><img alt="Wing Point Configuration" class="align-center" src="../../_images/wing_diagram.jpg" style="width: 400px;" />
 </a>
 <p>—</p>
+<blockquote>
+<div><p>These points were specifically selected as these are aligned along the two body axes (<span class="math notranslate nohighlight">\(\hat{b_{1}}\)</span> and <span class="math notranslate nohighlight">\(\hat{b_{2}}\)</span>), the other axis (<span class="math notranslate nohighlight">\(\hat{b_{3}}`\)</span>) is obtained by taking cross-product of these two. Then these are analytically solved to give euler angles.
+See <a class="reference internal" href="../../api_reference/src/src.core.inverse_kinematics.html#inverse-kinematics-code"><span class="std std-ref">Inverse Kinematics API</span></a></p>
+</div></blockquote>
 <ol class="arabic simple" start="2">
 <li><p><strong>Choose Euler Sequence</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>In the <strong>Euler Order</strong> dropdown, pick your desired rotation sequence (e.g., <cite>ZYX</cite>, <cite>XYZ</cite>, etc.).</p></li>
-<li><p>This order determines how α (alpha), β (beta), and γ (gamma) are computed.</p></li>
+<li><p>This order determines how Angle I, Angle II, and Angle III are computed.</p></li>
 </ul>
 <p>—</p>
 <ol class="arabic simple" start="3">
@@ -418,7 +422,7 @@ The file must contain one header row and one data row per time step, with these 
 <li><p><strong>Compute &amp; Preview Euler Angles</strong></p></li>
 </ol>
 <ul class="simple">
-<li><p>Once the sequence is selected, the window auto‐calculates α, β, γ at each timestamp.</p></li>
+<li><p>Once the sequence is selected, the window auto‐calculates Angle I, Angle II, and Angle III at each timestamp.</p></li>
 <li><p>Real‐time line plots appear below the 3D view for each angle component.</p></li>
 </ul>
 <p>—</p>

@@ -12,7 +12,7 @@ To load a saved project:
 
 You’ll be redirected to the **Project Editor Window**.
 
-For layout, features, and tools, see the :doc:`Project Editor Window <window/project_editor_window>`.
+For layout, features, and tools, see the :ref:`Project Editor Window <project_editor_window>`.
 
 ⚙️ Rendering Options
 ---------------------
@@ -24,6 +24,6 @@ For layout, features, and tools, see the :doc:`Project Editor Window <window/pro
   - In-situ memory rendering (no disk I/O bottlenecks)
   - Multithreading using ``QThreadPool``
   - High-performance VTK pipeline
-  - Non-essential UI widgets are disabled during rendering
+  - Non-essential UI widgets are disabled during rendering to reduce the overall load while rendering.
 
 For render configuration options, see the :doc:`Render Configuration <render_config>`

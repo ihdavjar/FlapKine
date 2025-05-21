@@ -20,7 +20,7 @@ This section describes all interface windows used in Flapkine. Each has a dedica
    * - :doc:`Sprite Creator Window <window/sprite_creator>`
      - Define object properties and orientation
    * - :doc:`InverseKinematics Window <window/inverse_kinematics>`
-     - For solving IK problems
+     - For solving Inverse Kinematics problems
 
 .. toctree::
    :hidden:
