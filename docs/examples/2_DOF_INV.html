@@ -376,19 +376,20 @@
 </ul>
 <p>These specific points (A, B, C, D) are marked on the wing as shown in the image below. They are manually tracked frame-by-frame using <strong>DLTdv</strong>.</p>
 <p>After tracking, the 2D point data is converted into 3D coordinates using DLTdv’s calibration. The result is stored in a frame-wise format as shown below:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ax, Ay, Az, Bx, By, Bz, Cx, Cy, Cz, Dx, Dy, Dz
-1.23, 4.56, 7.89, 2.34, 5.67, 8.90, 3.45, 6.78, 9.01, 4.56, 7.89, 0.12
-1.25, 4.58, 7.91, 2.36, 5.69, 8.92, 3.47, 6.80, 9.03, 4.58, 7.91, 0.14
-...
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pt1_x</span><span class="p">,</span> <span class="n">pt1_y</span><span class="p">,</span> <span class="n">pt1_z</span><span class="p">,</span> <span class="n">pt2_x</span><span class="p">,</span> <span class="n">pt2_y</span><span class="p">,</span> <span class="n">pt2_z</span><span class="p">,</span> <span class="n">pt3_x</span><span class="p">,</span> <span class="n">pt3_y</span><span class="p">,</span> <span class="n">pt3_z</span><span class="p">,</span> <span class="n">pt4_x</span><span class="p">,</span> <span class="n">pt4_y</span><span class="p">,</span> <span class="n">pt4_z</span>
+<span class="mf">1.23</span><span class="p">,</span> <span class="mf">4.56</span><span class="p">,</span> <span class="mf">7.89</span><span class="p">,</span> <span class="mf">2.34</span><span class="p">,</span> <span class="mf">5.67</span><span class="p">,</span> <span class="mf">8.90</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">,</span> <span class="mf">6.78</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">,</span> <span class="mf">4.56</span><span class="p">,</span> <span class="mf">7.89</span><span class="p">,</span> <span class="mf">0.12</span>
+<span class="mf">1.25</span><span class="p">,</span> <span class="mf">4.58</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">2.36</span><span class="p">,</span> <span class="mf">5.69</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">,</span> <span class="mf">3.47</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">9.03</span><span class="p">,</span> <span class="mf">4.58</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">0.14</span>
+<span class="o">...</span>
 </pre></div>
 </div>
-<p>Each row represents a single time frame and includes:</p>
 <ul class="simple">
-<li><p><strong>Ax, Ay, Az</strong>: 3D coordinates of point A</p></li>
-<li><p><strong>Bx, By, Bz</strong>: 3D coordinates of point B</p></li>
-<li><p><strong>Cx, Cy, Cz</strong>: 3D coordinates of point C</p></li>
-<li><p><strong>Dx, Dy, Dz</strong>: 3D coordinates of point D</p></li>
+<li><p><strong>pt1_x, pt1_y, pt1_z</strong>: X, Y, Z coordinates of point A</p></li>
+<li><p><strong>pt2_x, pt2_y, pt2_z</strong>: X, Y, Z coordinates of point B</p></li>
+<li><p><strong>pt3_x, pt3_y, pt3_z</strong>: X, Y, Z coordinates of point C</p></li>
+<li><p><strong>pt4_x, pt4_y, pt4_z</strong>: X, Y, Z coordinates of point D</p></li>
 </ul>
+</div></blockquote>
 <p>These markers correspond to the labeled points in the image below, used to define body orientation and compute IK-based Euler angles.</p>
 <a class="reference internal image-reference" href="../_images/wing_diagram.jpg"><img alt="Wing Point Configuration" class="align-center" src="../_images/wing_diagram.jpg" style="width: 400px;" />
 </a>
@@ -525,15 +526,15 @@
 </li>
 <li><p>In the <strong>Transformation</strong> section:</p>
 <ul class="simple">
-<li><p>Set the <strong>Rotation Transform Type</strong> to <cite>Euler_angles</cite></p></li>
-<li><p>Press the blue coloured inverse kinematics button, to open the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a></p></li>
-<li><p>In the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a> choose the data in directory <cite>resources/dlt_results/</cite>.</p></li>
-<li><p>Alternatively here can also use the videos provided to compute the 3D positions independently using software like DLTdv.</p></li>
-<li><p>However the project has this given to not make the process more cumbersome.</p></li>
-<li><p>After getting the data choose the order as <cite>XYZ</cite> this should give the proper calculated euler angles, you can also watch the time series of these angles in the right half plane.</p></li>
-<li><p>In the left half plane you can visualise the trajectory of each of the four points.A B C D.</p></li>
-<li><p>Once you are done press the finsh button.</p></li>
-<li><p>This would add the angles time automatically to <a class="reference internal" href="../user_guide/window/sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a>.</p></li>
+<li><p>Set the <strong>Rotation Transform Type</strong> to <code class="docutils literal notranslate"><span class="pre">Euler_angles</span></code>.</p></li>
+<li><p>Click the blue-colored <strong>Inverse Kinematics</strong> button to open the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a>.</p></li>
+<li><p>In the <a class="reference internal" href="../user_guide/window/inverse_kinematics.html#inverse-kinematics-window"><span class="std std-ref">Inverse Kinematics Window</span></a>, press the <strong>Import Data</strong> button and select the dataset located in the <code class="docutils literal notranslate"><span class="pre">resources/dlt_results/</span></code> directory.</p></li>
+<li><p>Alternatively, you may compute the 3D positions independently using external software such as <strong>DLTdv</strong>, based on the provided video files.</p></li>
+<li><p>However, for convenience, the required data has been pre-generated and included with the project to streamline the workflow.</p></li>
+<li><p>After selecting the data, set the rotation order to <code class="docutils literal notranslate"><span class="pre">XYZ</span></code>. This will yield correctly calculated Euler angles. The time series of these angles will be displayed in the right-hand panel.</p></li>
+<li><p>The left-hand panel provides a 3D visualization of the trajectories for each of the four tracked points: <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, and <strong>D</strong>.</p></li>
+<li><p>Once the analysis is complete, click the <strong>Finish</strong> button.</p></li>
+<li><p>The computed Euler angle time series will then be automatically transferred to the <a class="reference internal" href="../user_guide/window/sprite_creator.html#sprite-creator-window"><span class="std std-ref">Sprite Creator Window</span></a>.</p></li>
 </ul>
 </li>
 </ol>
