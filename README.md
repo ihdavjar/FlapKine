@@ -77,8 +77,8 @@ Set up FlapKine locally for development using the steps below:
    python -m FlapKineLauncher.py
    ```
 
-> **Tip:** You can deactivate the virtual environment at any time by typing `deactivate`.
-
+> **Note:** For proper video rendering support, you **must install** the [K-Lite Codec Pack](https://codecguide.com/download_kl.htm) (Basic or Standard version is enough).  
+> Without it, some video player features may not work, due to missing codec issues.
 ---
 
 ## Example
