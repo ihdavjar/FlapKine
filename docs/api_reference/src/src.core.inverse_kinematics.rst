@@ -1,3 +1,5 @@
+.. _inverse_kinematics_code:
+
 src.core.inverse\_kinematics package
 ====================================
 

@@ -4,7 +4,7 @@
 🔹 Option A: Windows Installer
 ------------------------------
 
-Download the latest release from the `Releases Page <https://github.com/ihdavjar/FlapKine/releases>`_ and run the installer. This will install FlapKine on your system with optional desktop shortcuts.
+Download the latest release from the `Releases Page <https://github.com/ihdavjar/FlapKine/releases>`_ and run the installer. This will install FlapKine on your system with a desktop shortcuts.
 
 🔹 Option B: Developer Mode (Python)
 ------------------------------------

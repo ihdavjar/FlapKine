@@ -23,6 +23,6 @@ Buttons
 Navigation
 ----------
 
-Once a project is selected or created, the interface redirects you to the **Project Editor Window**.
+Once a project is selected or created, the interface redirects you to the :doc:`Project Editor Window <project_editor>`.
 
-➡️ See: :doc:`Project Editor Window <project_editor>`
+If create project option is selected the interface redirects you to the :ref:`Project Creator Window <project_creator_window>`.
