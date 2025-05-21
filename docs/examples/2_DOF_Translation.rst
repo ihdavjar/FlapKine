@@ -219,4 +219,4 @@ To manually recreate the above project from scratch:
 
 .. rubric:: Download
 
-Get the resource from: `Download Link <https://example.com/your-download-link>`_
+Get the resource from: `Download Link <https://github.com/ihdavjar/FlapKine/raw/refs/heads/main/examples/2_DOF_Translation/project.zip?download=>`_
