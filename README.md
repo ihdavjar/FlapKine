@@ -170,6 +170,7 @@ FlapKine has been developed as part of an undergraduate research initiative with
 - **Professors and Mentors** at *IIT Jodhpur* for their constant guidance and feedback during the development of the analytical models and kinematic pipelines.
 - The open-source communities behind **VTK**, **PyQt5**, and **NumPy**, whose robust libraries form the backbone of this simulation toolkit.
 - Researchers and users of **DLTdv** tools for inspiring the need for a modern, standalone 3D tracking solution tailored to flapping-wing MAVs.
+- **ChatGPT** by *OpenAI*, for serving as an AI assistant in drafting high-quality documentation, generating professional Sphinx-style docstrings, and assisting with the creation of the FlapKine logo.
 
 
 ## Contributing and Future Roadmap
