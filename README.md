@@ -6,7 +6,9 @@
 
 # FlapKine – A Simulation Toolkit for the Kinematics of Flapping-Wing Micro Aerial Vehicles
 
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.08158/status.svg)](https://doi.org/10.1063/5.0232140)
+![Python](https://img.shields.io/pypi/pyversions/flapkine)
+![Platform](https://img.shields.io/badge/platform-windows-blue)
+![Repo Size](https://img.shields.io/github/repo-size/ihdavjar/FlapKine)
 ![GitHub License](https://img.shields.io/github/license/ihdavjar/FlapKine)
 ![GitHub Release](https://img.shields.io/github/v/release/ihdavjar/FlapKine?include_prereleases)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://ihdavjar.github.io/FlapKine/)
