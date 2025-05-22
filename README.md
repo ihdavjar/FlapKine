@@ -35,7 +35,7 @@ Key Features:
 
 For the full **documentation**, tutorials, and API reference, visit the [FlapKine Docs](https://ihdavjar.github.io/FlapKine)!
 
-The source code can be found in the [GitHub repository](https://github.com/ihdavjar/FlapKine) and is fully open source under **MIT license**. Consider starring PathSim to support its development.
+The source code can be found in the [GitHub repository](https://github.com/ihdavjar/FlapKine) and is fully open source under **MIT license**. Consider starring FlapKine to support its development.
 
 ## Installation
 
