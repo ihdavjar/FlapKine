@@ -1,12 +1,18 @@
 from version import __version__
 from setuptools import setup, find_packages
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='FlapKine',
     version=__version__,
-    description='',
     author='Kalbhavi Vadhiraj',
     author_email='raj.31@iitj.ac.in',
+    description='A Simulation Toolkit for the Kinematics of Flapping-Wing Micro Aerial Vehicles',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(where='.', include=['app', 'app.*', 'src', 'src.*']),
     include_package_data=True,
     install_requires=[

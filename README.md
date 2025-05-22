@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/assets/flapkine_icon.png" alt="FlapKine Logo" width="200"/>
+  <img src="https://github.com/ihdavjar/FlapKine/blob/b4c54fb05f3480f55b8fb947e20f077168936d0e/app/assets/flapkine_icon.png" alt="FlapKine Logo" width="200"/>
 </p>
 
 ---
