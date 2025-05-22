@@ -14,6 +14,7 @@
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://ihdavjar.github.io/FlapKine/)
 [![codecov](https://codecov.io/gh/ihdavjar/FlapKine/branch/master/graph/badge.svg)](https://codecov.io/gh/ihdavjar/FlapKine)
 
+
 ## Overview
 
 **FlapKine** is a modular, PyQt5-based application designed for 3D visualization of forward and inverse kinematics in flapping-wing systems. Its hybrid architecture allows it to operate as both an intuitive graphical user interface (GUI) and a Python library, enabling researchers to simulate and animate flapping-wing motion either interactively or through code using FlapKine’s core classes.
