@@ -168,7 +168,7 @@ For more examples and detailed steps to rebuild the project from scratch, please
 
 ## Acknowledgements
 
-FlapKine has been developed as part of an undergraduate research initiative with strong interdisciplinary underpinnings spanning mechanical design, computer vision, and applied machine learning. Special thanks to:
+FlapKine has been developed as part of an undergraduate research initiative with strong interdisciplinary underpinnings spanning mechanical design, computer vision, and computer graphics. Special thanks to:
 
 - **Professors and Mentors** at *IIT Jodhpur* for their constant guidance and feedback during the development of the analytical models and kinematic pipelines.
 - The open-source communities behind **VTK**, **PyQt5**, and **NumPy**, whose robust libraries form the backbone of this simulation toolkit.
