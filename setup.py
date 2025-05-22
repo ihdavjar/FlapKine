@@ -26,4 +26,9 @@ setup(
         ],
     },
     python_requires='==3.10.3',
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Scientific/Engineering :: Visualization",
+    ],
 )
