@@ -14,7 +14,6 @@
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://ihdavjar.github.io/FlapKine/)
 [![codecov](https://codecov.io/gh/ihdavjar/FlapKine/branch/master/graph/badge.svg)](https://codecov.io/gh/ihdavjar/FlapKine)
 
-
 ## Overview
 
 **FlapKine** is a modular, PyQt5-based application designed for 3D visualization of forward and inverse kinematics in flapping-wing systems. Its hybrid architecture allows it to operate as both an intuitive graphical user interface (GUI) and a Python library, enabling researchers to simulate and animate flapping-wing motion either interactively or through code using FlapKine’s core classes.
@@ -81,6 +80,7 @@ Set up FlapKine locally for development using the steps below:
 
 > **Note:** For proper video rendering support, you **must install** the [K-Lite Codec Pack](https://codecguide.com/download_kl.htm) (Basic or Standard version is enough).
 > Without it, some video player features may not work, due to missing codec issues.
+
 ---
 
 ## Example
@@ -175,7 +175,6 @@ FlapKine has been developed as part of an undergraduate research initiative with
 - Researchers and users of **DLTdv** tools for inspiring the need for a modern, standalone 3D tracking solution tailored to flapping-wing MAVs.
 - **ChatGPT** by *OpenAI*, for serving as an AI assistant in drafting high-quality documentation, generating professional Sphinx-style docstrings, and assisting with the creation of the FlapKine logo.
 
-
 ## Contributing and Future Roadmap
 
 Contributions to **FlapKine** are welcome and encouraged! Whether it's code, bug reports, feature suggestions, or documentation improvements — feel free to open a [GitHub Issue](https://github.com/ihdavjar/FlapKine/issues) or submit a [Pull Request](https://github.com/ihdavjar/FlapKine/pulls).
@@ -190,11 +189,3 @@ Contributions to **FlapKine** are welcome and encouraged! Whether it's code, bug
 The long-term goal is to position FlapKine as a **self-sufficient, GUI-driven alternative** to legacy motion tracking tools used in flapping-wing biomechanics and robotics, while retaining code-level access for power users.
 
 If you're passionate about bio-inspired flight, computer vision, or robotics — your contribution can shape the next chapter of FlapKine.
-
-## ✅ To-Do List
-
-- [X] Add example projects
-- [X] Improve the documentation
-- [ ] Finalise paper.md
-- [X] Link all referenced sections consistently across README
-- [X] Add algorithm references (e.g., DLT explanation) with citations
