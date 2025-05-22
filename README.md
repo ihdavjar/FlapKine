@@ -8,6 +8,7 @@
 
 ![Platform](https://img.shields.io/badge/platform-windows-blue)
 ![Repo Size](https://img.shields.io/github/repo-size/ihdavjar/FlapKine)
+[![PyPI version](https://img.shields.io/pypi/v/flapkine.svg)](https://pypi.org/project/flapkine/)
 ![GitHub License](https://img.shields.io/github/license/ihdavjar/FlapKine)
 ![GitHub Release](https://img.shields.io/github/v/release/ihdavjar/FlapKine?include_prereleases)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://ihdavjar.github.io/FlapKine/)
