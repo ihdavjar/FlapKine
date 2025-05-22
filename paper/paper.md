@@ -53,14 +53,13 @@ Built from the ground up, **FlapKine** is:
 
 # Comparison to Existing Tools
 
-There is no application existing as best of our knowledge, which could do all the tasks which are integrated into **FlapKine**, However there are few tools that deal with similar problems in the domain of flapping wing MAV.
+To the best of our knowledge, there is no existing application that integrates all the functionalities provided by FlapKine in a single, cohesive platform. However, a few tools address related aspects within the domain of flapping wing micro air vehicles (MAVs):
 
-- **MAV Study ver. 1.001**: MAV Study[@roccia2011] is an interactive computational code entirely developed in MATLAB to analyze all the kinematical parameters that characterize the flapping of the wings of a house fly, and to visualize the spatial trajectories of the material points of the wingscoming from numerical simulations. The major limitation of this application is that it's on MATLAB and require license to use, limiting it's availability. Also it's primarly designed for analysing  the flapping wing of a only house fly. On the other hand **FlapKine** allows importing any kind of wing in the for STL file. Hence enabling analysing any kind of wing as long as you have it's STL file. MAV Study doesn't have provision to translate the flapping-wing unlike **FlapKine**. **FlapKine** also allows simulating flexible wing with the help of flexibility transforms.
+- **MAV Study ver. 1.001**: MAV Study[@roccia2011] is an interactive computational code developed entirely in MATLAB to analyze all the kinematical parameters that characterize the flapping of the wings of a house fly, and to visualize the spatial trajectories of the material points of the wings coming from numerical simulations. However, MAV Study is tied to MATLAB, requiring a licensed environment to operate, and is specifically tailored for the housefly model. In contrast, **FlapKine** supports the import of arbitrary wings via STL files, making it applicable to any flapping wing system. It also enables wing translation and flexible deformation simulation—features not present in MAV Study—and is available without proprietary constraints.
 
-- **DLTdv**: DLTdv[@tyson2023] is available as a MATLAB app, a packaged binary application for Mac, Windows or Linux that runs without MATLAB or a MATLAB license, or as source code. DLTdv supports both single-camera analysis and multicamera systems and can take advantage of sophisticated calibration algorithms, both for intrinsic
-lens distortion correction and for 3D DLT-based reconstruction. This 3D reconstruction crucial in many flapping wing application like tracking wing tip. Truong et al. [@truong2012] demonstrated obtaining wing tip trajectory, angle of attack and camber deformation using DLT based 3D reconstruction technique. However there is no detailed and modular pipeline, which can be utilised to predict the various flapping wing parameter like euler rotation angle about x, y and z axes. Hence **FlapKine** offers a better way to process the data obtained from **DLTdv**. As DLTdv itself is open-source and readily available tool **FlapKine** acts as a next step after processing the multi-view videos, and obtaining the 3D positions of the points. **FlapKine** takes in the 3D cordinates time series and solves analytical inverse kinematics problem to give the euler rotation angles, which are then used to generate the forward kinematics for the STL file given as input. Inverse Kinematics is one of the feature in **FlapKine** and it's not always necessary to provide **DLTdv** data. It's needed only in case of inverse kinematics modelling. Not at all required in case of generating forward kinematics.
+- **DLTdv**[@tyson2023] is a motion analysis tool available as a MATLAB app, a standalone application, and source code. It supports both single and multi-camera setups, 3D reconstruction, and lens distortion correction. It has been effectively used for tracking wing tips and studying parameters such as angle of attack and camber deformation [@truong2012]. Although DLTdv excels at extracting 3D positions from videos, it lacks a modular pipeline for solving inverse kinematics and computing Euler angles. This is where **FlapKine** acts as a complementary tool. It processes the 3D time series obtained from DLTdv, applies inverse kinematics to extract rotation parameters, and uses them to generate forward kinematic animations. Importantly, DLTdv data is only needed when performing inverse modeling—**FlapKine** can also generate simulations independently.
 
-- **Blender**: Blender[@Blender] is a free and open source 3D creation suite. It supports the entirety of the 3D pipeline—modeling, rigging, animation, simulation, rendering, compositing and motion tracking, even video editing and game asset creation. In order to generate flapping wing animation using blender it  involves using Python API through custom scripts. This involve steep learning curves, manual scene setup, and cumbersome Python API scripting for each simulation. **FlapKine** offers an alternative this by providing a GUI based interactive platform for its user to stimulate flapping wing kinematics.
+- **Blender**[@Blender] is a powerful open-source 3D creation suite that covers modeling, animation, simulation, and rendering. While it can be used to simulate flapping wings, doing so requires manual scene setup, extensive scripting through its Python API, and a significant learning curve. **FlapKine**, by contrast, provides a GUI-driven platform tailored for flapping wing kinematics. It abstracts away the complexity of animation scripting and offers an accessible interface for researchers and engineers to simulate and visualize wing motion interactively and efficiently.
 
 Overall **FlapKine** tries to combine most of the existing features in different softwares and provide a unified platform for flapping wing forward and inverse kinematics simulations.
 
@@ -79,9 +78,14 @@ FlapKine’s design centers on a clear separation between **core components** an
 
 These classes are modular and can be used directly in Python scripts or through the Flapkine GUI.
 
-![Object-oriented structure of the Flapkine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact](assets/FlapKineFlowDiagram.png)
+<p align="center">
+  <img src="assets/FlapKineFlowDiagram.png" alt="Object-oriented structure of the Flapkine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact" width="800"/>
+</p>
 
-**Figure:** Object-oriented structure of the Flapkine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact.
+
+<p align="center">
+  <strong>Figure:</strong> Object-oriented structure of the FlapKine backend showing how <code>Object3D</code>, <code>Sprite</code>, and <code>Scene</code> classes interact.
+</p>
 
 ## Conceptual Analogy: A 3D Stage
 
