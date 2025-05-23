@@ -189,3 +189,8 @@ Contributions to **FlapKine** are welcome and encouraged! Whether it's code, bug
 The long-term goal is to position FlapKine as a **self-sufficient, GUI-driven alternative** to legacy motion tracking tools used in flapping-wing biomechanics and robotics, while retaining code-level access for power users.
 
 If you're passionate about bio-inspired flight, computer vision, or robotics — your contribution can shape the next chapter of FlapKine.
+
+## Contributers
+- [Nipun Arora](https://sites.google.com/view/nipun-arora/home)
+- [Kalbhavi Vadhi Raj](www.linkedin.com/in/kalbhavi-vadhi-raj)
+- Raj Kiran Sangoju
