@@ -33,4 +33,5 @@ jobs:
 
       - name: Run tests with pytest
         run: |
+          export QT_QPA_PLATFORM=offscreen
           pytest --maxfail=3 --disable-warnings --tb=short
