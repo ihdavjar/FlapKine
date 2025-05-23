@@ -8,11 +8,11 @@ on:
 
 jobs:
   test:
-    runs-on: win32
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [3.10.3]
+        python-version: [3.11]
 
     steps:
       - name: Checkout repository

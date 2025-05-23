@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import (
 
 from qtawesome import icon
 
-from version import __version__
+from src.version import __version__
 from app.widgets.misc.menu_bar import MenuBar
 from app.ui.creators.project_creator import ProjectCreator
 from app.ui.editor.project_editor import ProjectWindow

@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout, QWidget, QSplitter
 )
 
-from version import __version__
+from src.version import __version__
 from app.widgets.misc.menu_bar import MenuBar
 from app.widgets.misc.render_config_edit import RenderConfig
 from app.widgets.main.video_animation import VideoAnimation

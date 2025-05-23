@@ -1,4 +1,4 @@
-from version import __version__
+from src.version import __version__
 from setuptools import setup, find_packages
 from pathlib import Path
 
@@ -39,10 +39,9 @@ setup(
         ]
     },
 
-    python_requires='==3.10.3',
+    python_requires="<3.12",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.10",
         "Topic :: Scientific/Engineering :: Visualization",
     ],
 )
