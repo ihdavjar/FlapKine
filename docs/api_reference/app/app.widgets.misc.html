@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>app.widgets.misc package &#8212; FlapKine v0.1.1 documentation</title>
+    <title>app.widgets.misc package &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.widgets.misc';</script>
@@ -116,8 +116,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -426,7 +426,7 @@ to their corresponding function references.</p>
 <li><p>‘undo’, ‘redo’</p></li>
 <li><p>‘minimize’, ‘maximize’, ‘restore’</p></li>
 <li><p>‘configure_render’</p></li>
-<li><p>‘about’</p></li>
+<li><p>‘about’ and ‘doc’</p></li>
 </ul>
 </dd>
 </dl>
@@ -505,8 +505,8 @@ within the specified project folder.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">camera_rotation_alpha,</span> <span class="pre">camera_rotation_beta,</span> <span class="pre">camera_rotation_gamma</span></span></dt>
-<dd><p>Spin boxes to specify camera rotation in Euler angles.</p>
+<span class="sig-name descname"><span class="pre">camera_focal_x,</span> <span class="pre">camera_focal_y,</span> <span class="pre">camera_focal_z</span></span></dt>
+<dd><p>Spin boxes to specify camera focal point in 3D space.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QDoubleSpinBox</p>
@@ -686,7 +686,7 @@ and reflection axis toggles.</p>
 <dl class="simple">
 <dt>Configuration File Structure Expected:</dt><dd><ul class="simple">
 <li><p>VideoRender: { resolution_x, resolution_y }</p></li>
-<li><p>Camera: { location: [x, y, z], rotation_euler: [alpha, beta, gamma] }</p></li>
+<li><p>Camera: { location: [x, y, z], focal: [x, y, z], up: [x, y, z] }</p></li>
 <li><p>Light: { location: [x, y, z], energy }</p></li>
 <li><p>STL: bool</p></li>
 <li><p>Reflect: “XY” | “YZ” | “XZ” | None</p></li>
@@ -727,7 +727,8 @@ a dictionary. The config is then saved as a JSON file in the project directory u
 <li><dl class="simple">
 <dt>Camera:</dt><dd><ul>
 <li><p>location: list[float, float, float]</p></li>
-<li><p>rotation_euler: list[float, float, float]</p></li>
+<li><p>focal: list[float, float, float]</p></li>
+<li><p>up: list[float, float, float] (default [0, 0, 1])</p></li>
 </ul>
 </dd>
 </dl>
@@ -995,22 +996,7 @@ It also optionally exports STL files and emits real-time progress updates throug
 <dl class="py method">
 <dt class="sig sig-object py" id="app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk">
 <span class="sig-name descname"><span class="pre">stl_mesh_to_vtk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stl_mesh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/render_worker.html#Worker.stl_mesh_to_vtk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk" title="Link to this definition">#</a></dt>
-<dd><p>Converts a mesh object to <cite>vtkPolyData</cite> for rendering in VTK.</p>
-<p>This method performs a memory-efficient STL conversion by flattening and deduplicating
-vertex data using NumPy. The resulting unique vertex list and associated triangle indices
-are used to construct a <cite>vtkPolyData</cite> object, which is compatible with VTK’s rendering pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>stl_mesh</strong> (<em>mesh.Mesh</em>) – The STL mesh object containing 3D geometry in the form of triangle vectors.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A VTK-compatible representation of the mesh, ready for visualization.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vtkPolyData</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 </section>
 </dd></dl>
@@ -1020,7 +1006,7 @@ are used to construct a <cite>vtkPolyData</cite> object, which is compatible wit
 <span id="app-widgets-misc-video-player-module"></span><h2>app.widgets.misc.video_player module<a class="headerlink" href="#module-app.widgets.misc.video_player" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.video_player.</span></span><span class="sig-name descname"><span class="pre">VideoPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">640</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">480</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.widgets.misc.video_player.</span></span><span class="sig-name descname"><span class="pre">VideoPlayer</span></span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <section id="videoplayer-class">
 <h3>VideoPlayer Class<a class="headerlink" href="#videoplayer-class" title="Link to this heading">#</a></h3>
@@ -1065,18 +1051,6 @@ with support for resizing and basic control operations like pause/play.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">resizeEvent(event):</span></span></dt>
 <dd><p>Handles resizing of the widget to ensure the video maintains full screen coverage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.widgets.misc.video_player.VideoPlayer.resizeEvent">
-<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/misc/video_player.html#VideoPlayer.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent" title="Link to this definition">#</a></dt>
-<dd><p>Resizes the video widget to fit the available window space.</p>
-<p>Ensures that the embedded video stretches appropriately while maintaining layout behavior.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>event</strong> (<em>QResizeEvent</em>) – Resize event triggered when the widget is resized by the user or layout system.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1201,7 +1175,6 @@ with support for resizing and basic control operations like pause/play.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer"><code class="docutils literal notranslate"><span class="pre">VideoPlayer</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.video_widget"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.video_widget</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.media_player"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.media_player</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.resizeEvent"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.resizeEvent()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.misc.video_player.VideoPlayer.setMedia"><code class="docutils literal notranslate"><span class="pre">VideoPlayer.setMedia()</span></code></a></li>
 </ul>
 </li>

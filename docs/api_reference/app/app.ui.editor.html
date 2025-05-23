@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>app.ui.editor package &#8212; FlapKine v0.1.1 documentation</title>
+    <title>app.ui.editor package &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.ui.editor';</script>
@@ -116,8 +116,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -546,6 +546,20 @@ This allows users to modify rendering parameters such as resolution, lighting, a
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="app.ui.editor.project_editor.ProjectWindow.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/editor/project_editor.html#ProjectWindow.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.editor.project_editor.ProjectWindow.closeEvent" title="Link to this definition">#</a></dt>
+<dd><p>Handle the window close event.</p>
+<p>This method ensures that all VTK render window interactors
+are properly finalized and stopped to avoid hanging processes or crashes.</p>
+<p>It closes:
+- Top point selector interactor (self.iren_1)
+- Bottom 3D scatter plot interactor (self.iren_2)
+- Two VTK widgets in right group (vtk_widget_1 and vtk_widget_2)
+- VTK widget in left group (vtkWidget)</p>
+<p>Then, it calls the base class close event to proceed with normal Qt shutdown.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="id3">
 <span class="sig-name descname"><span class="pre">process_project</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/editor/project_editor.html#ProjectWindow.process_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
 <dd><p>Loads the project scene data from the specified folder.</p>
@@ -597,6 +611,13 @@ Typically used to alert users when essential files or configurations are missing
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ui.editor.project_editor.ProjectWindow.show_doc">
+<span class="sig-name descname"><span class="pre">show_doc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/editor/project_editor.html#ProjectWindow.show_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.editor.project_editor.ProjectWindow.show_doc" title="Link to this definition">#</a></dt>
+<dd><p>Displays the documentation for the FlapKine application.</p>
+<p>This method opens the documentation file in the default web browser.</p>
 </dd></dl>
 
 </section>
@@ -675,9 +696,11 @@ Typically used to alert users when essential files or configurations are missing
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.about_button_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.center()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.change_render_config()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.editor.project_editor.ProjectWindow.closeEvent"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.closeEvent()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.process_project()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.showAlertDialog()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.showErrorDialog()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.editor.project_editor.ProjectWindow.show_doc"><code class="docutils literal notranslate"><span class="pre">ProjectWindow.show_doc()</span></code></a></li>
 </ul>
 </li>
 </ul>

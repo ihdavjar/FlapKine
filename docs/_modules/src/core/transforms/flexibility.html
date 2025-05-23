@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>src.core.transforms.flexibility &#8212; FlapKine v0.1.1 documentation</title>
+    <title>src.core.transforms.flexibility &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/src/core/transforms/flexibility';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -419,7 +419,7 @@
         <span class="k">return</span> <span class="n">input_</span></div>
 
 
-
+    
 <div class="viewcode-block" id="Flexibility_type1">
 <a class="viewcode-back" href="../../../../api_reference/src/src.core.transforms.html#src.core.transforms.flexibility.Flexibility_type1">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Flexibility_type1</span><span class="p">(</span><span class="n">Flexibility_Transform</span><span class="p">):</span>
@@ -502,13 +502,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span> <span class="o">=</span> <span class="n">minor_axis</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span> <span class="o">=</span> <span class="n">time_period</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
-
+    
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies sinusoidal deformation to 3D coordinates based on the selected axes.</span>
 
-<span class="sd">        This method modifies the input array by applying sinusoidal transformations</span>
-<span class="sd">        to each coordinate axis (X, Y, Z) based on the other two axes. The deformation</span>
+<span class="sd">        This method modifies the input array by applying sinusoidal transformations </span>
+<span class="sd">        to each coordinate axis (X, Y, Z) based on the other two axes. The deformation </span>
 <span class="sd">        depends on the specified waveform parameters and is time-dependent.</span>
 
 <span class="sd">        Parameters</span>
@@ -533,11 +533,11 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_</span><span class="p">)):</span>
                 <span class="n">temp_input</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">functional_Flexibility_type1</span><span class="p">(</span><span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">major_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-
+    
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_</span><span class="p">)):</span>
                 <span class="n">temp_input</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">functional_Flexibility_type1</span><span class="p">(</span><span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">major_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-
+                
         <span class="k">return</span> <span class="n">temp_input</span></div>
 
 
@@ -595,9 +595,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Flexibility_type2 transformation with axis flags and waveform parameters.</span>
 
-<span class="sd">        This constructor sets up the deformation behavior for each axis using parameters</span>
-<span class="sd">        such as major and minor radii, dynamic waveform values, and deformation frequency.</span>
-<span class="sd">        The `array_values` parameter enables time-varying flexibility by introducing</span>
+<span class="sd">        This constructor sets up the deformation behavior for each axis using parameters </span>
+<span class="sd">        such as major and minor radii, dynamic waveform values, and deformation frequency. </span>
+<span class="sd">        The `array_values` parameter enables time-varying flexibility by introducing </span>
 <span class="sd">        an additional temporal influence on the transformation.</span>
 
 <span class="sd">        Parameters</span>
@@ -638,16 +638,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">array_values</span> <span class="o">=</span> <span class="n">array_values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span> <span class="o">=</span> <span class="n">time_period</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
-
-
+        
+    
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies a time-dependent non-linear deformation to the input 3D coordinates.</span>
 
-<span class="sd">        This method modifies the input point cloud along selected axes using a</span>
-<span class="sd">        parametric transformation based on elliptical waveforms and a dynamic</span>
-<span class="sd">        `array_values` lookup for time-varying modulation. Each axis is selectively</span>
-<span class="sd">        deformed by evaluating a custom waveform influenced by neighboring axes</span>
+<span class="sd">        This method modifies the input point cloud along selected axes using a </span>
+<span class="sd">        parametric transformation based on elliptical waveforms and a dynamic </span>
+<span class="sd">        `array_values` lookup for time-varying modulation. Each axis is selectively </span>
+<span class="sd">        deformed by evaluating a custom waveform influenced by neighboring axes </span>
 <span class="sd">        and time `t`.</span>
 
 <span class="sd">        Parameters</span>
@@ -672,16 +672,16 @@
                 <span class="n">temp_input</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">functional_Flexibility_type2</span><span class="p">(</span><span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_minor_axis</span><span class="p">,</span> <span class="n">Z_M_x_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">major_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_</span><span class="p">)):</span>    
                 <span class="n">temp_input</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">functional_Flexibility_type2</span><span class="p">(</span><span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_minor_axis</span><span class="p">,</span> <span class="n">Z_M_x_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">major_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_</span><span class="p">)):</span>
                 <span class="n">temp_input</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">functional_Flexibility_type2</span><span class="p">(</span><span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_minor_axis</span><span class="p">,</span> <span class="n">Z_M_x_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">major_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minor_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="n">temp_input</span></div>
 
-
+    
 </pre></div>
 
                 </article>

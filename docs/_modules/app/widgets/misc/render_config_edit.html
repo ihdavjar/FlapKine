@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.widgets.misc.render_config_edit &#8212; FlapKine v0.1.1 documentation</title>
+    <title>app.widgets.misc.render_config_edit &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/widgets/misc/render_config_edit';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -375,8 +375,8 @@
 <span class="sd">    camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox</span>
 <span class="sd">        Spin boxes to specify camera position in 3D space.</span>
 
-<span class="sd">    camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma : QDoubleSpinBox</span>
-<span class="sd">        Spin boxes to specify camera rotation in Euler angles.</span>
+<span class="sd">    camera_focal_x, camera_focal_y, camera_focal_z : QDoubleSpinBox</span>
+<span class="sd">        Spin boxes to specify camera focal point in 3D space.</span>
 
 <span class="sd">    light_location_x, light_location_y, light_location_z : QDoubleSpinBox</span>
 <span class="sd">        Spin boxes to specify light source position in 3D space.</span>
@@ -569,14 +569,15 @@
 
 <span class="sd">        This section provides spin box controls for specifying the camera’s 3D location</span>
 <span class="sd">        and orientation in space. Users can input X, Y, Z coordinates for both position</span>
-<span class="sd">        and Euler angle-based rotations. All elements are organized into a labeled layout</span>
+<span class="sd">        and focal point. All elements are organized into a labeled layout</span>
 <span class="sd">        and enclosed in a themed &quot;Camera Settings&quot; group box.</span>
 
 <span class="sd">        UI Components</span>
 <span class="sd">        -------------</span>
 <span class="sd">        - Camera location inputs (QDoubleSpinBox for X, Y, Z)</span>
-<span class="sd">        - Camera rotation inputs (QDoubleSpinBox for α, β, γ)</span>
-<span class="sd">        - Labeled horizontal layouts for location and rotation</span>
+<span class="sd">        - Camera focal inputs (QDoubleSpinBox for X, Y, Z)</span>
+<span class="sd">        - Camera up vector inputs (QDoubleSpinBox for X, Y, Z)</span>
+<span class="sd">        - Labeled horizontal layouts for location and Focal point</span>
 <span class="sd">        - Group box titled &quot;Camera Settings&quot; with custom styling</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
@@ -586,12 +587,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span> <span class="o">=</span> <span class="n">QDoubleSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
 
         <span class="n">loc_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">))</span>
@@ -599,15 +608,22 @@
         <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="p">))</span>
         <span class="n">loc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="p">))</span>
 
-        <span class="n">rot_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Rotation&quot;</span><span class="p">))</span>
-        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="p">))</span>
-        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="p">))</span>
-        <span class="n">rot_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="p">))</span>
+        <span class="n">foc_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">foc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Focal Point&quot;</span><span class="p">))</span>
+        <span class="n">foc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="p">))</span>
+        <span class="n">foc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="p">))</span>
+        <span class="n">foc_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="p">))</span>
+
+        <span class="n">up_layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Up Vector&quot;</span><span class="p">))</span>
+        <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;X:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="p">))</span>
+        <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Y:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="p">))</span>
+        <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_labeled_widget</span><span class="p">(</span><span class="s2">&quot;Z:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="p">))</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">loc_layout</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">rot_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">foc_layout</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">up_layout</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_styled_groupbox</span><span class="p">(</span><span class="s2">&quot;Camera Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;#16a085&quot;</span><span class="p">,</span> <span class="s2">&quot;#13876a&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
@@ -798,7 +814,7 @@
 
 <span class="sd">        Configuration File Structure Expected:</span>
 <span class="sd">            - VideoRender: { resolution_x, resolution_y }</span>
-<span class="sd">            - Camera: { location: [x, y, z], rotation_euler: [alpha, beta, gamma] }</span>
+<span class="sd">            - Camera: { location: [x, y, z], focal: [x, y, z], up: [x, y, z] }</span>
 <span class="sd">            - Light: { location: [x, y, z], energy }</span>
 <span class="sd">            - STL: bool</span>
 <span class="sd">            - Reflect: &quot;XY&quot; | &quot;YZ&quot; | &quot;XZ&quot; | None</span>
@@ -821,9 +837,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
@@ -865,7 +885,8 @@
 <span class="sd">                - film_transparent: bool (always False)</span>
 <span class="sd">            - Camera:</span>
 <span class="sd">                - location: list[float, float, float]</span>
-<span class="sd">                - rotation_euler: list[float, float, float]</span>
+<span class="sd">                - focal: list[float, float, float]</span>
+<span class="sd">                - up: list[float, float, float] (default [0, 0, 1])</span>
 <span class="sd">            - Light:</span>
 <span class="sd">                - location: list[float, float, float]</span>
 <span class="sd">                - energy: int</span>
@@ -888,7 +909,8 @@
             <span class="p">},</span>
             <span class="s1">&#39;Camera&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
-                <span class="s1">&#39;rotation_euler&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">value</span><span class="p">()]</span>
+                <span class="s1">&#39;focal&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
+                <span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">value</span><span class="p">()]</span>
             <span class="p">},</span>
             <span class="s1">&#39;Light&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>

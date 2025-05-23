@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.widgets.misc.render_worker &#8212; FlapKine v0.1.1 documentation</title>
+    <title>app.widgets.misc.render_worker &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/widgets/misc/render_worker';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -334,12 +334,12 @@
   <h1>Source code for app.widgets.misc.render_worker</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRunnable</span><span class="p">,</span> <span class="n">pyqtSlot</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSignal</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">vtk</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkActor</span><span class="p">,</span> <span class="n">vtkCellArray</span><span class="p">,</span> <span class="n">vtkPoints</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">vtkTriangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vtk</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkActor</span><span class="p">,</span> <span class="n">vtkCellArray</span><span class="p">,</span> <span class="n">vtkPoints</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">vtkTriangle</span><span class="p">,</span> <span class="n">vtkTransform</span><span class="p">,</span> <span class="n">vtkTransformPolyDataFilter</span><span class="p">,</span> <span class="n">vtkAppendPolyData</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.vtkRenderingCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">vtkCamera</span><span class="p">,</span> <span class="n">vtkLight</span><span class="p">,</span> <span class="n">vtkWindowToImageFilter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.vtkCommonColor</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtkNamedColors</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">vtkmodules.util.numpy_support</span><span class="w"> </span><span class="kn">import</span> <span class="n">vtk_to_numpy</span>
@@ -496,13 +496,19 @@
         <span class="n">render_window</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
         <span class="n">cam</span> <span class="o">=</span> <span class="n">vtkCamera</span><span class="p">()</span>
-        <span class="n">cam</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
-        <span class="n">cam</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])))</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">])))</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetViewUp</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">])))</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">SetParallelProjection</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">renderer</span><span class="o">.</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">renderer</span><span class="o">.</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="n">ResetCameraClippingRange</span><span class="p">()</span>
 
         <span class="n">light</span> <span class="o">=</span> <span class="n">vtkLight</span><span class="p">()</span>
         <span class="n">light</span><span class="o">.</span><span class="n">SetLightTypeToSceneLight</span><span class="p">()</span>
-        <span class="n">light</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">])))</span>
         <span class="n">light</span><span class="o">.</span><span class="n">SetIntensity</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;energy&#39;</span><span class="p">])</span>
         <span class="n">renderer</span><span class="o">.</span><span class="n">AddLight</span><span class="p">(</span><span class="n">light</span><span class="p">)</span>
 
@@ -510,6 +516,9 @@
         <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
         <span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
         <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">vtkNamedColors</span><span class="p">()</span><span class="o">.</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s2">&quot;RoyalBlue&quot;</span><span class="p">))</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetFrontfaceCulling</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetBackfaceCulling</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
         <span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
         <span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)</span>
 
@@ -519,8 +528,8 @@
 
         <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">):</span>
-            <span class="n">stl_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="o">.</span><span class="n">save_stl</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">reflect_xy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                                <span class="n">reflect_yz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reflect_xz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+            <span class="n">stl_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="o">.</span><span class="n">save_stl</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">reflect_xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reflect_yz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reflect_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reflect</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;STL&quot;</span><span class="p">]:</span>
                 <span class="n">stl_mesh</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;data/stl/stl_mesh_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.stl&quot;</span><span class="p">))</span>
@@ -552,36 +561,21 @@
 <div class="viewcode-block" id="Worker.stl_mesh_to_vtk">
 <a class="viewcode-back" href="../../../../api_reference/app/app.widgets.misc.html#app.widgets.misc.render_worker.Worker.stl_mesh_to_vtk">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stl_mesh_to_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stl_mesh</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Converts a mesh object to `vtkPolyData` for rendering in VTK.</span>
-
-<span class="sd">        This method performs a memory-efficient STL conversion by flattening and deduplicating</span>
-<span class="sd">        vertex data using NumPy. The resulting unique vertex list and associated triangle indices</span>
-<span class="sd">        are used to construct a `vtkPolyData` object, which is compatible with VTK&#39;s rendering pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        stl_mesh : mesh.Mesh</span>
-<span class="sd">            The STL mesh object containing 3D geometry in the form of triangle vectors.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        vtkPolyData</span>
-<span class="sd">            A VTK-compatible representation of the mesh, ready for visualization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">poly_data</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="p">()</span>
         <span class="n">points</span> <span class="o">=</span> <span class="n">vtkPoints</span><span class="p">()</span>
         <span class="n">cells</span> <span class="o">=</span> <span class="n">vtkCellArray</span><span class="p">()</span>
 
-        <span class="n">unique_vertices</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stl_mesh</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">unique_vertices</span><span class="p">:</span>
-            <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="n">triangle</span> <span class="o">=</span> <span class="n">vtkTriangle</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-                <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">])</span>
-            <span class="n">cells</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
+        <span class="n">point_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">triangle</span> <span class="ow">in</span> <span class="n">stl_mesh</span><span class="o">.</span><span class="n">vectors</span><span class="p">:</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">triangle</span><span class="p">:</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">vertex</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vertex</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vertex</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point_id</span><span class="p">)</span>
+                <span class="n">point_id</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">vtk_triangle</span> <span class="o">=</span> <span class="n">vtkTriangle</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">vtk_triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">cells</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">vtk_triangle</span><span class="p">)</span>
 
         <span class="n">poly_data</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
         <span class="n">poly_data</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>

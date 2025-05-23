@@ -191,7 +191,6 @@ To manually recreate the above project from scratch:
    - Load the STL file from the `resource/stl` directory.
 
    .. figure:: 2_DOF_INV/sprite_creator.png
-      :class: dark-compatible-image
       :align: center
       :width: 100%
       :alt: Sprite Creator Screenshot
@@ -218,12 +217,12 @@ To manually recreate the above project from scratch:
 
    - The computed Euler angle time series will then be automatically transferred to the :ref:`Sprite Creator Window <sprite_creator_window>`.
 
-.. image:: ../assets/images/Inv_kinematics_window.png
+.. figure:: ../assets/images/Inv_kinematics_window.png
    :alt: Inverse Kinematics Window
    :align: center
    :width: 600
 
-         **Figure:** 3D position data loaded into Inverse kinematics window.
+   **Figure:** 3D position data loaded into Inverse kinematics window.
 
 10. Once configuration is complete, click **Finish**. You’ll return to the :ref:`Scene Creator Window <scene_creator_window>` where the new sprite will appear in green, indicating success.
 

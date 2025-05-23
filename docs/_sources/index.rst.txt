@@ -8,9 +8,19 @@ FlapKine
 
 Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready
 
-.. image:: https://joss.theoj.org/papers/10.21105/joss.08158/status.svg
-   :target: https://doi.org/10.1063/5.0232140
-   :alt: JOSS DOI
+.. image:: https://img.shields.io/badge/platform-windows-blue
+   :alt: Platform Windows
+
+.. image:: https://img.shields.io/github/repo-size/ihdavjar/FlapKine
+   :alt: Repository Size
+
+.. image:: https://github.com/ihdavjar/FlapKine/actions/workflows/test.yml/badge.svg
+   :alt: Build Status
+   :target: https://github.com/ihdavjar/FlapKine/actions/workflows/test.yml
+
+.. image:: https://img.shields.io/pypi/v/flapkine.svg
+   :alt: PyPI Version
+   :target: https://pypi.org/project/flapkine/
 
 .. image:: https://img.shields.io/github/license/ihdavjar/FlapKine
    :alt: GitHub License
@@ -19,12 +29,9 @@ Built with PyQt5 and VTK | Research-grade accuracy | Bio-inspired robotics ready
    :alt: GitHub Release
 
 .. image:: https://img.shields.io/badge/docs-online-brightgreen.svg
-   :target: https://ihdavjar.github.io/FlapKine/
    :alt: Documentation
+   :target: https://ihdavjar.github.io/FlapKine/
 
-.. image:: https://codecov.io/gh/ihdavjar/FlapKine/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/ihdavjar/FlapKine
-   :alt: Code Coverage
 
 ---
 

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.ui.editor.project_editor &#8212; FlapKine v0.1.1 documentation</title>
+    <title>app.ui.editor.project_editor &#8212; FlapKine v1.0.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=5e3f2911"></script>
+    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/ui/editor/project_editor';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.1 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.1 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -336,14 +336,14 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QUrl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QDesktopServices</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QDesktopWidget</span><span class="p">,</span> <span class="n">QGroupBox</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span>
-    <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span>
+    <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QSplitter</span>
 <span class="p">)</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">version</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app.widgets.misc.menu_bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">MenuBar</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app.widgets.misc.render_config_edit</span><span class="w"> </span><span class="kn">import</span> <span class="n">RenderConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">app.widgets.main.video_animation</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoAnimation</span>
@@ -473,6 +473,7 @@
             <span class="s1">&#39;restore&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">showNormal</span><span class="p">,</span>
             <span class="s1">&#39;about&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">about_button_fun</span><span class="p">,</span>
             <span class="s1">&#39;configure_render&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_render_config</span><span class="p">,</span>
+            <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_doc</span>
         <span class="p">})</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">process_project</span><span class="p">()</span>
@@ -487,7 +488,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span> <span class="o">=</span> <span class="n">PointScatterWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="p">)</span>
         <span class="n">main_splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
 
         <span class="c1"># ------------------------ LEFT PANE ------------------------</span>
         <span class="n">left_splitter</span> <span class="o">=</span> <span class="n">QSplitter</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
@@ -499,7 +499,6 @@
         <span class="n">topleft_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topleftgroup</span><span class="p">)</span>
         <span class="n">topleft_groupbox</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">topleft_layout</span><span class="p">)</span>
         <span class="n">topleft_groupbox</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-        <span class="n">topleft_groupbox</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 
         <span class="c1"># --- Bottom Left Group: 3D Visualizer ---</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span> <span class="o">=</span> <span class="n">Visualizer3DWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
@@ -508,14 +507,12 @@
         <span class="n">bottomleft_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="p">)</span>
         <span class="n">bottomleft_groupbox</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">bottomleft_layout</span><span class="p">)</span>
         <span class="n">bottomleft_groupbox</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-        <span class="n">bottomleft_groupbox</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 
         <span class="c1"># Add to vertical splitter (left side)</span>
         <span class="n">left_splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">topleft_groupbox</span><span class="p">)</span>
         <span class="n">left_splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">bottomleft_groupbox</span><span class="p">)</span>
         <span class="n">left_splitter</span><span class="o">.</span><span class="n">setSizes</span><span class="p">([</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span>
         <span class="n">left_splitter</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
-        <span class="n">left_splitter</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
 
         <span class="c1"># Insert left into main splitter</span>
         <span class="n">main_splitter</span><span class="o">.</span><span class="n">insertWidget</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">left_splitter</span><span class="p">)</span>
@@ -545,8 +542,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">scene_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;scene.pkl&#39;</span><span class="p">)</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="s1">&#39;config.json&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">scene_path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">scene_path</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">showErrorDialog</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No project found at: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -662,6 +660,76 @@
 <span class="s1">        &lt;p&gt;Version </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;/p&gt;</span>
 <span class="s1">        &lt;p&gt;FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.&lt;/p&gt;</span>
 <span class="s1">&#39;&#39;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProjectWindow.show_doc">
+<a class="viewcode-back" href="../../../../api_reference/app/app.ui.editor.html#app.ui.editor.project_editor.ProjectWindow.show_doc">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the documentation for the FlapKine application.</span>
+
+<span class="sd">        This method opens the documentation file in the default web browser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">base_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_MEIPASS</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+        <span class="n">doc_path</span> <span class="o">=</span> <span class="s2">&quot;https://ihdavjar.github.io/FlapKine/&quot;</span>
+        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="o">.</span><span class="n">fromLocalFile</span><span class="p">(</span><span class="n">doc_path</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ProjectWindow.closeEvent">
+<a class="viewcode-back" href="../../../../api_reference/app/app.ui.editor.html#app.ui.editor.project_editor.ProjectWindow.closeEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the window close event.</span>
+
+<span class="sd">        This method ensures that all VTK render window interactors</span>
+<span class="sd">        are properly finalized and stopped to avoid hanging processes or crashes.</span>
+
+<span class="sd">        It closes:</span>
+<span class="sd">        - Top point selector interactor (self.iren_1)</span>
+<span class="sd">        - Bottom 3D scatter plot interactor (self.iren_2)</span>
+<span class="sd">        - Two VTK widgets in right group (vtk_widget_1 and vtk_widget_2)</span>
+<span class="sd">        - VTK widget in left group (vtkWidget)</span>
+
+<span class="sd">        Then, it calls the base class close event to proceed with normal Qt shutdown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># RIGHT GROUP CLEANUP</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="p">,</span> <span class="s1">&#39;iren_1&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">iren_1</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">iren_1</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="p">,</span> <span class="s1">&#39;iren_2&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">iren_2</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">iren_2</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="p">,</span> <span class="s1">&#39;vtk_widget_1&#39;</span><span class="p">):</span>
+            <span class="n">iren</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">vtk_widget_1</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">iren</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="p">,</span> <span class="s1">&#39;vtk_widget_2&#39;</span><span class="p">):</span>
+            <span class="n">iren</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_group</span><span class="o">.</span><span class="n">vtk_widget_2</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">iren</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="c1"># LEFT GROUP CLEANUP (3D Visualizer)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="p">,</span> <span class="s1">&#39;iren&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="o">.</span><span class="n">iren_1</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="o">.</span><span class="n">iren_1</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="p">,</span> <span class="s1">&#39;vtkWidget&#39;</span><span class="p">):</span>
+            <span class="n">iren</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottomleftgroup</span><span class="o">.</span><span class="n">vtkWidget</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">iren</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
+                <span class="n">iren</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
+
+        <span class="c1"># Call the parent close event to allow normal closing</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
