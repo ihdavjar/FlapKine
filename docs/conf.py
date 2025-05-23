@@ -5,11 +5,12 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+from src.version import __version__
 
 project = 'FlapKine'
 copyright = '2025, Kalbhavi Vadhi Raj'
 author = 'Kalbhavi Vadhi Raj'
-release = 'v0.1.1'
+release = f'v{__version__}'
 
 # -- Path setup --------------------------------------------------------
 import os, sys
