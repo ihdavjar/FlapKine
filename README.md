@@ -45,7 +45,7 @@ The source code can be found in the [GitHub repository](https://github.com/ihdav
 
 Download the latest release from the [Releases Page](https://github.com/ihdavjar/FlapKine/releases) and run the installer. This will install Flapkine on your system with optional desktop shortcuts.
 
-## 🔹 Option B: Developer Mode (Python)
+### 🔹 Option B: Developer Mode (Python)
 
 Set up FlapKine locally for development using the steps below:
 
@@ -100,7 +100,7 @@ Each project includes:
 
 For detailed insights into the project structure and usage patterns, check out the **[Examples](https://ihdavjar.github.io/FlapKine/examples.html)** section in the **FlapKine** documentation. It showcases practical implementations and helps you understand how the components fit together seamlessly.
 
-## **1-DOF Flapping Wing System**
+### **1-DOF Flapping Wing System**
 
 Download the [project.zip](https://github.com/ihdavjar/FlapKine/raw/refs/heads/main/examples/1_DOF_1/project.zip?download=)
 
@@ -171,8 +171,8 @@ For more examples and detailed steps to rebuild the project from scratch, please
 FlapKine has been developed as part of an undergraduate research initiative with strong interdisciplinary underpinnings spanning mechanical design, computer vision, and computer graphics. Special thanks to:
 
 - **Professors and Mentors** at *IIT Jodhpur* for their constant guidance and feedback during the development of the analytical models and kinematic pipelines.
-- The open-source communities behind **VTK**, **PyQt5**, and **NumPy**, whose robust libraries form the backbone of this simulation toolkit.
-- Researchers and users of **DLTdv** tools for inspiring the need for a modern, standalone 3D tracking solution tailored to flapping-wing MAVs.
+- The open-source communities behind **VTK**, **PyQt5**, and **Others**, whose robust libraries form the backbone of this simulation toolkit.
+- Researchers and users of **DLTdv** software for inspiring the need for a modern, standalone 3D tracking solution tailored to flapping-wing MAVs.
 - **ChatGPT** by *OpenAI*, for serving as an AI assistant in drafting high-quality documentation, generating professional Sphinx-style docstrings, and assisting with the creation of the FlapKine logo.
 
 ## Contributing and Future Roadmap
@@ -191,6 +191,7 @@ The long-term goal is to position FlapKine as a **self-sufficient, GUI-driven al
 If you're passionate about bio-inspired flight, computer vision, or robotics — your contribution can shape the next chapter of FlapKine.
 
 ## Contributers
+
 - [Nipun Arora](https://sites.google.com/view/nipun-arora/home)
 - [Kalbhavi Vadhi Raj](www.linkedin.com/in/kalbhavi-vadhi-raj)
 - Raj Kiran Sangoju

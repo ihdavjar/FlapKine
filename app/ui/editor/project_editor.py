@@ -317,3 +317,54 @@ class ProjectWindow(QMainWindow):
             base_path = os.path.dirname(__file__)
         doc_path = "https://ihdavjar.github.io/FlapKine/"
         QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))
+
+    def closeEvent(self, event):
+        """
+        Handle the window close event.
+
+        This method ensures that all VTK render window interactors
+        are properly finalized and stopped to avoid hanging processes or crashes.
+
+        It closes:
+        - Top point selector interactor (self.iren_1)
+        - Bottom 3D scatter plot interactor (self.iren_2)
+        - Two VTK widgets in right group (vtk_widget_1 and vtk_widget_2)
+        - VTK widget in left group (vtkWidget)
+
+        Then, it calls the base class close event to proceed with normal Qt shutdown.
+        """
+
+        # RIGHT GROUP CLEANUP
+        if hasattr(self.right_group, 'iren_1'):
+            self.right_group.iren_1.TerminateApp()
+            self.right_group.iren_1.Finalize()
+
+        if hasattr(self.right_group, 'iren_2'):
+            self.right_group.iren_2.TerminateApp()
+            self.right_group.iren_2.Finalize()
+
+        if hasattr(self.right_group, 'vtk_widget_1'):
+            iren = self.right_group.vtk_widget_1.GetRenderWindow().GetInteractor()
+            if iren is not None:
+                iren.TerminateApp()
+                iren.Finalize()
+
+        if hasattr(self.right_group, 'vtk_widget_2'):
+            iren = self.right_group.vtk_widget_2.GetRenderWindow().GetInteractor()
+            if iren is not None:
+                iren.TerminateApp()
+                iren.Finalize()
+
+        # LEFT GROUP CLEANUP (3D Visualizer)
+        if hasattr(self.bottomleftgroup, 'iren'):
+            self.bottomleftgroup.iren_1.TerminateApp()
+            self.bottomleftgroup.iren_1.Finalize()
+
+        if hasattr(self.bottomleftgroup, 'vtkWidget'):
+            iren = self.bottomleftgroup.vtkWidget.GetRenderWindow().GetInteractor()
+            if iren is not None:
+                iren.TerminateApp()
+                iren.Finalize()
+
+        # Call the parent close event to allow normal closing
+        super().closeEvent(event)

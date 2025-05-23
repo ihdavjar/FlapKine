@@ -1,0 +1,1 @@
+{"VideoRender": {"OutputPath": "data/images", "STLPath": "data/stl", "FrameFormat": "PNG", "resolution_x": 1200, "resolution_y": 800, "film_transparent": false}, "Camera": {"location": [0.0, 0.0, 50.0], "focal": [0.0, 0.0, 0.0], "up": [0.0, 1.0, 0.0]}, "Light": {"location": [4.0, 0.0, 4.0], "energy": 1}, "STL": false, "Reflect": null}

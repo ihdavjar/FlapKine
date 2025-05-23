@@ -1724,3 +1724,21 @@ class SpriteCreator(QMainWindow):
             base_path = os.path.dirname(__file__)
         doc_path = "https://ihdavjar.github.io/FlapKine/"
         QDesktopServices.openUrl(QUrl.fromLocalFile(doc_path))
+
+    def closeEvent(self, event):
+        """
+        Ensures VTK resources are properly released when the window is closed.
+        """
+
+        # --- VTK cleanup for sprite 3D viewer ---
+        if hasattr(self, 'vtkWidget'):
+            try:
+                self.vtkWidget.GetRenderWindow().Finalize()
+                interactor = self.vtkWidget.GetRenderWindow().GetInteractor()
+                if interactor:
+                    interactor.TerminateApp()
+                    interactor.Disable()
+            except Exception:
+                pass  # Silently ignore errors during shutdown
+
+        event.accept()

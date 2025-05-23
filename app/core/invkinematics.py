@@ -717,3 +717,34 @@ class InvKineWindow(QMainWindow):
 
         self.angle_data.emit(self.inv_result)
         self.close()
+
+    def closeEvent(self, event):
+        """
+        Ensures all VTK widgets are gracefully finalized when the window is closed.
+        """
+
+        # --- Left Group VTK cleanup ---
+        if hasattr(self, 'vtkWidget_l'):
+            try:
+                self.vtkWidget_l.GetRenderWindow().Finalize()
+                interactor = self.vtkWidget_l.GetRenderWindow().GetInteractor()
+                if interactor:
+                    interactor.TerminateApp()
+                    interactor.Disable()
+            except Exception as e:
+                pass
+
+        # --- Right Group VTK cleanup ---
+        for vtk_widget in ['vtkWidget_r_1', 'vtkWidget_r_2', 'vtkWidget_r_3']:
+            widget = getattr(self, vtk_widget, None)
+            if widget:
+                try:
+                    widget.GetRenderWindow().Finalize()
+                    interactor = widget.GetRenderWindow().GetInteractor()
+                    if interactor:
+                        interactor.TerminateApp()
+                        interactor.Disable()
+                except Exception as e:
+                    pass
+
+        event.accept()

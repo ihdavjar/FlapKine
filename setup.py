@@ -31,6 +31,14 @@ setup(
             'flapkine = app.main:main',  # <- Adjust this based on your actual main entry
         ],
     },
+    extras_require={
+        'test': [
+            'pytest>=8.3.0',
+            'pytest-qt>=4.4.0',
+            'pytest-mock>=3.14.0'
+        ]
+    },
+
     python_requires='==3.10.3',
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -38,3 +46,4 @@ setup(
         "Topic :: Scientific/Engineering :: Visualization",
     ],
 )
+
