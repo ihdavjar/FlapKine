@@ -136,7 +136,7 @@ Each window is designed to operate both independently and as part of a larger si
 
 # Modeling Flow
 
-FlapKine is a GUI based modelling framework, When application it offers to either open a initialised project or create a new project. We will go through the workflow behind creating a new project and opening a new project with the help of an example. See ![Example 1 - Documentation](https://ihdavjar.github.io/FlapKine/examples/1_DOF_1.html) for detailed information.
+FlapKine is a GUI based modelling framework, When application it offers to either open a initialised project or create a new project. We will go through the workflow behind creating a new project and opening a new project with the help of an example. See [Example 1 - Documentation](https://ihdavjar.github.io/FlapKine/examples/1_DOF_1.html) for detailed information.
 
 ## 1-DOF Flapping Wing
 
