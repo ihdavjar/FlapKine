@@ -82,14 +82,7 @@ FlapKine’s design centers on a clear separation between **core components** an
 
 These classes are modular and can be used directly in Python scripts or through the Flapkine GUI.
 
-<p align="center">
-  <img src="assets/FlapKineFlowDiagram.png" alt="Object-oriented structure of the Flapkine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact" width="800"/>
-</p>
-
-
-<p align="center">
-  <strong>Figure:</strong> Object-oriented structure of the FlapKine backend showing how <code>Object3D</code>, <code>Sprite</code>, and <code>Scene</code> classes interact.
-</p>
+![Object-oriented structure of the FlapKine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact](assets/FlapKineFlowDiagram.png)
 
 ## Conceptual Analogy: A 3D Stage
 
