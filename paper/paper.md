@@ -24,7 +24,7 @@ affiliations:
     index: 1
   - name: Department of Mechanical Engineering, Indian Insititute of Technology Jodhpur, India
     index: 2
-date: 22 May 2025
+date: 24 May 2025
 bibliography: paper.bib
 ---
 
