@@ -68,6 +68,7 @@ Overall **FlapKine** tries to combine most of the existing features in different
 FlapKine’s design centers on a clear separation between **core components** and the **graphical user interface**, organized into:
 
 1. **Core Components**
+   
 ## Main Object-Oriented Components
 
 | Component/Class | Description |
@@ -155,20 +156,20 @@ This example simulates a single-axis wing rotation (z-axis) with STL visualizati
 ```text
 project.zip
   ├── 1_DOF_1/
-  │   ├── scene.pkl                       # Scene Class object saved as a pickle file
-  │   ├── config.json                     # Configuration file with simulation and rendering settings
-  │   └── data/                           # Output directory for generated frames or videos
+  │   ├── scene.pkl                 # Scene Class object saved as a pickle file
+  │   ├── config.json               # Configuration file with simulation and rendering settings
+  │   └── data/                     # Output directory for generated frames or videos
   │
   └── resources/
       ├── angles/
-      │ ├── alpha_data.csv                # Rotation about the x-axis (all zeros)
-      │ ├── beta_data.csv                 # Rotation about the y-axis (all zeros)
-      │ └── gamma_data.csv                # Rotation about the z-axis (time-series values)
+      │ ├── alpha_data.csv          # Rotation about the x-axis (all zeros)
+      │ ├── beta_data.csv           # Rotation about the y-axis (all zeros)
+      │ └── gamma_data.csv          # Rotation about the z-axis (time-series values)
       │
       ├── stl/
-      │ └── wing.stl                      # 3D mesh of the wing
+      │ └── wing.stl                # 3D mesh of the wing
       │
-      └── angle_plot.png                  # Plot of the rotation angles over time
+      └── angle_plot.png            # Plot of the rotation angles over time
 
 ```
 
