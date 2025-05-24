@@ -70,9 +70,9 @@ Overall **FlapKine** tries to combine most of the existing features in different
 
 FlapKine’s design centers on a clear separation between **core components** and the **graphical user interface**, organized into:
 
-1. **Core Components**
+## 1. **Core Components**
 
-## Main Object-Oriented Components
+### Main Object-Oriented Components
 
 | Component/Class | Description |
 |------------------|-------------|
@@ -84,7 +84,7 @@ These classes are modular and can be used directly in Python scripts or through 
 
 ![Object-oriented structure of the FlapKine backend showing how `Object3D`, `Sprite`, and `Scene` classes interact](assets/FlapKineFlowDiagram.png)
 
-## Conceptual Analogy: A 3D Stage
+### Conceptual Analogy: A 3D Stage
 
 To intuitively understand Flapkine's architecture, imagine the simulation as a **3D stage**:
 
@@ -99,6 +99,9 @@ Together, the structure looks like this:
   Scene
   ├── Sprite 1 → (Object3D + Motion Time Series)
   ├── Sprite 2 → (Object3D + Motion Time Series)
+  |     .
+  |     .
+  |     .
   └── Sprite N → (Object3D + Motion Time Series)
 ```
 
@@ -111,13 +114,13 @@ Each level in the structure adds more abstraction and control:
 This layered structure makes it easy to manage and visualize multiple interacting elements in a biomimetic system, such as both wings of an insect etc.
 
 
-2. **Graphical User Interface (GUI)**
+## 2. **Graphical User Interface (GUI)**
 
 FlapKine offers GUI windows for interactively creating and managing each of the object-oriented components discussed earlier (`Object3D`, `Sprite`, and `Scene`). This modular interface enables users—whether researchers, engineers, or students—to easily construct, simulate, and visualize complex biomechanical or robotic systems without needing to write code.
 
 Below is a summary of all the windows provided by the FlapKine interface:
 
-## Application Windows Overview
+### Application Windows Overview
 
 | **Window** | **Description** |
 |------------|------------------|
