@@ -1,5 +1,5 @@
 ---
-title: 'FlapKine – A Simulation Toolkit for the Kinematics of Flapping-Wing Micro Aerial Vehicles'
+title: "FlapKine – A Simulation Toolkit for the Kinematics of Flapping-Wing Micro Aerial Vehicles"
 tags:
   - Python
   - PyQt5
@@ -15,18 +15,19 @@ authors:
     orcid: 0009-0005-4473-2910
     affiliation: 1
   - name: Raj Kiran Sangoju
-    affilation: 2
+    affiliation: 2
   - name: Nipun Arora
     orcid: 0000-0002-1835-1189
-    affilation: 2
+    affiliation: 2
 affiliations:
   - name: Department of Electrical Engineering, Indian Institute of Technology Jodhpur, India
     index: 1
-  - name: Department of Mechanical Engineering, Indian Insititute of Technology Jodhpur, India
+  - name: Department of Mechanical Engineering, Indian Institute of Technology Jodhpur, India
     index: 2
 date: 24 May 2025
 bibliography: paper.bib
 ---
+
 
 # Summary
 
@@ -70,7 +71,7 @@ Overall **FlapKine** tries to combine most of the existing features in different
 FlapKine’s design centers on a clear separation between **core components** and the **graphical user interface**, organized into:
 
 1. **Core Components**
-   
+
 ## Main Object-Oriented Components
 
 | Component/Class | Description |
