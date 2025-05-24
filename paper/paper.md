@@ -15,13 +15,15 @@ authors:
     orcid: 0009-0005-4473-2910
     affiliation: 1
   - name: Raj Kiran Sangoju
-    affilation: 1
+    affilation: 2
   - name: Nipun Arora
     orcid: 0000-0002-1835-1189
-    affilation: 1
+    affilation: 2
 affiliations:
-  - name: Indian Institute of Technology Jodhpur, India
+  - name: Department of Electrical Engineering, Indian Institute of Technology Jodhpur, India
     index: 1
+  - name: Department of Mechanical Engineering, Indian Insititute of Technology Jodhpur, India
+    index: 2
 date: 22 May 2025
 bibliography: paper.bib
 ---
