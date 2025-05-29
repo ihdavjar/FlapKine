@@ -195,4 +195,4 @@ If you're passionate about bio-inspired flight, computer vision, or robotics —
 
 - [Nipun Arora](https://sites.google.com/view/nipun-arora/home)
 - [Kalbhavi Vadhi Raj](www.linkedin.com/in/kalbhavi-vadhi-raj)
-- Raj Kiran Sangoju
+- [Raj Kiran Sangoju](https://github.com/Raj-Kiran127)
