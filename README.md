@@ -50,7 +50,6 @@ Download the latest release from the [Releases Page](https://github.com/ihdavjar
 
 Set up FlapKine locally for development using the steps below:
 
----
 
 1. **Clone the Repository**
 
@@ -82,7 +81,6 @@ Set up FlapKine locally for development using the steps below:
 > **Note:** For proper video rendering support, you **must install** the [K-Lite Codec Pack](https://codecguide.com/download_kl.htm) (Basic or Standard version is enough).
 > Without it, some video player features may not work, due to missing codec issues.
 
----
 
 ## Example
 
