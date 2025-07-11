@@ -1,4 +1,4 @@
-from version import __version__
+from src.version import __version__
 from setuptools import setup, find_packages
 
 setup(

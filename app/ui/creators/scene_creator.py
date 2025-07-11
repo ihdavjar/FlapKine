@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (
 
 from qtawesome import icon
 
-from version import __version__
+from src.version import __version__
 from app.ui.creators.sprite_creator import SpriteCreator
 from app.widgets.misc.menu_bar import MenuBar
 from src.core.core import Scene

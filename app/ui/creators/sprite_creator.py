@@ -20,7 +20,7 @@ from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from stl import mesh
 from qtawesome import icon
 
-from version import __version__
+from src.version import __version__
 from src.core.core import Object3D, Sprite
 from src.core.transforms.translation import ConstantT, Translation_COM
 from src.core.transforms.rotation import ConstantR, Rotation_EulerAngles

@@ -1,12 +1,7 @@
 .. _flexibility_transform:
 
-Flexibility Transform (Experimental)
-====================================
-
-.. warning::
-
-   **This feature is currently under development.**
-   Functionality is experimental and subject to change in future releases.
+Flexibility Transform
+=====================
 
 The :code:`FlapKine` application supports flexible body transformations in addition to standard translation and rotation. This feature enables realistic modeling of deformable structures such as flapping wings. Flexibility is introduced via spatially varying transformation matrices applied per-vertex, enabling time-dependent and location-specific deformation.
 
@@ -34,11 +29,11 @@ Flexibility is modeled by applying a deformation matrix to each vertex in the bo
 
 .. math::
 
-   \mathbf{P}_{B}''' = \mathbf{F}_{B} \cdot \mathbf{P}_{B}'',
+   \mathbf{P}_{B}' = \mathbf{F}_{B} \cdot \mathbf{P}_{B},
 
 where:
 
-- :math:`\mathbf{P}_{B}''` is the vertex after translation and rotation.
+- :math:`\mathbf{P}_{B}` is position vector, representing a vertex in the local ``Sprite`` frame.
 
 - :math:`\mathbf{F}_{B}` is the **flexibility transformation matrix**, defined as:
 
@@ -59,11 +54,11 @@ Flexibility Type 1: Flapping-Induced Deformation
 
 This mode simulates a time-dependent spanwise deformation modeled after flapping wing kinematics. Assuming:
 
-- Wing span along :math:`\hat{\mathbf{b}}_1`
-- Chord along :math:`\hat{\mathbf{b}}_2`
-- Thickness along :math:`\hat{\mathbf{b}}_3`
+- Wing span along :math:`\hat{\mathbf{e}}_1`
+- Chord along :math:`\hat{\mathbf{e}}_2`
+- Thickness along :math:`\hat{\mathbf{e}}_3`
 
-The deformation is introduced only along :math:`\hat{\mathbf{b}}_3`, defined by:
+The deformation is introduced only along :math:`\hat{\mathbf{e}}_3`, defined by:
 
 .. math::
 
@@ -102,25 +97,114 @@ Here:
 - :math:`R` is the total wing span
 - :math:`C_R` is the reference chord
 
-Final Transformation
---------------------
+Input Options
+^^^^^^^^^^^^^
 
-After applying translation (:math:`\mathbf{T}_B`), rotation (:math:`\mathbf{R}_B`), and flexibility (:math:`\mathbf{F}_B`), the final vertex position in the inertial frame is:
+When using **Flexibility Type 1**, users must provide the following inputs to configure the deformation behavior, as illustrated below:
+
+.. image:: ../../assets/images/flexibility_transform_type1.png
+   :alt: Flexibility Transform Type 1
+   :align: center
+   :width: 500px
+
+**Axis Alignment Options:**
+
+Specify the direction in which the *thickness* of the wing is aligned. Only one of the following flags should be set to `True`:
+
+- ``x`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_1` (x-axis); wing span aligns with the y-axis (:math:`\hat{\mathbf{e}}_2`), and chord with :math:`\hat{\mathbf{e}}_3`.
+- ``y`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_2` (y-axis); wing span and chord lie in orthogonal directions accordingly.
+- ``z`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_3` (z-axis); wing span and chord adjust accordingly.
+
+**Curvature Parameter:**
+
+- ``p`` – A dimensionless curvature parameter (range: 0 to 1) that defines the inflection point of the deflection curve along the wing span. Controls where maximum curvature occurs.
+
+**Time Period:**
+
+- ``time period`` – Duration (in seconds) of a single wing flapping cycle. This governs the temporal frequency of deformation.
+
+These parameters allow precise control over the deformation profile in Flexibility Type 1 mode.
+
+Flexibility Type 2: Span-Suppressed Deformation
+------------------------------------------------
+
+This mode models a modified elliptical deformation profile where deformation occurs **only beyond a threshold span-wise location**. It builds upon Flexibility Type 1 by introducing a span-wise cutoff that suppresses movement near the root and redistributes deflection towards the outer wing region.
+
+This type of deformation is ideal for simulating structures where the base remains mostly rigid while the tip exhibits dynamic movement.
+
+Assumptions:
+
+- Wing span along :math:`\hat{\mathbf{e}}_1`
+- Chord along :math:`\hat{\mathbf{e}}_2`
+- Thickness along :math:`\hat{\mathbf{e}}_3`
+
+The deformation is again applied only along the thickness direction :math:`\hat{\mathbf{e}}_3`, and is given by:
 
 .. math::
 
-   \mathbf{P}_E = \mathbf{F}_B \cdot \mathbf{R}_B \cdot \mathbf{T}_B \cdot \mathbf{P}_B
+   \begin{aligned}
+   f_x(x_B, y_B, z_B) &= 0 \\
+   f_y(x_B, y_B, z_B) &= 0 \\
+   f_z(x_B, y_B, z_B) &= h_{m,2}(x_B, y_B, t)
+   \end{aligned}
+
+Here, the function :math:`h_{m,2}(x_B, y_B, t)` represents a *span-suppressed* deflection profile:
+
+.. math::
+
+   h_{m,2}(x_B, y_B, t) =
+   \begin{cases}
+   0, & y_0 < p \\
+   \frac{Z_{M}(t)}{(1-p)^2} \cdot (1 - 2p + 2p y_0 - y_0^2) - Z_{M}(t), & y_0 \geq p
+   \end{cases}
 
 Where:
 
-- :math:`\mathbf{P}_E = \begin{bmatrix} x_E & y_E & z_E & 1 \end{bmatrix}^T` is the transformed vertex in inertial frame
-- :math:`\mathbf{P}_B` is the original vertex in body frame
+- :math:`Z_{M}(t)` is the time-dependent deformation amplitude along the span.
+- :math:`y_0 = \frac{y_B - y_{\min}}{C_R}` is the normalized chordwise position.
+- :math:`C_R` is the total chord length.
+- :math:`p` is the curvature cutoff (range: 0 to 1) defining the threshold beyond which deformation occurs.
+
+This model suppresses any deformation when the normalized spanwise position :math:`y_0` is below the cutoff :math:`p`. Beyond this threshold, it redistributes the deformation in a parabolic profile and subtracts :math:`Z_{M}(x_B, t)` to keep the transformation net-zero at :math:`y_0 = p`.
+
+.. note::
+
+   The value of :math:`Z_{M}(t)` is **not computed internally** in this formulation—it must be precomputed externally (e.g., using the Flexibility Type 1 function or another analytical expression) and passed in as input.
+
+Input Options
+^^^^^^^^^^^^^
+
+When using **Flexibility Type 2**, users must provide the following inputs to configure the deformation behavior, as illustrated below:
+
+.. image:: ../../assets/images/flexibility_transform_type2.png
+   :alt: Flexibility Transform Type 2
+   :align: center
+   :width: 500px
+
+**Axis Alignment Options:**
+
+Specify the direction in which the *thickness* of the wing is aligned. Only one of the following flags should be set to `True`:
+
+- ``x`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_1` (x-axis); wing span aligns with the y-axis (:math:`\hat{\mathbf{e}}_2`), and chord with :math:`\hat{\mathbf{e}}_3`.
+- ``y`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_2` (y-axis); wing span and chord lie in orthogonal directions accordingly.
+- ``z`` – Thickness is aligned along the :math:`\hat{\mathbf{e}}_3` (z-axis); wing span and chord adjust accordingly.
+
+**Deformation Amplitude (M Values):**
+
+- ``m_values`` – A time-series of displacement amplitudes (:math:`Z_M(t)`) for each vertex along the thickness direction. Must be provided in `.csv` format, where each row corresponds to a time frame and each column to a vertex.
+
+**Curvature Parameter:**
+
+- ``p`` – A dimensionless curvature cutoff parameter (range: 0 to 1) that defines the span-wise threshold. Vertices below this normalized position remain undeformed; deformation occurs only beyond this point.
+
+These parameters enable partial-span deformation modeling using externally computed amplitude profiles, ideal for suppressing motion at the wing root.
+
 
 Implementation Notes
 --------------------
 
 - The flexibility transformation is computed **per vertex** using vertex-local body coordinates.
-- Flexibility is applied **after** translation and rotation.
+- Flexibility is applied **before** translation and rotation.
 - The framework is designed to support real-time deformation in simulations, with flexibility functions updated each frame.
 
 .. rubric:: References
