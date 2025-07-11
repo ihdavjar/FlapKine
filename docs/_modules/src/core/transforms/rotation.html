@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>src.core.transforms.rotation &#8212; FlapKine v1.0.0 documentation</title>
+    <title>src.core.transforms.rotation &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/src/core/transforms/rotation';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -358,8 +358,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies the rotation transformation to the input data.</span>
 
-<span class="sd">        This method should be implemented by subclasses to perform specific rotation </span>
-<span class="sd">        transformations. It accepts the input data and angles, and returns the transformed </span>
+<span class="sd">        This method should be implemented by subclasses to perform specific rotation</span>
+<span class="sd">        transformations. It accepts the input data and angles, and returns the transformed</span>
 <span class="sd">        data after applying the rotation.</span>
 
 <span class="sd">        Parameters</span>
@@ -368,14 +368,14 @@
 <span class="sd">            The input data to be transformed, typically a 3D coordinate or set of points.</span>
 
 <span class="sd">        angles : array-like or float</span>
-<span class="sd">            The angles (in radians or degrees) for rotation, which may represent </span>
-<span class="sd">            rotation along different axes (e.g., x, y, z) depending on the specific </span>
+<span class="sd">            The angles (in radians or degrees) for rotation, which may represent</span>
+<span class="sd">            rotation along different axes (e.g., x, y, z) depending on the specific</span>
 <span class="sd">            implementation.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        NotImplementedError</span>
-<span class="sd">            If called directly from this base class, since the method must be </span>
+<span class="sd">            If called directly from this base class, since the method must be</span>
 <span class="sd">            implemented by a subclass.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Each transform must implement the __call__ method.&quot;</span><span class="p">)</span></div>
@@ -390,7 +390,7 @@
 
 <span class="sd">    A subclass of `Rotation_Transform` that performs no rotation on the input data.</span>
 
-<span class="sd">    This transform simply returns the input data without any modifications, </span>
+<span class="sd">    This transform simply returns the input data without any modifications,</span>
 <span class="sd">    effectively serving as a placeholder for situations where no rotation is desired.</span>
 
 <span class="sd">    Methods</span>
@@ -399,7 +399,7 @@
 <span class="sd">        Returns the input data as-is without applying any rotation.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the input data without applying any rotation.</span>
@@ -419,8 +419,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">input_</span></div>
 
-             
-    
+
+
 
 <div class="viewcode-block" id="Rotation_EulerAngles">
 <a class="viewcode-back" href="../../../../api_reference/src/src.core.transforms.html#src.core.transforms.rotation.Rotation_EulerAngles">[docs]</a>
@@ -432,7 +432,7 @@
 <span class="sd">    A subclass of `Rotation_Transform` that applies a rotation to input data using Euler angles.</span>
 
 <span class="sd">    This transform performs a rotation on the input data based on the specified Euler angle sequence.</span>
-<span class="sd">    The available rotation sequences are Proper Euler angles (e.g., &#39;ZXZ&#39;, &#39;XYX&#39;, &#39;ZYZ&#39;) and Tait-Bryan angles </span>
+<span class="sd">    The available rotation sequences are Proper Euler angles (e.g., &#39;ZXZ&#39;, &#39;XYX&#39;, &#39;ZYZ&#39;) and Tait-Bryan angles</span>
 <span class="sd">    (e.g., &#39;ZYX&#39;, &#39;YXZ&#39;). The rotation is achieved by multiplying the input data by the corresponding rotation matrix.</span>
 
 <span class="sd">    Attributes</span>
@@ -449,7 +449,7 @@
 <span class="sd">        Applies the rotation on the input data using the specified Euler angle sequence.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the rotation transform with a specified Euler angle sequence type.</span>
@@ -460,7 +460,7 @@
 <span class="sd">            The type of Euler angle rotation (e.g., &#39;ZXZ&#39;, &#39;XYX&#39;, &#39;ZYZ&#39;, &#39;ZYX&#39;, etc.).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
-    
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_</span><span class="p">,</span> <span class="n">angles</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies the rotation to the input data using the specified Euler angle sequence.</span>
@@ -480,11 +480,11 @@
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        This method supports both Proper Euler angles (e.g., &#39;ZXZ&#39;, &#39;XYX&#39;, etc.) and Tait-Bryan angles </span>
-<span class="sd">        (e.g., &#39;ZYX&#39;, &#39;YXZ&#39;, etc.). The rotation is performed using the corresponding rotation matrix </span>
+<span class="sd">        This method supports both Proper Euler angles (e.g., &#39;ZXZ&#39;, &#39;XYX&#39;, etc.) and Tait-Bryan angles</span>
+<span class="sd">        (e.g., &#39;ZYX&#39;, &#39;YXZ&#39;, etc.). The rotation is performed using the corresponding rotation matrix</span>
 <span class="sd">        for the specified sequence of Euler angles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Proper Euler angles (z-x-z, x-y-x, y-z-y, z-y-z, x-z-x, y-x-y)    </span>
+        <span class="c1"># Proper Euler angles (z-x-z, x-y-x, y-z-y, z-y-z, x-z-x, y-x-y)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;ZXZ&#39;</span><span class="p">:</span>
             <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">rotation_matrix_z_x_z</span><span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
@@ -527,11 +527,11 @@
         <span class="k">return</span> <span class="n">temp_data</span></div>
 
 
-        
-    
 
-        
-            
+
+
+
+
 </pre></div>
 
                 </article>

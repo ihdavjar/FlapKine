@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.widgets.misc.menu_bar &#8212; FlapKine v1.0.0 documentation</title>
+    <title>app.widgets.misc.menu_bar &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/widgets/misc/menu_bar';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -433,7 +433,6 @@
 
         <span class="c1"># Help Menu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;Help&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">doc_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;Documentation&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;About&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -485,21 +484,20 @@
 <span class="sd">                - &#39;undo&#39;, &#39;redo&#39;</span>
 <span class="sd">                - &#39;minimize&#39;, &#39;maximize&#39;, &#39;restore&#39;</span>
 <span class="sd">                - &#39;configure_render&#39;</span>
-<span class="sd">                - &#39;about&#39; and &#39;doc&#39;</span>
+<span class="sd">                - &#39;about&#39;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">actions</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;new&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_action</span><span class="p">,</span>
             <span class="s1">&#39;open&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_action</span><span class="p">,</span>
             <span class="s1">&#39;exit&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_action</span><span class="p">,</span>
-            <span class="s1">&#39;about&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="p">,</span>
-            <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_action</span><span class="p">,</span>
             <span class="s1">&#39;minimize&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimize_action</span><span class="p">,</span>
             <span class="s1">&#39;maximize&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximize_action</span><span class="p">,</span>
             <span class="s1">&#39;restore&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restore_action</span><span class="p">,</span>
+            <span class="s1">&#39;about&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">about_action</span><span class="p">,</span>
             <span class="s1">&#39;undo&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">undo_action</span><span class="p">,</span>
             <span class="s1">&#39;redo&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">redo_action</span><span class="p">,</span>
-            <span class="s1">&#39;configure_render&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_option</span><span class="p">,</span>
+            <span class="s1">&#39;configure_render&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_option</span>
         <span class="p">}</span>
 
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>

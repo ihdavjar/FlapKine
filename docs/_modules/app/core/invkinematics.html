@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.core.invkinematics &#8212; FlapKine v1.0.0 documentation</title>
+    <title>app.core.invkinematics &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/core/invkinematics';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -1054,9 +1054,9 @@
             <span class="n">chart</span><span class="o">.</span><span class="n">GetTitleProperties</span><span class="p">()</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">text_prop</span><span class="p">)</span>
 
         <span class="c1"># Update each chart with new data</span>
-        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_1</span><span class="p">,</span> <span class="n">alpha_values</span><span class="p">,</span> <span class="s2">&quot;Angle I&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Red</span>
-        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_2</span><span class="p">,</span> <span class="n">beta_values</span><span class="p">,</span> <span class="s2">&quot;Angle II&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Green</span>
-        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_3</span><span class="p">,</span> <span class="n">gamma_values</span><span class="p">,</span> <span class="s2">&quot;Angle III&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Blue</span>
+        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_1</span><span class="p">,</span> <span class="n">alpha_values</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Red</span>
+        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_2</span><span class="p">,</span> <span class="n">beta_values</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># Green</span>
+        <span class="n">update_chart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_r_3</span><span class="p">,</span> <span class="n">gamma_values</span><span class="p">,</span> <span class="s2">&quot;gamma&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Blue</span>
 
         <span class="c1"># Render updated charts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vtkWidget_r_1</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
@@ -1088,40 +1088,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">angle_data</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inv_result</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="InvKineWindow.closeEvent">
-<a class="viewcode-back" href="../../../api_reference/app/app.core.html#app.core.invkinematics.InvKineWindow.closeEvent">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Ensures all VTK widgets are gracefully finalized when the window is closed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># --- Left Group VTK cleanup ---</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;vtkWidget_l&#39;</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">vtkWidget_l</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
-                <span class="n">interactor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkWidget_l</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">interactor</span><span class="p">:</span>
-                    <span class="n">interactor</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
-                    <span class="n">interactor</span><span class="o">.</span><span class="n">Disable</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-        <span class="c1"># --- Right Group VTK cleanup ---</span>
-        <span class="k">for</span> <span class="n">vtk_widget</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;vtkWidget_r_1&#39;</span><span class="p">,</span> <span class="s1">&#39;vtkWidget_r_2&#39;</span><span class="p">,</span> <span class="s1">&#39;vtkWidget_r_3&#39;</span><span class="p">]:</span>
-            <span class="n">widget</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vtk_widget</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">widget</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">widget</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">Finalize</span><span class="p">()</span>
-                    <span class="n">interactor</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">interactor</span><span class="p">:</span>
-                        <span class="n">interactor</span><span class="o">.</span><span class="n">TerminateApp</span><span class="p">()</span>
-                        <span class="n">interactor</span><span class="o">.</span><span class="n">Disable</span><span class="p">()</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="k">pass</span>
-
-        <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
 </div>
 
 </pre></div>

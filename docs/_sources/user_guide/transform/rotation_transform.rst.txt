@@ -24,7 +24,7 @@ A rotation transformation modifies the orientation of an object by applying time
 Mathematical Model
 ------------------
 
-If a rotation transformation is applied, the position vector :math:`\mathbf{P}_{B}`` (resulting from translation) is further transformed by the rotation matrix :math:`\mathbf{R}_{B}`:
+If a rotation transformation is applied, the position vector :math:`\mathbf{P}_{B}`` (resulting from flexibility trans) is further transformed by the rotation matrix :math:`\mathbf{R}_{B}`:
 
 .. math::
 

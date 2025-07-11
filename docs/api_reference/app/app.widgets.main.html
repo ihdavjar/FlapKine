@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>app.widgets.main package &#8212; FlapKine v1.0.0 documentation</title>
+    <title>app.widgets.main package &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.widgets.main';</script>
@@ -116,8 +116,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -659,34 +659,6 @@ based on its frame orientation and origin.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflected_polydata">
-<span class="sig-name descname"><span class="pre">get_reflected_polydata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_yz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.get_reflected_polydata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflected_polydata" title="Link to this definition">#</a></dt>
-<dd><p>Returns a reflected copy of the input vtkPolyData based on specified reflection plane.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>poly_data</strong> (<em>vtk.vtkPolyData</em>) – The original mesh to reflect.</p></li>
-<li><p><strong>reflect_xy</strong> (<em>bool</em>) – Reflect across the XY plane (invert Z).</p></li>
-<li><p><strong>reflect_yz</strong> (<em>bool</em>) – Reflect across the YZ plane (invert X).</p></li>
-<li><p><strong>reflect_xz</strong> (<em>bool</em>) – Reflect across the XZ plane (invert Y).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>reflected_poly</strong> – The reflected mesh, or None if no reflection flag is set.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vtk.vtkPolyData or None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflection_transform">
-<span class="sig-name descname"><span class="pre">get_reflection_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reflect_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_yz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.get_reflection_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflection_transform" title="Link to this definition">#</a></dt>
-<dd><p>Create a vtkTransform that performs reflection across specified planes.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="id2">
 <span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.init_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the user interface components of the 3D visualizer widget.</p>
@@ -730,14 +702,6 @@ schedules the next frame update using a <cite>QTimer</cite>.</p>
 <li><p>Frame updates occur every 50 milliseconds.</p></li>
 <li><p>The method stops updating if <cite>self.playing</cite> is set to False.</p></li>
 </ul>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.widgets.main.frame_visualiser.Visualizer3DWidget.refresh_fun">
-<span class="sig-name descname"><span class="pre">refresh_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/widgets/main/frame_visualiser.html#Visualizer3DWidget.refresh_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.refresh_fun" title="Link to this definition">#</a></dt>
-<dd><p>Refresh the visualization by reloading the config file and updating the reflect options.</p>
-<p>This method is called when the refresh button is clicked. It reinitializes the
-visualization pipeline, including the mesh and axes actors, based on the current</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1747,12 +1711,9 @@ Typically used to alert users when essential files or configurations are missing
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.stl_mesh_to_vtk"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_axes_actor()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.create_body_axes()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflected_polydata"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.get_reflected_polydata()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.get_reflection_transform"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.get_reflection_transform()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.init_ui()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.on_slider_value_changed()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.play_frames()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.widgets.main.frame_visualiser.Visualizer3DWidget.refresh_fun"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.refresh_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.setup_visualization()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.stl_mesh_to_vtk()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">Visualizer3DWidget.toggle_play()</span></code></a></li>

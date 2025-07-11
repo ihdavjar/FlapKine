@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>app.ui.creators.project_creator &#8212; FlapKine v1.0.0 documentation</title>
+    <title>app.ui.creators.project_creator &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/app/ui/creators/project_creator';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -337,8 +337,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QUrl</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QIcon</span><span class="p">,</span> <span class="n">QDesktopServices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt5.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QCheckBox</span><span class="p">,</span> <span class="n">QComboBox</span><span class="p">,</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QDesktopWidget</span><span class="p">,</span> <span class="n">QDoubleSpinBox</span><span class="p">,</span>
     <span class="n">QGroupBox</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span>
@@ -405,10 +404,10 @@
 <span class="sd">    camera_location_z : QDoubleSpinBox</span>
 <span class="sd">        Spin boxes for defining camera position in 3D space.</span>
 
-<span class="sd">    camera_focal_x : QDoubleSpinBox</span>
-<span class="sd">    camera_focal_y : QDoubleSpinBox</span>
-<span class="sd">    camera_focal_z : QDoubleSpinBox</span>
-<span class="sd">        Spin boxes for defining camera focal point in 3D space.</span>
+<span class="sd">    camera_rotation_alpha : QDoubleSpinBox</span>
+<span class="sd">    camera_rotation_beta : QDoubleSpinBox</span>
+<span class="sd">    camera_rotation_gamma : QDoubleSpinBox</span>
+<span class="sd">        Spin boxes for defining camera rotation angles (Roll α, Pitch β, Yaw γ).</span>
 
 <span class="sd">    light_location_x : QDoubleSpinBox</span>
 <span class="sd">    light_location_y : QDoubleSpinBox</span>
@@ -539,7 +538,6 @@
             <span class="s1">&#39;maximize&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">,</span>
             <span class="s1">&#39;restore&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">showNormal</span><span class="p">,</span>
             <span class="s1">&#39;about&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">about_button_fun</span><span class="p">,</span>
-            <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_doc</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">initUI</span><span class="p">()</span>
@@ -790,87 +788,72 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets up the camera configuration section within the config group.</span>
 
-<span class="sd">        Creates a stylized group box labeled &quot;Camera Settings&quot; containing controls for:</span>
-<span class="sd">            - Camera Position</span>
-<span class="sd">            - Camera Focal Point</span>
-<span class="sd">            - Camera View Up Vector</span>
-
-<span class="sd">        Layout Structure:</span>
-<span class="sd">            - Three horizontal QHBoxLayouts for each subcomponent</span>
-<span class="sd">            - Each axis (X, Y, Z) has its own labeled QDoubleSpinBox</span>
+<span class="sd">        Creates a stylized group box labeled &quot;Camera Settings&quot; containing controls for camera</span>
+<span class="sd">        position and rotation. The layout is divided into two horizontal sections:</span>
+<span class="sd">        one for camera location and another for rotation.</span>
 
 <span class="sd">        Subcomponents Added:</span>
 <span class="sd">            - Camera Location Controls: via `add_camera_controls`</span>
-<span class="sd">            - Camera Focal Controls: via `add_camera_controls`</span>
-<span class="sd">            - Camera View-Up Controls: via `add_camera_controls`</span>
+<span class="sd">            - Camera Rotation Controls: via `add_camera_controls`</span>
+<span class="sd">            - Styled `QGroupBox` with bold teal border and custom title padding</span>
 
 <span class="sd">        The assembled group is added to the main configuration layout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">camera_setting_grp</span> <span class="o">=</span> <span class="n">QGroupBox</span><span class="p">(</span><span class="s2">&quot;Camera Settings&quot;</span><span class="p">)</span>
         <span class="n">camera_setting_grp</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
         <span class="n">camera_setting_grp</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        QGroupBox {</span>
-<span class="s2">            color: #16a085;</span>
-<span class="s2">            font-weight: bold;</span>
-<span class="s2">            border: 2px solid #13876a;</span>
-<span class="s2">            border-radius: 6px;</span>
-<span class="s2">            margin-top: 10px;</span>
-<span class="s2">        }</span>
-<span class="s2">        QGroupBox::title {</span>
-<span class="s2">            subcontrol-origin: margin;</span>
-<span class="s2">            subcontrol-position: top left;</span>
-<span class="s2">            padding: 5px;</span>
-<span class="s2">        }</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-
-        <span class="n">camera_settings</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+<span class="s2">    QGroupBox {</span>
+<span class="s2">        color: #16a085;</span>
+<span class="s2">        font-weight: bold;</span>
+<span class="s2">        border: 2px solid #13876a;</span>
+<span class="s2">        border-radius: 6px;</span>
+<span class="s2">        margin-top: 10px;</span>
+<span class="s2">    }</span>
+<span class="s2">    QGroupBox::title {</span>
+<span class="s2">        subcontrol-origin: margin;</span>
+<span class="s2">        subcontrol-position: top left;</span>
+<span class="s2">        padding: 5px;</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">Camera_settings</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">camera_location</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="n">camera_focal</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="n">camera_up</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_camera_controls</span><span class="p">(</span><span class="n">camera_location</span><span class="p">,</span> <span class="n">camera_focal</span><span class="p">,</span> <span class="n">camera_up</span><span class="p">)</span>
-
-        <span class="n">camera_settings</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">camera_location</span><span class="p">)</span>
-        <span class="n">camera_settings</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">camera_focal</span><span class="p">)</span>
-        <span class="n">camera_settings</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">camera_up</span><span class="p">)</span>
-
-        <span class="n">camera_setting_grp</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">camera_settings</span><span class="p">)</span>
+        <span class="n">camera_rotation</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_camera_controls</span><span class="p">(</span><span class="n">camera_location</span><span class="p">,</span> <span class="n">camera_rotation</span><span class="p">)</span>
+        <span class="n">Camera_settings</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">camera_location</span><span class="p">)</span>
+        <span class="n">Camera_settings</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">camera_rotation</span><span class="p">)</span>
+        <span class="n">camera_setting_grp</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">Camera_settings</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">camera_setting_grp</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ProjectCreator.add_camera_controls">
 <a class="viewcode-back" href="../../../../api_reference/app/app.ui.creators.html#app.ui.creators.project_creator.ProjectCreator.add_camera_controls">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_camera_controls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location_layout</span><span class="p">,</span> <span class="n">focal_layout</span><span class="p">,</span> <span class="n">up_layout</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_camera_controls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location_layout</span><span class="p">,</span> <span class="n">rotation_layout</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds camera position, focal point, and view-up vector controls to the given layouts.</span>
+<span class="sd">        Adds camera position and rotation controls to the given layouts.</span>
 
-<span class="sd">        Each control group is populated with labeled `QDoubleSpinBox` widgets for X, Y, and Z axes.</span>
+<span class="sd">        Dynamically creates labeled `QDoubleSpinBox` widgets for both camera location (X, Y, Z)</span>
+<span class="sd">        and rotation (Roll α, Pitch β, Yaw γ), and assigns them to class attributes for access.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        location_layout : QHBoxLayout</span>
-<span class="sd">            Layout to which camera position (location) spinboxes are added.</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            location_layout (QHBoxLayout): Layout to which camera location widgets are added.</span>
+<span class="sd">            rotation_layout (QHBoxLayout): Layout to which camera rotation widgets are added.</span>
 
-<span class="sd">        focal_layout : QHBoxLayout</span>
-<span class="sd">            Layout to which camera focal point spinboxes are added.</span>
-
-<span class="sd">        up_layout : QHBoxLayout</span>
-<span class="sd">            Layout to which camera view-up vector spinboxes are added.</span>
-
-<span class="sd">        Attributes Set</span>
-<span class="sd">        --------------</span>
-<span class="sd">        camera_location_x, camera_location_y, camera_location_z : QDoubleSpinBox</span>
-<span class="sd">            Spinboxes for camera position in world coordinates.</span>
-
-<span class="sd">        camera_focal_x, camera_focal_y, camera_focal_z : QDoubleSpinBox</span>
-<span class="sd">            Spinboxes for focal target point of the camera.</span>
-
-<span class="sd">        camera_up_x, camera_up_y, camera_up_z : QDoubleSpinBox</span>
-<span class="sd">            Spinboxes for defining the view-up direction of the camera.</span>
+<span class="sd">        SpinBoxes Created:</span>
+<span class="sd">            - Location: camera_location_x, camera_location_y, camera_location_z (range: -1000 to 1000)</span>
+<span class="sd">            - Rotation: camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma (range: -360 to 360)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">add_control</span><span class="p">(</span><span class="n">label_text</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Creates a QWidget containing a label and a spinbox.&quot;&quot;&quot;</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">add_control</span><span class="p">(</span><span class="n">label_text</span><span class="p">,</span> <span class="n">spinbox_attr</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Creates a labeled QDoubleSpinBox with specified range.</span>
+
+<span class="sd">            :param label_text: Label text for the spinbox</span>
+<span class="sd">            :param spinbox_attr: Attribute name (unused here, passed for context)</span>
+<span class="sd">            :param min_val: Minimum value for the spinbox</span>
+<span class="sd">            :param max_val: Maximum value for the spinbox</span>
+<span class="sd">            :return: Tuple of QWidget containing layout and the QDoubleSpinBox</span>
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">wid</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
             <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="n">label_text</span><span class="p">)</span>
@@ -879,31 +862,20 @@
             <span class="n">spinbox</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
             <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
             <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">spinbox</span><span class="p">)</span>
-            <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">wid</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span>
 
-        <span class="c1"># Camera Location Controls</span>
         <span class="n">location_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]:</span>
-            <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span> <span class="o">=</span> <span class="n">add_control</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+            <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span> <span class="o">=</span> <span class="n">add_control</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_location_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_location_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">spinbox</span><span class="p">)</span>
             <span class="n">location_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span>
 
-        <span class="c1"># Camera Focal Controls</span>
-        <span class="n">focal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Focal Point&#39;</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]:</span>
-            <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span> <span class="o">=</span> <span class="n">add_control</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_focal_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">spinbox</span><span class="p">)</span>
-            <span class="n">focal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span>
-
-        <span class="c1"># Camera View-Up Controls</span>
-        <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;View Up&#39;</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]:</span>
-            <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span> <span class="o">=</span> <span class="n">add_control</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-            <span class="n">spinbox</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_up_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">spinbox</span><span class="p">)</span>
-            <span class="n">up_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span></div>
+        <span class="n">rotation_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Rotation&#39;</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">]:</span>
+            <span class="n">wid</span><span class="p">,</span> <span class="n">spinbox</span> <span class="o">=</span> <span class="n">add_control</span><span class="p">(</span><span class="n">axis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_rotation_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">360</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;camera_rotation_</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">spinbox</span><span class="p">)</span>
+            <span class="n">rotation_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ProjectCreator.setup_light_settings">
@@ -1063,7 +1035,7 @@
 <span class="sd">        Launches a `CreateScene` dialog and connects its `sceneCreated` signal</span>
 <span class="sd">        to the `on_scene_created` handler.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">window2</span> <span class="o">=</span> <span class="n">SceneCreator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window2</span> <span class="o">=</span> <span class="n">SceneCreator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window2</span><span class="o">.</span><span class="n">sceneCreated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_scene_created</span><span class="p">)</span></div>
 
@@ -1103,7 +1075,7 @@
 <span class="sd">            - frame_format</span>
 <span class="sd">            - resolution_x, resolution_y</span>
 <span class="sd">            - camera_location_x/y/z</span>
-<span class="sd">            - camera_focal_x/y/z</span>
+<span class="sd">            - camera_rotation_alpha/beta/gamma</span>
 <span class="sd">            - light_location_x/y/z</span>
 <span class="sd">            - light_power</span>
 <span class="sd">            - reflect_xy, reflect_yz, reflect_xz</span>
@@ -1130,13 +1102,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;focal&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;up&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Camera&#39;</span><span class="p">][</span><span class="s1">&#39;rotation_euler&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Light&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
@@ -1184,7 +1152,7 @@
 <span class="sd">            - frame_format</span>
 <span class="sd">            - resolution_x, resolution_y</span>
 <span class="sd">            - camera_location_x/y/z</span>
-<span class="sd">            - camera_focal_x/y/z</span>
+<span class="sd">            - camera_rotation_alpha/beta/gamma</span>
 <span class="sd">            - light_location_x/y/z</span>
 <span class="sd">            - light_power</span>
 <span class="sd">            - reflect_xy, reflect_yz, reflect_xz</span>
@@ -1202,13 +1170,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1234,7 +1198,7 @@
 <span class="sd">        Finalizes and creates the project with the configured scene and settings.</span>
 
 <span class="sd">        This method performs the full setup of the project directory, including:</span>
-<span class="sd">        - Directory structure creation for images, videos, and data.</span>
+<span class="sd">        - Directory structure creation for videos, and data.</span>
 <span class="sd">        - Copying or serializing the scene file into the project folder.</span>
 <span class="sd">        - Saving a configuration JSON file based on current UI state.</span>
 <span class="sd">        - Launching the project rendering window.</span>
@@ -1244,7 +1208,6 @@
 <span class="sd">                ├── scene.pkl</span>
 <span class="sd">                ├── config.json</span>
 <span class="sd">                └── data/</span>
-<span class="sd">                    ├── images/</span>
 <span class="sd">                    └── videos/</span>
 
 <span class="sd">        Configuration Saved (`config.json`):</span>
@@ -1256,8 +1219,7 @@
 <span class="sd">                - film_transparent: fixed as False</span>
 <span class="sd">            - Camera:</span>
 <span class="sd">                - location: (x, y, z) position</span>
-<span class="sd">                - focal: (x, y, z) focal point</span>
-<span class="sd">                - up: (x, y, z) view-up vector</span>
+<span class="sd">                - rotation_euler: (alpha, beta, gamma) angles</span>
 <span class="sd">            - Light:</span>
 <span class="sd">                - location: (x, y, z) position</span>
 <span class="sd">                - energy: integer power value</span>
@@ -1271,11 +1233,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Create the project directory</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span><span class="p">)</span>
 
         <span class="c1"># Create data directory</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">+</span> <span class="s1">&#39;/data&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">+</span> <span class="s1">&#39;/data/videos&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">+</span> <span class="s1">&#39;/data&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">+</span> <span class="s1">&#39;/data/images&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_folder</span> <span class="o">+</span> <span class="s1">&#39;/data/videos&#39;</span><span class="p">)</span>
 
         <span class="c1"># Copy the scene file to the project folder</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;scene_data&#39;</span><span class="p">):</span>
@@ -1301,8 +1264,7 @@
             <span class="p">},</span>
             <span class="s1">&#39;Camera&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
-                <span class="s1">&#39;focal&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_focal_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
-                <span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_up_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_up_z</span><span class="o">.</span><span class="n">value</span><span class="p">()]</span>
+                <span class="s1">&#39;rotation_euler&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_beta</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_rotation_gamma</span><span class="o">.</span><span class="n">value</span><span class="p">()]</span>
             <span class="p">},</span>
             <span class="s1">&#39;Light&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">light_location_x</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_y</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_location_z</span><span class="o">.</span><span class="n">value</span><span class="p">()],</span>
@@ -1358,19 +1320,6 @@
                     <span class="n">box</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">about_button_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Displays an &#39;About FlapKine&#39; information dialog.</span>
-
-<span class="sd">        Shows details about the developer, version, and purpose of the application.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;About FlapKine&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">        &lt;h1&gt;FlapKine&lt;/h1&gt;</span>
-<span class="s1">        &lt;p&gt;Developed by: Kalbhavi Vadhiraj&lt;/p&gt;</span>
-<span class="s1">        &lt;p&gt;Version </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;/p&gt;</span>
-<span class="s1">        &lt;p&gt;FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.&lt;/p&gt;</span>
-<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
-
 <div class="viewcode-block" id="ProjectCreator.about_button_fun">
 <a class="viewcode-back" href="../../../../api_reference/app/app.ui.creators.html#app.ui.creators.project_creator.ProjectCreator.about_button_fun">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">about_button_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1385,22 +1334,6 @@
 <span class="s1">        &lt;p&gt;Version </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&lt;/p&gt;</span>
 <span class="s1">        &lt;p&gt;FlapKine provides a visual representation and simulation of the kinematics and aerodynamics of flapping wing micro-aerial vehicles (MAVs). It allows users to analyze and optimize MAV designs with precision and clarity, revealing the intricate mechanics of flapping flight. Whether for research, development, or educational purposes, this tool offers valuable insights into the performance and behavior of MAVs, facilitating advanced design and innovation.&lt;/p&gt;</span>
 <span class="s1">&#39;&#39;&#39;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ProjectCreator.show_doc">
-<a class="viewcode-back" href="../../../../api_reference/app/app.ui.creators.html#app.ui.creators.project_creator.ProjectCreator.show_doc">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">show_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Displays the documentation for the FlapKine application.</span>
-
-<span class="sd">        This method opens the documentation file in the default web browser.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="n">base_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_MEIPASS</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
-        <span class="n">doc_path</span> <span class="o">=</span> <span class="s2">&quot;https://ihdavjar.github.io/FlapKine/&quot;</span>
-        <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="o">.</span><span class="n">fromLocalFile</span><span class="p">(</span><span class="n">doc_path</span><span class="p">))</span></div>
 </div>
 
 </pre></div>

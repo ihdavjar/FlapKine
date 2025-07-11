@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>src.core package &#8212; FlapKine v1.0.0 documentation</title>
+    <title>src.core package &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/src/src.core';</script>
@@ -116,8 +116,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -622,22 +622,27 @@ the scene, either returning their original or transformed meshes based on the ti
 <span class="sig-name descname"><span class="pre">save_stl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_yz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_xz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/src/core/core.html#Scene.save_stl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.core.core.Scene.save_stl" title="Link to this definition">#</a></dt>
 <dd><p>Save the transformed meshes to STL files with optional reflections.</p>
 <p>This method applies transformations to all objects in the scene at the given time step <cite>t</cite>.
-If reflection flags are set, it applies the corresponding reflection across the specified planes.
-The method then combines the original and reflected meshes into a single STL mesh.</p>
+If reflection flags are set (e.g., <cite>reflect_xy</cite>, <cite>reflect_yz</cite>, or <cite>reflect_xz</cite>), it applies
+the corresponding reflection to the objects in the scene. The method then combines the transformed
+meshes and their reflected versions into a single mesh and returns it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> (<em>float</em>) – The time step used to apply transformations to the objects in the scene.</p></li>
-<li><p><strong>reflect_xy</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reflects objects across the XY plane (invert Z-axis).</p></li>
-<li><p><strong>reflect_yz</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reflects objects across the YZ plane (invert X-axis).</p></li>
-<li><p><strong>reflect_xz</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reflects objects across the XZ plane (invert Y-axis).</p></li>
+<li><p><strong>reflect_xy</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set to True, the objects are reflected across the xy-plane.</p></li>
+<li><p><strong>reflect_yz</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set to True, the objects are reflected across the yz-plane.</p></li>
+<li><p><strong>reflect_xz</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set to True, the objects are reflected across the xz-plane.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>combined_mesh</strong> – A single <cite>mesh.Mesh</cite> object containing all the transformed and optionally reflected objects.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>mesh.Mesh</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>combined_mesh</strong> (<em>mesh.Mesh</em>) – A single <cite>mesh.Mesh</cite> object containing all the transformed and optionally reflected objects.</p></li>
+<li><p><em>Methods Called</em></p></li>
+<li><p><em>————–</em></p></li>
+<li><p><em>transform(t)</em> – Applies transformations to the objects in the scene at the given time step <cite>t</cite>.</p></li>
+<li><p><em>copy.deepcopy()</em> – Creates a copy of each object for applying reflections.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>

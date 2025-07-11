@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>app.ui.creators package &#8212; FlapKine v1.0.0 documentation</title>
+    <title>app.ui.creators package &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/app/app.ui.creators';</script>
@@ -116,8 +116,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -548,8 +548,8 @@ and finalizing the project setup with or without default configuration profiles.
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_focal_x">
-<span class="sig-name descname"><span class="pre">camera_focal_x</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_x" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha">
+<span class="sig-name descname"><span class="pre">camera_rotation_alpha</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QDoubleSpinBox</p>
@@ -558,8 +558,8 @@ and finalizing the project setup with or without default configuration profiles.
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_focal_y">
-<span class="sig-name descname"><span class="pre">camera_focal_y</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_y" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta">
+<span class="sig-name descname"><span class="pre">camera_rotation_beta</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QDoubleSpinBox</p>
@@ -568,9 +568,9 @@ and finalizing the project setup with or without default configuration profiles.
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_focal_z">
-<span class="sig-name descname"><span class="pre">camera_focal_z</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_z" title="Link to this definition">#</a></dt>
-<dd><p>Spin boxes for defining camera focal point in 3D space.</p>
+<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma">
+<span class="sig-name descname"><span class="pre">camera_rotation_gamma</span></span><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma" title="Link to this definition">#</a></dt>
+<dd><p>Spin boxes for defining camera rotation angles (Roll α, Pitch β, Yaw γ).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>QDoubleSpinBox</p>
@@ -808,26 +808,22 @@ and finalizing the project setup with or without default configuration profiles.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.add_camera_controls">
-<span class="sig-name descname"><span class="pre">add_camera_controls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focal_layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up_layout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.add_camera_controls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.add_camera_controls" title="Link to this definition">#</a></dt>
-<dd><p>Adds camera position, focal point, and view-up vector controls to the given layouts.</p>
-<p>Each control group is populated with labeled <cite>QDoubleSpinBox</cite> widgets for X, Y, and Z axes.</p>
+<span class="sig-name descname"><span class="pre">add_camera_controls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_layout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.add_camera_controls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.add_camera_controls" title="Link to this definition">#</a></dt>
+<dd><p>Adds camera position and rotation controls to the given layouts.</p>
+<p>Dynamically creates labeled <cite>QDoubleSpinBox</cite> widgets for both camera location (X, Y, Z)
+and rotation (Roll α, Pitch β, Yaw γ), and assigns them to class attributes for access.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>location_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera position (location) spinboxes are added.</p></li>
-<li><p><strong>focal_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera focal point spinboxes are added.</p></li>
-<li><p><strong>up_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera view-up vector spinboxes are added.</p></li>
-<li><p><strong>Set</strong> (<em>Attributes</em>)</p></li>
-<li><p><strong>--------------</strong></p></li>
-<li><p><strong>camera_location_x</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for camera position in world coordinates.</p></li>
-<li><p><strong>camera_location_y</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for camera position in world coordinates.</p></li>
-<li><p><strong>camera_location_z</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for camera position in world coordinates.</p></li>
-<li><p><strong>camera_focal_x</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for focal target point of the camera.</p></li>
-<li><p><strong>camera_focal_y</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for focal target point of the camera.</p></li>
-<li><p><strong>camera_focal_z</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for focal target point of the camera.</p></li>
-<li><p><strong>camera_up_x</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for defining the view-up direction of the camera.</p></li>
-<li><p><strong>camera_up_y</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for defining the view-up direction of the camera.</p></li>
-<li><p><strong>camera_up_z</strong> (<em>QDoubleSpinBox</em>) – Spinboxes for defining the view-up direction of the camera.</p></li>
+<li><p><strong>location_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera location widgets are added.</p></li>
+<li><p><strong>rotation_layout</strong> (<em>QHBoxLayout</em>) – Layout to which camera rotation widgets are added.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>SpinBoxes Created:</dt><dd><ul class="simple">
+<li><p>Location: camera_location_x, camera_location_y, camera_location_z (range: -1000 to 1000)</p></li>
+<li><p>Rotation: camera_rotation_alpha, camera_rotation_beta, camera_rotation_gamma (range: -360 to 360)</p></li>
 </ul>
 </dd>
 </dl>
@@ -861,7 +857,7 @@ configuration group is disabled.</p>
 <li><p>frame_format</p></li>
 <li><p>resolution_x, resolution_y</p></li>
 <li><p>camera_location_x/y/z</p></li>
-<li><p>camera_focal_x/y/z</p></li>
+<li><p>camera_rotation_alpha/beta/gamma</p></li>
 <li><p>light_location_x/y/z</p></li>
 <li><p>light_power</p></li>
 <li><p>reflect_xy, reflect_yz, reflect_xz</p></li>
@@ -885,7 +881,7 @@ to the <cite>on_scene_created</cite> handler.</p>
 <span class="sig-name descname"><span class="pre">create_the_project</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.create_the_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.create_the_project" title="Link to this definition">#</a></dt>
 <dd><p>Finalizes and creates the project with the configured scene and settings.</p>
 <p>This method performs the full setup of the project directory, including:
-- Directory structure creation for images, videos, and data.
+- Directory structure creation for videos, and data.
 - Copying or serializing the scene file into the project folder.
 - Saving a configuration JSON file based on current UI state.
 - Launching the project rendering window.</p>
@@ -896,8 +892,7 @@ to the <cite>on_scene_created</cite> handler.</p>
 ├── config.json
 └── data/</p>
 <blockquote>
-<div><p>├── images/
-└── videos/</p>
+<div><p>└── videos/</p>
 </div></blockquote>
 </dd>
 </dl>
@@ -919,8 +914,7 @@ to the <cite>on_scene_created</cite> handler.</p>
 <li><dl class="simple">
 <dt>Camera:</dt><dd><ul>
 <li><p>location: (x, y, z) position</p></li>
-<li><p>focal: (x, y, z) focal point</p></li>
-<li><p>up: (x, y, z) view-up vector</p></li>
+<li><p>rotation_euler: (alpha, beta, gamma) angles</p></li>
 </ul>
 </dd>
 </dl>
@@ -1008,7 +1002,7 @@ and STL export. If the checkbox is unchecked, the configuration section is disab
 <li><p>frame_format</p></li>
 <li><p>resolution_x, resolution_y</p></li>
 <li><p>camera_location_x/y/z</p></li>
-<li><p>camera_focal_x/y/z</p></li>
+<li><p>camera_rotation_alpha/beta/gamma</p></li>
 <li><p>light_location_x/y/z</p></li>
 <li><p>light_power</p></li>
 <li><p>reflect_xy, reflect_yz, reflect_xz</p></li>
@@ -1023,22 +1017,14 @@ and STL export. If the checkbox is unchecked, the configuration section is disab
 <dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.setup_camera_settings">
 <span class="sig-name descname"><span class="pre">setup_camera_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.setup_camera_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.setup_camera_settings" title="Link to this definition">#</a></dt>
 <dd><p>Sets up the camera configuration section within the config group.</p>
+<p>Creates a stylized group box labeled “Camera Settings” containing controls for camera
+position and rotation. The layout is divided into two horizontal sections:
+one for camera location and another for rotation.</p>
 <dl class="simple">
-<dt>Creates a stylized group box labeled “Camera Settings” containing controls for:</dt><dd><ul class="simple">
-<li><p>Camera Position</p></li>
-<li><p>Camera Focal Point</p></li>
-<li><p>Camera View Up Vector</p></li>
-</ul>
-</dd>
-<dt>Layout Structure:</dt><dd><ul class="simple">
-<li><p>Three horizontal QHBoxLayouts for each subcomponent</p></li>
-<li><p>Each axis (X, Y, Z) has its own labeled QDoubleSpinBox</p></li>
-</ul>
-</dd>
 <dt>Subcomponents Added:</dt><dd><ul class="simple">
 <li><p>Camera Location Controls: via <cite>add_camera_controls</cite></p></li>
-<li><p>Camera Focal Controls: via <cite>add_camera_controls</cite></p></li>
-<li><p>Camera View-Up Controls: via <cite>add_camera_controls</cite></p></li>
+<li><p>Camera Rotation Controls: via <cite>add_camera_controls</cite></p></li>
+<li><p>Styled <cite>QGroupBox</cite> with bold teal border and custom title padding</p></li>
 </ul>
 </dd>
 </dl>
@@ -1218,13 +1204,6 @@ and appends them to the resolution settings layout with appropriate labels.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.show_doc">
-<span class="sig-name descname"><span class="pre">show_doc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.show_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.show_doc" title="Link to this definition">#</a></dt>
-<dd><p>Displays the documentation for the FlapKine application.</p>
-<p>This method opens the documentation file in the default web browser.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes">
 <span class="sig-name descname"><span class="pre">toggle_checkboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked_box</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/project_creator.html#ProjectCreator.toggle_checkboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes" title="Link to this definition">#</a></dt>
 <dd><p>Enforces mutual exclusivity among axis reflection checkboxes.</p>
@@ -1239,7 +1218,7 @@ and appends them to the resolution settings layout with appropriate labels.</p>
 <span id="app-ui-creators-scene-creator-module"></span><h2>app.ui.creators.scene_creator module<a class="headerlink" href="#module-app.ui.creators.scene_creator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.scene_creator.</span></span><span class="sig-name descname"><span class="pre">SceneCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.scene_creator.</span></span><span class="sig-name descname"><span class="pre">SceneCreator</span></span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <section id="scenecreator-class">
 <h3>SceneCreator Class<a class="headerlink" href="#scenecreator-class" title="Link to this heading">#</a></h3>
@@ -1669,13 +1648,6 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="app.ui.creators.scene_creator.SceneCreator.show_doc">
-<span class="sig-name descname"><span class="pre">show_doc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/scene_creator.html#SceneCreator.show_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.scene_creator.SceneCreator.show_doc" title="Link to this definition">#</a></dt>
-<dd><p>Displays the documentation for the FlapKine application.</p>
-<p>This method opens the documentation file in the default web browser.</p>
-</dd></dl>
-
 </section>
 </dd></dl>
 
@@ -1684,7 +1656,7 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 <span id="app-ui-creators-sprite-creator-module"></span><h2>app.ui.creators.sprite_creator module<a class="headerlink" href="#module-app.ui.creators.sprite_creator" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.sprite_creator.</span></span><span class="sig-name descname"><span class="pre">SpriteCreator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.ui.creators.sprite_creator.</span></span><span class="sig-name descname"><span class="pre">SpriteCreator</span></span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <section id="spritecreator-class">
 <h3>SpriteCreator Class<a class="headerlink" href="#spritecreator-class" title="Link to this heading">#</a></h3>
@@ -2008,12 +1980,6 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 <span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.center" title="Link to this definition">#</a></dt>
 <dd><p>Centers the application window on the screen.</p>
 <p>Calculates screen and window dimensions, then moves the window to the center position.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.closeEvent">
-<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.closeEvent" title="Link to this definition">#</a></dt>
-<dd><p>Ensures VTK resources are properly released when the window is closed.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2451,13 +2417,6 @@ group box exists, it is removed to clean up the layout.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.show_doc">
-<span class="sig-name descname"><span class="pre">show_doc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.show_doc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.show_doc" title="Link to this definition">#</a></dt>
-<dd><p>Displays the documentation for the FlapKine application.</p>
-<p>This method opens the documentation file in the default web browser.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun">
 <span class="sig-name descname"><span class="pre">translation_transform_fun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/ui/creators/sprite_creator.html#SpriteCreator.translation_transform_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun" title="Link to this definition">#</a></dt>
 <dd><p>Handles UI logic for the translation transform selection.</p>
@@ -2551,9 +2510,9 @@ the current selection in the combo box.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_x</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_y</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_location_z"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_location_z</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_focal_x</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_focal_y</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_focal_z"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_focal_z</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_alpha"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_alpha</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_beta"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_beta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.camera_rotation_gamma"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.camera_rotation_gamma</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.light_location_x"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_x</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.light_location_y"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_y</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.light_location_z"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.light_location_z</span></code></a></li>
@@ -2582,7 +2541,6 @@ the current selection in the combo box.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.setup_resolution_inputs"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_resolution_inputs()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.setup_scene_import"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_scene_import()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.setup_video_settings"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.setup_video_settings()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.show_doc"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.show_doc()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.project_creator.ProjectCreator.toggle_checkboxes"><code class="docutils literal notranslate"><span class="pre">ProjectCreator.toggle_checkboxes()</span></code></a></li>
 </ul>
 </li>
@@ -2610,7 +2568,6 @@ the current selection in the combo box.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.scene_creator.SceneCreator.okay_button_fun"><code class="docutils literal notranslate"><span class="pre">SceneCreator.okay_button_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.scene_creator.SceneCreator.save_sprite"><code class="docutils literal notranslate"><span class="pre">SceneCreator.save_sprite()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">SceneCreator.sceneCreated</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.scene_creator.SceneCreator.show_doc"><code class="docutils literal notranslate"><span class="pre">SceneCreator.show_doc()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2638,7 +2595,6 @@ the current selection in the combo box.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.about_button_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.about_button_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.calculate_inverse_kinematics"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.calculate_inverse_kinematics()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.center"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.center()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.closeEvent"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.closeEvent()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.enable_checkbox_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.enable_checkbox_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.finish_button_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.finish_button_fun()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.flexibility_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.flexibility_transform_fun()</span></code></a></li>
@@ -2659,7 +2615,6 @@ the current selection in the combo box.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.open_rotation_gamma"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.open_rotation_gamma()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.process_inv_data"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.process_inv_data()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.rotation_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.rotation_transform_fun()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.show_doc"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.show_doc()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app.ui.creators.sprite_creator.SpriteCreator.translation_transform_fun"><code class="docutils literal notranslate"><span class="pre">SpriteCreator.translation_transform_fun()</span></code></a></li>
 </ul>
 </li>

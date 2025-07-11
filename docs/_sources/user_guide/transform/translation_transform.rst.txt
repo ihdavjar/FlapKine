@@ -25,25 +25,13 @@ A translation transformation modifies the position of an object by shifting its 
 Mathematical Model
 ------------------
 
-When a translation transformation is applied, the body origin :math:`O_B` of the ``Sprite`` frame is shifted. The position vector :math:`\mathbf{P}_B`, representing a vertex in the local ``Sprite`` frame, undergoes the following transformation:
+When a translation transformation is applied, the body origin :math:`O_B` of the ``Sprite`` frame is shifted. The position vector :math:`\mathbf{P}_B'''`, representing a vertex after flexibility and rotation transform, undergoes the following transformation:
 
 .. math::
 
-   \mathbf{P}_{B}' = \mathbf{T}_{B} \cdot \mathbf{P}_{B}
+   \mathbf{P}_{B}''' = \mathbf{T}_{B} \cdot \mathbf{P}_{B}''
 
-where:
-
-.. math::
-
-   \mathbf{P}_{B} =
-   \begin{bmatrix}
-   x_{B} \\
-   y_{B} \\
-   z_{B} \\
-   1
-   \end{bmatrix}
-
-and the translation matrix is:
+where the translation matrix (:math:`\mathbf{T}_{B}`) is:
 
 .. math::
 
@@ -57,7 +45,6 @@ and the translation matrix is:
 
 Here, :math:`t_x`, :math:`t_y`, and :math:`t_z` represent the translation distances along the inertial :math:`\hat{\mathbf{e}}_1`, :math:`\hat{\mathbf{e}}_2`, and :math:`\hat{\mathbf{e}}_3` axes.
 
----
 
 .. _linear_translation:
 
@@ -86,14 +73,26 @@ The CSV specifies the **position of the body frame origin** :math:`O_B` with res
 
    Each row corresponds to one time step.
 
----
+
+Final Transformation
+--------------------
+
+After applying flexibility (:math:`\mathbf{F}_B`), rotation (:math:`\mathbf{R}_B`), and translation (:math:`\mathbf{T}_B`), the final vertex position in the inertial frame is:
+
+.. math::
+
+   \mathbf{P}_E = \mathbf{T}_B \cdot \mathbf{R}_B \cdot \mathbf{F}_B \cdot \mathbf{P}_B
+
+Where:
+
+- :math:`\mathbf{P}_E = \begin{bmatrix} x_E & y_E & z_E & 1 \end{bmatrix}^T` is the transformed vertex in inertial frame
+- :math:`\mathbf{P}_B` is the original vertex in body frame
 
 Usage Notes
 -----------
 
 - The number of rows in the CSV should match the number of animation frames.
 - Ensure consistent units across STL models, scene setup, and trajectory data.
-- COM translation is ideal for motion capture-based animations, CFD coupling, or prescribed kinematics.
 
 ---
 

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>src.utils.utils &#8212; FlapKine v1.0.0 documentation</title>
+    <title>src.utils.utils &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/src/utils/utils';</script>
@@ -113,8 +113,8 @@
       
     
     
-    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -381,10 +381,10 @@
     <span class="k">if</span> <span class="n">libx264</span><span class="p">:</span>
         <span class="n">output_video_path</span> <span class="o">=</span> <span class="n">video_path</span>
         <span class="n">ffmpeg_command</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;ffmpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="n">temp_video_path</span><span class="p">,</span> 
+            <span class="s2">&quot;ffmpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="n">temp_video_path</span><span class="p">,</span>
             <span class="s2">&quot;-vcodec&quot;</span><span class="p">,</span> <span class="s2">&quot;libx264&quot;</span><span class="p">,</span> <span class="s2">&quot;-pix_fmt&quot;</span><span class="p">,</span> <span class="s2">&quot;yuv420p&quot;</span><span class="p">,</span>  <span class="c1"># Proper pixel format for PyQt</span>
             <span class="s2">&quot;-crf&quot;</span><span class="p">,</span> <span class="s2">&quot;23&quot;</span><span class="p">,</span>  <span class="c1"># Adjust CRF (lower = better quality, 0 = lossless)</span>
-            <span class="s2">&quot;-preset&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> 
+            <span class="s2">&quot;-preset&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span>
             <span class="n">output_video_path</span>
         <span class="p">]</span>
         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ffmpeg_command</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Flexibility Transform (Experimental) &#8212; FlapKine v1.0.0 documentation</title>
+    <title>Flexibility Transform &#8212; FlapKine v0.1.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=76e2d817"></script>
+    <script src="../../_static/documentation_options.js?v=fa47ad08"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -47,8 +47,8 @@
     <link rel="icon" href="../../_static/flapkine_icon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="📘 Examples" href="../../examples.html" />
-    <link rel="prev" title="Rotation Transformation" href="rotation_transform.html" />
+    <link rel="next" title="Rotation Transformation" href="rotation_transform.html" />
+    <link rel="prev" title="Transform Reference" href="../transform_reference.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -117,8 +117,8 @@
       
     
     
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v1.0.0 documentation - Home"/>
-    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v1.0.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-light" alt="FlapKine v0.1.0 documentation - Home"/>
+    <img src="../../_static/flapkine_icon.ico" class="logo__image only-dark pst-js-only" alt="FlapKine v0.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -306,9 +306,9 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../render_config.html">Render Settings Window</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../transform_reference.html">Transform Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="translation_transform.html">Translation Transformation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Flexibility Transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rotation_transform.html">Rotation Transformation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Flexibility Transform (Experimental)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="translation_transform.html">Translation Transformation</a></li>
 </ul>
 </details></li>
 </ul>
@@ -357,7 +357,7 @@
     
     <li class="breadcrumb-item"><a href="../transform_reference.html" class="nav-link">Transform Reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Flexibility Transform (Experimental)</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Flexibility Transform</span></li>
   </ul>
 </nav>
 </div>
@@ -374,16 +374,11 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="flexibility-transform-experimental">
-<span id="flexibility-transform"></span><h1>Flexibility Transform (Experimental)<a class="headerlink" href="#flexibility-transform-experimental" title="Link to this heading">#</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>This feature is currently under development.</strong>
-Functionality is experimental and subject to change in future releases.</p>
-</div>
+  <section id="flexibility-transform">
+<span id="id1"></span><h1>Flexibility Transform<a class="headerlink" href="#flexibility-transform" title="Link to this heading">#</a></h1>
 <p>The <code class="code docutils literal notranslate"><span class="pre">FlapKine</span></code> application supports flexible body transformations in addition to standard translation and rotation. This feature enables realistic modeling of deformable structures such as flapping wings. Flexibility is introduced via spatially varying transformation matrices applied per-vertex, enabling time-dependent and location-specific deformation.</p>
-<div class="pst-scrollable-table-container"><table class="table" id="id2">
-<caption><span class="caption-text">Flexibility Transform Modes</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Flexibility Transform Modes</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 22.2%" />
 <col style="width: 22.2%" />
@@ -402,7 +397,7 @@ Functionality is experimental and subject to change in future releases.</p>
 </tr>
 <tr class="row-odd"><td></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">FlexibilityType1</span></code></p></td>
-<td><p>First mode of flexibility inspired by Dong <em>et al.</em> <a class="footnote-reference brackets" href="#dong2022" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> where deformation occurs only along the wing thickness direction. Described in detail below.</p></td>
+<td><p>First mode of flexibility inspired by Dong <em>et al.</em> <a class="footnote-reference brackets" href="#dong2022" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> where deformation occurs only along the wing thickness direction. Described in detail below.</p></td>
 </tr>
 <tr class="row-even"><td></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">FlexibilityType2</span></code></p></td>
@@ -415,10 +410,10 @@ Functionality is experimental and subject to change in future releases.</p>
 <h2>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h2>
 <p>Flexibility is modeled by applying a deformation matrix to each vertex in the body frame. The resulting transformation is expressed as:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{P}_{B}''' = \mathbf{F}_{B} \cdot \mathbf{P}_{B}'',\]</div>
+\[\mathbf{P}_{B}' = \mathbf{F}_{B} \cdot \mathbf{P}_{B},\]</div>
 <p>where:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{P}_{B}''\)</span> is the vertex after translation and rotation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{P}_{B}\)</span> is position vector, representing a vertex in the local <code class="docutils literal notranslate"><span class="pre">Sprite</span></code> frame.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{F}_{B}\)</span> is the <strong>flexibility transformation matrix</strong>, defined as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{F}_{B} =
@@ -436,11 +431,11 @@ Functionality is experimental and subject to change in future releases.</p>
 <h2>Flexibility Type 1: Flapping-Induced Deformation<a class="headerlink" href="#flexibility-type-1-flapping-induced-deformation" title="Link to this heading">#</a></h2>
 <p>This mode simulates a time-dependent spanwise deformation modeled after flapping wing kinematics. Assuming:</p>
 <ul class="simple">
-<li><p>Wing span along <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_1\)</span></p></li>
-<li><p>Chord along <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_2\)</span></p></li>
-<li><p>Thickness along <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_3\)</span></p></li>
+<li><p>Wing span along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span></p></li>
+<li><p>Chord along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span></p></li>
+<li><p>Thickness along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span></p></li>
 </ul>
-<p>The deformation is introduced only along <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}_3\)</span>, defined by:</p>
+<p>The deformation is introduced only along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span>, defined by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 f_x(x_B, y_B, z_B) &amp;= 0 \\
@@ -472,29 +467,99 @@ f_z(x_B, y_B, z_B) &amp;= h_m(x_B, y_B, t)
 <li><p><span class="math notranslate nohighlight">\(R\)</span> is the total wing span</p></li>
 <li><p><span class="math notranslate nohighlight">\(C_R\)</span> is the reference chord</p></li>
 </ul>
+<section id="input-options">
+<h3>Input Options<a class="headerlink" href="#input-options" title="Link to this heading">#</a></h3>
+<p>When using <strong>Flexibility Type 1</strong>, users must provide the following inputs to configure the deformation behavior, as illustrated below:</p>
+<a class="reference internal image-reference" href="../../_images/flexibility_transform_type1.png"><img alt="Flexibility Transform Type 1" class="align-center" src="../../_images/flexibility_transform_type1.png" style="width: 500px;" />
+</a>
+<p><strong>Axis Alignment Options:</strong></p>
+<p>Specify the direction in which the <em>thickness</em> of the wing is aligned. Only one of the following flags should be set to <cite>True</cite>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span> (x-axis); wing span aligns with the y-axis (<span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span>), and chord with <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span> (y-axis); wing span and chord lie in orthogonal directions accordingly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span> (z-axis); wing span and chord adjust accordingly.</p></li>
+</ul>
+<p><strong>Curvature Parameter:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code> – A dimensionless curvature parameter (range: 0 to 1) that defines the inflection point of the deflection curve along the wing span. Controls where maximum curvature occurs.</p></li>
+</ul>
+<p><strong>Time Period:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">period</span></code> – Duration (in seconds) of a single wing flapping cycle. This governs the temporal frequency of deformation.</p></li>
+</ul>
+<p>These parameters allow precise control over the deformation profile in Flexibility Type 1 mode.</p>
 </section>
-<section id="final-transformation">
-<h2>Final Transformation<a class="headerlink" href="#final-transformation" title="Link to this heading">#</a></h2>
-<p>After applying translation (<span class="math notranslate nohighlight">\(\mathbf{T}_B\)</span>), rotation (<span class="math notranslate nohighlight">\(\mathbf{R}_B\)</span>), and flexibility (<span class="math notranslate nohighlight">\(\mathbf{F}_B\)</span>), the final vertex position in the inertial frame is:</p>
+</section>
+<section id="flexibility-type-2-span-suppressed-deformation">
+<h2>Flexibility Type 2: Span-Suppressed Deformation<a class="headerlink" href="#flexibility-type-2-span-suppressed-deformation" title="Link to this heading">#</a></h2>
+<p>This mode models a modified elliptical deformation profile where deformation occurs <strong>only beyond a threshold span-wise location</strong>. It builds upon Flexibility Type 1 by introducing a span-wise cutoff that suppresses movement near the root and redistributes deflection towards the outer wing region.</p>
+<p>This type of deformation is ideal for simulating structures where the base remains mostly rigid while the tip exhibits dynamic movement.</p>
+<p>Assumptions:</p>
+<ul class="simple">
+<li><p>Wing span along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span></p></li>
+<li><p>Chord along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span></p></li>
+<li><p>Thickness along <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span></p></li>
+</ul>
+<p>The deformation is again applied only along the thickness direction <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span>, and is given by:</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{P}_E = \mathbf{F}_B \cdot \mathbf{R}_B \cdot \mathbf{T}_B \cdot \mathbf{P}_B\]</div>
+\[\begin{split}\begin{aligned}
+f_x(x_B, y_B, z_B) &amp;= 0 \\
+f_y(x_B, y_B, z_B) &amp;= 0 \\
+f_z(x_B, y_B, z_B) &amp;= h_{m,2}(x_B, y_B, t)
+\end{aligned}\end{split}\]</div>
+<p>Here, the function <span class="math notranslate nohighlight">\(h_{m,2}(x_B, y_B, t)\)</span> represents a <em>span-suppressed</em> deflection profile:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}h_{m,2}(x_B, y_B, t) =
+\begin{cases}
+0, &amp; y_0 &lt; p \\
+\frac{Z_{M}(t)}{(1-p)^2} \cdot (1 - 2p + 2p y_0 - y_0^2) - Z_{M}(t), &amp; y_0 \geq p
+\end{cases}\end{split}\]</div>
 <p>Where:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbf{P}_E = \begin{bmatrix} x_E &amp; y_E &amp; z_E &amp; 1 \end{bmatrix}^T\)</span> is the transformed vertex in inertial frame</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{P}_B\)</span> is the original vertex in body frame</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z_{M}(t)\)</span> is the time-dependent deformation amplitude along the span.</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_0 = \frac{y_B - y_{\min}}{C_R}\)</span> is the normalized chordwise position.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_R\)</span> is the total chord length.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span> is the curvature cutoff (range: 0 to 1) defining the threshold beyond which deformation occurs.</p></li>
 </ul>
+<p>This model suppresses any deformation when the normalized spanwise position <span class="math notranslate nohighlight">\(y_0\)</span> is below the cutoff <span class="math notranslate nohighlight">\(p\)</span>. Beyond this threshold, it redistributes the deformation in a parabolic profile and subtracts <span class="math notranslate nohighlight">\(Z_{M}(x_B, t)\)</span> to keep the transformation net-zero at <span class="math notranslate nohighlight">\(y_0 = p\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The value of <span class="math notranslate nohighlight">\(Z_{M}(t)\)</span> is <strong>not computed internally</strong> in this formulation—it must be precomputed externally (e.g., using the Flexibility Type 1 function or another analytical expression) and passed in as input.</p>
+</div>
+<section id="id3">
+<h3>Input Options<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>When using <strong>Flexibility Type 2</strong>, users must provide the following inputs to configure the deformation behavior, as illustrated below:</p>
+<a class="reference internal image-reference" href="../../_images/flexibility_transform_type2.png"><img alt="Flexibility Transform Type 2" class="align-center" src="../../_images/flexibility_transform_type2.png" style="width: 500px;" />
+</a>
+<p><strong>Axis Alignment Options:</strong></p>
+<p>Specify the direction in which the <em>thickness</em> of the wing is aligned. Only one of the following flags should be set to <cite>True</cite>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_1\)</span> (x-axis); wing span aligns with the y-axis (<span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span>), and chord with <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_2\)</span> (y-axis); wing span and chord lie in orthogonal directions accordingly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code> – Thickness is aligned along the <span class="math notranslate nohighlight">\(\hat{\mathbf{e}}_3\)</span> (z-axis); wing span and chord adjust accordingly.</p></li>
+</ul>
+<p><strong>Deformation Amplitude (M Values):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">m_values</span></code> – A time-series of displacement amplitudes (<span class="math notranslate nohighlight">\(Z_M(t)\)</span>) for each vertex along the thickness direction. Must be provided in <cite>.csv</cite> format, where each row corresponds to a time frame and each column to a vertex.</p></li>
+</ul>
+<p><strong>Curvature Parameter:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code> – A dimensionless curvature cutoff parameter (range: 0 to 1) that defines the span-wise threshold. Vertices below this normalized position remain undeformed; deformation occurs only beyond this point.</p></li>
+</ul>
+<p>These parameters enable partial-span deformation modeling using externally computed amplitude profiles, ideal for suppressing motion at the wing root.</p>
+</section>
 </section>
 <section id="implementation-notes">
 <h2>Implementation Notes<a class="headerlink" href="#implementation-notes" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The flexibility transformation is computed <strong>per vertex</strong> using vertex-local body coordinates.</p></li>
-<li><p>Flexibility is applied <strong>after</strong> translation and rotation.</p></li>
+<li><p>Flexibility is applied <strong>before</strong> translation and rotation.</p></li>
 <li><p>The framework is designed to support real-time deformation in simulations, with flexibility functions updated each frame.</p></li>
 </ul>
 <p class="rubric">References</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="dong2022" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p>Dong, H., et al. <em>“Thrust performance of a flexible flapping wing.”</em> Journal of Fluids and Structures, 2022.</p>
 </aside>
 </aside>
@@ -512,20 +577,20 @@ f_z(x_B, y_B, z_B) &amp;= h_m(x_B, y_B, t)
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="rotation_transform.html"
+       href="../transform_reference.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Rotation Transformation</p>
+        <p class="prev-next-title">Transform Reference</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../examples.html"
+       href="rotation_transform.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">📘 Examples</p>
+        <p class="prev-next-title">Rotation Transformation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -549,8 +614,14 @@ f_z(x_B, y_B, z_B) &amp;= h_m(x_B, y_B, t)
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">Mathematical Formulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flexibility-type-1-flapping-induced-deformation">Flexibility Type 1: Flapping-Induced Deformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-transformation">Final Transformation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flexibility-type-1-flapping-induced-deformation">Flexibility Type 1: Flapping-Induced Deformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-options">Input Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flexibility-type-2-span-suppressed-deformation">Flexibility Type 2: Span-Suppressed Deformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Input Options</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-notes">Implementation Notes</a></li>
 </ul>
   </nav></div>
